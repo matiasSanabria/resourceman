@@ -9,9 +9,6 @@ USUARIO='reservasis2'
 # contrasenha de la base de datos
 CONTRASENA='reservasis2'
 
-# clonamos el repositorio
-git clone https://matiasSanabria@gitlab.com/matiasSanabria/is2.git
-
 # instalando paquetes necesarios
 # sudo apt-get update
 # sudo apt-get install python3-pip apache2 libapache2-mod-wsgi-py3 libpq-dev postgresql postgresql-contrib 
@@ -41,6 +38,9 @@ pip install django==1.10.5
 
 # instalamos psycopg2 para poder utilizar la BD en postgres con Django
 pip install psycopg2==2.7.1
+
+# subimos un nivel en el directorio
+cd ..
 
 # obtenemos todo el contenido estatico del proyecto
 ./manage.py collectstatic
