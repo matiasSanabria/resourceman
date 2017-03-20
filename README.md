@@ -1,6 +1,13 @@
+# Sistema Gerenciador de Reservas
 
-Proyecto de Ingenieria en Software 2
+Se asume que el usuario tiene descargado y configurado el git para poder descargar el proyecto
 
-Año 2017
+### Descargar el proyecto
+git clone https://matiasSanabria@gitlab.com/matiasSanabria/is2.git
 
-Sistema Gerenciador de Reservas
+### Configuración del entorno de desarrollo
+cd is2 <br>
+sh ambiente_desarrollo.sh
+
+### Configuración del entorno de producción
+sh ambiente_produccion.sh
