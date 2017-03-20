@@ -75,13 +75,12 @@ WSGI_APPLICATION = 'is2.wsgi.application'
 
 DATABASES = {
     'default': {
-        {
-            'ENGINE': 'django.template.backends.postgresql_psycopg2',
-            'NAME': 'is2db',
-            'USER': 'reservasis2',
-            'PASSWORD': 'reservasis2',
-            'HOST': 'localhost'
-        },
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'is2db',
+        'HOST': 'localhost',
+        'PORT': '5432',
+        'USER': 'reservasis2',
+        'PASSWORD': 'reservasis2',
     }
 }
 
@@ -123,3 +122,4 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
