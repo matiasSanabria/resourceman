@@ -75,8 +75,13 @@ WSGI_APPLICATION = 'is2.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        {
+            'BACKEND': 'django.template.backends.postgresql_psycopg2',
+            'NAME': 'is2db',
+            'USER': 'reservasis2',
+            'PASSWORD': 'reservasis2',
+            'HOST': 'localhost'
+        },
     }
 }
 
