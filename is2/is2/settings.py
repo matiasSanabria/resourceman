@@ -76,7 +76,7 @@ WSGI_APPLICATION = 'is2.wsgi.application'
 DATABASES = {
     'default': {
         {
-            'BACKEND': 'django.template.backends.postgresql_psycopg2',
+            'ENGINE': 'django.template.backends.postgresql_psycopg2',
             'NAME': 'is2db',
             'USER': 'reservasis2',
             'PASSWORD': 'reservasis2',
