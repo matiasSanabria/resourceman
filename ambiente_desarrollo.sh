@@ -10,11 +10,11 @@ USUARIO='reservasis2'
 CONTRASENA='reservasis2'
 
 # instalando paquetes necesarios
-# sudo apt-get update
-# sudo apt-get install python3-pip apache2 libapache2-mod-wsgi-py3 libpq-dev postgresql postgresql-contrib 
+sudo apt-get update
+sudo apt-get install python3-pip apache2 libapache2-mod-wsgi-py3 libpq-dev postgresql postgresql-contrib 
 
 # configurando un virtual environment
-# sudo pip3 install virtualenv
+sudo pip3 install virtualenv
 
 # configuramos la base de datos
 sudo -u postgres psql -c "CREATE DATABASE $DATABASE;"
