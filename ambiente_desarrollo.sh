@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # clonamos el repositorio
-git clone https://matiasSanabria@gitlab.com/matiasSanabria/is2.git
+git clone https://gitlab.com/matiasSanabria/is2
 
 # nombre de la base de datos
 DATABASE='is2db'
@@ -25,6 +25,7 @@ sudo -u postgres psql -c "CREATE USER $USUARIO WITH PASSWORD '$CONTRASENA';"
 sudo -u postgres psql -c "ALTER ROLE $USUARIO SET client_encoding TO 'utf-8';"
 sudo -u postgres psql -c "ALTER ROLE $USUARIO SET default_transaction_isolation TO 'read committed';"
 sudo -u postgres psql -c "ALTER ROLE $USUARIO SET timezone TO 'UTC';"
+sudo -u postgres psql -c "ALTER USER $USUARIO CREATEDB;"
 sudo -u postgres psql -c "GRANT ALL PRIVILEGES ON DATABASE $DATABASE TO $USUARIO;"
 
 # ingresamos a la carpeta del proyecto
@@ -62,6 +63,15 @@ sudo ufw allow 8000
 # proyecto de acuerdo a las aplicaciones que tenga
 ./manage.py makemigrations
 ./manage.py migrate
+
+# guardamos los modelos de las tablas de la base de datos
+./manage.py inspectdb > tests/models.py
+
+# copiamos el archivo del test inicial 
+cp ../tests.py test/
+
+# ejecutamos el test
+./manage.py test
 
 # abrimos una pestaña del navegador en la pagina inicial del proyecto
 google-chrome http://localhost:8000
