@@ -23,11 +23,11 @@ sudo git clone https://matiasSanabria@gitlab.com/matiasSanabria/is2.git
 sudo chmod 777 -R is2/
 
 # borramos el archivo settings.py de desarrollo
-rm is2/is2/is2/settings.py
+sudo rm is2/is2/is2/settings.py
 
 # modificamos el archivo settings para  el entorno de produccion
 
-cp settings_prod.py /is2/is2/settings.py
+sudo cp is2/settings_prod.py is2/is2/is2/settings.py
 
 # configurando un virtual environment
 sudo pip3 install virtualenv
@@ -73,7 +73,7 @@ sphinx-build -b html source/ build/
 ./manage.py migrate
 
 # creamos el usuario admin para el proyecto
-./manage.py createsuperuser
+#./manage.py createsuperuser
 
 # configuracion del firewall para permitir el trafico 
 # a nuestro servidor
