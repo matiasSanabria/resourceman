@@ -10,14 +10,14 @@ USUARIO='is2prod'
 CONTRASENA='is2prod'
 
 # instalando paquetes necesarios
-sudo apt-get update
+#sudo apt-get update
 sudo apt-get install python3-pip apache2 libapache2-mod-wsgi-py3 libpq-dev postgresql postgresql-contrib 
 
 # nos movemos a la carpeta /var/www/html para descargar el proyecto
 cd /var/www/html
 
 # descargamos el proyecto
-sudo git clone https://matiasSanabria@gitlab.com/matiasSanabria/is2.git
+sudo git clone https://gitlab.com/matiasSanabria/is2
 
 # modificamos los permisos de la carpeta del proyecto
 sudo chmod 777 -R is2/
@@ -38,6 +38,7 @@ sudo -u postgres psql -c "CREATE USER $USUARIO WITH PASSWORD '$CONTRASENA';"
 sudo -u postgres psql -c "ALTER ROLE $USUARIO SET client_encoding TO 'utf-8';"
 sudo -u postgres psql -c "ALTER ROLE $USUARIO SET default_transaction_isolation TO 'read committed';"
 sudo -u postgres psql -c "ALTER ROLE $USUARIO SET timezone TO 'UTC';"
+sudo -u postgres psql -c "ALTER USER $USUARIO CREATEDB;"
 sudo -u postgres psql -c "GRANT ALL PRIVILEGES ON DATABASE $DATABASE TO $USUARIO;"
 
 # ingresamos a la carpeta del proyecto
@@ -72,8 +73,14 @@ sphinx-build -b html source/ build/
 ./manage.py makemigrations
 ./manage.py migrate
 
-# creamos el usuario admin para el proyecto
-#./manage.py createsuperuser
+# guardamos los modelos de las tablas de la base de datos
+./manage.py inspectdb > test_inicial/models.py
+
+# copiamos el archivo del test inicial 
+cp ../tests.py tests/
+
+# ejecutamos el test
+./manage.py test
 
 # configuracion del firewall para permitir el trafico 
 # a nuestro servidor
@@ -83,7 +90,7 @@ cd ..
 
 # CONFIGURACION DEL APACHE
 # configuramos el paso del wsgi
-sudo cp 000-default.conf /etc/apache2/sites-available/000-default.conf
+#sudo cp 000-default.conf /etc/apache2/sites-available/000-default.conf
 
 # agregamos una excepcion para permitir al apache procesar el trafico
 sudo ufw delete allow 8000
