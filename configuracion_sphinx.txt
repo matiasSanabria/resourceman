@@ -1,0 +1,24 @@
+# configuracion del sphinx
+> Root path for the documentation [.]: presionar enter
+> Separate source and build directories (y/n) [n]: y
+> Name prefix for templates and static dir [_]: presionar enter
+> Project name: is2
+> Author name(s): tu nombre
+> Project version []: 1.0
+> Project release [1.0]: presionar enter
+> Project language [en]: es
+> Source file suffix [.rst]: .txt
+> Name of your master document (without suffix) [index]: presionar enter
+> Do you want to use the epub builder (y/n) [n]: presionar enter
+> autodoc: automatically insert docstrings from modules (y/n) [n]: presionar enter
+> doctest> automatically test code snippets in doctest blocks (y/n) [n]: presionar enter
+> insertsphinx: link between Sphinx documentation of different projects (y/n) [n]: presionar enter
+> todo: write "todo" entries that can be shown or hidden on build (y/n) [n]: presionar enter
+> coverage: checks for documentation coverage (y/n) [n]: presionar enter
+> imgmath: include math, rendered as PNG or SVG images (y/n) [n]: presionar enter
+> mathjax: include math, rendered in the browser by MathJax (y/n) [n]: presionar enter
+> ifconfig: conditional inclusion of content based on config values (y/n) [n]: presionar enter
+> viewcode: include links to the source code of documented Python objects (y/n) [n]: presionar enter
+> githubpages: create .nojekyll fil to publish the document on Github pages (y/n) [n]: presionar enter
+> Create Makefile? (y/n) [y]: y
+> Create Windows command file? (y/n) [y]: y
