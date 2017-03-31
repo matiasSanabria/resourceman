@@ -14,23 +14,23 @@ sudo apt-get update
 sudo apt-get install python3-pip apache2 libapache2-mod-wsgi-py3 libpq-dev postgresql postgresql-contrib 
 
 # nos movemos a la carpeta /var/www/html para descargar el proyecto
-cd /var/www/html
+#cd /var/www/html
 
 # descargamos el proyecto
-sudo git clone https://gitlab.com/matiasSanabria/is2
-
+git clone https://gitlab.com/matiasSanabria/is2
+git checkout willian
 # modificamos los permisos de la carpeta del proyecto
 sudo chmod 777 -R is2/
 
 # borramos el archivo settings.py de desarrollo
-sudo rm is2/is2/is2/settings.py
+rm is2/is2/is2/settings.py
 
 # modificamos el archivo settings para  el entorno de produccion
 
-sudo cp is2/settings_prod.py is2/is2/is2/settings.py
+cp is2/settings_prod.py is2/is2/is2/settings.py
 
 # configurando un virtual environment
-sudo pip3 install virtualenv
+pip3 install virtualenv
 
 # configuramos la base de datos
 sudo -u postgres psql -c "CREATE DATABASE $DATABASE;"
@@ -90,7 +90,7 @@ cd ..
 
 # CONFIGURACION DEL APACHE
 # configuramos el paso del wsgi
-sudo cp 000-default.conf /etc/apache2/sites-available/000-default.conf
+cp 000-default.conf /etc/apache2/sites-available/000-default.conf
 
 # agregamos una excepcion para permitir al apache procesar el trafico
 sudo ufw delete allow 8000
