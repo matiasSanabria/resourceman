@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# clonamos el repositorio
+git clone https://matiasSanabria@gitlab.com/matiasSanabria/is2.git
+
 # nombre de la base de datos
 DATABASE='is2db'
 
@@ -39,8 +42,14 @@ pip install django==1.10.5
 # instalamos psycopg2 para poder utilizar la BD en postgres con Django
 pip install psycopg2==2.7.1
 
-# subimos un nivel en el directorio
-cd ..
+# instalamos el gestor de documentacion
+pip install Sphinx==1.5.3
+
+# configuramos el sphinx
+sphinx-quickstart
+
+# ejecutamos el sphinx
+sphinx-build -b html source/ build/
 
 # obtenemos todo el contenido estatico del proyecto
 ./manage.py collectstatic
@@ -49,17 +58,16 @@ cd ..
 # a nuestro servidor
 sudo ufw allow 8000
 
-# abrimos una pestaña del navegador en la pagina inicial del proyecto
-google-chrome http://localhost:8000/admin
-
-# desactivamos el virtualenv
-deactivate
-
 # agregamos a nuestra BD local los modelos existentes en el
 # proyecto de acuerdo a las aplicaciones que tenga
 ./manage.py makemigrations
 ./manage.py migrate
 
+# abrimos una pestaña del navegador en la pagina inicial del proyecto
+google-chrome http://localhost:8000
+
 # corremos el servidor de desarrollo
 ./manage.py runserver 0.0.0.0:8000
 
+# desactivamos el virtualenv
+deactivate
