@@ -74,7 +74,11 @@ sphinx-build -b html source/ build/
 ./manage.py migrate
 
 # guardamos los modelos de las tablas de la base de datos
+<<<<<<< HEAD
 ./manage.py inspectdb > test_inicial/models.py
+=======
+./manage.py inspectdb > tests/models.py
+>>>>>>> matt
 
 # copiamos el archivo del test inicial 
 cp ../tests.py tests/

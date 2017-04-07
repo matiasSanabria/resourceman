@@ -26,6 +26,7 @@ sudo -u postgres psql -c "CREATE USER $USUARIO WITH PASSWORD '$CONTRASENA';"
 sudo -u postgres psql -c "ALTER ROLE $USUARIO SET client_encoding TO 'utf-8';"
 sudo -u postgres psql -c "ALTER ROLE $USUARIO SET default_transaction_isolation TO 'read committed';"
 sudo -u postgres psql -c "ALTER ROLE $USUARIO SET timezone TO 'UTC';"
+sudo -u postgres psql -c "ALTER USER $USUARIO CREATEDB;"
 sudo -u postgres psql -c "GRANT ALL PRIVILEGES ON DATABASE $DATABASE TO $USUARIO;"
 
 # ingresamos a la carpeta del proyecto
@@ -64,6 +65,7 @@ sudo ufw allow 8000
 ./manage.py makemigrations
 ./manage.py migrate
 
+<<<<<<< HEAD
 # creamos una app para el test inicial
 ./manage.py startapp test_inicial
 
@@ -72,6 +74,13 @@ sudo ufw allow 8000
 
 # copiamos el archivo del test inicial 
 cp ../tests.py tests/
+=======
+# guardamos los modelos de las tablas de la base de datos
+./manage.py inspectdb > tests/models.py
+
+# copiamos el archivo del test inicial 
+cp ../tests.py test/
+>>>>>>> matt
 
 # ejecutamos el test
 ./manage.py test
