@@ -7,10 +7,13 @@ git clone https://gitlab.com/matiasSanabria/is2.git
 
 Sistema Gerenciador de Reservas
 
-=======
 ### Configuración del entorno de desarrollo
 cd is2 <br>
 sh ambiente_desarrollo.sh
 
 ### Configuración del entorno de producción
+<<<<<<< HEAD
 sh ambiente_produccion.sh
+=======
+sh ambiente_produccion.sh
+>>>>>>> devel

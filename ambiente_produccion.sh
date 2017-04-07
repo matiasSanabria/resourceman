@@ -10,7 +10,7 @@ USUARIO='is2prod'
 CONTRASENA='is2prod'
 
 # instalando paquetes necesarios
-sudo apt-get update
+#sudo apt-get update
 sudo apt-get install python3-pip apache2 libapache2-mod-wsgi-py3 libpq-dev postgresql postgresql-contrib 
 
 # nos movemos a la carpeta /var/www/html para descargar el proyecto
@@ -74,7 +74,11 @@ sphinx-build -b html source/ build/
 ./manage.py migrate
 
 # guardamos los modelos de las tablas de la base de datos
+<<<<<<< HEAD
+./manage.py inspectdb > test_inicial/models.py
+=======
 ./manage.py inspectdb > tests/models.py
+>>>>>>> matt
 
 # copiamos el archivo del test inicial 
 cp ../tests.py tests/
@@ -90,7 +94,7 @@ cd ..
 
 # CONFIGURACION DEL APACHE
 # configuramos el paso del wsgi
-sudo cp 000-default.conf /etc/apache2/sites-available/000-default.conf
+#sudo cp 000-default.conf /etc/apache2/sites-available/000-default.conf
 
 # agregamos una excepcion para permitir al apache procesar el trafico
 sudo ufw delete allow 8000
