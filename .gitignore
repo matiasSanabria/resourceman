@@ -1,0 +1,5 @@
+*.pyc
+is2/desarrollo/
+is2/produccion/
+is2/static/
+is2/.idea
