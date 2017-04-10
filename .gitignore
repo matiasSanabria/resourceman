@@ -1,0 +1,4 @@
+.idea/
+desarrollo/
+resourceman/*.pyc
+resourceman/resourceman/__pycache__/
