@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <style>
+        /* Set height of the grid so .sidenav can be 100% (adjust if needed) */
+        .row.content {height: 560px;}
+
+        /* Set gray background color and 100% height */
+        .sidenav {
+            background-color: #00796b;
+            height: 100%;
+        }
+
+        /* Set black background color, white text and some padding */
+        footer {
+          background-color: #FF6F00;
+          color: white;
+        }
+
+        /* On small screens, set height to 'auto' for sidenav and grid */
+        @media screen and (max-width: 767px) {
+          .sidenav {
+            height: auto;
+              }
+          .row.content {height: auto;}
+        }
+        /* Remove the navbar's default margin-bottom and rounded borders */
+        .navbar {
+          margin-bottom: 0px;
+          border-radius: 0px;
+          background-color: #004c40;
+          border-color: #004c40;
+        }
+        body {
+            background-color: #eeeeee;
+        }
+    </style>
+</head>
+<body>
+    <!-- navbar -->
+    <nav class="navbar navbar-inverse">
+      <div class="container-fluid">
+        <div class="navbar-header">
+            <h4 style="color:white; top:50%;">Sistema Gerenciador de Reservas</h4>
+        </div>
+        <div class="collapse navbar-collapse" id="myNavbar">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Salir</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <!-- end navbar -->
+
+    <!-- menu izquierdo -->
+    <div class="container-fluid">
+        <div class="row content">
+            <div class="col-sm-3 sidenav"
+                 style="padding-top:0px;padding-left:3px;padding-right:3px;">
+                <ul class="nav nav-pills nav-stacked" style="padding-top:80px;">
+                    <li class="active">
+                        <a style="background-color:#00796b;" href="#/reservas/">Reservas</a>
+                    </li>
+                    <li class="active">
+                        <a style="background-color:#00796b;" href="#/tipo_recursos/">Tipos de Recursos</a>
+                    </li>
+                    <li class="active">
+                        <a style="background-color:#00796b;" href="#/recursos/">Recursos</a>
+                    </li>
+                    <li class="active">
+                        <a style="background-color:#00796b;" href="#/mantenimientos/">Mantenimientos</a>
+                    </li>
+                    <li class="active">
+                        <a style="background-color:#00796b;" href="#/prioridades/">Prioridades</a>
+                    </li>
+                    <li class="active">
+                        <a style="background-color:#00796b;" href="#/usuarios/">Usuarios</a>
+                    </li>
+                    <li class="active">
+                        <a style="background-color:#00796b;" href="#/roles/">Roles</a>
+                    </li>
+                    <li class="active">
+                        <a style="background-color:#00796b;" href="#/permisos/">Permisos</a>
+                    </li>
+                    <li class="active">
+                        <a style="background-color:#00796b;" href="#/configuraciones/">Configuraciones</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- end menu izquierdo-->
+</body>
+</html>
