@@ -11,10 +11,10 @@ def listarPermisos(request):
     #permisos_list = AuthPermission.objects.all()
     #context = {'object_list': permisos_list}
     #return render(request, 'permisos/index.html', context)
-    return render_to_response("listarPermisos.html")
+    return HttpResponse("Listar permisos")
 
 def editarPermiso(request):
-    return HttpResponse("Editar permisos")
+    return render_to_response("editarPermisos.html")
 
 
 def agregarPermiso(request):
