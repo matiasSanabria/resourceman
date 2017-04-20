@@ -52,10 +52,10 @@ def editarPermiso(request, pk):
 def eliminarPermiso(request, pk):
 
     eliminar = Permission.objects.get(pk=pk)
-    mensaje = "Permiso \'%s\' eliminado..\n" % elimiminar
+    mensaje = "Permiso \'%s\' eliminado..\n" % eliminar
     messages.add_message(request, messages.INFO, mensaje)
     eliminar.delete()
-    return render('permiso'))
+    return redirect('../listar')
 
 def agregarPermiso(request):
     mensaje = 'Crear Permiso'
