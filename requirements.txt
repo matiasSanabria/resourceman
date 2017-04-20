@@ -1,3 +1,7 @@
 Django==1.10.5
 psycopg2==2.7.1
+<<<<<<< HEAD
 Sphinx==1.5.3
+=======
+Sphinx==1.5.3
+>>>>>>> matt
