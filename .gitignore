@@ -3,4 +3,3 @@ desarrollo/
 resourceman/*.pyc
 resourceman/*/__pycache__/
 resourceman/*/migrations/
-*.pyc
