@@ -7,19 +7,55 @@ from .forms import *
 
 
 from django.shortcuts import render_to_response
-from .forms import EditarPermisos, AgregarPermiso, ListarPermisos
-
+from .forms import EditarPermisos, AgregarPermiso
+from django.contrib.auth.models import Group, Permission
 
 
 
 def listarPermisos(request):
-    formulario = ListarPermisos()
-    return render_to_response("permisos/listarPermisos.html", {'formulario': formulario})
 
-def editarPermiso(request):
-    formulario = EditarPermisos()
-    return render_to_response("permisos/editarPermisos.html", {'formulario':formulario})
+    mensaje = 'Listar Permisos'
+    messages.add_message(request, messages.INFO, mensaje)
+    permisos = Permission.objects.all()
+    return render(request, 'permisos/listarPermisos.html', {
+        'permisos': permisos
+    })
 
+
+def editarPermiso(request, pk):
+
+    mensaje = 'Modificar Permiso'
+    messages.add_message(request, messages.INFO, mensaje)
+    # mod = Permission.objects.get(pk=pk)
+    editar= Permission.objects.get(id=pk)
+    # editar_form= EditarPermisos(instance=editar)
+
+    if request.method == 'POST':
+        editar_form = EditarPermisos(request.POST, instance=editar)
+        if editar_form.is_valid():
+            editar_form.save()
+            return redirect('listar')
+        else:
+            editar_form = EditarPermisos(request.POST, instance=editar)
+
+        return render(request, 'permisos/editarPermisos.html', {
+            'editar_form': editar_form,
+            'pk': pk
+        })
+    else:
+        editar_form = EditarPermisos(instance=editar)
+        return render(request, 'permisos/editarPermisos.html', {
+            'editar_form': editar_form,
+            'pk': pk
+        })
+
+def eliminarPermiso(request, pk):
+
+    eliminar = Permission.objects.get(pk=pk)
+    mensaje = "Permiso \'%s\' eliminado..\n" % elimiminar
+    messages.add_message(request, messages.INFO, mensaje)
+    eliminar.delete()
+    return render('permiso'))
 
 def agregarPermiso(request):
     mensaje = 'Crear Permiso'

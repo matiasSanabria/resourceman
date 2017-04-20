@@ -1,5 +1,4 @@
-{{ object_list }}
-<!--<!DOCTYPE html>-->
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -37,101 +36,63 @@
             background-color: #eeeeee;
         }
     </style>
-    <title>Editar Permisos</title>
-    <!--css-->
+    <title>Agregar Permisos</title>
     <style>
         form {
             /* Sólo para centrar el formulario a la página */
-            margin: 0 auto;
+            /*margin: 0 auto;*/
             width: 50%;
             margin-left: 30%;
+
             /* Para ver el borde del formulario */
             /*padding: 1em;
             border: 1px solid #CCC;
             border-radius: 1em;*/
         }
-        /*centrar texto*/
-        h1 {text-align: center}
-        /*agregamos espacio entre los widgets*/
         form div + div {
            margin-top: 1em;
+        }
+        h1{
+            margin-top: 5%;
+            margin-left: 45%;
         }
         label {
             /* Para asegurarse que todos los labels tienen el mismo tamaño y están alineados correctamente */
             display: inline-block;
-            width: 90px;
+            width: 110px;
             text-align: left;
-        }
-        input, textarea {
-            /* Para asegurarse de que todos los campos de texto tienen las mismas propiedades de fuente
-            Por defecto, las areas de texto tienen una fuente con monospace */
-            font: 1em sans-serif;
-
-            /* Para darle el mismo tamaño a todos los campos de texto */
-            width: 500px;
-            -moz-box-sizing: border-box;
-            box-sizing: border-box;
-
-            /* Para armonizar el look&feel del borde en los campos de texto */
-            border: 1px solid #999;
-        }
-        input:focus, textarea:focus {
-            /* Para dar un pequeño destaque en elementos activos*/
-            border-color: #000;
-        }
-        textarea {
-            /* Para alinear campos de texto multilínea con sus labels */
-            vertical-align: top;
-
-            /* Para dar suficiente espacio para escribir texto */
-            height: 10em;
-
-            /* Para permitir a los usuarios cambiar el tamaño de cualquier textarea verticalmente
-                No funciona en todos los navegadores */
-            resize: vertical;
+            margin-top: 1em;
         }
         .button {
             /* Para posicionar los botones a la misma posición que los campos de texto */
             padding-left: 70%; /* mismo tamaño a todos los elementos label */
+
         }
         button {
-            /* Este margen extra representa aproximadamente el mismo espacio que el espacio
-            entre los labels y sus campos de texto */
-            margin-left: px;
+            margin-top: 3%;
+
         }
     </style>
-
 </head>
 <body>
     {%include 'navbar.html'%}
     {%include 'sidenav.html'%}
-    <!--form seccion para enviar informacion al servidor
-    action= URI define la locación (una URL) desde donde la información
-    recolectada por el formulario debería enviarse.
-    method= metodo de envio post o get-->
-    <form action="" method="post">
-        <h1>Editar Permisos.</h1>
+    <h1>Editar Permiso.</h1>
+    <form action="" method="post">{% csrf_token %}
         <div>
-            <!--lable Etiqueta para un elemento de la interfaz-->
-            <label>Permiso: </label>
-            {{formulario.name}}
-            <!--input Solicitar datos de forma lineal por teclado para
-            el elemento descripcion-->
-            <!--<input type="text" id="nombre_permiso" />-->
-            <label>Descripcion:</label>
-            {{formulario.descripcion}}
-            <!--textarea edicion multilinea de texto
-            name nombrar la informacion a enviar-->
-            <!--<textarea id="descripcion" name="descripcion_permiso"></textarea>-->
+{#            <label>Nombre:</label>#}
+{#            {{editar_form.codename}}#}
+{#            <label>Descripcion:</label>#}
+{#            {{editar_form.name}}#}
+{#            <label>Acceso a app:</label>#}
+{#            {{editar_form.content_type}}#}
+            {{editar_form.as_p }}
         </div>
         <div class="button">
-            <!--un boton submit envia la informacion del formulario a la
-            pagina definida en el atributo action de form
-            un boton reset reinicia todos los widgets del formulario
-            un boton button no hace nada :)-->
-            <button type="submit" class="btn-primary btn btn-block">Guardar</button>
-            <!--<button type="reset" class="btn-primary btn btn-block">Cancelar</button>-->
+            <button type="submit" class="btn btn-primary btn-block">Guardar</button>
+            <!--<button type="reset" class="btn btn-danger btn-lg">Limpiar</button>-->
         </div>
     </form>
+
 </body>
 </html>
