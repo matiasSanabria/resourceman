@@ -17,7 +17,8 @@ from django.conf.urls import include, url
 from django.contrib import admin
 
 urlpatterns = [
-    url(r'', include('index.urls')),
-    url(r'^admin/', include(admin.site.urls)),
-    url(r'^permisos/', include('permisos.urls')),
+    url(r'^index/', include('index.urls')),
+    url(r'', include(admin.site.urls)),
+    #url(r'^permisos/', include('permisos.urls')),
+    url(r'^tipo_recurso/', include('tipos_recursos.urls')),
 ]
