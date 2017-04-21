@@ -73,24 +73,11 @@
         <div>
             <label>Nombre:</label>
             {{ rol_form.name }}
-{#            <label>Nombre:</label>#}
-{#            {{rol_form.codename}}#}
-{#            <label>Descripcion:</label>#}
-{#            {{rol_form.name}}#}
-{#            <label>Acceso a app:</label>#}
-{#            {{rol_form.content_type}}#}
-        </div>
         </div>
         <div>
             <label>Seleccione los permisos:</label>
-        <div id="permisos">
             {{ rol_form.permissions }}
         </div>
-{#        <div class="button">#}
-{#            <button type="submit" class="btn btn-primary btn-lg">Guardar</button>#}
-{#            <button type="reset" class="btn btn-danger btn-lg">Limpiar</button>#}
-{#        </div>#}
-{#            {{ rol_form.as_p }}#}
     </form>
 
 </body>
