@@ -26,4 +26,5 @@ urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^index/', include('index.urls')),
     url(r'^permisos/', include('permisos.urls')),
+    url(r'^roles/', include('roles.urls')),
 ]

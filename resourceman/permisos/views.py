@@ -35,7 +35,7 @@ def editarPermiso(request, pk):
         editar_form = EditarPermisos(request.POST, instance=editar)
         if editar_form.is_valid():
             editar_form.save()
-            return redirect('listar')
+            return redirect('listarPermisos')
         else:
             editar_form = EditarPermisos(request.POST, instance=editar)
 
