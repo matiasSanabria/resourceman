@@ -3,7 +3,7 @@ __author__ = 'matt'
 
 from django import forms
 from .models import TipoRecurso
-from django.forms import TextInput, Textarea
+from django.forms import TextInput, Textarea, Select
 
 
 class TipoRecursoForm(forms.ModelForm):
@@ -13,5 +13,6 @@ class TipoRecursoForm(forms.ModelForm):
         widgets = {
             'nombre': TextInput(attrs={'class': 'col-lg-3 form-control'}),
             'descripcion': TextInput(attrs={'class': 'col-lg-3 form-control'}),
-            'lista_caracteristicas': Textarea(attrs={'rows': '5', 'class': 'form-control'})
+            'lista_caracteristicas': Textarea(attrs={'rows': '5', 'class': 'form-control'}),
+            'estado': Select(attrs={'class': 'btn btn-default dropdown-toggle'})
         }

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block titulo %}Crear Tipo de Recurso{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <style>
+        .row.content {height: 560px;}
+
+        .sidenav {
+            background-color: #00796b;
+            height: 100%;
+        }
+
+        footer {
+          background-color: #FF6F00;
+          color: white;
+        }
+
+        @media screen and (max-width: 767px) {
+          .sidenav {
+            height: auto;
+              }
+          .row.content {height: auto;}
+        }
+
+        .navbar {
+          margin-bottom: 0px;
+          border-radius: 0px;
+          background-color: #004c40;
+          border-color: #004c40;
+        }
+
+        body {
+            background-color: #eeeeee;
+        }
+        h3 {
+            text-align: center;
+            margin-top:50px;
+        }
+        #content {
+            margin-left:20%;
+            margin-top:10px;
+        }
+
+        #btnGuardar {
+            margin-top:10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row content">
+            {% include 'navbar.html' %}
+            {% include 'sidenav.html' %}
+            <h3>Modificar Tipo de Recurso</h3>
+            <form id="content" class="col-lg-4" action="" method="POST">{% csrf_token %}
+                {{ tipo_recurso.as_p }}
+                <button id="btnGuardar" type="submit" class="btn btn-primary btn-block">Guardar</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
