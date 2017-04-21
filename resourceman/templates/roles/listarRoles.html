@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Listar Permisos</title>
+    <title>Listar Roles</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
@@ -61,24 +61,24 @@
 <body>
     {%include 'navbar.html'%}
     {%include 'sidenav.html'%}
-    <h1>Lista de Permisos.<a href="{% url 'agregarPermisos' %}"><button id="agregar" type="button" class="btn btn-success btn-lg">Agregar Permiso</button></a></h1>
+    <h1>Lista de Roles.<a href="{% url 'agregarRol' %}"><button id="agregar" type="button" class="btn btn-success btn-lg">Agregar Rol</button></a></h1>
     <div id="mitabla">
     <table class="table table-hover">
         <thead>
             <tr>
-                <th>Nombre</th>
-                <th>Descripcion</th>
+                <th>Nombre de Rol</th>
+{#                <th>Descripcion</th>#}
                 <th>Modificar</th>
                 <th>Eliminar</th>
             </tr>
         </thead>
         <tbody>
-            {% for permiso in permisos %}
+            {% for rol in roles %}
                 <tr>
-                    <td>{{permiso.codename}}</td>
-                    <td>{{permiso.name}}</td>
-                    <td><a href="{% url 'editarPermisos' pk=permiso.pk %}"><button type="button" class="btn btn-primary btn-sm">Editar</button></a></td>
-                    <td><a href="{% url 'eliminarPermisos' pk=permiso.pk %}"><button type="button" class="btn btn-danger btn-sm">Eliminar</button></a></td>
+{#                    <td>{{rol.codename}}</td>#}
+                    <td>{{rol.name}}</td>
+                    <td><a href="{% url 'editarRol' pk=rol.pk %}"><button type="button" class="btn btn-primary btn-sm">Editar</button></a></td>
+                    <td><a href="{% url 'eliminarRol' pk=rol.pk %}"><button type="button" class="btn btn-danger btn-sm">Eliminar</button></a></td>
                 </tr>
             {% endfor %}
         </tbody>
