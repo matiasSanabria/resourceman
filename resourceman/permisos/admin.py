@@ -1,5 +1,5 @@
-from django.contrib import admin
+# from django.contrib import admin
+#
+# from .models import AuthPermission
 
-from .models import AuthPermission
-
-admin.site.register(AuthPermission)
+# admin.site.register(AuthPermission)

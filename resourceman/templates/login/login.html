@@ -1,0 +1,42 @@
+<!Doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>{% block title %}Login{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <style>
+        div {
+            margin-top: 10px;
+        }
+        form {
+            padding-left:35%;
+            padding-right:10%;
+            margin-top:10%;
+        }
+    </style>
+</head>
+<body>
+    <form method="post" action="{% url 'index' %}">{% csrf_token %}
+        <div class="row">
+            <div class="col-lg-6">
+                <label>Nombre de usuario</label><br>
+                {{ formulario.username }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6">
+                <label>Contraseña</label><br>
+                {{ formulario.password }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6">
+                <button class="btn btn-primary btn-block" type="submit">Ingresar</button>
+            </div>
+        </div>
+    </form>
+</body>
+</html>
