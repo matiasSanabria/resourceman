@@ -40,7 +40,9 @@ INSTALLED_APPS = [
     'login',
     'index',
     'permisos',
-    'tipos_recursos'
+    'tipos_recursos',
+    'recurso',
+    'usuario',
 ]
 
 MIDDLEWARE = [

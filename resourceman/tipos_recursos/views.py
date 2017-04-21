@@ -19,6 +19,7 @@ def crear(request):
     return render(request, 'tipo_recurso/crear_tipos_recursos.html', {'tipo_recurso': tipo_recurso})
 
 
+@login_required
 def editar(request, nombre):
     mensaje = 'Modificar Permiso'
     messages.add_message(request, messages.INFO, mensaje)
@@ -53,7 +54,6 @@ def eliminar(request, nombre):
     return redirect('../listar')
 
 
-@login_required
 def listar_tipos_recursos(request):
     mensaje = 'Listar Permisos'
     messages.add_message(request, messages.INFO, mensaje)

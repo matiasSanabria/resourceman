@@ -1,34 +1,35 @@
-from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth.models import User
+from django.core.checks import messages
+
+from .forms import LoginForm
 
 __author__ = 'matt'
 
 from django.contrib.auth import authenticate, login
-from django.contrib.auth.models import Permission
-from django.shortcuts import render_to_response
-from django.http import HttpResponseRedirect
-from django.template import RequestContext
-from .forms import LoginForm
+from django.shortcuts import redirect, render_to_response, render
 import logging
 
 logger = logging.getLogger(__name__)
 
-def login(request):
-    message = ''
+def login_view(request):
+    """
+    Pagina de login
+    :param request: 
+    :return: 
+    """
+    mensaje = ''
     if request.method == "POST":
         form = LoginForm(request.POST)
-
         if form.is_valid():
-            username = form.cleaned_data['username']
-            password = form.cleaned_data['password']
-            user = authenticate(username=username, password=password)
-
-            if user is not None and user.is_active:
-                login(request, user)
-                logger.info("Login de usuario %s" % request.user.username)
-                return HttpResponseRedirect("/")
+            username = form.cleaned_data['Usuario']
+            password = form.cleaned_data['Clave']
+            usuario = authenticate(username=username, password=password)
+            if usuario is not None and usuario.is_active:
+                login(request, usuario)
+                logger.info('Login de Usuario %s' % request.user.username)
+                return redirect('login/login.html')
             else:
-                message = "El nombre de usuario o password no coinciden"
-
+                mensaje = 'Disculpa, el Nombre de Usuario o la Clave no coinciden.'
     formulario = LoginForm()
-    #ctx = {'formulario': formulario, 'mensaje': message}
-    return render_to_response('login/login.html', {'formulario': formulario}, RequestContext(request))
+    return render(request, 'login/login.html', {"formulario": formulario})
+

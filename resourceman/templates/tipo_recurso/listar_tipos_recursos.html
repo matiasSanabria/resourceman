@@ -81,19 +81,19 @@
                     </thead>
                     <tbody>
                         {% for tr in lista %}
-                        <tr>
-                            <td>{{tr.nombre}}</td>
-                            <td>{{tr.descripcion}}</td>
-                            <td>
-                                <a href="">
-                                    <button type="button" class="btn btn-primary btn-sm">Editar</button>
-                                </a>
-                            </td>
-                            <td>
-                                <a href="">
-                                    <button type="button" class="btn btn-danger btn-sm">Eliminar</button>
-                                </a>
-                            </td>
+                            <tr>
+                                <td>{{tr.nombre}}</td>
+                                <td>{{tr.descripcion}}</td>
+                                <td>
+                                    <a href="">
+                                        <button type="button" class="btn btn-primary btn-sm">Editar</button>
+                                    </a>
+                                </td>
+                                <td>
+                                    <a href="">
+                                        <button type="button" class="btn btn-danger btn-sm">Eliminar</button>
+                                    </a>
+                                </td>
                             </tr>
                         {% endfor %}
                     </tbody>
