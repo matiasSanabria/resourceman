@@ -1,6 +1,22 @@
 from django.db import models
 from django.contrib.auth.models import Permission
+"""
+    Utilizacion del modelo Permission para el manejo de permisos.
 
+     de Django, mediante una relación de 1-1.
+
+    *Campos de Permission:*
+
+    1. ``codename``: Codificacion del nombre.
+    #. ``name``: Descripcion del permiso.
+    #. ``content_type``: Referencia a apliccion de acceso
+
+    Returns
+    -------
+    model: ``django.contrib.auth.models``
+        Un model propio heredado de django.contrib.auth.models .
+
+    """
 # class DjangoContentType(models.Model):
 #     app_label = models.CharField(max_length=100)
 #     model = models.CharField(max_length=100)
