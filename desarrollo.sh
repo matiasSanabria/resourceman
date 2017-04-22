@@ -37,7 +37,7 @@ virtualenv desarrollo
 # activamos el entorno virtual
 source desarrollo/bin/activate
 
-pip3 install -r /home/$USER/Escritorio/requirements.txt
+pip3 install -r requirements.txt
 
 pwd 
 # ingresamos al directorio del proyecto

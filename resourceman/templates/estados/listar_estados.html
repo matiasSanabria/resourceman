@@ -64,8 +64,8 @@
         <div class="row content">
             {% include 'navbar.html'%}
             {% include 'sidenav.html' %}
-            <h3>Lista de Tipos de Recursos
-                <a href="/tipo_recurso/crear">
+            <h3>Lista de Estados
+                <a href="/estados/crear_estado">
                     <button id="btnAgregar" class="btn btn-success btn-lg">Agregar</button>
                 </a>
             </h3>
@@ -73,24 +73,24 @@
                 <table class="table table-hover">
                     <thead>
                     <tr>
-                        <th>Nombre</th>
-                        <th>Descripcion</th>
+                        <th>C&oacute;digo</th>
+                        <th>Descripci&oacute;n</th>
                         <th>Modificar</th>
                         <th>Eliminar</th>
                     </tr>
                     </thead>
                     <tbody>
-                        {% for tr in lista %}
+                        {% for estado in lista %}
                             <tr>
-                                <td>{{tr.nombre}}</td>
-                                <td>{{tr.descripcion}}</td>
+                                <td>{{estado.codigo}}</td>
+                                <td>{{estado.descripcion}}</td>
                                 <td>
-                                    <a href="{%  url 'editar' nombre=tr.nombre %}">
+                                    <a href="{%  url 'editar_estado' codigo=estado.codigo %}">
                                         <button type="button" class="btn btn-primary btn-sm">Editar</button>
                                     </a>
                                 </td>
                                 <td>
-                                    <a href="{%  url 'eliminar' nombre=tr.nombre %}">
+                                    <a href="{%  url 'eliminar_estado' codigo=estado.codigo %}">
                                         <button type="button" class="btn btn-danger btn-sm">Eliminar</button>
                                     </a>
                                 </td>
