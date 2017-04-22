@@ -45,5 +45,5 @@ class EstadoForm(forms.ModelForm):
         fields = '__all__'
         widgets = {
             'codigo': TextInput(attrs={'class': 'col-lg-3 form-control'}),
-            'descripcion': Textarea(attrs={'class': 'col-lg-3 form-control', 'rows': '4'}),
+            'descripcion': Textarea(attrs={'class': 'col-lg-3 form-control', 'rows': '2'}),
         }
