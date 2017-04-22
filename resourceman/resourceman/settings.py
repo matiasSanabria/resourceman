@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'index',
     'permisos',
     'tipos_recursos',
-    'recurso',
+    #'recurso',
     'usuario',
     'roles',
 ]
