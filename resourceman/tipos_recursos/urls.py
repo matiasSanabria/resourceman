@@ -6,4 +6,7 @@ urlpatterns = [
     url(r'crear/$', views.crear, name='crear'),
     url(r'editar/(?P<nombre>\w+)$', views.editar, name='editar'),
     url(r'eliminar/(?P<nombre>\w+)$', views.eliminar, name='eliminar'),
+
+    ##################################################################
+    url(r'listar/$', views.listar_estados, name='listar'),
 ]

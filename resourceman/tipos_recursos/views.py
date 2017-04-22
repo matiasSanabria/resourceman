@@ -1,5 +1,5 @@
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render_to_response, redirect, render
+from django.shortcuts import redirect, render
 from .forms import TipoRecursoForm
 from .models import TipoRecurso
 from django.contrib import messages
@@ -54,8 +54,19 @@ def eliminar(request, nombre):
     return redirect('../listar')
 
 
+@login_required
 def listar_tipos_recursos(request):
     mensaje = 'Listar Permisos'
     messages.add_message(request, messages.INFO, mensaje)
     lista = TipoRecurso.objects.filter(estado='A')
     return render(request, 'tipo_recurso/listar_tipos_recursos.html', {'lista': lista})
+
+
+########################################################################################################################
+@login_required
+def listar_estados(request):
+    mensaje = 'Listar Estados'
+    messages.add_message(request, messages.INFO, mensaje)
+    lista = TipoRecurso.objects.all()
+    return render(request, 'estados/listar_estados.html', {'lista': lista})
+
