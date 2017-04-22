@@ -36,7 +36,7 @@
             background-color: #eeeeee;
         }
     </style>
-    <title>Editar Roles</title>
+    <title>Agregar Prioridad</title>
     <style>
         form {
             /* Sólo para centrar el formulario a la página */
@@ -67,17 +67,13 @@
     {%include 'navbar.html'%}
     {%include 'sidenav.html'%}
     <form action="" method="post">{% csrf_token %}
-    <h1>Editar Rol.<button id="button" type="submit" class="btn btn-primary btn-lg">Guardar</button>
-        {#            <button type="reset" class="btn btn-danger btn-lg">Limpiar</button></h1>#}</h1>
+    <h1>Agregar Prioridad.</h1>
 
         <div>
-            <label>Nombre:</label>
-            {{ editar_form.name }}
+            {{prioridad_form.as_p}}
         </div>
-        <div>
-            <label>Seleccione los permisos:</label>
-            {{ editar_form.permissions }}
-        </div>
+        <button id="button" type="submit" class="btn btn-primary btn-lg">Guardar</button>
+        <button type="reset" class="btn btn-danger btn-lg">Limpiar</button>
     </form>
 
 </body>

@@ -21,7 +21,7 @@ urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^login/', include('login.urls')),
     url(r'^tipo_recurso/', include('tipos_recursos.urls')),
-    #url(r'^usuario/', include('usuario.urls')),
+    url(r'^usuario/', include('usuarios.urls')),
     url(r'^recurso/', include('recurso.urls')),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^index/', include('index.urls')),
