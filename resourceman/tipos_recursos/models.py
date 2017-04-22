@@ -3,8 +3,20 @@ from django.db import models
 
 class TipoRecurso(models.Model):
     """
-        Clase Tipo de Recurso
+    Definicion del model para los Tipos de Recursos
+
+    *Campos:*
+
+    1. ``group``: Referencia al model Groups de Django.
+    #. ``permisos``: Referencia al model Permissions de django.
+
+    Returns
+    -------
+    model: ``django.db.models.Model``
+        Un model propio heredado de django.db.models.Model con los campos adicionales.
+
     """
+
     ESTADO_CHOICE = (
         ('A', 'ACTIVO'),
         ('I', 'INACTIVO')
@@ -16,6 +28,33 @@ class TipoRecurso(models.Model):
 
     def __str__(self):
         return self.nombre
+
+    def obtener_caracteristicas(self, nombre):
+        # obtenemos el objeto cuya lista de caracteristicas buscamos
+        list = TipoRecurso.objects.get(nombre=nombre)
+
+        # obtenemos solamente la lista de caracteristicas
+        list = list.lista_caracteristicas
+
+        # quitamos las llaves y las comillas simples del json
+        list = list[2:(len(list)-2)]
+
+        # separamos las caracteristicas por las comas
+        list = list.split(',')
+
+        caracteristica = []
+        tipo_dato = []
+
+        for item in list:
+            caracteristica.append(item[0])
+            tipo_dato.append(item[1])
+
+        caracteristicas = [caracteristica, tipo_dato]
+
+        return caracteristicas
+
+
+
 
     class Meta:
         permissions = (

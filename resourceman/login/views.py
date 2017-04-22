@@ -5,7 +5,7 @@ from .forms import LoginForm
 
 __author__ = 'matt'
 
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import redirect, render_to_response, render
 import logging
 
@@ -33,3 +33,9 @@ def login_view(request):
     formulario = LoginForm()
     return render(request, 'login/login.html', {"formulario": formulario})
 
+def logout_view(request):
+    """
+        Cierra la sesión del usuario.
+    """
+    logout(request)
+    return redirect('login')

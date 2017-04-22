@@ -1,6 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect, render
-from .forms import TipoRecursoForm, EstadoForm
+from .forms import TipoRecursoForm, EstadoForm, RecursoForm
 from .models import TipoRecurso, Estados
 from django.contrib import messages
 
@@ -12,7 +12,7 @@ def crear(request):
         tipo_recurso = TipoRecursoForm(request.POST)
         if tipo_recurso.is_valid():
             tipo_recurso.save()
-            return redirect('tipo_recurso/crear')
+            return redirect('crear')
         else:
             pass
     tipo_recurso = TipoRecursoForm()
@@ -116,3 +116,18 @@ def eliminar_estado(request, codigo):
     messages.add_message(request, messages.INFO, mensaje)
     eliminar.delete()
     return redirect('../listar_estados')
+
+########################################################################################################################
+
+@login_required
+def crear_recurso(request):
+    if request.method == "POST":
+        recurso = RecursoForm(request.POST)
+        if recurso.is_valid():
+            recurso.save()
+            return redirect('crear_recurso')
+        else:
+            pass
+    recurso = RecursoForm()
+    caracteristicas = TipoRecurso.lista_caracteristicas(request.TipoRecurso.nombre)
+    return render(request, 'recurso/crear_recurso.html', {'recurso': recurso, 'caracteristicas':caracteristicas})
