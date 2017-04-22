@@ -42,8 +42,8 @@ INSTALLED_APPS = [
     'permisos',
     'tipos_recursos',
     'recurso',
-    'usuario',
     'roles',
+    'usuarios',
 
 ]
 
