@@ -94,7 +94,7 @@ class Recurso(models.Model):
     """
 
     def __str__(self):
-        return self.tipo_recurso
+        return self.nombre_recurso
 
     ACTIVO_CHOICE = (
         ('A', "ACTIVO"),

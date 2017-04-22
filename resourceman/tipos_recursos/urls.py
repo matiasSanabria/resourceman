@@ -21,9 +21,9 @@ urlpatterns = [
     ###################################################################################################################
     # Url de los recursos
     ###################################################################################################################
-    #url(r'^listar_recursos/$', views.listar_recursos, name='listar_recurso'),
+    url(r'^listar_recursos/$', views.listar_recursos, name='listar_recurso'),
     url(r'^crear_recurso/$', views.crear_recurso, name='crear_recurso'),
-    #url(r'^editar_recurso/(?P<nombre>\w+)$', views.editar_recurso, name='editar_recurso'),
-    #url(r'^eliminar_recurso/(?P<nombre>\w+)$', views.eliminar_recurso, name='eliminar_recurso'),
+    #url(r'^editar_recurso/(?P<codigo_recurso>\w+)$', views.editar_recurso, name='editar_recurso'),
+    #url(r'^eliminar_recurso/(?P<codigo_recurso>\w+)$', views.eliminar_recurso, name='eliminar_recurso'),
 
 ]

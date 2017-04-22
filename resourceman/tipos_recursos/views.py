@@ -1,7 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect, render
 from .forms import TipoRecursoForm, EstadoForm, RecursoForm
-from .models import TipoRecurso, Estados
+from .models import TipoRecurso, Estados, Recurso
 from django.contrib import messages
 
 __author__ = 'matt'
@@ -129,5 +129,47 @@ def crear_recurso(request):
         else:
             pass
     recurso = RecursoForm()
-    caracteristicas = TipoRecurso.lista_caracteristicas(request.TipoRecurso.nombre)
-    return render(request, 'recurso/crear_recurso.html', {'recurso': recurso, 'caracteristicas':caracteristicas})
+   # caracteristicas = TipoRecurso.lista_caracteristicas(request.TipoRecurso.nombre)
+    return render(request, 'recurso/crear_recurso.html', {'recurso': recurso})
+
+@login_required
+def editar_recurso(request, codigo_recurso):
+    mensaje = 'Modificar Recurso'
+    messages.add_message(request, messages.INFO, mensaje)
+    editar = Recurso.objects.get(codigo_recurso=codigo_recurso)
+
+    if request.method == 'POST':
+        editar_form = RecursoForm(request.POST, instance=editar)
+        if editar_form.is_valid():
+            editar_form.save()
+            return redirect('listar_recursos')
+        else:
+            editar_form = TipoRecursoForm(request.POST, instance=editar)
+
+        return render(request, 'recurso/editar_recurso.html', {
+            'editar_form': editar_form,
+            'codigo_recurso': codigo_recurso
+        })
+    else:
+        editar_form = RecursoForm(instance=editar)
+        return render(request, 'recurso/editar_recurso.html', {
+            'editar_form': editar_form,
+            'codigo_recurso': codigo_recurso
+        })
+
+
+@login_required
+def eliminar_recurso(request, codigo):
+    eliminar = Recurso.objects.get(codigo_recurso=codigo)
+    mensaje = "Recurso \'%s\' eliminado..\n" % eliminar
+    messages.add_message(request, messages.INFO, mensaje)
+    eliminar.delete()
+    return redirect('../listar_recursos')
+
+
+@login_required
+def listar_recursos(request):
+    mensaje = 'Listar Recursos'
+    messages.add_message(request, messages.INFO, mensaje)
+    lista = Recurso.objects.all()
+    return render(request, 'recurso/listar_recursos.html', {'lista': lista})

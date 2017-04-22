@@ -4,7 +4,7 @@ from django.forms.extras.widgets import SelectDateWidget
 
 import datetime
 from django import forms
-from django.forms import widgets
+from django.forms import widgets, TextInput
 from django.contrib.auth.models import User
 from django.utils import timezone
 
@@ -37,9 +37,9 @@ class UsuarioCreationForm(forms.ModelForm):
             'id', 'password', 'is_superuser', 'is_staff', 'last_login', 'date_joined',
             'user_permissions', 'is_active',
         ]
-        # widgets = {
-        #     'groups': Select(attrs={'class': 'btn dropdown-toggle'})
-        # }
+        widgets = {
+            'email': TextInput(attrs={'class': 'form-control'})
+        }
 
 
     def clean_username(self):
@@ -70,7 +70,7 @@ class UsuarioDetalleForm(forms.ModelForm):
 
 
     nro_documento = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control'}))
-    direccion = forms.CharField(widget=forms.Textarea(attrs={'class':'form-control'}))
+    direccion = forms.CharField(widget=forms.Textarea(attrs={'class':'form-control', 'rows': '2'}))
     telefono = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control'}))
 
     class Meta:
@@ -98,19 +98,6 @@ class UsuarioDetalleForm(forms.ModelForm):
         return user_detail
 
 class UserInfoForm(forms.ModelForm):
-    # def __init__(self, *args, **kwargs):
-    #     # instance = kwargs.get('instance', None)
-    #     # kwargs.update(initial={
-    #     #     # 'field': 'value'
-    #     #     'username': 'daniel',
-    #     #     'first_name': 'daniel',
-    #     #     'last_name': 'min',
-    #     #     'email': 'dpark8752@gmail.com',
-    #     # })
-    #     super(UserInfoForm, self).__init__(*args, **kwargs)
-    #     # Hacer solo lectura los cammpos fecha de alta y ultima sesion
-    #     self.fields['last_login'].widget.attrs['readonly'] = True
-    #     self.fields['date_joined'].widget.attrs['readonly'] = True
 
     class Meta:
         model = User
