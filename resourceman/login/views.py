@@ -11,11 +11,12 @@ import logging
 
 logger = logging.getLogger(__name__)
 
+
 def login_view(request):
     """
     Pagina de login
     :param request: 
-    :return: 
+    :return: muestra la vista de login del sistema
     """
     mensaje = ''
     if request.method == "POST":
@@ -33,9 +34,10 @@ def login_view(request):
     formulario = LoginForm()
     return render(request, 'login/login.html', {"formulario": formulario})
 
+
 def logout_view(request):
     """
-        Cierra la sesión del usuario.
+        Cierra la sesión del usuario y retorna a la vista de login.
     """
     logout(request)
     return redirect('login')

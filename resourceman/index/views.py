@@ -2,4 +2,9 @@ from django.shortcuts import render_to_response
 
 
 def index(request):
-        return render_to_response("index.html")
+    """
+    Metodo que obtiene la vista del index del sistema
+    :param request:
+    :return: index del sistema
+    """
+    return render_to_response("index.html")
