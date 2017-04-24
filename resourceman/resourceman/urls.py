@@ -24,7 +24,7 @@ urlpatterns = [
     url(r'^tipo_recurso/', include('tipos_recursos.urls')),
     url(r'^recursos/', include('tipos_recursos.urls')),
     url(r'^estados/', include('tipos_recursos.urls')),
-    url(r'^usuario/', include('usuarios.urls')),
+    url(r'^usuarios/', include('usuarios.urls')),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^index/', include('index.urls')),
     url(r'^permisos/', include('permisos.urls')),

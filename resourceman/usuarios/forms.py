@@ -1,4 +1,4 @@
-
+__author__ = 'hector'
 
 from django.forms.extras.widgets import SelectDateWidget
 
@@ -15,8 +15,25 @@ from django.forms import Select
 from .models import *
 
 class UsuarioCreationForm(forms.ModelForm):
+    """
+        UsuarioCreationForm ModelForm para la creacion de usuarios, con campos de User.
+
+        Muestra campos del model User en inputs de HTML.
+
+        *Campos:* Los establecidos en User.
+
+        1. ``id``
+        #. ``password``
+        #. ``is_superuser``
+        #. ``username``
+        #. ``first_name``
+        #. ``last_name``
+        #. ``email``.
+        #. ``is_active``
+        #. ``date_joined``
 
 
+    """
     username = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control'}))
     first_name = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control'}))
     last_name = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control'}))
@@ -67,8 +84,20 @@ class UsuarioCreationForm(forms.ModelForm):
         return user
 
 class UsuarioDetalleForm(forms.ModelForm):
+    """
+        UsuarioDetalleForm ModelForm para la creacion de usuarios, con campos de Usuario.
+
+        Muestra campos del model Usuario en inputs de HTML.
+
+        *Campos:* Los establecidos en Usuario.
+
+        1. ``nro_documento``
+        #. ``direccion``
+        #. ``telefono``
+        #. ``prioridad``
 
 
+    """
     nro_documento = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control'}))
     direccion = forms.CharField(widget=forms.Textarea(attrs={'class':'form-control', 'rows': '2'}))
     telefono = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control'}))
@@ -98,7 +127,25 @@ class UsuarioDetalleForm(forms.ModelForm):
         return user_detail
 
 class UserInfoForm(forms.ModelForm):
+    """
+        UserInfoForm ModelForm para la edicion de usuarios, con campos de User.
 
+        Muestra campos del model User en el HTML, para su edicion.
+
+        *Campos:* Los establecidos en User.
+
+        1. ``id``
+        #. ``password``
+        #. ``last_login``:
+        #. ``is_superuser``
+        #. ``username``
+        #. ``first_name``
+        #. ``last_name``
+        #. ``email``.
+        #. ``is_active``
+        #. ``date_joined``
+
+    """
     class Meta:
         model = User
         fields = '__all__'
@@ -110,7 +157,20 @@ class UserInfoForm(forms.ModelForm):
         ]
 
 class UsuarioInfoForm(forms.ModelForm):
+    """
+        UsuarioInfoForm ModelForm para la edicion de usuarios, con campos de Usuario.
 
+        Muestra campos del model Usuario en el HTML, para su edicion.
+
+        *Campos:* Los establecidos en Usuario.
+
+        1. ``nro_documento``
+        #. ``direccion``
+        #. ``telefono``
+        #. ``prioridad``
+
+
+    """
 
     class Meta:
         model = Usuario
@@ -121,6 +181,20 @@ class UsuarioInfoForm(forms.ModelForm):
 
 
 class AgregarPrioridad(forms.ModelForm):
+    """
+        AgregarPrioridad ModelForm para la creacion de prioridades, con campos de PrioridadUsuario.
+
+        Muestra campos del model PrioridadUsuario en inputs de HTML.
+
+        *Campos:* Los establecidos en PrioridadUsuario.
+
+        1. ``codigo``
+        #. ``descipcion``
+
+
+    """
+    codigo = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control'}))
+    descripcion = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control'}))
 
     class Meta:
         model = PrioridadUsuario
@@ -130,6 +204,20 @@ class AgregarPrioridad(forms.ModelForm):
         exclude = []
 
 class EditarPrioridad(forms.ModelForm):
+    """
+        EditarPrioridad ModelForm para la edicion de prioridades, con campos de PrioridadUsuario.
+
+        Muestra campos del model PrioridadUsuario en HTML, para su edicion.
+
+        *Campos:* Los establecidos en PrioridadUsuario.
+
+        1. ``codigo``
+        #. ``descipcion``
+
+
+    """
+    codigo = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}))
+    descripcion = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}))
 
     class Meta:
         model = PrioridadUsuario
