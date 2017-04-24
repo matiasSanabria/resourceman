@@ -1,11 +1,20 @@
+__author__ = 'hector'
 
 from .forms import EditarRol, AgregarRol
 from django.contrib.auth.models import Group, Permission
 from django.contrib import messages
 from django.shortcuts import render, redirect, render_to_response
 
-# Create your views here.
+# Creacion de view para agregar Rol.
 def agregarRol(request):
+    """
+        Página para la agregacion de Rol.
+
+        Recibe los datos suministrados por el usuario a traves de un post.
+
+        Se define un objeto para guardar los datos a traves de la funcion del form.
+
+    """
     mensaje = 'Crear Rol'
     messages.add_message(request, messages.INFO, mensaje)
 
@@ -31,8 +40,14 @@ def agregarRol(request):
         return render(request, 'roles/agregarRoles.html', {
             'rol_form': rol_form,
         })
-def listarRol(request):
 
+def listarRol(request):
+    """
+        Página para listar de rol.
+
+        Genera una instancia de los objetos de Group y luego los devuleve al template listarRoles.html
+
+    """
     mensaje = 'Listar Rol'
     messages.add_message(request, messages.INFO, mensaje)
     roles = Group.objects.all()
@@ -41,7 +56,16 @@ def listarRol(request):
     })
 
 def eliminarRol(request, pk):
+    """
+        Página para la eliminacion de rol.
 
+        Recibe un Post con un atributo pk del rol a eliminar.
+
+        Se instancia el objeto con el identificador suministrado.
+
+        Se procede a eliminar el objeto con el metodo delete().
+
+    """
     eliminar = Group.objects.get(pk=pk)
     mensaje = "Roles \'%s\' eliminado..\n" % eliminar
     messages.add_message(request, messages.INFO, mensaje)
@@ -49,7 +73,16 @@ def eliminarRol(request, pk):
     return redirect('../listar')
 
 def editarRol(request, pk):
+    """
+        Página para la edicion de rol.
 
+        Recibe un Post con un atributo pk del rol a editar.
+
+        Se instancia el objeto con el identificador suministrado.
+
+        Se alteran los datos con el Post recibido y se guardan.
+
+    """
     mensaje = 'Modificar Permiso'
     messages.add_message(request, messages.INFO, mensaje)
     # mod = Permission.objects.get(pk=pk)
