@@ -24,6 +24,7 @@ class RecursoForm(forms.ModelForm):
     """
         Formulario para la clase Recurso
     """
+    list = TipoRecurso.lista_caracteristicas
     class Meta:
         model = Recurso
         fields = '__all__'
