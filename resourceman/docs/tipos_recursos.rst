@@ -1,17 +1,9 @@
-tipos_recursos package
+Paquete tipos de recursos
 ======================
-
-Subpackages
------------
-
-.. toctree::
-
-    tipos_recursos.migrations
-
-Submodules
+Submodulols
 ----------
 
-tipos_recursos.admin module
+Modulo admin
 ---------------------------
 
 .. automodule:: tipos_recursos.admin
@@ -19,7 +11,7 @@ tipos_recursos.admin module
     :undoc-members:
     :show-inheritance:
 
-tipos_recursos.apps module
+Modulo apps
 --------------------------
 
 .. automodule:: tipos_recursos.apps
@@ -27,7 +19,7 @@ tipos_recursos.apps module
     :undoc-members:
     :show-inheritance:
 
-tipos_recursos.forms module
+Modulo forms
 ---------------------------
 
 .. automodule:: tipos_recursos.forms
@@ -35,7 +27,7 @@ tipos_recursos.forms module
     :undoc-members:
     :show-inheritance:
 
-tipos_recursos.models module
+Modulo models
 ----------------------------
 
 .. automodule:: tipos_recursos.models
@@ -43,7 +35,7 @@ tipos_recursos.models module
     :undoc-members:
     :show-inheritance:
 
-tipos_recursos.tests module
+Modulo tests
 ---------------------------
 
 .. automodule:: tipos_recursos.tests
@@ -51,7 +43,7 @@ tipos_recursos.tests module
     :undoc-members:
     :show-inheritance:
 
-tipos_recursos.urls module
+Modulo urls
 --------------------------
 
 .. automodule:: tipos_recursos.urls
@@ -59,7 +51,7 @@ tipos_recursos.urls module
     :undoc-members:
     :show-inheritance:
 
-tipos_recursos.views module
+Modulo views
 ---------------------------
 
 .. automodule:: tipos_recursos.views

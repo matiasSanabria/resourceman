@@ -3,13 +3,16 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to tipos_recursos's documentation!
+Documentacion del Sistema Gerenciador de Reservas
 ==========================================
 
 .. toctree::
-   :maxdepth: 4
-   :caption: Contents:
+   :maxdepth: 5
+   :caption: Contenido:
 
+   permisos
+   roles
+   ususarios
    tipos_recursos
 
 
