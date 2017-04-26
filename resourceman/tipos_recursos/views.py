@@ -91,7 +91,8 @@ def eliminar(request, nombre):
     eliminar = TipoRecurso.objects.get(nombre=nombre)
     mensaje = "Tipo de Recurso \'%s\' eliminado..\n" % eliminar
     messages.add_message(request, messages.INFO, mensaje)
-    eliminar.delete()
+    eliminar.estado = 'I'
+    eliminar.save()
     return redirect('../listar')
 
 
@@ -115,7 +116,7 @@ def listar_tipos_recursos(request):
         """
     mensaje = 'Listar Permisos'
     messages.add_message(request, messages.INFO, mensaje)
-    lista = TipoRecurso.objects.filter(estado='A')
+    lista = TipoRecurso.objects.all()
     return render(request, 'tipo_recurso/listar_tipos_recursos.html', {'lista': lista})
 
 
@@ -208,7 +209,7 @@ def eliminar_estado(request, codigo):
     eliminar = Estados.objects.get(codigo=codigo)
     mensaje = "Estado de Recurso \'%s\' eliminado..\n" % eliminar
     messages.add_message(request, messages.INFO, mensaje)
-    eliminar.delete()
+    eliminar.codigo = 'I'
     return redirect('../listar_estados')
 
 ########################################################################################################################
@@ -294,7 +295,8 @@ def eliminar_recurso(request, codigo):
     eliminar = Recurso.objects.get(codigo_recurso=codigo)
     mensaje = "Recurso \'%s\' eliminado..\n" % eliminar
     messages.add_message(request, messages.INFO, mensaje)
-    eliminar.delete()
+    eliminar.activo = 'I'
+    eliminar.save()
     return redirect('../listar_recursos')
 
 

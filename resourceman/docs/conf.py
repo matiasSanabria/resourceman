@@ -23,6 +23,7 @@
 
 import os
 import sys
+import django
 
 
 # -- General configuration ------------------------------------------------
@@ -180,5 +181,6 @@ epub_copyright = copyright
 # A list of files that should not be packed into the epub file.
 epub_exclude_files = ['search.html']
 
-os.environ['DJANGO_SETTINGS_MODULE'] = 'resourceman.settings'
 sys.path.insert(0, os.path.abspath('..'))
+os.environ['DJANGO_SETTINGS_MODULE'] = 'resourceman.settings'
+django.setup()

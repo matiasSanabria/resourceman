@@ -7,8 +7,10 @@ class TipoRecurso(models.Model):
 
     *Campos:*
 
-    1. ``group``: Referencia al model Groups de Django.
-    #. ``permisos``: Referencia al model Permissions de django.
+    1. ``nombre``: nombre del tipo de recurso utilizado como clave primaria
+    #. ``descripcion``: descripcion del tipo de recurso
+    #. ``lista_caracteristicas``: lista de las caracteristicas que tiene el tipo de recurso
+    #. ``estado``: indica si el tipo de recurso esta activo o inactivo
 
     Returns
     -------
@@ -30,16 +32,9 @@ class TipoRecurso(models.Model):
         return self.nombre
 
     def obtener_caracteristicas(self, nombre):
-        # obtenemos el objeto cuya lista de caracteristicas buscamos
         list = TipoRecurso.objects.get(nombre=nombre)
-
-        # obtenemos solamente la lista de caracteristicas
         list = list.lista_caracteristicas
-
-        # quitamos las llaves y las comillas simples del json
         list = list[2:(len(list)-2)]
-
-        # separamos las caracteristicas por las comas
         list = list.split(',')
 
         caracteristica = []
@@ -68,8 +63,18 @@ class TipoRecurso(models.Model):
 
 class Estados(models.Model):
     """
-        Clase Estados
-        Es la clase que se crea para tener los estados del recurso
+    Definicion del model para los Estados de los recursos
+
+    *Campos:*
+
+    1. ``codigo``: nombre del estado del recurso utilizado como clave primaria
+    #. ``descripcion``: descripcion del estado del recurso
+
+    Returns
+    -------
+    model: ``django.db.models.Model``
+        Un model propio heredado de django.db.models.Model con los campos adicionales.
+
     """
     codigo = models.CharField(max_length=3, null=False, primary_key=True)
     descripcion = models.TextField(max_length=50, null=False)
@@ -89,8 +94,20 @@ class Estados(models.Model):
 
 class Recurso(models.Model):
     """
-        Clase Recurso
-        
+    Definicion del model para los Estados de los recursos
+
+    *Campos:*
+
+    1. ``codigo_recurso``: codigo del recurso recurso utilizado como clave primaria
+    #. ``nombre_recurso``: nombre del recurso
+    #. ``descripcion_recurso``: descripcion del estado del recurso
+    #. ``tipo_recurso``: tipo de recurso del que hereda sus caracteristicas
+    #. ``activo``: indica si el recurso esta activo o no
+
+    Returns
+    -------
+    model: ``django.db.models.Model``
+        Un model propio heredado de django.db.models.Model con los campos adicionales.
     """
 
     def __str__(self):
@@ -116,3 +133,28 @@ class Recurso(models.Model):
         )
 
         db_table = 'recursos'
+
+#class CaracteristicasRecursos(models.Model):
+    """
+    Definicion del model para los Estados de los recursos
+
+    *Campos:*
+
+    1. ``codigo_recurso``: codigo del recurso recurso utilizado como clave primaria
+    #. ``codigo_tipo_recurso``: codigo del tipo de recurso utilizado como clave primaria junto con el codigo de recurso
+    #. ``caracteristica``: caracteristica del tipo de recurso
+    #. ``valor``: valor que toma la caracteristica cargada en tipo de recurso
+    #. ``activo``: indica si el recurso esta activo o no
+
+    Returns
+    -------
+    model: ``django.db.models.Model``
+        Un model propio heredado de django.db.models.Model con los campos adicionales.
+    """
+
+#    codigo_recurso = models.OneToOneField(Recurso, on_delete=models.CASCADE, null=False)
+#    codigo_tipo_recurso = models.OneToOneField(TipoRecurso, on_delete=models.CASCADE, null=False)
+#    caracteristicas = TipoRecurso.obtener_caracteristicas()
+
+#    class Meta:
+#        unique_together = (("codigo_recurso", "codigo_tipo_recurso"),)
