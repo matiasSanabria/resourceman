@@ -72,7 +72,7 @@ def listarUsuario(request):
 
     print(usuario.count())
     print(detalle_usuario.count())
-    if usuario.count() == 1 and detalle_usuario.count() == 0:
+    if usuario.count() == 2 and detalle_usuario.count() == 0:
         print("aqui")
         new_detail_for_admin = Usuario.objects.create(usuario=usuario.first())
         new_detail_for_admin.save()
