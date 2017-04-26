@@ -10,8 +10,11 @@ from .forms import UsuarioCreationForm,UsuarioDetalleForm, AgregarPrioridad
 from django.contrib import messages
 from django.contrib.auth.models import User, Group, Permission
 from django.shortcuts import render, redirect, render_to_response
+from django.contrib.auth.decorators import login_required, permission_required
 
 # Create your views here.
+@login_required
+@permission_required('usuarios.per_crear_usuario')
 def crearUsuario(request):
     """
         Página para la creacion de Usuarios.
@@ -35,8 +38,11 @@ def crearUsuario(request):
 
                 # guardando relacion group user
                 g1 = Group.objects.get(id=request.POST.get('groups'))
+
                 print(g1.name)
+                print("")
                 print("Username")
+
                 user1 = User.objects.get(username=request.POST.get('username'))
                 print(user1.username)
 
@@ -45,9 +51,10 @@ def crearUsuario(request):
                 user_detail = user_detail_form.save(commit=False)  # guarda en el objeto model, sin guardarlo en la BD.
                 user_detail.usuario = user  # asocia de detalle al usuario.
                 user_detail.save()  # guarda en BD.
+                print("fin")
                 messages.add_message(request, messages.SUCCESS,
                                      "Usuario -%s- ha sido creado correctamente." % user.username)
-                return redirect('agregarUsuario')
+                return redirect('listarUsuario')
 
     else:
         user_form = UsuarioCreationForm()

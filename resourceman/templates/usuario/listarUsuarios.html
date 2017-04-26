@@ -57,13 +57,15 @@
             margin-left: 20%;
         }
     </style>
+
 </head>
 <body>
     {%include 'navbar.html'%}
     {%include 'sidenav.html'%}
     <h1>Lista de Usuarios.<a href="{% url 'agregarUsuario' %}"><button id="agregar" type="button" class="btn btn-success btn-lg">Agregar Usuario</button></a></h1>
     <div id="mitabla">
-    <table class="table table-hover">
+{#    <table class="table table-hover">#}
+    <table class="table table-hover" id="datatable">
         <thead>
             <tr>
                 <th>User</th>
@@ -91,6 +93,7 @@
         </tbody>
     </table>
     </div>
+    {% include 'datatablescript.html' %}
 
 </body>
 </html>
