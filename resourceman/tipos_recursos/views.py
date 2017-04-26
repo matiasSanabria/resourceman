@@ -121,7 +121,7 @@ def listar_tipos_recursos(request):
 
 
 ########################################################################################################################
-@login_required
+#@login_required
 def listar_estados(request):
     """
         Permite listar los estados de los recursos con los siguientes datos
@@ -140,7 +140,7 @@ def listar_estados(request):
     return render(request, 'estados/listar_estados.html', {'lista': lista})
 
 
-@login_required
+#@login_required
 def crear_estado(request):
     """
         Permite crear un estado de recurso con los siguientes datos
@@ -153,11 +153,13 @@ def crear_estado(request):
     """
     if request.method == "POST":
         estado = EstadoForm(request.POST)
-        if estado.is_valid():
-            estado.save()
-            return redirect('crear_estado')
+        if estado is not None:
+            if estado.is_valid():
+                estado.save()
+                messages.success(request, "Estado guardado correctamente")
+                return redirect('crear_estado')
         else:
-            pass
+            messages.error(request, "Ocurrio un error al guardar el estado. Vuelva a intentarlo")
     estado = EstadoForm()
     return render(request, 'estados/crear_estado.html', {'estado': estado})
 

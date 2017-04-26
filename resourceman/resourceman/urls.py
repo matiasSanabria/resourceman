@@ -17,7 +17,6 @@ from django.conf.urls import include, url
 from django.contrib import admin
 
 urlpatterns = [
-    url(r'^index/', include('index.urls')),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^login/', include('login.urls')),
     url(r'^logout/', include('login.urls')),
@@ -26,7 +25,7 @@ urlpatterns = [
     url(r'^estados/', include('tipos_recursos.urls')),
     url(r'^usuarios/', include('usuarios.urls')),
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^index/', include('index.urls')),
+    url(r'', include('index.urls')),
     url(r'^permisos/', include('permisos.urls')),
     url(r'^roles/', include('roles.urls')),
 ]
