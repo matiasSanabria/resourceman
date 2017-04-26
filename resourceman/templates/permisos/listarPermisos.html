@@ -57,13 +57,14 @@
             margin-left: 20%;
         }
     </style>
+{#    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css">#}
 </head>
 <body>
     {%include 'navbar.html'%}
     {%include 'sidenav.html'%}
     <h1>Lista de Permisos.<a href="{% url 'agregarPermisos' %}"><button id="agregar" type="button" class="btn btn-success btn-lg">Agregar Permiso</button></a></h1>
     <div id="mitabla">
-    <table class="table table-hover">
+    <table class="table table-hover" id="datatable">
         <thead>
             <tr>
                 <th>Nombre</th>
@@ -84,5 +85,37 @@
         </tbody>
     </table>
     </div>
+{#    <script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>#}
+{#    <script>#}
+{#        var datatable = $('#datatable');#}
+{#        $(function () {#}
+{#            datatable.DataTable( {#}
+{#                language: {#}
+{#                    processing:     "Procesando...",#}
+{#                    search:         "Buscar: ",#}
+{#                    lengthMenu:    "Ver _MENU_ elementos",#}
+{#                    info:           "Mostrando _START_ a _END_ de _TOTAL_ elementos",#}
+{#                    //infoEmpty:      "Affichage de l'&eacute;lement 0 &agrave; 0 sur 0 &eacute;l&eacute;ments",#}
+{#                    infoFiltered:   "(filtr&eacute; de _MAX_ &eacute;l&eacute;ments au total)",#}
+{#                    infoPostFix:    "",#}
+{#                    loadingRecords: "Chargement en cours...",#}
+{#                    zeroRecords:    "Aucun &eacute;l&eacute;ment &agrave; afficher",#}
+{#                    emptyTable:     "Aucune donnée disponible dans le tableau",#}
+{#                    paginate: {#}
+{#                        first:      "Primero",#}
+{#                        previous:   "Anterior",#}
+{#                        next:       "Siguiente",#}
+{#                        last:       "Ultimo"#}
+{#                    },#}
+{#                    aria: {#}
+{#                        sortAscending:  ": activer pour trier la colonne par ordre croissant",#}
+{#                        sortDescending: ": activer pour trier la colonne par ordre décroissant"#}
+{#                    }#}
+{#                }#}
+{#            } );#}
+{#            datatable.DataTable();#}
+{#        });#}
+{#    </script>#}
+    {% include 'datatablescript.html' %}
 </body>
 </html>

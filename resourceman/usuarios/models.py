@@ -1,4 +1,4 @@
-from django.contrib.auth.models import User, Group
+from django.contrib.auth.models import User, Group, Permission
 from django.db import models
 
 """
@@ -49,6 +49,9 @@ class PrioridadUsuario(models.Model):
     codigo = models.TextField(blank=False, max_length=4, null=False, unique=True)
     descripcion = models.TextField(blank=False, max_length=50, null=False, unique=True)
 
+    class Meta:
+        db_table = 'prioridad_usuario'
+
 class Usuario(models.Model):
     """
         Un model con campos adicionales para model User.
@@ -86,3 +89,4 @@ class Usuario(models.Model):
             ('per_eliminar_usuario', "Puede eliminar usuario"),
             ('per_ver_usuario', "Puede ver usuario"),
         )
+        db_table = 'usuario'
