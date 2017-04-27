@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <style>
+        .row.content {height: 560px;}
+
+        .sidenav {
+            background-color: #00796b;
+            height: 100%;
+        }
+
+        footer {
+          background-color: #FF6F00;
+          color: white;
+        }
+
+        @media screen and (max-width: 767px) {
+          .sidenav {
+            height: auto;
+              }
+          .row.content {height: auto;}
+        }
+
+        .navbar {
+          margin-bottom: 0px;
+          border-radius: 0px;
+          background-color: #004c40;
+          border-color: #004c40;
+        }
+        body {
+            background-color: #eeeeee;
+        }
+    </style>
+    <title>Agregar Roles</title>
+    <style>
+        form {
+            /* Sólo para centrar el formulario a la página */
+            /*margin: 0 auto;*/
+            width: 50%;
+            margin-left: 30%;
+
+            /* Para ver el borde del formulario */
+            /*padding: 1em;
+            border: 1px solid #CCC;
+            border-radius: 1em;*/
+        }
+        h1{
+            margin-left: 45%;
+        }
+        .button {
+            /* Para posicionar los botones a la misma posición que los campos de texto */
+            padding-left: 60%; /* mismo tamaño a todos los elementos label */
+
+        }
+        #button {
+            margin-left: 20%;
+
+        }
+    </style>
+</head>
+<body>
+    {%include 'navbar.html'%}
+    {%include 'sidenav.html'%}
+    <form action="" method="post">{% csrf_token %}
+    <h1>Agregar Rol<button id="button" type="submit" class="btn btn-primary btn-lg">Guardar</button>
+            <button type="reset" class="btn btn-danger btn-lg">Limpiar</button></h1>
+
+        <div>
+            <label>Nombre:</label>
+            {{ rol_form.name }}
+        </div>
+        <div>
+            <label>Seleccione los permisos:</label>
+            {{ rol_form.permissions }}
+        </div>
+    </form>
+
+</body>
+</html>

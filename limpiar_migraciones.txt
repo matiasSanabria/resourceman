@@ -1,0 +1,19 @@
+#!/bin/sh
+
+# scrip para limpiar migraciones de bases de datos
+
+# eliminar la tabla django_migrations de la bd
+sudo -u postgres psql is2db -c "DROP TABLE IF EXISTS django_migrations;"
+
+# vamos hasta el directorio del proyecto
+cd /home/$USER/is2/resourceman/
+
+# eliminamos los directorios ../migrations/
+find ./ -type d -name "migrations" -exec rm -rf {} \;
+
+# creamos el migration de la app que queremos o tenemos
+./manage.py makemigrations appejemplo1
+./manage.py makemigrations appejemplo2
+
+# realizamos la migracion
+./manage migrate
