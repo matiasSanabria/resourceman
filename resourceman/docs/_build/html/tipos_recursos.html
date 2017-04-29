@@ -1,0 +1,787 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Paquete tipos de recursos &#8212; tipos_recursos  documentation</title>
+    
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Paquete roles" href="roles.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="paquete-tipos-de-recursos">
+<h1>Paquete tipos de recursos<a class="headerlink" href="#paquete-tipos-de-recursos" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodulols">
+<h2>Submodulols<a class="headerlink" href="#submodulols" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-tipos_recursos.admin">
+<span id="modulo-admin"></span><h2>Modulo admin<a class="headerlink" href="#module-tipos_recursos.admin" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-tipos_recursos.apps">
+<span id="modulo-apps"></span><h2>Modulo apps<a class="headerlink" href="#module-tipos_recursos.apps" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="tipos_recursos.apps.TiposRecursosConfig">
+<em class="property">class </em><code class="descclassname">tipos_recursos.apps.</code><code class="descname">TiposRecursosConfig</code><span class="sig-paren">(</span><em>app_name</em>, <em>app_module</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tipos_recursos/apps.html#TiposRecursosConfig"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tipos_recursos.apps.TiposRecursosConfig" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">django.apps.config.AppConfig</span></code></p>
+<p>Definicion del modulo de tipos de recursos</p>
+<dl class="attribute">
+<dt id="tipos_recursos.apps.TiposRecursosConfig.name">
+<code class="descname">name</code><em class="property"> = 'tipos_recursos'</em><a class="headerlink" href="#tipos_recursos.apps.TiposRecursosConfig.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-tipos_recursos.forms">
+<span id="modulo-forms"></span><h2>Modulo forms<a class="headerlink" href="#module-tipos_recursos.forms" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="tipos_recursos.forms.EstadoForm">
+<em class="property">class </em><code class="descclassname">tipos_recursos.forms.</code><code class="descname">EstadoForm</code><span class="sig-paren">(</span><em>data=None</em>, <em>files=None</em>, <em>auto_id='id_%s'</em>, <em>prefix=None</em>, <em>initial=None</em>, <em>error_class=&lt;class 'django.forms.utils.ErrorList'&gt;</em>, <em>label_suffix=None</em>, <em>empty_permitted=False</em>, <em>instance=None</em>, <em>use_required_attribute=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tipos_recursos/forms.html#EstadoForm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tipos_recursos.forms.EstadoForm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">django.forms.models.ModelForm</span></code></p>
+<p>Formulario para la clase Estados de Recurso</p>
+<dl class="class">
+<dt id="tipos_recursos.forms.EstadoForm.Meta">
+<em class="property">class </em><code class="descname">Meta</code><a class="reference internal" href="_modules/tipos_recursos/forms.html#EstadoForm.Meta"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tipos_recursos.forms.EstadoForm.Meta" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dl class="attribute">
+<dt id="tipos_recursos.forms.EstadoForm.Meta.fields">
+<code class="descname">fields</code><em class="property"> = '__all__'</em><a class="headerlink" href="#tipos_recursos.forms.EstadoForm.Meta.fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="tipos_recursos.forms.EstadoForm.Meta.model">
+<code class="descname">model</code><a class="headerlink" href="#tipos_recursos.forms.EstadoForm.Meta.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal"><span class="pre">Estados</span></code></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="tipos_recursos.forms.EstadoForm.Meta.widgets">
+<code class="descname">widgets</code><em class="property"> = {'codigo': &lt;django.forms.widgets.TextInput object&gt;, 'descripcion': &lt;django.forms.widgets.Textarea object&gt;}</em><a class="headerlink" href="#tipos_recursos.forms.EstadoForm.Meta.widgets" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="attribute">
+<dt id="tipos_recursos.forms.EstadoForm.base_fields">
+<code class="descclassname">EstadoForm.</code><code class="descname">base_fields</code><em class="property"> = OrderedDict([('codigo', &lt;django.forms.fields.CharField object&gt;), ('descripcion', &lt;django.forms.fields.CharField object&gt;)])</em><a class="headerlink" href="#tipos_recursos.forms.EstadoForm.base_fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="tipos_recursos.forms.EstadoForm.declared_fields">
+<code class="descclassname">EstadoForm.</code><code class="descname">declared_fields</code><em class="property"> = OrderedDict()</em><a class="headerlink" href="#tipos_recursos.forms.EstadoForm.declared_fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="tipos_recursos.forms.EstadoForm.media">
+<code class="descclassname">EstadoForm.</code><code class="descname">media</code><a class="headerlink" href="#tipos_recursos.forms.EstadoForm.media" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="tipos_recursos.forms.RecursoForm">
+<em class="property">class </em><code class="descclassname">tipos_recursos.forms.</code><code class="descname">RecursoForm</code><span class="sig-paren">(</span><em>data=None</em>, <em>files=None</em>, <em>auto_id='id_%s'</em>, <em>prefix=None</em>, <em>initial=None</em>, <em>error_class=&lt;class 'django.forms.utils.ErrorList'&gt;</em>, <em>label_suffix=None</em>, <em>empty_permitted=False</em>, <em>instance=None</em>, <em>use_required_attribute=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tipos_recursos/forms.html#RecursoForm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tipos_recursos.forms.RecursoForm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">django.forms.models.ModelForm</span></code></p>
+<p>Formulario para la clase Recurso</p>
+<dl class="class">
+<dt id="tipos_recursos.forms.RecursoForm.Meta">
+<em class="property">class </em><code class="descname">Meta</code><a class="reference internal" href="_modules/tipos_recursos/forms.html#RecursoForm.Meta"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tipos_recursos.forms.RecursoForm.Meta" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dl class="attribute">
+<dt id="tipos_recursos.forms.RecursoForm.Meta.fields">
+<code class="descname">fields</code><em class="property"> = '__all__'</em><a class="headerlink" href="#tipos_recursos.forms.RecursoForm.Meta.fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="tipos_recursos.forms.RecursoForm.Meta.model">
+<code class="descname">model</code><a class="headerlink" href="#tipos_recursos.forms.RecursoForm.Meta.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal"><span class="pre">Recurso</span></code></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="tipos_recursos.forms.RecursoForm.Meta.widgets">
+<code class="descname">widgets</code><em class="property"> = {'tipo_recurso': &lt;django.forms.widgets.Select object&gt;, 'nombre_recurso': &lt;django.forms.widgets.TextInput object&gt;, 'descripcion_recurso': &lt;django.forms.widgets.Textarea object&gt;, 'codigo_recurso': &lt;django.forms.widgets.TextInput object&gt;, 'activo': &lt;django.forms.widgets.Select object&gt;}</em><a class="headerlink" href="#tipos_recursos.forms.RecursoForm.Meta.widgets" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="attribute">
+<dt id="tipos_recursos.forms.RecursoForm.base_fields">
+<code class="descclassname">RecursoForm.</code><code class="descname">base_fields</code><em class="property"> = OrderedDict([('codigo_recurso', &lt;django.forms.fields.CharField object&gt;), ('nombre_recurso', &lt;django.forms.fields.CharField object&gt;), ('descripcion_recurso', &lt;django.forms.fields.CharField object&gt;), ('tipo_recurso', &lt;django.forms.models.ModelChoiceField object&gt;), ('activo', &lt;django.forms.fields.TypedChoiceField object&gt;)])</em><a class="headerlink" href="#tipos_recursos.forms.RecursoForm.base_fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="tipos_recursos.forms.RecursoForm.declared_fields">
+<code class="descclassname">RecursoForm.</code><code class="descname">declared_fields</code><em class="property"> = OrderedDict()</em><a class="headerlink" href="#tipos_recursos.forms.RecursoForm.declared_fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="tipos_recursos.forms.RecursoForm.media">
+<code class="descclassname">RecursoForm.</code><code class="descname">media</code><a class="headerlink" href="#tipos_recursos.forms.RecursoForm.media" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="tipos_recursos.forms.TipoRecursoForm">
+<em class="property">class </em><code class="descclassname">tipos_recursos.forms.</code><code class="descname">TipoRecursoForm</code><span class="sig-paren">(</span><em>data=None</em>, <em>files=None</em>, <em>auto_id='id_%s'</em>, <em>prefix=None</em>, <em>initial=None</em>, <em>error_class=&lt;class 'django.forms.utils.ErrorList'&gt;</em>, <em>label_suffix=None</em>, <em>empty_permitted=False</em>, <em>instance=None</em>, <em>use_required_attribute=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tipos_recursos/forms.html#TipoRecursoForm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tipos_recursos.forms.TipoRecursoForm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">django.forms.models.ModelForm</span></code></p>
+<p>Formulario para los Tipos de Recursos</p>
+<dl class="class">
+<dt id="tipos_recursos.forms.TipoRecursoForm.Meta">
+<em class="property">class </em><code class="descname">Meta</code><a class="reference internal" href="_modules/tipos_recursos/forms.html#TipoRecursoForm.Meta"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tipos_recursos.forms.TipoRecursoForm.Meta" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dl class="attribute">
+<dt id="tipos_recursos.forms.TipoRecursoForm.Meta.fields">
+<code class="descname">fields</code><em class="property"> = '__all__'</em><a class="headerlink" href="#tipos_recursos.forms.TipoRecursoForm.Meta.fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="tipos_recursos.forms.TipoRecursoForm.Meta.model">
+<code class="descname">model</code><a class="headerlink" href="#tipos_recursos.forms.TipoRecursoForm.Meta.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal"><span class="pre">TipoRecurso</span></code></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="tipos_recursos.forms.TipoRecursoForm.Meta.widgets">
+<code class="descname">widgets</code><em class="property"> = {'lista_caracteristicas': &lt;django.forms.widgets.Textarea object&gt;, 'nombre': &lt;django.forms.widgets.TextInput object&gt;, 'estado': &lt;django.forms.widgets.Select object&gt;, 'descripcion': &lt;django.forms.widgets.TextInput object&gt;}</em><a class="headerlink" href="#tipos_recursos.forms.TipoRecursoForm.Meta.widgets" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="attribute">
+<dt id="tipos_recursos.forms.TipoRecursoForm.base_fields">
+<code class="descclassname">TipoRecursoForm.</code><code class="descname">base_fields</code><em class="property"> = OrderedDict([('nombre', &lt;django.forms.fields.CharField object&gt;), ('descripcion', &lt;django.forms.fields.CharField object&gt;), ('lista_caracteristicas', &lt;django.forms.fields.CharField object&gt;), ('estado', &lt;django.forms.fields.TypedChoiceField object&gt;)])</em><a class="headerlink" href="#tipos_recursos.forms.TipoRecursoForm.base_fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="tipos_recursos.forms.TipoRecursoForm.declared_fields">
+<code class="descclassname">TipoRecursoForm.</code><code class="descname">declared_fields</code><em class="property"> = OrderedDict()</em><a class="headerlink" href="#tipos_recursos.forms.TipoRecursoForm.declared_fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="tipos_recursos.forms.TipoRecursoForm.media">
+<code class="descclassname">TipoRecursoForm.</code><code class="descname">media</code><a class="headerlink" href="#tipos_recursos.forms.TipoRecursoForm.media" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-tipos_recursos.models">
+<span id="modulo-models"></span><h2>Modulo models<a class="headerlink" href="#module-tipos_recursos.models" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="tipos_recursos.models.Estados">
+<em class="property">class </em><code class="descclassname">tipos_recursos.models.</code><code class="descname">Estados</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tipos_recursos/models.html#Estados"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tipos_recursos.models.Estados" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">django.db.models.base.Model</span></code></p>
+<p>Clase Estados
+Es la clase que se crea para tener los estados del recurso</p>
+<dl class="exception">
+<dt id="tipos_recursos.models.Estados.DoesNotExist">
+<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#tipos_recursos.models.Estados.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">django.core.exceptions.ObjectDoesNotExist</span></code></p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="tipos_recursos.models.Estados.MultipleObjectsReturned">
+<em class="property">exception </em><code class="descclassname">Estados.</code><code class="descname">MultipleObjectsReturned</code><a class="headerlink" href="#tipos_recursos.models.Estados.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">django.core.exceptions.MultipleObjectsReturned</span></code></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="tipos_recursos.models.Estados.codigo">
+<code class="descclassname">Estados.</code><code class="descname">codigo</code><a class="headerlink" href="#tipos_recursos.models.Estados.codigo" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="tipos_recursos.models.Estados.descripcion">
+<code class="descclassname">Estados.</code><code class="descname">descripcion</code><a class="headerlink" href="#tipos_recursos.models.Estados.descripcion" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="tipos_recursos.models.Estados.objects">
+<code class="descclassname">Estados.</code><code class="descname">objects</code><em class="property"> = &lt;django.db.models.manager.Manager object&gt;</em><a class="headerlink" href="#tipos_recursos.models.Estados.objects" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="tipos_recursos.models.Recurso">
+<em class="property">class </em><code class="descclassname">tipos_recursos.models.</code><code class="descname">Recurso</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tipos_recursos/models.html#Recurso"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tipos_recursos.models.Recurso" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">django.db.models.base.Model</span></code></p>
+<p>Clase Recurso</p>
+<dl class="attribute">
+<dt id="tipos_recursos.models.Recurso.ACTIVO_CHOICE">
+<code class="descname">ACTIVO_CHOICE</code><em class="property"> = (('A', 'ACTIVO'), ('I', 'INACTIVO'))</em><a class="headerlink" href="#tipos_recursos.models.Recurso.ACTIVO_CHOICE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="exception">
+<dt id="tipos_recursos.models.Recurso.DoesNotExist">
+<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#tipos_recursos.models.Recurso.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">django.core.exceptions.ObjectDoesNotExist</span></code></p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="tipos_recursos.models.Recurso.MultipleObjectsReturned">
+<em class="property">exception </em><code class="descclassname">Recurso.</code><code class="descname">MultipleObjectsReturned</code><a class="headerlink" href="#tipos_recursos.models.Recurso.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">django.core.exceptions.MultipleObjectsReturned</span></code></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="tipos_recursos.models.Recurso.activo">
+<code class="descclassname">Recurso.</code><code class="descname">activo</code><a class="headerlink" href="#tipos_recursos.models.Recurso.activo" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="tipos_recursos.models.Recurso.codigo_recurso">
+<code class="descclassname">Recurso.</code><code class="descname">codigo_recurso</code><a class="headerlink" href="#tipos_recursos.models.Recurso.codigo_recurso" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="tipos_recursos.models.Recurso.descripcion_recurso">
+<code class="descclassname">Recurso.</code><code class="descname">descripcion_recurso</code><a class="headerlink" href="#tipos_recursos.models.Recurso.descripcion_recurso" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tipos_recursos.models.Recurso.get_activo_display">
+<code class="descclassname">Recurso.</code><code class="descname">get_activo_display</code><span class="sig-paren">(</span><em>*moreargs</em>, <em>**morekwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#tipos_recursos.models.Recurso.get_activo_display" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="tipos_recursos.models.Recurso.nombre_recurso">
+<code class="descclassname">Recurso.</code><code class="descname">nombre_recurso</code><a class="headerlink" href="#tipos_recursos.models.Recurso.nombre_recurso" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="tipos_recursos.models.Recurso.objects">
+<code class="descclassname">Recurso.</code><code class="descname">objects</code><em class="property"> = &lt;django.db.models.manager.Manager object&gt;</em><a class="headerlink" href="#tipos_recursos.models.Recurso.objects" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="tipos_recursos.models.Recurso.tipo_recurso">
+<code class="descclassname">Recurso.</code><code class="descname">tipo_recurso</code><a class="headerlink" href="#tipos_recursos.models.Recurso.tipo_recurso" title="Permalink to this definition">¶</a></dt>
+<dd><p>Accessor to the related object on the forward side of a many-to-one or
+one-to-one relation.</p>
+<p>In the example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Child</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">parent</span> <span class="o">=</span> <span class="n">ForeignKey</span><span class="p">(</span><span class="n">Parent</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;children&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal"><span class="pre">child.parent</span></code> is a <code class="docutils literal"><span class="pre">ForwardManyToOneDescriptor</span></code> instance.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="tipos_recursos.models.Recurso.tipo_recurso_id">
+<code class="descclassname">Recurso.</code><code class="descname">tipo_recurso_id</code><a class="headerlink" href="#tipos_recursos.models.Recurso.tipo_recurso_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="tipos_recursos.models.TipoRecurso">
+<em class="property">class </em><code class="descclassname">tipos_recursos.models.</code><code class="descname">TipoRecurso</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tipos_recursos/models.html#TipoRecurso"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tipos_recursos.models.TipoRecurso" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">django.db.models.base.Model</span></code></p>
+<p>Definicion del model para los Tipos de Recursos</p>
+<p><em>Campos:</em></p>
+<ol class="arabic simple">
+<li><code class="docutils literal"><span class="pre">group</span></code>: Referencia al model Groups de Django.</li>
+<li><code class="docutils literal"><span class="pre">permisos</span></code>: Referencia al model Permissions de django.</li>
+</ol>
+<dl class="docutils">
+<dt>model: <code class="docutils literal"><span class="pre">django.db.models.Model</span></code></dt>
+<dd>Un model propio heredado de django.db.models.Model con los campos adicionales.</dd>
+</dl>
+<dl class="exception">
+<dt id="tipos_recursos.models.TipoRecurso.DoesNotExist">
+<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#tipos_recursos.models.TipoRecurso.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">django.core.exceptions.ObjectDoesNotExist</span></code></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="tipos_recursos.models.TipoRecurso.ESTADO_CHOICE">
+<code class="descclassname">TipoRecurso.</code><code class="descname">ESTADO_CHOICE</code><em class="property"> = (('A', 'ACTIVO'), ('I', 'INACTIVO'))</em><a class="headerlink" href="#tipos_recursos.models.TipoRecurso.ESTADO_CHOICE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="exception">
+<dt id="tipos_recursos.models.TipoRecurso.MultipleObjectsReturned">
+<em class="property">exception </em><code class="descclassname">TipoRecurso.</code><code class="descname">MultipleObjectsReturned</code><a class="headerlink" href="#tipos_recursos.models.TipoRecurso.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">django.core.exceptions.MultipleObjectsReturned</span></code></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="tipos_recursos.models.TipoRecurso.descripcion">
+<code class="descclassname">TipoRecurso.</code><code class="descname">descripcion</code><a class="headerlink" href="#tipos_recursos.models.TipoRecurso.descripcion" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="tipos_recursos.models.TipoRecurso.estado">
+<code class="descclassname">TipoRecurso.</code><code class="descname">estado</code><a class="headerlink" href="#tipos_recursos.models.TipoRecurso.estado" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tipos_recursos.models.TipoRecurso.get_estado_display">
+<code class="descclassname">TipoRecurso.</code><code class="descname">get_estado_display</code><span class="sig-paren">(</span><em>*moreargs</em>, <em>**morekwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#tipos_recursos.models.TipoRecurso.get_estado_display" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="tipos_recursos.models.TipoRecurso.lista_caracteristicas">
+<code class="descclassname">TipoRecurso.</code><code class="descname">lista_caracteristicas</code><a class="headerlink" href="#tipos_recursos.models.TipoRecurso.lista_caracteristicas" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="tipos_recursos.models.TipoRecurso.nombre">
+<code class="descclassname">TipoRecurso.</code><code class="descname">nombre</code><a class="headerlink" href="#tipos_recursos.models.TipoRecurso.nombre" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="tipos_recursos.models.TipoRecurso.objects">
+<code class="descclassname">TipoRecurso.</code><code class="descname">objects</code><em class="property"> = &lt;django.db.models.manager.Manager object&gt;</em><a class="headerlink" href="#tipos_recursos.models.TipoRecurso.objects" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="tipos_recursos.models.TipoRecurso.obtener_caracteristicas">
+<code class="descclassname">TipoRecurso.</code><code class="descname">obtener_caracteristicas</code><span class="sig-paren">(</span><em>nombre</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tipos_recursos/models.html#TipoRecurso.obtener_caracteristicas"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tipos_recursos.models.TipoRecurso.obtener_caracteristicas" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="tipos_recursos.models.TipoRecurso.recurso">
+<code class="descclassname">TipoRecurso.</code><code class="descname">recurso</code><a class="headerlink" href="#tipos_recursos.models.TipoRecurso.recurso" title="Permalink to this definition">¶</a></dt>
+<dd><p>Accessor to the related object on the reverse side of a one-to-one
+relation.</p>
+<p>In the example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Restaurant</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">place</span> <span class="o">=</span> <span class="n">OneToOneField</span><span class="p">(</span><span class="n">Place</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;restaurant&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal"><span class="pre">place.restaurant</span></code> is a <code class="docutils literal"><span class="pre">ReverseOneToOneDescriptor</span></code> instance.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-tipos_recursos.tests">
+<span id="modulo-tests"></span><h2>Modulo tests<a class="headerlink" href="#module-tipos_recursos.tests" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="tipos_recursos.tests.TipoRecursoTestCase">
+<em class="property">class </em><code class="descclassname">tipos_recursos.tests.</code><code class="descname">TipoRecursoTestCase</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tipos_recursos/tests.html#TipoRecursoTestCase"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tipos_recursos.tests.TipoRecursoTestCase" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">django.test.testcases.TestCase</span></code></p>
+<dl class="method">
+<dt id="tipos_recursos.tests.TipoRecursoTestCase.obtener_tipo_recurso">
+<code class="descname">obtener_tipo_recurso</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/tipos_recursos/tests.html#TipoRecursoTestCase.obtener_tipo_recurso"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tipos_recursos.tests.TipoRecursoTestCase.obtener_tipo_recurso" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="tipos_recursos.tests.TipoRecursoTestCase.setUp">
+<code class="descname">setUp</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/tipos_recursos/tests.html#TipoRecursoTestCase.setUp"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tipos_recursos.tests.TipoRecursoTestCase.setUp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Esto es un tipo de recurso
+- fields: {nombre: NOTEBOOK,</p>
+<blockquote>
+<div><p>descripcion: NOTEBOOK, 
+lista_caracteristicas: &#8216;{&#8220;marca&#8221;:&#8221;character varying(10), &#8216;</p>
+<blockquote>
+<div>&#8216;&#8220;pantalla_pulgadas&#8221;:&#8221;biginteger&#8221;,&#8217;
+&#8216;&#8220;procesador&#8221;:&#8221;character varying(20)&#8221;,&#8217;
+&#8216;&#8220;memoria_ram&#8221;: &#8220;character varying(20)&#8221;}&#8217;}</div></blockquote>
+</div></blockquote>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-tipos_recursos.urls">
+<span id="modulo-urls"></span><h2>Modulo urls<a class="headerlink" href="#module-tipos_recursos.urls" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-tipos_recursos.views">
+<span id="modulo-views"></span><h2>Modulo views<a class="headerlink" href="#module-tipos_recursos.views" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="tipos_recursos.views.crear">
+<code class="descclassname">tipos_recursos.views.</code><code class="descname">crear</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tipos_recursos/views.html#crear"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tipos_recursos.views.crear" title="Permalink to this definition">¶</a></dt>
+<dd><p>Permite crear un nuevo tipo de recurso con los siguientes datos</p>
+<dl class="docutils">
+<dt>nombre nombre: </dt>
+<dd>del tipo de recurso que se utiliza como clave primaria</dd>
+<dt>descripcion: </dt>
+<dd>descripcion del tipo de recurso</dd>
+<dt>lista de caracteristicas:</dt>
+<dd>lista de las caracteristicas que seran utilizadas para instanciar una clase de recurso</dd>
+<dt>estado:</dt>
+<dd>indica si el tipo de recurso esta activo o no
+- A &#8216;Activo&#8217;
+- I &#8216;Inactivo&#8217;</dd>
+</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>request</strong> &#8211; </td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">el formulario para crear otro tipo de recurso</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="tipos_recursos.views.crear_estado">
+<code class="descclassname">tipos_recursos.views.</code><code class="descname">crear_estado</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tipos_recursos/views.html#crear_estado"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tipos_recursos.views.crear_estado" title="Permalink to this definition">¶</a></dt>
+<dd><p>Permite crear un estado de recurso con los siguientes datos
+codigo:</p>
+<blockquote>
+<div>del estado de recurso que se utiliza como clave primaria</div></blockquote>
+<dl class="docutils">
+<dt>descripcion: </dt>
+<dd>descripcion del estado de recurso</dd>
+</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>request</strong> &#8211; </td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">el formulario para crear otro tipo de recurso</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="tipos_recursos.views.crear_recurso">
+<code class="descclassname">tipos_recursos.views.</code><code class="descname">crear_recurso</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tipos_recursos/views.html#crear_recurso"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tipos_recursos.views.crear_recurso" title="Permalink to this definition">¶</a></dt>
+<dd><p>Crea un nuevo recurso con los siguientes datos</p>
+<dl class="docutils">
+<dt>codigo_recurso:</dt>
+<dd>codigo del recurso utilizado como clave primaria</dd>
+<dt>nombre_recurso:</dt>
+<dd>nombre para el recurso</dd>
+<dt>descripcion_recurso:</dt>
+<dd>descripcion del recurso a crear</dd>
+<dt>tipo_recurso:</dt>
+<dd>indica a que tipo de recurso pertenece</dd>
+<dt>activo:</dt>
+<dd>indica si esta activo o inactivo</dd>
+</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>request</strong> &#8211; </td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">formulario para crear un nuevo recurso</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="tipos_recursos.views.editar">
+<code class="descclassname">tipos_recursos.views.</code><code class="descname">editar</code><span class="sig-paren">(</span><em>request</em>, <em>nombre</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tipos_recursos/views.html#editar"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tipos_recursos.views.editar" title="Permalink to this definition">¶</a></dt>
+<dd><p>Permite editar tipo de recurso con los siguientes datos</p>
+<dl class="docutils">
+<dt>nombre nombre: </dt>
+<dd>del tipo de recurso que se utiliza como clave primaria</dd>
+<dt>descripcion: </dt>
+<dd>descripcion del tipo de recurso</dd>
+<dt>lista de caracteristicas:</dt>
+<dd>lista de las caracteristicas que seran utilizadas para instanciar una clase de recurso</dd>
+<dt>estado:</dt>
+<dd>indica si el tipo de recurso esta activo o no
+- A &#8216;Activo&#8217;
+- I &#8216;Inactivo&#8217;</dd>
+</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>request</strong> &#8211; </td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">el formulario para editar otro tipo de recurso</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="tipos_recursos.views.editar_estado">
+<code class="descclassname">tipos_recursos.views.</code><code class="descname">editar_estado</code><span class="sig-paren">(</span><em>request</em>, <em>codigo</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tipos_recursos/views.html#editar_estado"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tipos_recursos.views.editar_estado" title="Permalink to this definition">¶</a></dt>
+<dd><p>Permite editar un estado de recurso con los siguientes datos
+codigo:</p>
+<blockquote>
+<div>del estado de recurso que se utiliza como clave primaria</div></blockquote>
+<dl class="docutils">
+<dt>descripcion: </dt>
+<dd>descripcion del estado de recurso</dd>
+</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>request</strong> &#8211; </td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">el formulario para editar otro tipo de recurso</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="tipos_recursos.views.editar_recurso">
+<code class="descclassname">tipos_recursos.views.</code><code class="descname">editar_recurso</code><span class="sig-paren">(</span><em>request</em>, <em>codigo_recurso</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tipos_recursos/views.html#editar_recurso"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tipos_recursos.views.editar_recurso" title="Permalink to this definition">¶</a></dt>
+<dd><p>Edita recurso con los siguientes datos</p>
+<dl class="docutils">
+<dt>codigo_recurso:</dt>
+<dd>codigo del recurso utilizado como clave primaria</dd>
+<dt>nombre_recurso:</dt>
+<dd>nombre para el recurso</dd>
+<dt>descripcion_recurso:</dt>
+<dd>descripcion del recurso a crear</dd>
+<dt>tipo_recurso:</dt>
+<dd>indica a que tipo de recurso pertenece</dd>
+<dt>activo:</dt>
+<dd>indica si esta activo o inactivo</dd>
+</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>request</strong> &#8211; </td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">formulario para listar los recursos</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="tipos_recursos.views.eliminar">
+<code class="descclassname">tipos_recursos.views.</code><code class="descname">eliminar</code><span class="sig-paren">(</span><em>request</em>, <em>nombre</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tipos_recursos/views.html#eliminar"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tipos_recursos.views.eliminar" title="Permalink to this definition">¶</a></dt>
+<dd><p>Permite eliminar tipo de recurso con los siguientes datos</p>
+<dl class="docutils">
+<dt>nombre nombre: </dt>
+<dd>del tipo de recurso que se utiliza como clave primaria</dd>
+</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>request</strong> &#8211; </td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">el formulario para listar los tipos de recursos</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="tipos_recursos.views.eliminar_estado">
+<code class="descclassname">tipos_recursos.views.</code><code class="descname">eliminar_estado</code><span class="sig-paren">(</span><em>request</em>, <em>codigo</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tipos_recursos/views.html#eliminar_estado"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tipos_recursos.views.eliminar_estado" title="Permalink to this definition">¶</a></dt>
+<dd><p>Permite eliminar estado de recurso</p>
+<dl class="docutils">
+<dt>nombre nombre: </dt>
+<dd>del estado de recurso a eliminar</dd>
+</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>request</strong> &#8211; </td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">el formulario para listar los estados de recursos</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="tipos_recursos.views.eliminar_recurso">
+<code class="descclassname">tipos_recursos.views.</code><code class="descname">eliminar_recurso</code><span class="sig-paren">(</span><em>request</em>, <em>codigo</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tipos_recursos/views.html#eliminar_recurso"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tipos_recursos.views.eliminar_recurso" title="Permalink to this definition">¶</a></dt>
+<dd><p>Elimina un recurso
+:param request: 
+:param codigo: del recurso a ser eliminado
+:return: lista de todos los recursos disponibles</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="tipos_recursos.views.listar_estados">
+<code class="descclassname">tipos_recursos.views.</code><code class="descname">listar_estados</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tipos_recursos/views.html#listar_estados"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tipos_recursos.views.listar_estados" title="Permalink to this definition">¶</a></dt>
+<dd><p>Permite listar los estados de los recursos con los siguientes datos</p>
+<dl class="docutils">
+<dt>codigo: </dt>
+<dd>del estado del recurso que se utiliza como clave primaria</dd>
+<dt>descripcion: </dt>
+<dd>descripcion del estado del recurso</dd>
+</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>request</strong> &#8211; </td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">el formulario para listar los estados de los recursos</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="tipos_recursos.views.listar_recursos">
+<code class="descclassname">tipos_recursos.views.</code><code class="descname">listar_recursos</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tipos_recursos/views.html#listar_recursos"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tipos_recursos.views.listar_recursos" title="Permalink to this definition">¶</a></dt>
+<dd><p>Lista todos los recursos disponibles en el sistema
+:param request: 
+:return:</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="tipos_recursos.views.listar_tipos_recursos">
+<code class="descclassname">tipos_recursos.views.</code><code class="descname">listar_tipos_recursos</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tipos_recursos/views.html#listar_tipos_recursos"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tipos_recursos.views.listar_tipos_recursos" title="Permalink to this definition">¶</a></dt>
+<dd><p>Permite listar los tipos de recursos con los siguientes datos</p>
+<dl class="docutils">
+<dt>nombre nombre: </dt>
+<dd>del tipo de recurso que se utiliza como clave primaria</dd>
+<dt>descripcion: </dt>
+<dd>descripcion del tipo de recurso</dd>
+<dt>lista de caracteristicas:</dt>
+<dd>lista de las caracteristicas que seran utilizadas para instanciar una clase de recurso</dd>
+<dt>estado:</dt>
+<dd>indica si el tipo de recurso esta activo o no
+- A &#8216;Activo&#8217;
+- I &#8216;Inactivo&#8217;</dd>
+</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>request</strong> &#8211; </td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">el formulario para listar los tipos de recursos</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="module-tipos_recursos">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-tipos_recursos" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Paquete tipos de recursos</a><ul>
+<li><a class="reference internal" href="#submodulols">Submodulols</a></li>
+<li><a class="reference internal" href="#module-tipos_recursos.admin">Modulo admin</a></li>
+<li><a class="reference internal" href="#module-tipos_recursos.apps">Modulo apps</a></li>
+<li><a class="reference internal" href="#module-tipos_recursos.forms">Modulo forms</a></li>
+<li><a class="reference internal" href="#module-tipos_recursos.models">Modulo models</a></li>
+<li><a class="reference internal" href="#module-tipos_recursos.tests">Modulo tests</a></li>
+<li><a class="reference internal" href="#module-tipos_recursos.urls">Modulo urls</a></li>
+<li><a class="reference internal" href="#module-tipos_recursos.views">Modulo views</a></li>
+<li><a class="reference internal" href="#module-tipos_recursos">Module contents</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="roles.html" title="previous chapter">Paquete roles</a></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/tipos_recursos.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, Author.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="_sources/tipos_recursos.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

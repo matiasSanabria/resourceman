@@ -8,7 +8,7 @@ urlpatterns = [
     url(r'^listar/$', views.listarPermisos, name='listarPermisos'),
     # url(r'^listar/(?P<pk>\d+)$',), views
     # ex: /permisos/agregar/
-    url(r'agregar/$', views.agregarPermiso, name='agregarPermisos'),
+    url(r'^agregar/$', views.agregarPermiso, name='agregarPermisos'),
     # ex: /permisos/editar/
     # url(r'editar/(?P<pk>\d+)$', views.editarPermiso, name='editar'),
     url(r'^editar/(?P<pk>\d+)$', views.editarPermiso, name="editarPermisos"),

@@ -11,6 +11,12 @@ from django.contrib.auth.models import Permission
     #. ``name``: Descripcion del permiso.
     #. ``content_type``: Referencia a apliccion de acceso
 
+    *Campos de Content_Type*
+
+    1. ``id``: Codificacion de Content_type.
+    #. ``app_label``: Referencia a aplicacion.
+    #. ``model``: Acceso a modelos.
+
     Returns
     -------
     model: ``django.contrib.auth.models``
