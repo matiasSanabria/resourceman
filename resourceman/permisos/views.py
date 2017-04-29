@@ -59,6 +59,7 @@ def eliminarPermiso(request, pk):
     return redirect('../listar')
 
 def agregarPermiso(request):
+
     mensaje = 'Crear Permiso'
     messages.add_message(request, messages.INFO, mensaje)
 

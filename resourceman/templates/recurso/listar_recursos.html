@@ -64,8 +64,8 @@
         <div class="row content">
             {% include 'navbar.html'%}
             {% include 'sidenav.html' %}
-            <h3>Lista de Tipos de Recursos
-                <a href="/tipo_recurso/crear">
+            <h3>Lista de Recursos
+                <a href="/recursos/crear">
                     <button id="btnAgregar" class="btn btn-success btn-lg">Agregar</button>
                 </a>
             </h3>
@@ -85,12 +85,12 @@
                                 <td>{{tr.nombre}}</td>
                                 <td>{{tr.descripcion}}</td>
                                 <td>
-                                    <a href="{%  url 'editar' nombre=tr.nombre %}">
+                                    {% comment %}<a href="{%  url 'editar' nombre=tr.nombre %}">{% endcomment %}
                                         <button type="button" class="btn btn-primary btn-sm">Editar</button>
                                     </a>
                                 </td>
                                 <td>
-                                    <a href="{%  url 'eliminar' nombre=tr.nombre %}">
+                                    {% comment %}<a href="{%  url 'eliminar' nombre=tr.nombre %}">{% endcomment %}
                                         <button type="button" class="btn btn-danger btn-sm">Eliminar</button>
                                     </a>
                                 </td>

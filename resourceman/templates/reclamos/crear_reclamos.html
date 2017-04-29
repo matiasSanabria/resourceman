@@ -77,15 +77,13 @@
 <body>
     {%include 'navbar.html'%}
     {%include 'sidenav.html'%}
-    <h1>Agregar Permiso.</h1>
+    <h1>Crer Reclamo.</h1>
     <form action="" method="post">{% csrf_token %}
         <div>
-            <label>Nombre:</label>
-            {{permiso_form.codename}}
+            <label>Recurso:</label>
+            {{permiso_form.recurso}}
             <label>Descripcion:</label>
-            {{permiso_form.name}}
-            <label>Acceso a app:</label>
-            {{permiso_form.content_type}}
+            {{permiso_form.descripcion}}
         </div>
         <div>
             <button type="submit" class="btn btn-primary btn-lg">Guardar</button>

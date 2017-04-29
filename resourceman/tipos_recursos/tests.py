@@ -1,37 +1,35 @@
 from django.test import TestCase
-from .forms import  *
-from .models import *
-from .views import *
+from .models import TipoRecurso, Estados
 
-# Create your tests here.
 
-class TipoRecursosTest(TestCase):
+class TipoRecursoTestCase(TestCase):
+    def setUp(self):
+        """
+         Esto es un tipo de recurso
+         - fields: {nombre: NOTEBOOK, 
+                    descripcion: NOTEBOOK, 
+                    lista_caracteristicas: '{"marca":"character varying(10), '
+                                            '"pantalla_pulgadas":"biginteger",'
+                                            '"procesador":"character varying(20)",'
+                                            '"memoria_ram": "character varying(20)"}'}
+        """
+        TipoRecurso.objects.create(
+            nombre="NOTEBOOK",
+            descripcion="NOTEBOOK",
+            lista_caracteristicas='{"marca":"character varying(10), '
+                                  '"pantalla_pulgadas":"biginteger",'
+                                  '"procesador":"character varying(20)",'
+                                  '"memoria_ram": "character varying(20)"}'
+        )
 
-    def tipoRecursosFTV(self):
-        tipo_recurso = TipoRecursoForm(data={'nombre': "", 'descripcion': "",'lista_caracteristicas': "",'estado': ""})
-        self.assertTrue(form.is_valid())
-        tipo_recurso.save()
+        Estados.objects.create(codigo="DIS", descripcion="DISPONIBLE")
 
-    def crearVTV(self):
-        tipo_recurso_count = TipoRecurso.objects.count()
-        tipo_recurso = TipoRecursoForm(data={'nombre': "", 'descripcion': "",'lista_caracteristicas': "",'estado': ""})
-        self.assertEqual(tipo_recurso.status_code, 200)
-        self.assertEqual(TipoRecurso.objects.count(), tipo_recurso_count + 1)
-        self.assertTrue('"error": false' in tipo_recurso.content)
-        tipo_recurso.save()
 
-    def editarVTV(self, param):
-        editar = TipoRecurso.objects.get(nombre=param)
-        editar_form = TipoRecursoForm(
-            data={'nombre': "", 'descripcion': "", 'lista_caracteristicas': "", 'estado': ""},instance=editar)
-        self.assertEqual(editar.status_code, 200)
-        self.assertTrue('"error": false' in editar.content)
-        editar_form.save()
-
-    def eliminarVTV(self, param):
-        tipo_recurso_count = TipoRecurso.objects.count()
-        eliminar = TipoRecurso.objects.get(nombre=param)
-        eliminar.delete()
-        self.assertEqual(eliminar.status_code, 200)
-        self.assertEqual(TipoRecurso.objects.count(), tipo_recurso_count - 1)
-        self.assertTrue('"error": false' in eliminar.content)
+    # para ejecutar el test de objener recurso
+    # ./manage.py test tipos_recursos.tests.TipoRecursoTestCase.obtener_tipo_recurso
+    def obtener_tipo_recurso(self):
+        tipo_recurso = TipoRecurso.objects.get(nombre="NOTEBOOK")
+        print(tipo_recurso)
+        self.assertIsNotNone(tipo_recurso)
+        tipo_recurso = TipoRecurso.objects.get(nombre="NOEXISTE")
+        self.assertIsNone(tipo_recurso)
