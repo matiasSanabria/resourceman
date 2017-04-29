@@ -25,7 +25,7 @@ class TipoRecurso(models.Model):
     )
     nombre = models.TextField(primary_key=True, max_length=50)
     descripcion = models.TextField(max_length=50)
-    lista_caracteristicas = models.TextField(null=False)
+    lista_caracteristicas = models.TextField(null=False, default="{{\"clave\":\"ejemplo\", \"valor\":\"ejemplo\"},\n{\"clave\":\"ejemplo\", \"valor\":\"ejemplo\"}}")
     estado = models.CharField(max_length=1, null=False, blank=False, choices=ESTADO_CHOICE, default='A')
 
     def __str__(self):
