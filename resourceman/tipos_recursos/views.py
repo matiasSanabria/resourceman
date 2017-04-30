@@ -99,6 +99,20 @@ def eliminar(request, nombre):
     return redirect('../listar')
 
 
+@api_view(['GET'])
+def get_tipo_recurso(request, id):
+    """
+    Metodo rest que permite obtener las caracteristicas de un tipo de recurso
+    para ser mostrado en el formulario de creacion de un recurso.
+    :param request: 
+    :param id: es el identificador del tipo de recurso seleccionado
+    :return: una lista de las caracteristicas del tipo de recurso
+    """
+    caracteristicas = TipoRecurso.objects.get(nombre=id)
+    print(caracteristicas.lista_caracteristicas)
+    return Response({'['+ caracteristicas.lista_caracteristicas + ']'})
+
+
 #@login_required
 def listar_tipos_recursos(request):
     """
@@ -245,7 +259,6 @@ def crear_recurso(request):
     """
     if request.method == "POST":
         recurso = RecursoForm(request.POST)
-        print(recurso)
         if recurso.is_valid():
             recurso.save()
             return redirect('crear_recurso')
@@ -256,11 +269,6 @@ def crear_recurso(request):
     return render(request, 'recurso/crear_recurso.html', {'recurso': recurso})
 
 
-@api_view(['GET'])
-def get_tipo_recurso(request, id):
-    caracteristicas = TipoRecurso.objects.get(nombre=id)
-    print(caracteristicas.lista_caracteristicas)
-    return Response({'['+ caracteristicas.lista_caracteristicas + ']'})
 
 
 #@login_required

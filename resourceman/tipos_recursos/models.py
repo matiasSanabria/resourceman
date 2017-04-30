@@ -134,7 +134,7 @@ class Recurso(models.Model):
 
         db_table = 'recursos'
 
-#class CaracteristicasRecursos(models.Model):
+class CaracteristicasRecursos(models.Model):
     """
     Definicion del model para los Estados de los recursos
 
@@ -152,9 +152,9 @@ class Recurso(models.Model):
         Un model propio heredado de django.db.models.Model con los campos adicionales.
     """
 
-#    codigo_recurso = models.OneToOneField(Recurso, on_delete=models.CASCADE, null=False)
-#    codigo_tipo_recurso = models.OneToOneField(TipoRecurso, on_delete=models.CASCADE, null=False)
-#    caracteristicas = TipoRecurso.obtener_caracteristicas()
+    codigo_recurso = models.OneToOneField(Recurso, on_delete=models.CASCADE, null=False)
+    codigo_tipo_recurso = models.OneToOneField(TipoRecurso, on_delete=models.CASCADE, null=False)
+    caracteristicas = models.TextField(null=False)
 
-#    class Meta:
-#        unique_together = (("codigo_recurso", "codigo_tipo_recurso"),)
+    class Meta:
+        unique_together = (("codigo_recurso", "codigo_tipo_recurso"),)

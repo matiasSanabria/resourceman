@@ -54,32 +54,49 @@
 <body>
     <script>
         $(document).ready(function () {
+            
+            // se encarga de obtener las caracteristicas que fueron declaradas en el tipo de recurso
+            // para mostrarlos en el formulario
             $('#id_tipo_recurso').on('click', function () {
                 var id = $('#id_tipo_recurso option:selected').text();
+                //console.log(id);
 
-                $.ajax({
-                    type: "get",
-                    url: 'get_tipo_recurso/' + id,
-                    dataType: "json",
-                    success: function (data) {
-                        var content = $('#caracteristicas');
-                        content.empty();
+                if(id == '---------'){
+                    alert("Debe seleccionar un elemento distinto al primero")
+                }else{
+                    $.ajax({
+                        type: "get",
+                        url: 'get_tipo_recurso/' + id,
+                        dataType: "json",
+                        success: function (data) {
+                            var content = $('#caracteristicas');
+                            content.empty();
 
-                        var caracteristicas = $.parseJSON(data);
+                            var caracteristicas = $.parseJSON(data);
 
-                        $.each(caracteristicas, function(item){
-                            console.log(item);
-                            content.append(
-                                '<label>'+ this.clave + '</label><br/>' +
-                                '<input class="form-control"/><br/>'
-                            );
-                        });
-                    },
-                    error: function () {
-                        alert("error");
-                    }
-                });
+                            $.each(caracteristicas, function(item){
+                                console.log(item);
+                                content.append(
+                                    '<label id="clave">'+ this.clave + '</label><br/>' +
+                                    '<input id="valor" class="form-control"/><br/>'
+                                );
+                            });
+                        },
+                        error: function () {
+                            alert("error");
+                        }
+                    });
+                }
+
             });
+            
+            $('#btnGuardar').on('click',function () {
+                var key_list = $('#clave');
+                var value_list = $('#valor');
+                console.log(key_list);
+                console.log(value_list);
+            })
+            
         });
     </script>
     <div class="container-fluid">

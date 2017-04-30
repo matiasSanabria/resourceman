@@ -75,6 +75,7 @@
                     <tr>
                         <th>Nombre</th>
                         <th>Descripcion</th>
+                        <th>Activo</th>
                         <th>Modificar</th>
                         <th>Eliminar</th>
                     </tr>
@@ -84,6 +85,7 @@
                             <tr>
                                 <td>{{tr.nombre_recurso}}</td>
                                 <td>{{tr.descripcion_recurso}}</td>
+                                <td>{{tr.activo}}</td>
                                 <td>
                                     {% comment %}<a href="{%  url 'editar' nombre=tr.nombre %}">{% endcomment %}
                                         <button type="button" class="btn btn-primary btn-sm">Editar</button>
