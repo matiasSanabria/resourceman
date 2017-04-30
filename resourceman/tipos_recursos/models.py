@@ -1,4 +1,6 @@
 from django.db import models
+from django.contrib.auth.models import User, Group, Permission
+from django.db.models import Q
 
 
 class TipoRecurso(models.Model):
@@ -116,3 +118,23 @@ class Recurso(models.Model):
         )
 
         db_table = 'recursos'
+
+
+def per_num():
+    per = Permission.objects.get(codename='per_crear_recurso')
+    return per.id
+
+class Encargado(models.Model):
+    tipo_recurso = models.OneToOneField(TipoRecurso, on_delete=models.CASCADE)
+    usuario = models.ForeignKey(
+        User,
+        blank=True,
+        limit_choices_to={'groups__permissions': per_num()}
+    )
+
+    # perm = Permission.objects.get(codename='per_crear_recurso')
+    # users = User.objects.filter(Q(groups__permissions=perm) | Q(user_permissions=perm)).distinct()
+
+    class Meta:
+
+        db_table = 'encargado_recurso'

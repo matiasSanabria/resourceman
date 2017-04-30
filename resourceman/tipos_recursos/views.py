@@ -1,7 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect, render
-from .forms import TipoRecursoForm, EstadoForm, RecursoForm
-from .models import TipoRecurso, Estados, Recurso
+from .forms import TipoRecursoForm, EstadoForm, RecursoForm, EncargadoForm
+from .models import TipoRecurso, Estados, Recurso, Encargado
 from django.contrib import messages
 
 __author__ = 'matt'
@@ -9,14 +9,35 @@ __author__ = 'matt'
 @login_required
 def crear(request):
     if request.method == "POST":
-        tipo_recurso = TipoRecursoForm(request.POST)
-        if tipo_recurso.is_valid():
-            tipo_recurso.save()
-            return redirect('crear')
+
+        tipo_recursoform = TipoRecursoForm(request.POST)
+        encargadoform = EncargadoForm(request.POST)
+        print("comprobando datos")
+        if tipo_recursoform.is_valid():
+            print("tipo recurso valido")
+            print("...................inicio................")
+            print(encargadoform)
+            print("...................fin................")
+            if encargadoform.is_valid():
+                print("encargado valido")
+                tipo = tipo_recursoform.save(commit=False)
+                tipo.save()
+                encar = encargadoform.save(commit=False)
+                print("Tipo de recurso guardado")
+                encar.tipo_recurso = tipo
+                print("asignado a encargado")
+                encar.save()
+                print("guardado")
+                return redirect('crear')
+
+            else:
+                pass
         else:
             pass
     tipo_recurso = TipoRecursoForm()
-    return render(request, 'tipo_recurso/crear_tipos_recursos.html', {'tipo_recurso': tipo_recurso})
+    encargado = EncargadoForm()
+    return render(request, 'tipo_recurso/crear_tipos_recursos.html', {
+        'tipo_recurso': tipo_recurso, 'encargado': encargado})
 
 
 @login_required
