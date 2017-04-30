@@ -12,7 +12,7 @@
 
         .sidenav {
             background-color: #00796b;
-            height: 540px;
+            height: 544px;
         }
 
         footer {
@@ -69,12 +69,13 @@
                     <button id="btnAgregar" class="btn btn-success btn-lg">Agregar</button>
                 </a>
             </h3>
-            <div id="tablaList" class="col-lg-8">
-                <table class="table table-hover">
+            <div id="tablaList" class="col-lg-8" style="margin-top:1em;">
+                <table class="table table-hover" id="datatable">
                     <thead>
                     <tr>
                         <th>Nombre</th>
                         <th>Descripcion</th>
+                        <th>Activo</th>
                         <th>Modificar</th>
                         <th>Eliminar</th>
                     </tr>
@@ -82,8 +83,9 @@
                     <tbody>
                         {% for tr in lista %}
                             <tr>
-                                <td>{{tr.nombre}}</td>
-                                <td>{{tr.descripcion}}</td>
+                                <td>{{tr.nombre_recurso}}</td>
+                                <td>{{tr.descripcion_recurso}}</td>
+                                <td>{{tr.activo}}</td>
                                 <td>
                                     {% comment %}<a href="{%  url 'editar' nombre=tr.nombre %}">{% endcomment %}
                                         <button type="button" class="btn btn-primary btn-sm">Editar</button>
@@ -98,7 +100,7 @@
                         {% endfor %}
                     </tbody>
                 </table>
-
+                {% include 'datatablescript.html' %}
             </div>
         </div>
     </div>

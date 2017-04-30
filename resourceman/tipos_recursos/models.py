@@ -25,7 +25,7 @@ class TipoRecurso(models.Model):
     )
     nombre = models.TextField(primary_key=True, max_length=50)
     descripcion = models.TextField(max_length=50)
-    lista_caracteristicas = models.TextField(null=False)
+    lista_caracteristicas = models.TextField(null=False, default="{{\"clave\":\"ejemplo\", \"valor\":\"ejemplo\"},\n{\"clave\":\"ejemplo\", \"valor\":\"ejemplo\"}}")
     estado = models.CharField(max_length=1, null=False, blank=False, choices=ESTADO_CHOICE, default='A')
 
     def __str__(self):
@@ -134,7 +134,7 @@ class Recurso(models.Model):
 
         db_table = 'recursos'
 
-#class CaracteristicasRecursos(models.Model):
+class CaracteristicasRecursos(models.Model):
     """
     Definicion del model para los Estados de los recursos
 
@@ -152,9 +152,9 @@ class Recurso(models.Model):
         Un model propio heredado de django.db.models.Model con los campos adicionales.
     """
 
-#    codigo_recurso = models.OneToOneField(Recurso, on_delete=models.CASCADE, null=False)
-#    codigo_tipo_recurso = models.OneToOneField(TipoRecurso, on_delete=models.CASCADE, null=False)
-#    caracteristicas = TipoRecurso.obtener_caracteristicas()
+    codigo_recurso = models.OneToOneField(Recurso, on_delete=models.CASCADE, null=False)
+    codigo_tipo_recurso = models.OneToOneField(TipoRecurso, on_delete=models.CASCADE, null=False)
+    caracteristicas = models.TextField(null=False)
 
-#    class Meta:
-#        unique_together = (("codigo_recurso", "codigo_tipo_recurso"),)
+    class Meta:
+        unique_together = (("codigo_recurso", "codigo_tipo_recurso"),)

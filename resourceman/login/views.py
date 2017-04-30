@@ -1,5 +1,7 @@
+from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.models import User
 from django.core.checks import messages
+from django.template import RequestContext
 
 from .forms import LoginForm
 
@@ -18,20 +20,26 @@ def login_view(request):
     :param request: 
     :return: muestra la vista de login del sistema
     """
-    mensaje = ''
+    if not request.user.is_anonymous():
+        return redirect('index.html')
     if request.method == "POST":
-        form = LoginForm(request.POST)
-        if form.is_valid():
-            username = form.cleaned_data['Usuario']
-            password = form.cleaned_data['Clave']
+        formulario = LoginForm(request.POST)
+        if formulario.is_valid():
+            username = request.POST['username']
+            password = request.POST['password']
             usuario = authenticate(username=username, password=password)
-            if usuario is not None and usuario.is_active:
-                login(request, usuario)
-                logger.info('Login de Usuario %s' % request.user.username)
-                return redirect('login/login.html')
+            if usuario is not None:
+                if usuario.is_active:
+                    login(request, usuario)
+                    return redirect('index.html')
+                else:
+                    # si el usuario no esta activo
+                    return render_to_response('login/login.html', context_instance=RequestContext(request))
             else:
-                mensaje = 'Disculpa, el Nombre de Usuario o la Clave no coinciden.'
-    formulario = LoginForm()
+                # si el usuario no existe
+                return render_to_response('login/login.html', context_instance=RequestContext(request))
+    else:
+        formulario = LoginForm()
     return render(request, 'login/login.html', {"formulario": formulario})
 
 
@@ -40,4 +48,4 @@ def logout_view(request):
         Cierra la sesión del usuario y retorna a la vista de login.
     """
     logout(request)
-    return redirect('login')
+    return redirect('/login')
