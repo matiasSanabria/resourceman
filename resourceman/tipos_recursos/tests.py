@@ -14,15 +14,15 @@ class TipoRecursoTestCase(TestCase):
                                             '"memoria_ram": "character varying(20)"}'}
         """
         TipoRecurso.objects.create(
-            nombre="NOTEBOOK",
-            descripcion="NOTEBOOK",
-            lista_caracteristicas='{"marca":"character varying(10), '
-                                  '"pantalla_pulgadas":"biginteger",'
-                                  '"procesador":"character varying(20)",'
-                                  '"memoria_ram": "character varying(20)"}'
+            nombre="LABORATORIO_2",
+            descripcion="LABORATORIO DE INFORMATICA BLOQUE G",
+            lista_caracteristicas='{"cantidad":"biginteger", '
+                                  '"encargado":"character_variyin(20)",'
+                                  '"split":"biginteger",'
+                                  '"sillas": "biginteger"}'
         )
 
-        Estados.objects.create(codigo="DIS", descripcion="DISPONIBLE")
+        Estados.objects.create(codigo="AUX", descripcion="DISPONIBLE")
 
 
     # para ejecutar el test de objener recurso

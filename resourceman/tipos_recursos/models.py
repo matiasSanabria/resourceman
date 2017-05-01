@@ -9,8 +9,10 @@ class TipoRecurso(models.Model):
 
     *Campos:*
 
-    1. ``group``: Referencia al model Groups de Django.
-    #. ``permisos``: Referencia al model Permissions de django.
+    1. ``nombre``: nombre del tipo de recurso utilizado como clave primaria
+    #. ``descripcion``: descripcion del tipo de recurso
+    #. ``lista_caracteristicas``: lista de las caracteristicas que tiene el tipo de recurso
+    #. ``estado``: indica si el tipo de recurso esta activo o inactivo
 
     Returns
     -------
@@ -25,23 +27,16 @@ class TipoRecurso(models.Model):
     )
     nombre = models.TextField(primary_key=True, max_length=50)
     descripcion = models.TextField(max_length=50)
-    lista_caracteristicas = models.TextField(null=False)
+    lista_caracteristicas = models.TextField(null=False, default="{{\"clave\":\"ejemplo\", \"valor\":\"ejemplo\"},\n{\"clave\":\"ejemplo\", \"valor\":\"ejemplo\"}}")
     estado = models.CharField(max_length=1, null=False, blank=False, choices=ESTADO_CHOICE, default='A')
 
     def __str__(self):
         return self.nombre
 
     def obtener_caracteristicas(self, nombre):
-        # obtenemos el objeto cuya lista de caracteristicas buscamos
         list = TipoRecurso.objects.get(nombre=nombre)
-
-        # obtenemos solamente la lista de caracteristicas
         list = list.lista_caracteristicas
-
-        # quitamos las llaves y las comillas simples del json
         list = list[2:(len(list)-2)]
-
-        # separamos las caracteristicas por las comas
         list = list.split(',')
 
         caracteristica = []
@@ -70,8 +65,18 @@ class TipoRecurso(models.Model):
 
 class Estados(models.Model):
     """
-        Clase Estados
-        Es la clase que se crea para tener los estados del recurso
+    Definicion del model para los Estados de los recursos
+
+    *Campos:*
+
+    1. ``codigo``: nombre del estado del recurso utilizado como clave primaria
+    #. ``descripcion``: descripcion del estado del recurso
+
+    Returns
+    -------
+    model: ``django.db.models.Model``
+        Un model propio heredado de django.db.models.Model con los campos adicionales.
+
     """
     codigo = models.CharField(max_length=3, null=False, primary_key=True)
     descripcion = models.TextField(max_length=50, null=False)
@@ -91,8 +96,20 @@ class Estados(models.Model):
 
 class Recurso(models.Model):
     """
-        Clase Recurso
-        
+    Definicion del model para los Estados de los recursos
+
+    *Campos:*
+
+    1. ``codigo_recurso``: codigo del recurso recurso utilizado como clave primaria
+    #. ``nombre_recurso``: nombre del recurso
+    #. ``descripcion_recurso``: descripcion del estado del recurso
+    #. ``tipo_recurso``: tipo de recurso del que hereda sus caracteristicas
+    #. ``activo``: indica si el recurso esta activo o no
+
+    Returns
+    -------
+    model: ``django.db.models.Model``
+        Un model propio heredado de django.db.models.Model con los campos adicionales.
     """
 
     def __str__(self):
