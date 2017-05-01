@@ -1,4 +1,6 @@
 from django.db import models
+from django.contrib.auth.models import User, Group, Permission
+from django.db.models import Q
 
 
 class TipoRecurso(models.Model):
@@ -134,27 +136,22 @@ class Recurso(models.Model):
 
         db_table = 'recursos'
 
-class CaracteristicasRecursos(models.Model):
-    """
-    Definicion del model para los Estados de los recursos
 
-    *Campos:*
+def per_num():
+    per = Permission.objects.get(codename='per_crear_recurso')
+    return per.id
 
-    1. ``codigo_recurso``: codigo del recurso recurso utilizado como clave primaria
-    #. ``codigo_tipo_recurso``: codigo del tipo de recurso utilizado como clave primaria junto con el codigo de recurso
-    #. ``caracteristica``: caracteristica del tipo de recurso
-    #. ``valor``: valor que toma la caracteristica cargada en tipo de recurso
-    #. ``activo``: indica si el recurso esta activo o no
+class Encargado(models.Model):
+    tipo_recurso = models.OneToOneField(TipoRecurso, on_delete=models.CASCADE)
+    usuario = models.ForeignKey(
+        User,
+        blank=True,
+        limit_choices_to={'groups__permissions': per_num()}
+    )
 
-    Returns
-    -------
-    model: ``django.db.models.Model``
-        Un model propio heredado de django.db.models.Model con los campos adicionales.
-    """
-
-    codigo_recurso = models.OneToOneField(Recurso, on_delete=models.CASCADE, null=False)
-    codigo_tipo_recurso = models.OneToOneField(TipoRecurso, on_delete=models.CASCADE, null=False)
-    caracteristicas = models.TextField(null=False)
+    # perm = Permission.objects.get(codename='per_crear_recurso')
+    # users = User.objects.filter(Q(groups__permissions=perm) | Q(user_permissions=perm)).distinct()
 
     class Meta:
-        unique_together = (("codigo_recurso", "codigo_tipo_recurso"),)
+
+        db_table = 'encargado_recurso'
