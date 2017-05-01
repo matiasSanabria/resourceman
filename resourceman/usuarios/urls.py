@@ -13,7 +13,7 @@ urlpatterns = [
     # url(r'editar/(?P<pk>\d+)$', views.editarPermiso, name='editar'),
     url(r'^editar/(?P<username>\w+)$', views.editarUsuario, name="editarUsuario"),
     #
-    # url(r'^eliminar/(?P<pk>\d+)$', views.eliminarPermiso, name="eliminarPermisos"),
+    url(r'^eliminar/(?P<username>\w+)$', views.eliminarUsuario, name="eliminarUsuario"),
 
     url(r'^agregarPrioridad/$', views.agregarPrioridad, name='agregarPrioridad'),
 
