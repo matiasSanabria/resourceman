@@ -23,7 +23,7 @@ def listarPermisos(request):
     mensaje = 'Listar Permisos'
     messages.add_message(request, messages.INFO, mensaje)
     aux = Permission.objects.all().order_by('id')
-    permisos = aux[24:]
+    permisos = aux[21:]
     return render(request, 'permisos/listarPermisos.html', {
         'permisos': permisos
     })

@@ -41,6 +41,17 @@ class UsuarioCreationForm(forms.ModelForm):
     password1 = forms.CharField(label='Password', widget=forms.PasswordInput(attrs={'class':'form-control'}), initial='password')
     password2 = forms.CharField(label='Password confirmation', widget=forms.PasswordInput(attrs={'class':'form-control'}), initial='password')
 
+    def __init__(self, *args, **kwargs):
+        # instance = kwargs.get('instance', None)
+        # kwargs.update(initial={
+        #     # 'field': 'value'
+        #     'username': 'daniel',
+        #     'first_name': 'daniel',
+        #     'last_name': 'min',
+        #     'email': 'dpark8752@gmail.com',
+        # })
+        super(UsuarioCreationForm, self).__init__(*args, **kwargs)
+
     class Meta:
         model = User
         # fields = ('username', 'first_name', 'last_name', 'email')
@@ -101,6 +112,16 @@ class UsuarioDetalleForm(forms.ModelForm):
     nro_documento = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control'}))
     direccion = forms.CharField(widget=forms.Textarea(attrs={'class':'form-control', 'rows': '2'}))
     telefono = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control'}))
+
+    def __init__(self, *args, **kwargs):
+        # instance = kwargs.get('instance', None)
+        # kwargs.update(initial={
+        #     # 'field': 'value'
+        #     'dni': '5214801',
+        #     'category': 'NON',
+        #     'phone': '527-622',
+        # })
+        super(UsuarioDetalleForm, self).__init__(*args, **kwargs)
 
     class Meta:
         model = Usuario

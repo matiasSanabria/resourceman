@@ -1,12 +1,15 @@
-from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect, render
-from .forms import TipoRecursoForm, EstadoForm, RecursoForm
-from .models import TipoRecurso, Estados, Recurso
+from .forms import TipoRecursoForm, EstadoForm, RecursoForm, EncargadoForm
+from .models import TipoRecurso, Estados, Recurso, Encargado
 from django.contrib import messages
+from django.http import HttpResponse, JsonResponse
+from rest_framework import status
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
 
 __author__ = 'matt'
 
-@login_required
+#@login_required
 def crear(request):
     """
     Permite crear un nuevo tipo de recurso con los siguientes datos
@@ -25,17 +28,38 @@ def crear(request):
     :return: el formulario para crear otro tipo de recurso
     """
     if request.method == "POST":
-        tipo_recurso = TipoRecursoForm(request.POST)
-        if tipo_recurso.is_valid():
-            tipo_recurso.save()
-            return redirect('crear')
+
+        tipo_recursoform = TipoRecursoForm(request.POST)
+        encargadoform = EncargadoForm(request.POST)
+        print("comprobando datos")
+        if tipo_recursoform.is_valid():
+            print("tipo recurso valido")
+            print("...................inicio................")
+            print(encargadoform)
+            print("...................fin................")
+            if encargadoform.is_valid():
+                print("encargado valido")
+                tipo = tipo_recursoform.save(commit=False)
+                tipo.save()
+                encar = encargadoform.save(commit=False)
+                print("Tipo de recurso guardado")
+                encar.tipo_recurso = tipo
+                print("asignado a encargado")
+                encar.save()
+                print("guardado")
+                return redirect('crear')
+
+            else:
+                pass
         else:
             pass
     tipo_recurso = TipoRecursoForm()
-    return render(request, 'tipo_recurso/crear_tipos_recursos.html', {'tipo_recurso': tipo_recurso})
+    encargado = EncargadoForm()
+    return render(request, 'tipo_recurso/crear_tipos_recursos.html', {
+        'tipo_recurso': tipo_recurso, 'encargado': encargado})
 
 
-@login_required
+#@login_required
 def editar(request, nombre):
     """
         Permite editar tipo de recurso con los siguientes datos
@@ -77,7 +101,7 @@ def editar(request, nombre):
         })
 
 
-@login_required
+#@login_required
 def eliminar(request, nombre):
     """
     Permite eliminar tipo de recurso con los siguientes datos
@@ -96,7 +120,21 @@ def eliminar(request, nombre):
     return redirect('../listar')
 
 
-@login_required
+@api_view(['GET'])
+def get_tipo_recurso(request, id):
+    """
+    Metodo rest que permite obtener las caracteristicas de un tipo de recurso
+    para ser mostrado en el formulario de creacion de un recurso.
+    :param request: 
+    :param id: es el identificador del tipo de recurso seleccionado
+    :return: una lista de las caracteristicas del tipo de recurso
+    """
+    caracteristicas = TipoRecurso.objects.get(nombre=id)
+    print(caracteristicas.lista_caracteristicas)
+    return Response({'['+ caracteristicas.lista_caracteristicas + ']'})
+
+
+#@login_required
 def listar_tipos_recursos(request):
     """
         Permite listar los tipos de recursos con los siguientes datos
@@ -160,11 +198,16 @@ def crear_estado(request):
                 return redirect('crear_estado')
         else:
             messages.error(request, "Ocurrio un error al guardar el estado. Vuelva a intentarlo")
+
+    if request.method == "GET":
+        response_data = {'hola': 'hola'}
+        return JsonResponse({'hola': 'hola'})
+
     estado = EstadoForm()
     return render(request, 'estados/crear_estado.html', {'estado': estado})
 
 
-@login_required
+#@login_required
 def editar_estado(request, codigo):
     """
         Permite editar un estado de recurso con los siguientes datos
@@ -198,7 +241,7 @@ def editar_estado(request, codigo):
             'codigo': codigo
         })
 
-@login_required
+#@login_required
 def eliminar_estado(request, codigo):
     """
         Permite eliminar estado de recurso
@@ -216,7 +259,8 @@ def eliminar_estado(request, codigo):
 
 ########################################################################################################################
 
-@login_required
+#@login_required
+#@api_view(['GET', 'POST'])
 def crear_recurso(request):
     """
     Crea un nuevo recurso con los siguientes datos
@@ -241,10 +285,14 @@ def crear_recurso(request):
             return redirect('crear_recurso')
         else:
             pass
+
     recurso = RecursoForm()
     return render(request, 'recurso/crear_recurso.html', {'recurso': recurso})
 
-@login_required
+
+
+
+#@login_required
 def editar_recurso(request, codigo_recurso):
     """
         Edita recurso con los siguientes datos
@@ -286,7 +334,7 @@ def editar_recurso(request, codigo_recurso):
         })
 
 
-@login_required
+#@login_required
 def eliminar_recurso(request, codigo):
     """
     Elimina un recurso
@@ -302,7 +350,7 @@ def eliminar_recurso(request, codigo):
     return redirect('../listar_recursos')
 
 
-@login_required
+#@login_required
 def listar_recursos(request):
     """
     Lista todos los recursos disponibles en el sistema

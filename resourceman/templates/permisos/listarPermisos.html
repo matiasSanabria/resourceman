@@ -63,7 +63,8 @@
     {%include 'sidenav.html'%}
     <h1>Lista de Permisos.<a href="{% url 'agregarPermisos' %}"><button id="agregar" type="button" class="btn btn-success btn-lg">Agregar Permiso</button></a></h1>
     <div id="mitabla">
-    <table class="table table-hover">
+    <table class="table table-hover" id="datatable">
+{#    <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">#}
         <thead>
             <tr>
                 <th>Nombre</th>
@@ -84,5 +85,6 @@
         </tbody>
     </table>
     </div>
+    {% include 'datatablescript.html' %}
 </body>
 </html>

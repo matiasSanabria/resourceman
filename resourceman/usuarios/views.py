@@ -10,8 +10,11 @@ from .forms import UsuarioCreationForm,UsuarioDetalleForm, AgregarPrioridad
 from django.contrib import messages
 from django.contrib.auth.models import User, Group, Permission
 from django.shortcuts import render, redirect, render_to_response
+from django.contrib.auth.decorators import login_required, permission_required
 
 # Create your views here.
+@login_required
+@permission_required('usuarios.per_crear_usuario')
 def crearUsuario(request):
     """
         Página para la creacion de Usuarios.
@@ -35,8 +38,11 @@ def crearUsuario(request):
 
                 # guardando relacion group user
                 g1 = Group.objects.get(id=request.POST.get('groups'))
+
                 print(g1.name)
+                print("")
                 print("Username")
+
                 user1 = User.objects.get(username=request.POST.get('username'))
                 print(user1.username)
 
@@ -45,9 +51,10 @@ def crearUsuario(request):
                 user_detail = user_detail_form.save(commit=False)  # guarda en el objeto model, sin guardarlo en la BD.
                 user_detail.usuario = user  # asocia de detalle al usuario.
                 user_detail.save()  # guarda en BD.
+                print("fin")
                 messages.add_message(request, messages.SUCCESS,
                                      "Usuario -%s- ha sido creado correctamente." % user.username)
-                return redirect('agregarUsuario')
+                return redirect('listarUsuario')
 
     else:
         user_form = UsuarioCreationForm()
@@ -58,6 +65,8 @@ def crearUsuario(request):
         'user_detail_form': user_detail_form,
     })
 
+@login_required
+@permission_required('usuarios.per_listar_usuario')
 def listarUsuario(request):
     """
         Página para listar de Usuario.
@@ -72,7 +81,7 @@ def listarUsuario(request):
 
     print(usuario.count())
     print(detalle_usuario.count())
-    if usuario.count() == 1 and detalle_usuario.count() == 0:
+    if usuario.count() == 2 and detalle_usuario.count() == 0:
         print("aqui")
         new_detail_for_admin = Usuario.objects.create(usuario=usuario.first())
         new_detail_for_admin.save()
@@ -85,7 +94,8 @@ def listarUsuario(request):
     # return render(request, 'usuario/listarPrioridad.html', {
     #     'prioridades': prioridades
     # })
-
+@login_required
+@permission_required('usuarios.per_editar_usuario')
 def editarUsuario(request, username):
 
         user = User.objects.get(username=username)
@@ -139,7 +149,8 @@ def editarUsuario(request, username):
             'username': user.username,
         })
 
-
+@login_required
+@permission_required('usuarios.per_agregar_prioridad')
 def agregarPrioridad(request):
     """
         Página para la agregacion de Prioridad.
@@ -171,7 +182,8 @@ def agregarPrioridad(request):
         return render(request, 'usuario/agregarPrioridad.html', {
             'prioridad_form': prioridad_form,
         })
-
+@login_required
+@permission_required('usuarios.per_listar_prioridad')
 def listarPrioridad(request):
     """
         Página para listar de Prioridad.
@@ -185,7 +197,8 @@ def listarPrioridad(request):
     return render(request, 'usuario/listarPrioridad.html', {
         'prioridades': prioridades
     })
-
+@login_required
+@permission_required('usuarios.per_editar_prioridad')
 def editarPrioridad(request, codigo):
     """
         Página para la edicion de prioridad.

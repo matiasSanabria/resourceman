@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'tipos_recursos',
     'roles',
     'usuarios',
+    'rest_framework'
 
 ]
 
