@@ -12,7 +12,7 @@ class CrearReclamo(forms.ModelForm):
         fields = '__all__'
         widgets = {
             'recurso': TextInput(attrs={'class': 'col-lg-3 form-control'}),
-            'descripcion': Textarea(attrs={'class': 'form-control', 'rows': '2'})
+            'descripcion': Textarea(attrs={'class': 'form-control', 'rows': '3'})
         }
         REQUIRED_FIELDS = [
             'recurso',
