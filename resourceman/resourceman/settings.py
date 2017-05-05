@@ -44,7 +44,6 @@ INSTALLED_APPS = [
     'roles',
     'usuarios',
     'reclamos',
-
 ]
 
 MIDDLEWARE = [
@@ -116,8 +115,10 @@ AUTH_PASSWORD_VALIDATORS = [
 # https://docs.djangoproject.com/en/1.10/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
+#es-PY
 
 TIME_ZONE = 'UTC'
+#America/Asuncion
 
 USE_I18N = True
 

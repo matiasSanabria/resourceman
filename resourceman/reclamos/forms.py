@@ -1,6 +1,6 @@
 from .models import *
 from django import forms
-from django.forms import ModelForm, TextInput, Textarea
+from django.forms import ModelForm, TextInput, Textarea, Select
 import datetime
 
 class CrearReclamo(forms.ModelForm):
@@ -15,7 +15,22 @@ class CrearReclamo(forms.ModelForm):
             'descripcion': Textarea(attrs={'class': 'form-control', 'rows': '3'})
         }
         REQUIRED_FIELDS = [
-            'recurso',
-            'usuario', 'descripcion', 'fecha',
+            'recurso', 'descripcion'
         ]
         exclude = []
+
+class EditarReclamo(forms.ModelForm):
+    recurso = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}))
+    descripcion = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}))
+
+    class Meta:
+        model = Reclamo
+        fields = '__all__'
+        REQUIRED_FIELDS = [
+            'recurso', 'descripcion', 'estado',
+        ]
+        widgets = {
+            'estado': Select(attrs={'class': 'btn dropdown-toggle'})
+        }
+        exclude = []
+

@@ -17,3 +17,18 @@ class Reclamo(models.Model):
     fecha = models.DateField()
     # aqui se definen los campos
     # hora = models.TimeField()
+    ESTADO_CHOICE = (
+        ('N', "NUEVO"),
+        ('P', "PENDIENTE"),
+        ('A', "ATENDIDO")
+    )
+    estado = models.CharField(max_length=1, null=False, choices=ESTADO_CHOICE, default='N')
+
+    class Meta:
+        permissions = (
+            ("per_crear_reclamo", "Puede crear reclamo"),
+            ("per_modificar_reclamo", "Puede modificar estado reclamo"),
+            ("per_ver_reclamo", "Puede ver ")
+        )
+        db_table = 'reclamos'
+
