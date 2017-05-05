@@ -149,8 +149,18 @@ def editarUsuario(request, username):
             'username': user.username,
         })
 
-#@login_required
-#@permission_required('usuarios.per_agregar_prioridad')
+def eliminarUsuario(request, username):
+    user = User.objects.get(username=username)
+    user.is_active = 0
+    user.save()
+
+    messages.add_message(request, messages.INFO, "Usuario -%s- eliminado exitosamente" % user.username)
+
+    return redirect('listarUsuario')
+
+
+@login_required
+@permission_required('usuarios.per_agregar_prioridad')
 def agregarPrioridad(request):
     """
         Página para la agregacion de Prioridad.
