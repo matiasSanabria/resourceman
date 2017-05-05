@@ -1,7 +1,9 @@
+from django.forms.formsets import BaseFormSet
+
 __author__ = 'matt'
 
 from django import forms
-from .models import TipoRecurso, Estados, Recurso
+from .models import TipoRecurso, Estados, Recurso, CaracteristicasRecursos
 from django.forms import TextInput, Textarea, Select
 
 
@@ -20,6 +22,46 @@ class TipoRecursoForm(forms.ModelForm):
         }
 
 
+class CaracteristicasRecursosForm(forms.ModelForm):
+
+    class Meta:
+        model = CaracteristicasRecursos
+        fields = ['clave', 'valor']
+        widgets = {
+            'clave': TextInput(attrs={'class': 'col-lg-3 form-control'}),
+            'valor': TextInput(attrs={'class': 'col-lg-3 form-control'}),
+        }
+
+
+class CaracteristicasRecursosFormSet(BaseFormSet):
+    def clean(self):
+        if any(self.errors):
+            return
+
+        claves = []
+        valores = []
+        duplicados = False
+
+        for form in self.forms:
+            if form.cleaned_data:
+                clave = form.cleaned_data['clave']
+                valor = form.cleaned_data['valor']
+
+                if clave and valor:
+                    if valor in claves:
+                        duplicados = True
+                    claves.append(valor)
+
+                    if valor in valores:
+                        duplicados = True
+                    valores.append(valor)
+
+                if duplicados:
+                    raise forms.ValidationError()
+
+
+
+
 class RecursoForm(forms.ModelForm):
     """
         Formulario para la clase Recurso
@@ -31,8 +73,8 @@ class RecursoForm(forms.ModelForm):
         widgets = {
             'codigo_recurso': TextInput(attrs={'class': 'col-lg-3 form-control'}),
             'nombre_recurso': TextInput(attrs={'class': 'col-lg-3 form-control'}),
-            'descripcion_recurso': Textarea(attrs={'class': 'form-control', 'rows':'3'}),
             'tipo_recurso': Select(attrs={'class': 'btn btn-default dropdown-toggle'}),
+            'estado': Select(attrs={'class': 'btn btn-default dropdown-toggle'}),
             'activo': Select(attrs={'class': 'btn btn-default dropdown-toggle'})
         }
 
@@ -46,5 +88,5 @@ class EstadoForm(forms.ModelForm):
         fields = '__all__'
         widgets = {
             'codigo': TextInput(attrs={'class': 'col-lg-3 form-control'}),
-            'descripcion': Textarea(attrs={'class': 'col-lg-3 form-control', 'rows': '2'}),
+            'descripcion': TextInput(attrs={'class': 'col-lg-3 form-control', 'rows': '1'}),
         }

@@ -25,31 +25,11 @@ class TipoRecurso(models.Model):
     )
     nombre = models.TextField(primary_key=True, max_length=50)
     descripcion = models.TextField(max_length=50)
-    lista_caracteristicas = models.TextField(null=False, default="{{\"clave\":\"ejemplo\", \"valor\":\"ejemplo\"},\n{\"clave\":\"ejemplo\", \"valor\":\"ejemplo\"}}")
+    lista_caracteristicas = models.TextField(null=False, default="{\"clave\":\"ejemplo\", \"valor\":\"ejemplo\"},\n{\"clave\":\"ejemplo\", \"valor\":\"ejemplo\"}")
     estado = models.CharField(max_length=1, null=False, blank=False, choices=ESTADO_CHOICE, default='A')
 
     def __str__(self):
         return self.nombre
-
-    def obtener_caracteristicas(self, nombre):
-        list = TipoRecurso.objects.get(nombre=nombre)
-        list = list.lista_caracteristicas
-        list = list[2:(len(list)-2)]
-        list = list.split(',')
-
-        caracteristica = []
-        tipo_dato = []
-
-        for item in list:
-            caracteristica.append(item[0])
-            tipo_dato.append(item[1])
-
-        caracteristicas = [caracteristica, tipo_dato]
-
-        return caracteristicas
-
-
-
 
     class Meta:
         permissions = (
@@ -120,8 +100,8 @@ class Recurso(models.Model):
 
     codigo_recurso = models.CharField(max_length=10, null=False, primary_key=True)
     nombre_recurso = models.TextField(max_length=50, null=False)
-    descripcion_recurso = models.TextField(max_length=50, null=False,)
     tipo_recurso = models.OneToOneField(TipoRecurso, null=False)
+    estado = models.OneToOneField(Estados, blank=False, null=False)
     activo = models.CharField(max_length=1, null=False, choices=ACTIVO_CHOICE, default='A')
 
     class Meta:
@@ -154,7 +134,9 @@ class CaracteristicasRecursos(models.Model):
 
     codigo_recurso = models.OneToOneField(Recurso, on_delete=models.CASCADE, null=False)
     codigo_tipo_recurso = models.OneToOneField(TipoRecurso, on_delete=models.CASCADE, null=False)
-    caracteristicas = models.TextField(null=False)
+    clave = models.TextField(null=False)
+    valor = models.TextField(null=False)
 
     class Meta:
+        db_table = "caracteristicas_recurso"
         unique_together = (("codigo_recurso", "codigo_tipo_recurso"),)
