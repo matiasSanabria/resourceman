@@ -1,16 +1,12 @@
 __author__ = 'hector'
 
-from django.template import RequestContext
 from .forms import *
 from .models import Usuario, PrioridadUsuario
 
-
-
 from .forms import UsuarioCreationForm,UsuarioDetalleForm, AgregarPrioridad
 from django.contrib import messages
-from django.contrib.auth.models import User, Group, Permission
-from django.shortcuts import render, redirect, render_to_response
-from django.contrib.auth.decorators import login_required, permission_required
+from django.contrib.auth.models import User, Group
+from django.shortcuts import render, redirect
 
 # Create your views here.
 #@login_required
@@ -159,8 +155,8 @@ def eliminarUsuario(request, username):
     return redirect('listarUsuario')
 
 
-@login_required
-@permission_required('usuarios.per_agregar_prioridad')
+#@login_required
+#@permission_required('usuarios.per_agregar_prioridad')
 def agregarPrioridad(request):
     """
         Página para la agregacion de Prioridad.

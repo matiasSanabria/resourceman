@@ -28,6 +28,5 @@ urlpatterns = [
     url(r'', include('index.urls')),
     url(r'^permisos/', include('permisos.urls')),
     url(r'^roles/', include('roles.urls')),
-    # url(r'^usuario2/', include('usuario2.urls')),
 
 ]

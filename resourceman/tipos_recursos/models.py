@@ -1,6 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import User, Group, Permission
-from django.db.models import Q
+from django.contrib.auth.models import User, Permission
 
 
 class TipoRecurso(models.Model):
@@ -148,9 +147,6 @@ class Encargado(models.Model):
         blank=True,
         limit_choices_to={'groups__permissions': per_num()}
     )
-
-    # perm = Permission.objects.get(codename='per_crear_recurso')
-    # users = User.objects.filter(Q(groups__permissions=perm) | Q(user_permissions=perm)).distinct()
 
     class Meta:
 
