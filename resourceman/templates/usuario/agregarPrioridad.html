@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <title>{% block titulo %}Agregar Prioridad{% endblock %}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
@@ -52,6 +53,7 @@
         h1{
             margin-left: 30%;
             margin-top: 10%;
+
         }
         .button {
             /* Para posicionar los botones a la misma posición que los campos de texto */
@@ -61,6 +63,7 @@
         #botones {
             margin-left: 70%;
             margin-top: 5%;
+
         }
     </style>
 </head>
@@ -68,7 +71,7 @@
     {%include 'navbar.html'%}
     {%include 'sidenav.html'%}
     <form action="" method="post">{% csrf_token %}
-    <h1>Agregar Prioridad.</h1>
+    <h1>Agregar Prioridad</h1>
 
         <div>
             {{prioridad_form.as_p}}

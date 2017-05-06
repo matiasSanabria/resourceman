@@ -1,7 +1,7 @@
 from django.shortcuts import redirect, render
 from .models import CaracteristicasRecursos
 from .forms import TipoRecursoForm, EstadoForm, RecursoForm, EncargadoForm
-from .models import TipoRecurso, Estados, Recurso
+from .models import TipoRecurso, Estados, Recurso, Encargado
 from django.contrib import messages
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -73,29 +73,36 @@ def editar(request, nombre):
                         indica si el tipo de recurso esta activo o no
                         - A 'Activo'
                         - I 'Inactivo'
+        encargado:
+                        referencia a un usuario con permisos para manejar recursos
         :param request: 
         :return: el formulario para editar otro tipo de recurso
     """
     mensaje = 'Modificar Tipo de Recurso'
     messages.add_message(request, messages.INFO, mensaje)
     editar = TipoRecurso.objects.get(nombre=nombre)
-
+    encargado = Encargado.objects.get(tipo_recurso=nombre)
     if request.method == 'POST':
         editar_form = TipoRecursoForm(request.POST, instance=editar)
+        encargado_form = EncargadoForm(request.POST, instance=encargado)
         if editar_form.is_valid():
-            editar_form.save()
-            return redirect('listar')
-        else:
-            editar_form = TipoRecursoForm(request.POST, instance=editar)
-
+            if encargado_form.is_valid():
+                editar_form.save()
+                encargado_form.save()
+                return redirect('listar')
+        # else:
+        #     editar_form = TipoRecursoForm(request.POST, instance=editar)
         return render(request, 'tipo_recurso/editar_tipo_recurso.html', {
             'editar_form': editar_form,
+            'encargado_form': encargado_form,
             'nombre': nombre
         })
     else:
         editar_form = TipoRecursoForm(instance=editar)
+        encargado_form = EncargadoForm(instance=encargado)
         return render(request, 'tipo_recurso/editar_tipo_recurso.html', {
             'editar_form': editar_form,
+            'encargado_form': encargado_form,
             'nombre': nombre
         })
 
@@ -358,3 +365,14 @@ def listar_recursos(request):
     messages.add_message(request, messages.INFO, mensaje)
     lista = Recurso.objects.all()
     return render(request, 'recurso/listar_recursos.html', {'lista': lista})
+
+def listar_encargado(request):
+    """
+    Lista todos los encargados de tipo de recursos disponibles en el sistema
+    :param request:
+    :return:
+    """
+    mensaje = 'Listar Encargados'
+    messages.add_message(request, messages.INFO, mensaje)
+    lista = Encargado.objects.all()
+    return render(request, 'tipo_recurso/listar_encargados.html', {'lista': lista})

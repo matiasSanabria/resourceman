@@ -91,6 +91,7 @@ def agregarPermiso(request):
         Se define un objeto para guardar los datos a traves de la funcion del form.
 
     """
+
     mensaje = 'Crear Permiso'
     messages.add_message(request, messages.INFO, mensaje)
 

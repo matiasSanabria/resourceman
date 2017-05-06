@@ -121,6 +121,20 @@ def per_num():
     return per.id
 
 class Encargado(models.Model):
+    """
+        Definicion del model para el Encargado del Tipo de Recurso
+
+        *Campos:*
+
+        1. ``tipo_recurso``: Tipo de Recurso del que se encargara el usuario
+        #. ``usuario``: Usuario con permisos de administracion de recursos.
+
+        Returns
+        -------
+        model: ``django.db.models.Model``
+            Un model propio heredado de django.db.models.Model con los campos adicionales.
+
+    """
     tipo_recurso = models.OneToOneField(TipoRecurso, on_delete=models.CASCADE)
     usuario = models.ForeignKey(
         User,

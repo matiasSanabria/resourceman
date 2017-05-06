@@ -2,7 +2,6 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>{% block titulo %}Editar Prioridad{% endblock %}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
@@ -12,7 +11,7 @@
 
         .sidenav {
             background-color: #00796b;
-            height: 100%;
+            height: 540px;
         }
 
         footer {
@@ -37,7 +36,7 @@
             background-color: #eeeeee;
         }
     </style>
-    <title>Agregar Prioridad</title>
+    <title>Crear Reclamo</title>
     <style>
         form {
             /* Sólo para centrar el formulario a la página */
@@ -78,15 +77,31 @@
 <body>
     {%include 'navbar.html'%}
     {%include 'sidenav.html'%}
-    <h1>Editar Prioridad</h1>
+    <h1>Crear Reclamo.</h1>
     <form action="" method="post">{% csrf_token %}
         <div>
-            {{editar_form.as_p }}
+{#            <label>Recurso:</label>#}
+            {{crear_reclamo.as_p}}
+            </div>
+            <div>
+{#            <label>Descripcion:</label>#}
+{#            {{crear_reclamo.descripcion}}#}
         </div>
-        <div class="button">
-            <button type="submit" class="btn btn-primary btn-block">Guardar</button>
-            <!--<button type="reset" class="btn btn-danger btn-lg">Limpiar</button>-->
+        <div>
+            <button type="submit" class="btn btn-primary btn-lg">Guardar</button>
+            <button type="reset" class="btn btn-danger btn-lg">Limpiar</button>
         </div>
+{#       <div>#}
+{#            <h2>CREAR RECLAMO</h2>#}
+{#        </div>#}
+{#        <div class="panel-body">#}
+{#            <form accept-charset="UTF-8" role="form" action="" method="post">{% csrf_token %}#}
+{#                <div class="form-details">#}
+{#                    {{ permiso_form.as_p }}#}
+{#                </div>#}
+{#                <button type="submit" class="form-btn" onsubmit="" id="rol_form_btn">Crear</button>#}
+{#            </form>#}
+{#        </div>#}
     </form>
 
 </body>
