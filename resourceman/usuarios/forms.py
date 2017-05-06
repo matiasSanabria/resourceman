@@ -246,3 +246,25 @@ class EditarPrioridad(forms.ModelForm):
             'codigo', 'descripcion'
         ]
         exclude = []
+
+class EditarPerfilUser(forms.ModelForm):
+
+    class Meta:
+        model = User
+        fields = '__all__'
+        help_texts = {
+            'username': ''
+        }
+        exclude = [
+            'id', 'is_superuser', 'is_staff', 'last_login', 'date_joined',
+            'user_permissions', 'is_active', 'username', 'groups'
+        ]
+
+class EditarPerfilUsuario(forms.ModelForm):
+
+    class Meta:
+        model = Usuario
+        fields = '__all__'
+        exclude = [
+            'usuario', 'nro_documento', 'prioridad'
+        ]
