@@ -43,6 +43,7 @@
         }
         h3 {
             text-align: center;
+            margin-left: 30%;
             margin-top:50px;
         }
 
@@ -52,10 +53,14 @@
             margin: auto;
             margin-left:20px;
         }
-
-        #btnAgregar{
+        #btnEncargado{
             float: right;
             margin-right:5%;
+            margin-bottom: 1em;
+        }
+        #btnAgregar{
+            float: right;
+            margin-right:1%;
             margin-bottom: 1em;
         }
     </style>
@@ -66,6 +71,9 @@
             {% include 'navbar.html'%}
             {% include 'sidenav.html' %}
             <h3>Lista de Tipos de Recursos
+                <a href="/tipo_recurso/listar_encargado">
+                    <button id="btnEncargado" class="btn btn-primary btn-lg">Encargados</button>
+                </a>
                 <a href="/tipo_recurso/crear">
                     <button id="btnAgregar" class="btn btn-success btn-lg">Agregar</button>
                 </a>

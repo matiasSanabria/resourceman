@@ -1,7 +1,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>{% block titulo %}Tipos de Recursos{% endblock %}</title>
+    <title>{% block titulo %}Encargados{% endblock %}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
@@ -12,7 +12,7 @@
 
         .sidenav {
             background-color: #00796b;
-            height: 540px;
+            height: 604px;
         }
 
         footer {
@@ -55,7 +55,7 @@
 
         #btnAgregar{
             float: right;
-            margin-right:8%;
+            margin-right:5%;
             margin-bottom: 1em;
         }
     </style>
@@ -65,36 +65,24 @@
         <div class="row content">
             {% include 'navbar.html'%}
             {% include 'sidenav.html' %}
-            <h3>Lista de Estados
-                <a href="/estados/crear_estado">
-                    <button id="btnAgregar" class="btn btn-success btn-lg">Agregar</button>
+            <h3>Lista de Encargados
+                <a href="/tipo_recurso/listar">
+                    <button id="btnAgregar" class="btn btn-danger btn-lg">Atras</button>
                 </a>
             </h3>
             <div id="tablaList" class="col-lg-8">
-                <table class="table table-hover" id="datatable">
+                <table class="table table-striped table-bordered" id="datatable">
                     <thead>
                     <tr>
-                        <th>C&oacute;digo</th>
-                        <th>Descripci&oacute;n</th>
-                        <th>Modificar</th>
-                        <th>Eliminar</th>
+                        <th>Nombre</th>
+                        <th>Tipo de Recurso</th>
                     </tr>
                     </thead>
                     <tbody>
-                        {% for estado in lista %}
+                        {% for encargado in lista %}
                             <tr>
-                                <td>{{estado.codigo}}</td>
-                                <td>{{estado.descripcion}}</td>
-                                <td>
-                                    <a href="{%  url 'editar_estado' codigo=estado.codigo %}">
-                                        <button type="button" class="btn btn-primary btn-sm">Editar</button>
-                                    </a>
-                                </td>
-                                <td>
-                                    <a href="{%  url 'eliminar_estado' codigo=estado.codigo %}">
-                                        <button type="button" class="btn btn-danger btn-sm">Eliminar</button>
-                                    </a>
-                                </td>
+                                <td>{{ encargado.usuario }}</td>
+                                <td>{{ encargado.tipo_recurso }}</td>
                             </tr>
                         {% endfor %}
                     </tbody>

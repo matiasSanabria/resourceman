@@ -110,7 +110,7 @@ class UsuarioDetalleForm(forms.ModelForm):
 
     """
     nro_documento = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control'}))
-    direccion = forms.CharField(widget=forms.Textarea(attrs={'class':'form-control', 'rows': '2'}))
+    direccion = forms.CharField(widget=forms.Textarea(attrs={'class':'form-control', 'rows': '3'}))
     telefono = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control'}))
 
     def __init__(self, *args, **kwargs):
@@ -167,11 +167,19 @@ class UserInfoForm(forms.ModelForm):
         #. ``date_joined``
 
     """
+    username = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}))
+    first_name = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}))
+    last_name = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}))
+    last_login = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}))
+    date_joined = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}))
     class Meta:
         model = User
         fields = '__all__'
         help_texts = {
             'username': ''
+        }
+        widgets = {
+            'email': TextInput(attrs={'class': 'form-control'})
         }
         exclude = [
              'user_permissions', 'password'
@@ -192,10 +200,15 @@ class UsuarioInfoForm(forms.ModelForm):
 
 
     """
-
+    nro_documento = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}))
+    direccion = forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control', 'rows': '3'}))
+    telefono = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}))
     class Meta:
         model = Usuario
         fields = '__all__'
+        widgets = {
+            'prioridad': Select(attrs={'class': 'btn dropdown-toggle'})
+        }
         exclude = [
             'usuario',
         ]

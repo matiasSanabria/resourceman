@@ -59,6 +59,7 @@
             <h3>Modificar Tipo de Recurso</h3>
             <form id="content" class="col-lg-4" action="" method="POST">{% csrf_token %}
                 {{ editar_form.as_p }}
+                <label>Encargado: {{ encargado_form.usuario }}</label>
                 <button id="btnGuardar" type="submit" class="btn btn-primary btn-block">Guardar</button>
             </form>
         </div>

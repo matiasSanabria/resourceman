@@ -28,4 +28,7 @@ urlpatterns = [
 
     #url(r'^eliminar_recurso/(?P<codigo_recurso>\w+)$', views.eliminar_recurso, name='eliminar_recurso'),
 
+    # Url de encargados de recurso
+    url(r'^listar_encargado/$', views.listar_encargado, name='listar_encargado'),
+
 ]
