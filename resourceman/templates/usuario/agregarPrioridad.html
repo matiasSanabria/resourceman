@@ -50,16 +50,17 @@
             border-radius: 1em;*/
         }
         h1{
-            margin-left: 45%;
+            margin-left: 30%;
+            margin-top: 10%;
         }
         .button {
             /* Para posicionar los botones a la misma posición que los campos de texto */
             padding-left: 60%; /* mismo tamaño a todos los elementos label */
 
         }
-        #button {
-            margin-left: 20%;
-
+        #botones {
+            margin-left: 70%;
+            margin-top: 5%;
         }
     </style>
 </head>
@@ -72,8 +73,10 @@
         <div>
             {{prioridad_form.as_p}}
         </div>
-        <button id="button" type="submit" class="btn btn-primary btn-lg">Guardar</button>
-        <button type="reset" class="btn btn-danger btn-lg">Limpiar</button>
+        <div id="botones">
+            <button id="button" type="submit" class="btn btn-primary btn-lg">Guardar</button>
+            <button type="reset" class="btn btn-danger btn-lg">Limpiar</button>
+        </div>
     </form>
 
 </body>

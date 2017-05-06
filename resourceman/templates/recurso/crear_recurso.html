@@ -52,6 +52,46 @@
     </style>
 </head>
 <body>
+    <script>
+        $(document).ready(function () {
+            
+            // se encarga de obtener las caracteristicas que fueron declaradas en el tipo de recurso
+            // para mostrarlos en el formulario
+            $('#id_tipo_recurso').on('click', function () {
+                var id = $('#id_tipo_recurso option:selected').text();
+                //console.log(id);
+
+                if(id == '---------'){
+                    alert("Debe seleccionar un elemento distinto al primero")
+                }else{
+                    $.ajax({
+                        type: "get",
+                        url: 'get_tipo_recurso/' + id,
+                        dataType: "json",
+                        success: function (data) {
+                            var content = $('#caracteristicas');
+                            content.empty();
+
+                            var caracteristicas = $.parseJSON(data);
+
+                            $.each(caracteristicas, function(item){
+                                console.log(item);
+                                content.append(
+                                    '<label id="clave" value="{{ caraceristicas.clave }}">'+ this.clave + '</label><br/>' +
+                                    '<input id="valor" class="form-control" value="{{ caracteristicas.valor }}"/><br/>'
+                                );
+                            });
+                        },
+                        error: function () {
+                            alert("error");
+                        }
+                    });
+                }
+
+            });
+
+        });
+    </script>
     <div class="container-fluid">
         <div class="row content">
             {% include 'navbar.html' %}
@@ -59,6 +99,7 @@
             <h3>Crear Recurso</h3>
             <form id="content" class="col-lg-4" action="" method="POST">{% csrf_token %}
                 {{ recurso.as_p }}
+                <div id="caracteristicas"></div>
                 <button id="btnGuardar" type="submit" class="btn btn-primary btn-block">Guardar</button>
             </form>
         </div>

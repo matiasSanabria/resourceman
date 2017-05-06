@@ -48,30 +48,36 @@
             display: table;
             width: 70%;
         }
-
-        h1{
-            margin-left: 27%;
-            text-align: center;
-        }
+{##}
+{#        #titulo{#}
+{#            margin-left: 42%;#}
+{#            text-align: center;#}
+{#        }#}
         #agregar{
-            margin-left: 20%;
+            margin-left: 21%;
         }
     </style>
+
 </head>
 <body>
     {%include 'navbar.html'%}
     {%include 'sidenav.html'%}
-    <h1>Lista de Usuarios.<a href="{% url 'agregarUsuario' %}"><button id="agregar" type="button" class="btn btn-success btn-lg">Agregar Usuario</button></a></h1>
+    <div id="titulo">
+        <h1 style="margin-left: 350px;">Lista de Usuarios.<a href="{% url 'agregarUsuario' %}"><button id="agregar" type="button" class="btn btn-success btn-lg">Agregar Usuario</button></a></h1>
+    </div>
     <div id="mitabla">
-    <table class="table table-hover">
+{#    <table class="table table-hover">#}
+    <table class="table table-hover" id="datatable">
         <thead>
             <tr>
                 <th>User</th>
                 <th>Nombre</th>
                 <th>Apellido</th>
                 <th>Nro de identidad</th>
+                <th>Activo</th>
 {#                <th>Rol</th>#}
                 <th>EDITAR</th>
+                <th>ELIMINAR</th>
             </tr>
         </thead>
         <tbody>
@@ -80,17 +86,18 @@
                     <td>{{user.username}}</td>
                     <td>{{user.first_name}}</td>
                     <td>{{user.last_name}}</td>
-                    <td>{{ detail.nro_documento }}</td>
-{#                    <td>{{user.groups}}</td>#}
-{#                    <td>{{user.first_name}}</td>#}
+                    <td>{{detail.nro_documento}}</td>
+                    <td>{{user.is_active}}</td>
+{#                    <td>{{user.groups.name}}</td>#}
 
                     <td><a href="{% url 'editarUsuario' username=user.username %}"><button type="button" class="btn btn-primary btn-sm">Editar</button></a></td>
-{#                    <td><a href="{% url 'eliminarPermisos' pk=permiso.pk %}"><button type="button" class="btn btn-danger btn-sm">Eliminar</button></a></td>#}
+                    <td><a href="{% url 'eliminarUsuario' username=user.username %}"><button type="button" class="btn btn-danger btn-sm">Eliminar</button></a></td>
                 </tr>
             {% endfor %}
         </tbody>
     </table>
     </div>
+    {% include 'datatablescript.html' %}
 
 </body>
 </html>

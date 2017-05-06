@@ -12,7 +12,7 @@
 
         .sidenav {
             background-color: #00796b;
-            height: 540px;
+            height: 544px;
         }
 
         footer {
@@ -55,7 +55,7 @@
 
         #btnAgregar{
             float: right;
-            margin-right:8%;
+            margin-right:5%;
         }
     </style>
 </head>
@@ -65,27 +65,31 @@
             {% include 'navbar.html'%}
             {% include 'sidenav.html' %}
             <h3>Lista de Recursos
-                <a href="/recursos/crear">
+                <a href="/recursos/crear_recurso">
                     <button id="btnAgregar" class="btn btn-success btn-lg">Agregar</button>
                 </a>
             </h3>
-            <div id="tablaList" class="col-lg-8">
-                <table class="table table-hover">
+            <div id="tablaList" class="col-lg-8" style="margin-top:1em;">
+                <table class="table table-hover" id="datatable">
                     <thead>
                     <tr>
                         <th>Nombre</th>
                         <th>Descripcion</th>
+                        <th>Estado</th>
+                        <th>Activo</th>
                         <th>Modificar</th>
                         <th>Eliminar</th>
                     </tr>
                     </thead>
                     <tbody>
-                        {% for tr in lista %}
+                        {% for recurso in lista %}
                             <tr>
-                                <td>{{tr.nombre}}</td>
-                                <td>{{tr.descripcion}}</td>
+                                <td>{{recurso.nombre_recurso}}</td>
+                                <td>{{recurso.descripcion_recurso}}</td>
+                                <td>{{ recurso.estado }}</td>
+                                <td>{{recurso.activo}}</td>
                                 <td>
-                                    {% comment %}<a href="{%  url 'editar' nombre=tr.nombre %}">{% endcomment %}
+                                    <a href="{%  url 'editar_recurso' codigo_recurso=recurso.codigo_recurso %}">
                                         <button type="button" class="btn btn-primary btn-sm">Editar</button>
                                     </a>
                                 </td>
@@ -98,7 +102,7 @@
                         {% endfor %}
                     </tbody>
                 </table>
-
+                {% include 'datatablescript.html' %}
             </div>
         </div>
     </div>

@@ -1,26 +1,25 @@
+__author__ = 'hector'
 
-
-from django.shortcuts import render, redirect, render_to_response
-from django.contrib import messages
-from django.contrib.auth.models import User
-from django.template import RequestContext
 from .forms import *
 from .models import Usuario, PrioridadUsuario
-import datetime
-
-from django.contrib.auth.models import Group, Permission
-
-from django.shortcuts import render
-
 
 from .forms import UsuarioCreationForm,UsuarioDetalleForm, AgregarPrioridad
-from django.contrib.auth.models import Group, Permission
 from django.contrib import messages
 from django.contrib.auth.models import User, Group
-from django.shortcuts import render, redirect, render_to_response
-# Create your views here.
-def crearUsuario(request):
+from django.shortcuts import render, redirect
 
+# Create your views here.
+#@login_required
+#@permission_required('usuarios.per_crear_usuario')
+def crearUsuario(request):
+    """
+        Página para la creacion de Usuarios.
+
+        Recibe los datos suministrados por el usuario a traves de un post.
+
+        Se definen objetos de User y Usuario para guardar los datos a traves de las funciones del form.
+
+    """
     if request.method == "POST":
         user_form = UsuarioCreationForm(request.POST)
         user_detail_form = UsuarioDetalleForm(request.POST)
@@ -35,8 +34,11 @@ def crearUsuario(request):
 
                 # guardando relacion group user
                 g1 = Group.objects.get(id=request.POST.get('groups'))
+
                 print(g1.name)
+                print("")
                 print("Username")
+
                 user1 = User.objects.get(username=request.POST.get('username'))
                 print(user1.username)
 
@@ -45,9 +47,10 @@ def crearUsuario(request):
                 user_detail = user_detail_form.save(commit=False)  # guarda en el objeto model, sin guardarlo en la BD.
                 user_detail.usuario = user  # asocia de detalle al usuario.
                 user_detail.save()  # guarda en BD.
+                print("fin")
                 messages.add_message(request, messages.SUCCESS,
                                      "Usuario -%s- ha sido creado correctamente." % user.username)
-                return redirect('agregarUsuario')
+                return redirect('listarUsuario')
 
     else:
         user_form = UsuarioCreationForm()
@@ -58,8 +61,15 @@ def crearUsuario(request):
         'user_detail_form': user_detail_form,
     })
 
+#@login_required
+#@permission_required('usuarios.per_listar_usuario')
 def listarUsuario(request):
+    """
+        Página para listar de Usuario.
 
+        Genera una instancia de los objetos de User, Usuario y luego los devuleve al template listarUsuario.html
+
+    """
     mensaje = 'Listar Usuario'
     messages.add_message(request, messages.INFO, mensaje)
     usuario = User.objects.all().order_by('pk')
@@ -67,7 +77,7 @@ def listarUsuario(request):
 
     print(usuario.count())
     print(detalle_usuario.count())
-    if usuario.count() == 1 and detalle_usuario.count() == 0:
+    if usuario.count() == 2 and detalle_usuario.count() == 0:
         print("aqui")
         new_detail_for_admin = Usuario.objects.create(usuario=usuario.first())
         new_detail_for_admin.save()
@@ -80,13 +90,21 @@ def listarUsuario(request):
     # return render(request, 'usuario/listarPrioridad.html', {
     #     'prioridades': prioridades
     # })
-
+#@login_required
+#@permission_required('usuarios.per_editar_usuario')
 def editarUsuario(request, username):
-    # messages.add_message(request, messages.INFO, "Obs: Para eliminar un usuario, desactive la casilla 'Activo'.")
-    # if request.user.is_superuser:
-    #     # Para prevenir que se indique manualmente en la url un nombre de usuario accidental o aleatoriamente.
-    #     user = get_object_or_404(User, username=username)
+
         user = User.objects.get(username=username)
+        """
+                Página para la edicion de Usuario.
+
+                Recibe un Post con un atributo username del usuario a editar.
+
+                Se instancian los objetos User y Usuario con el identificador suministrado.
+
+                Se alteran los datos con el Post recibido y se guardan.
+
+        """
         if Usuario.objects.filter(usuario=user).exists():
             # print("existe detalle de usuario.")
             user_detail = Usuario.objects.get(usuario=user)
@@ -126,11 +144,28 @@ def editarUsuario(request, username):
             'user_detail_form': user_detail_form,
             'username': user.username,
         })
-    # else:
-    #     raise Http404('Recurso solicitano no existe. (en realidad, se está impidiendo acceder a esta url porque no'
-    #                   ' es superusuario. borrar todo el paréntesis después.)')
 
+def eliminarUsuario(request, username):
+    user = User.objects.get(username=username)
+    user.is_active = 0
+    user.save()
+
+    messages.add_message(request, messages.INFO, "Usuario -%s- eliminado exitosamente" % user.username)
+
+    return redirect('listarUsuario')
+
+
+#@login_required
+#@permission_required('usuarios.per_agregar_prioridad')
 def agregarPrioridad(request):
+    """
+        Página para la agregacion de Prioridad.
+
+        Recibe los datos suministrados por el usuario a traves de un post.
+
+        Se define un objeto para guardar los datos a traves de la funcion del form.
+
+    """
     mensaje = 'Crear Prioridad'
     messages.add_message(request, messages.INFO, mensaje)
 
@@ -153,18 +188,34 @@ def agregarPrioridad(request):
         return render(request, 'usuario/agregarPrioridad.html', {
             'prioridad_form': prioridad_form,
         })
-
+#@login_required
+#@permission_required('usuarios.per_listar_prioridad')
 def listarPrioridad(request):
+    """
+        Página para listar de Prioridad.
 
+        Genera una instancia de los objetos de PrioridadUsuario y luego los devuleve al template listarPrioridad.html
+
+    """
     mensaje = 'Listar Prioridad'
     messages.add_message(request, messages.INFO, mensaje)
     prioridades = PrioridadUsuario.objects.all()
     return render(request, 'usuario/listarPrioridad.html', {
         'prioridades': prioridades
     })
-
+#@login_required
+#@permission_required('usuarios.per_editar_prioridad')
 def editarPrioridad(request, codigo):
+    """
+        Página para la edicion de prioridad.
 
+        Recibe un Post con un atributo codigo de la Prioridad a editar.
+
+        Se instancia el objeto con el identificador suministrado.
+
+        Se alteran los datos con el Post recibido y se guardan.
+
+    """
     mensaje = 'Modificar Prioridad'
     messages.add_message(request, messages.INFO, mensaje)
     # mod = Permission.objects.get(pk=pk)
