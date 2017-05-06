@@ -2,5 +2,4 @@
 desarrollo/
 resourceman/*.pyc
 resourceman/*/__pycache__/
-resourceman/*/migrations/__pycache__/
-
+resourceman/*/migrations/*

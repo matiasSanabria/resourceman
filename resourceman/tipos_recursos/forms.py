@@ -3,9 +3,8 @@ from django.forms.formsets import BaseFormSet
 __author__ = 'matt'
 
 from django import forms
-from .models import TipoRecurso, Estados, Recurso, CaracteristicasRecursos
+from .models import TipoRecurso, Estados, Recurso, Encargado, CaracteristicasRecursos
 from django.forms import TextInput, Textarea, Select
-
 
 class TipoRecursoForm(forms.ModelForm):
     """
@@ -90,3 +89,33 @@ class EstadoForm(forms.ModelForm):
             'codigo': TextInput(attrs={'class': 'col-lg-3 form-control'}),
             'descripcion': TextInput(attrs={'class': 'col-lg-3 form-control', 'rows': '1'}),
         }
+
+class EncargadoForm(forms.ModelForm):
+    """
+        Formulario para la clase Estados de Recurso
+    """
+    def __init__(self, *args, **kwargs):
+        # instance = kwargs.get('instance', None)
+        # kwargs.update(initial={
+        #     # 'field': 'value'
+        #     'dni': '5214801',
+        #     'category': 'NON',
+        #     'phone': '527-622',
+        # })
+        super(EncargadoForm, self).__init__(*args, **kwargs)
+    class Meta:
+        model = Encargado
+        fields = '__all__'
+        REQUIRED_FIELDS = [
+            'usuario'
+        ]
+        widgets = {
+            'usuario': Select(attrs={'class': 'btn dropdown-toggle'}),
+        }
+        exclude = ['tipo_recurso']
+
+    def save(self, commit=True):
+        encargado = super(EncargadoForm, self).save(commit=False)
+        if commit:
+            encargado.save()
+        return encargado

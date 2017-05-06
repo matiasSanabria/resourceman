@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User, Permission
 
 
 class TipoRecurso(models.Model):
@@ -113,6 +114,23 @@ class Recurso(models.Model):
         )
 
         db_table = 'recursos'
+
+
+def per_num():
+    per = Permission.objects.get(codename='per_crear_recurso')
+    return per.id
+
+class Encargado(models.Model):
+    tipo_recurso = models.OneToOneField(TipoRecurso, on_delete=models.CASCADE)
+    usuario = models.ForeignKey(
+        User,
+        blank=True,
+        limit_choices_to={'groups__permissions': per_num()}
+    )
+
+    class Meta:
+
+        db_table = 'encargado_recurso'
 
 class CaracteristicasRecursos(models.Model):
     """
