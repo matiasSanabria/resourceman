@@ -11,7 +11,7 @@
 
         .sidenav {
             background-color: #00796b;
-            height: 540px;
+            height: 100%;
         }
 
         footer {
@@ -36,7 +36,7 @@
             background-color: #eeeeee;
         }
     </style>
-    <title>Agregar Permisos</title>
+    <title>Ver Reclamo</title>
     <style>
         form {
             /* Sólo para centrar el formulario a la página */
@@ -68,8 +68,7 @@
             padding-left: 70%; /* mismo tamaño a todos los elementos label */
 
         }
-        #botones {
-            margin-left: 60%;
+        button {
             margin-top: 3%;
 
         }
@@ -78,35 +77,29 @@
 <body>
     {%include 'navbar.html'%}
     {%include 'sidenav.html'%}
-    <h1>Agregar Permiso.</h1>
+    <h1>Ver Reclamo</h1>
     <form action="" method="post">{% csrf_token %}
         <div>
-            <label>Nombre:</label>
-            {{permiso_form.codename}}
-            <label>Descripcion:</label>
-            {{permiso_form.name}}
-            <label style="margin-top: 40px">Acceso a app:</label>
-            {{permiso_form.content_type}}
+            <label>Recurso</label>
+            {{reclamo.recurso}}
+
+{#            {{ver_reclamo.as_p}}#}
         </div>
-<<<<<<< HEAD
-        <div id="botones">
-=======
         <div>
->>>>>>> origin/carlos
-            <button type="submit" class="btn btn-primary btn-lg">Guardar</button>
-            <button type="reset" class="btn btn-danger btn-lg">Limpiar</button>
+            <label>Reclamo</label>
+            {{reclamo.descripcion}}
         </div>
-{#       <div>#}
-{#            <h2>CREAR PERMISO</h2>#}
-{#        </div>#}
-{#        <div class="panel-body">#}
-{#            <form accept-charset="UTF-8" role="form" action="" method="post">{% csrf_token %}#}
-{#                <div class="form-details">#}
-{#                    {{ permiso_form.as_p }}#}
-{#                </div>#}
-{#                <button type="submit" class="form-btn" onsubmit="" id="rol_form_btn">Crear</button>#}
-{#            </form>#}
-{#        </div>#}
+        <div>
+            <label>Estado</label>
+            {{reclamo.estado}}
+        </div>
+        <div class="button">
+            <a href="{% url 'listarReclamos' %}">
+                <button type="button" class="btn btn-primary btn-block">Guardar</button>
+            </a>
+
+            <!--<button type="reset" class="btn btn-danger btn-lg">Limpiar</button>-->
+        </div>
     </form>
 
 </body>

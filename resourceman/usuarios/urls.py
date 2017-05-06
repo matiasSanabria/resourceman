@@ -9,6 +9,7 @@ urlpatterns = [
     # url(r'^listar/(?P<pk>\d+)$',), views
     # ex: /permisos/agregar/
     url(r'^agregar/$', views.crearUsuario, name='agregarUsuario'),
+
     # ex: /permisos/editar/
     # url(r'editar/(?P<pk>\d+)$', views.editarPermiso, name='editar'),
     url(r'^editar/(?P<username>\w+)$', views.editarUsuario, name="editarUsuario"),
@@ -20,4 +21,5 @@ urlpatterns = [
     url(r'^listarPrioridad/$', views.listarPrioridad, name='listarPrioridad'),
 
     url(r'^editarPrioridad/(?P<codigo>\w+)$', views.editarPrioridad, name='editarPrioridad'),
+
 ]

@@ -36,7 +36,7 @@
             background-color: #eeeeee;
         }
     </style>
-    <title>Agregar Permisos</title>
+    <title>Crear Reclamo</title>
     <style>
         form {
             /* Sólo para centrar el formulario a la página */
@@ -68,8 +68,7 @@
             padding-left: 70%; /* mismo tamaño a todos los elementos label */
 
         }
-        #botones {
-            margin-left: 60%;
+        button {
             margin-top: 3%;
 
         }
@@ -78,26 +77,22 @@
 <body>
     {%include 'navbar.html'%}
     {%include 'sidenav.html'%}
-    <h1>Agregar Permiso.</h1>
+    <h1>Crear Reclamo.</h1>
     <form action="" method="post">{% csrf_token %}
         <div>
-            <label>Nombre:</label>
-            {{permiso_form.codename}}
-            <label>Descripcion:</label>
-            {{permiso_form.name}}
-            <label style="margin-top: 40px">Acceso a app:</label>
-            {{permiso_form.content_type}}
+{#            <label>Recurso:</label>#}
+            {{crear_reclamo.as_p}}
+            </div>
+            <div>
+{#            <label>Descripcion:</label>#}
+{#            {{crear_reclamo.descripcion}}#}
         </div>
-<<<<<<< HEAD
-        <div id="botones">
-=======
         <div>
->>>>>>> origin/carlos
             <button type="submit" class="btn btn-primary btn-lg">Guardar</button>
             <button type="reset" class="btn btn-danger btn-lg">Limpiar</button>
         </div>
 {#       <div>#}
-{#            <h2>CREAR PERMISO</h2>#}
+{#            <h2>CREAR RECLAMO</h2>#}
 {#        </div>#}
 {#        <div class="panel-body">#}
 {#            <form accept-charset="UTF-8" role="form" action="" method="post">{% csrf_token %}#}

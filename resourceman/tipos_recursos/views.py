@@ -358,3 +358,4 @@ def listar_recursos(request):
     messages.add_message(request, messages.INFO, mensaje)
     lista = Recurso.objects.all()
     return render(request, 'recurso/listar_recursos.html', {'lista': lista})
+
