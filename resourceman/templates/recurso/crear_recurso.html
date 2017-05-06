@@ -77,8 +77,8 @@
                             $.each(caracteristicas, function(item){
                                 console.log(item);
                                 content.append(
-                                    '<label id="clave">'+ this.clave + '</label><br/>' +
-                                    '<input id="valor" class="form-control"/><br/>'
+                                    '<label id="clave" value="{{ caraceristicas.clave }}">'+ this.clave + '</label><br/>' +
+                                    '<input id="valor" class="form-control" value="{{ caracteristicas.valor }}"/><br/>'
                                 );
                             });
                         },
@@ -89,14 +89,7 @@
                 }
 
             });
-            
-            $('#btnGuardar').on('click',function () {
-                var key_list = $('#clave');
-                var value_list = $('#valor');
-                console.log(key_list);
-                console.log(value_list);
-            })
-            
+
         });
     </script>
     <div class="container-fluid">

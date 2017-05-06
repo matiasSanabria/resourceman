@@ -1,9 +1,8 @@
 from django.shortcuts import redirect, render
+from .models import CaracteristicasRecursos
 from .forms import TipoRecursoForm, EstadoForm, RecursoForm, EncargadoForm
-from .models import TipoRecurso, Estados, Recurso, Encargado
+from .models import TipoRecurso, Estados, Recurso
 from django.contrib import messages
-from django.http import HttpResponse, JsonResponse
-from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
@@ -199,10 +198,6 @@ def crear_estado(request):
         else:
             messages.error(request, "Ocurrio un error al guardar el estado. Vuelva a intentarlo")
 
-    if request.method == "GET":
-        response_data = {'hola': 'hola'}
-        return JsonResponse({'hola': 'hola'})
-
     estado = EstadoForm()
     return render(request, 'estados/crear_estado.html', {'estado': estado})
 
@@ -287,7 +282,8 @@ def crear_recurso(request):
             pass
 
     recurso = RecursoForm()
-    return render(request, 'recurso/crear_recurso.html', {'recurso': recurso})
+    caracteristicas = CaracteristicasRecursos()
+    return render(request, 'recurso/crear_recurso.html', {'recurso': recurso, 'caracteristicas': caracteristicas})
 
 
 
@@ -313,6 +309,7 @@ def editar_recurso(request, codigo_recurso):
     mensaje = 'Modificar Recurso'
     messages.add_message(request, messages.INFO, mensaje)
     editar = Recurso.objects.get(codigo_recurso=codigo_recurso)
+    #caracteristicas = CaracteristicasRecursos.objects.get(codigo_recurso=codigo_recurso, tipo_recurso=editar.tipo_recurso)
 
     if request.method == 'POST':
         editar_form = RecursoForm(request.POST, instance=editar)
@@ -320,7 +317,7 @@ def editar_recurso(request, codigo_recurso):
             editar_form.save()
             return redirect('listar_recursos')
         else:
-            editar_form = TipoRecursoForm(request.POST, instance=editar)
+            editar_form = RecursoForm(request.POST, instance=editar)
 
         return render(request, 'recurso/editar_recurso.html', {
             'editar_form': editar_form,
