@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect, render
 from .models import CaracteristicasRecursos
 from .forms import TipoRecursoForm, EstadoForm, RecursoForm, EncargadoForm
@@ -8,7 +9,7 @@ from rest_framework.response import Response
 
 __author__ = 'matt'
 
-#@login_required
+@login_required
 def crear(request):
     """
     Permite crear un nuevo tipo de recurso con los siguientes datos
@@ -58,7 +59,7 @@ def crear(request):
         'tipo_recurso': tipo_recurso, 'encargado': encargado})
 
 
-#@login_required
+@login_required
 def editar(request, nombre):
     """
         Permite editar tipo de recurso con los siguientes datos
@@ -107,7 +108,7 @@ def editar(request, nombre):
         })
 
 
-#@login_required
+@login_required
 def eliminar(request, nombre):
     """
     Permite eliminar tipo de recurso con los siguientes datos
@@ -140,7 +141,7 @@ def get_tipo_recurso(request, id):
     return Response({'['+ caracteristicas.lista_caracteristicas + ']'})
 
 
-#@login_required
+@login_required
 def listar_tipos_recursos(request):
     """
         Permite listar los tipos de recursos con los siguientes datos
@@ -165,7 +166,7 @@ def listar_tipos_recursos(request):
 
 
 ########################################################################################################################
-#@login_required
+@login_required
 def listar_estados(request):
     """
         Permite listar los estados de los recursos con los siguientes datos
@@ -184,7 +185,7 @@ def listar_estados(request):
     return render(request, 'estados/listar_estados.html', {'lista': lista})
 
 
-#@login_required
+@login_required
 def crear_estado(request):
     """
         Permite crear un estado de recurso con los siguientes datos
@@ -209,7 +210,7 @@ def crear_estado(request):
     return render(request, 'estados/crear_estado.html', {'estado': estado})
 
 
-#@login_required
+@login_required
 def editar_estado(request, codigo):
     """
         Permite editar un estado de recurso con los siguientes datos
@@ -243,7 +244,7 @@ def editar_estado(request, codigo):
             'codigo': codigo
         })
 
-#@login_required
+@login_required
 def eliminar_estado(request, codigo):
     """
         Permite eliminar estado de recurso
@@ -261,8 +262,8 @@ def eliminar_estado(request, codigo):
 
 ########################################################################################################################
 
-#@login_required
-#@api_view(['GET', 'POST'])
+@login_required
+@api_view(['GET', 'POST'])
 def crear_recurso(request):
     """
     Crea un nuevo recurso con los siguientes datos
@@ -295,7 +296,7 @@ def crear_recurso(request):
 
 
 
-#@login_required
+@login_required
 def editar_recurso(request, codigo_recurso):
     """
         Edita recurso con los siguientes datos
@@ -338,7 +339,7 @@ def editar_recurso(request, codigo_recurso):
         })
 
 
-#@login_required
+@login_required
 def eliminar_recurso(request, codigo):
     """
     Elimina un recurso
@@ -354,7 +355,7 @@ def eliminar_recurso(request, codigo):
     return redirect('../listar_recursos')
 
 
-#@login_required
+@login_required
 def listar_recursos(request):
     """
     Lista todos los recursos disponibles en el sistema
@@ -366,6 +367,8 @@ def listar_recursos(request):
     lista = Recurso.objects.all()
     return render(request, 'recurso/listar_recursos.html', {'lista': lista})
 
+
+@login_required
 def listar_encargado(request):
     """
     Lista todos los encargados de tipo de recursos disponibles en el sistema
