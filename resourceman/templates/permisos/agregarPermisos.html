@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <title>{% block titulo %}Agregar Permisos{% endblock %}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
@@ -68,7 +69,8 @@
             padding-left: 70%; /* mismo tamaño a todos los elementos label */
 
         }
-        button {
+        #botones {
+            margin-left: 60%;
             margin-top: 3%;
 
         }
@@ -77,31 +79,21 @@
 <body>
     {%include 'navbar.html'%}
     {%include 'sidenav.html'%}
-    <h1>Agregar Permiso.</h1>
+    <h1>Agregar Permiso</h1>
     <form action="" method="post">{% csrf_token %}
         <div>
             <label>Nombre:</label>
             {{permiso_form.codename}}
             <label>Descripcion:</label>
             {{permiso_form.name}}
-            <label>Acceso a app:</label>
+            <label style="margin-top: 40px">Acceso a app:</label>
             {{permiso_form.content_type}}
         </div>
-        <div>
+        <div id="botones">
+
             <button type="submit" class="btn btn-primary btn-lg">Guardar</button>
             <button type="reset" class="btn btn-danger btn-lg">Limpiar</button>
         </div>
-{#       <div>#}
-{#            <h2>CREAR PERMISO</h2>#}
-{#        </div>#}
-{#        <div class="panel-body">#}
-{#            <form accept-charset="UTF-8" role="form" action="" method="post">{% csrf_token %}#}
-{#                <div class="form-details">#}
-{#                    {{ permiso_form.as_p }}#}
-{#                </div>#}
-{#                <button type="submit" class="form-btn" onsubmit="" id="rol_form_btn">Crear</button>#}
-{#            </form>#}
-{#        </div>#}
     </form>
 
 </body>

@@ -56,6 +56,7 @@
         #btnAgregar{
             float: right;
             margin-right:8%;
+            margin-bottom: 1em;
         }
     </style>
 </head>
@@ -70,7 +71,7 @@
                 </a>
             </h3>
             <div id="tablaList" class="col-lg-8">
-                <table class="table table-hover">
+                <table class="table table-hover" id="datatable">
                     <thead>
                     <tr>
                         <th>C&oacute;digo</th>
@@ -102,5 +103,6 @@
             </div>
         </div>
     </div>
+    {% include 'datatablescript.html' %}
 </body>
 </html>

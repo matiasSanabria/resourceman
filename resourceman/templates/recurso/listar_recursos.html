@@ -13,6 +13,7 @@
         .sidenav {
             background-color: #00796b;
             height: 544px;
+
         }
 
         footer {
@@ -55,7 +56,7 @@
 
         #btnAgregar{
             float: right;
-            margin-right:8%;
+            margin-right:5%;
         }
     </style>
 </head>
@@ -75,19 +76,21 @@
                     <tr>
                         <th>Nombre</th>
                         <th>Descripcion</th>
+                        <th>Estado</th>
                         <th>Activo</th>
                         <th>Modificar</th>
                         <th>Eliminar</th>
                     </tr>
                     </thead>
                     <tbody>
-                        {% for tr in lista %}
+                        {% for recurso in lista %}
                             <tr>
-                                <td>{{tr.nombre_recurso}}</td>
-                                <td>{{tr.descripcion_recurso}}</td>
-                                <td>{{tr.activo}}</td>
+                                <td>{{recurso.nombre_recurso}}</td>
+                                <td>{{recurso.descripcion_recurso}}</td>
+                                <td>{{ recurso.estado }}</td>
+                                <td>{{recurso.activo}}</td>
                                 <td>
-                                    {% comment %}<a href="{%  url 'editar' nombre=tr.nombre %}">{% endcomment %}
+                                    <a href="{%  url 'editar_recurso' codigo_recurso=recurso.codigo_recurso %}">
                                         <button type="button" class="btn btn-primary btn-sm">Editar</button>
                                     </a>
                                 </td>
@@ -101,6 +104,7 @@
                     </tbody>
                 </table>
                 {% include 'datatablescript.html' %}
+
             </div>
         </div>
     </div>

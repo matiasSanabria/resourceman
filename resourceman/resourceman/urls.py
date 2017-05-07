@@ -18,16 +18,13 @@ from django.contrib import admin
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^login/', include('login.urls')),
-    url(r'^logout/', include('login.urls')),
-    #url(r'^tipo_recurso/', include('tipos_recursos.urls')),
-    #url(r'^recursos/', include('tipos_recursos.urls')),
-    #url(r'^estados/', include('tipos_recursos.urls')),
-    url(r'^usuarios/', include('usuarios.urls')),
-    url(r'^admin/', include(admin.site.urls)),
-    url(r'', include('index.urls')),
-    url(r'^permisos/', include('permisos.urls')),
-    url(r'^roles/', include('roles.urls')),
-    # url(r'^usuario2/', include('usuario2.urls')),
-
+    url(r'^account/', include('resourceman.login.urls')),
+    url(r'^tipo_recurso/', include('resourceman.tipos_recursos.urls')),
+    url(r'^recursos/', include('resourceman.tipos_recursos.urls')),
+    url(r'^estados/', include('resourceman.tipos_recursos.urls')),
+    url(r'^usuarios/', include('resourceman.usuarios.urls')),
+    url(r'', include('resourceman.index.urls')),
+    url(r'^permisos/', include('resourceman.permisos.urls')),
+    url(r'^roles/', include('resourceman.roles.urls')),
+    url(r'^reclamos/', include('resourceman.reclamos.urls')),
 ]
