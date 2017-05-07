@@ -275,7 +275,7 @@ def editarPerfilUsuario(request):
                 messages.add_message(request, messages.SUCCESS,
                                      "Información del perfil de usuario -%s- se ha modificado correctamente." % user.username)
                 # print("mensaje. redirigirá al home.")
-                return redirect('listarUsuario')
+                return redirect('logout')
                 # else:
                 #     messages.add_message(request, messages.ERROR, "Usted no tiene permisos suficientes para efectuar la operación.")
                 #     return redirect('sar:home')

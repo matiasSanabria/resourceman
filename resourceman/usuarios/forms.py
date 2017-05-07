@@ -4,7 +4,7 @@ from django.forms.extras.widgets import SelectDateWidget
 
 import datetime
 from django import forms
-from django.forms import widgets, TextInput
+from django.forms import widgets, TextInput, Textarea, PasswordInput, EmailInput
 from django.contrib.auth.models import User
 from django.utils import timezone
 
@@ -249,6 +249,11 @@ class EditarPrioridad(forms.ModelForm):
 
 class EditarPerfilUser(forms.ModelForm):
 
+    password1 = forms.CharField(label='Password', widget=forms.PasswordInput(attrs={'class': 'form-control'}),
+                                initial='password')
+    password2 = forms.CharField(label='Password confirmation',
+                                widget=forms.PasswordInput(attrs={'class': 'form-control'}), initial='password')
+
     class Meta:
         model = User
         fields = '__all__'
@@ -257,8 +262,37 @@ class EditarPerfilUser(forms.ModelForm):
         }
         exclude = [
             'id', 'is_superuser', 'is_staff', 'last_login', 'date_joined',
-            'user_permissions', 'is_active', 'username', 'groups'
+            'user_permissions', 'is_active', 'username', 'groups', 'password'
         ]
+        widgets = {
+            # 'password': PasswordInput(attrs={'class': 'form-control'}),
+            'first_name': TextInput(attrs={'class': 'form-control'}),
+            'last_name': TextInput(attrs={'class': 'form-control'}),
+            'email': EmailInput(attrs={'class': 'form-control'})
+
+        }
+        REQUIRED_FIELDS = [
+            'username', 'first_name', 'last_name', 'email', 'password1', 'password2',
+        ]
+
+    def clean_password2(self):
+        # Check that the two password entries match
+        password1 = self.cleaned_data.get("password1")
+        password2 = self.cleaned_data.get("password2")
+        if password1 and password2 and password1 != password2:
+            raise forms.ValidationError("Las contraseñas no coinciden.")
+        else:
+            return password2
+
+    def save(self, commit=True):
+        # Save the provided password in hashed format
+        user = super(EditarPerfilUser, self).save(commit=False)
+        user.set_password(self.cleaned_data["password1"])
+        if commit:
+            user.save()
+        return user
+
+
 
 class EditarPerfilUsuario(forms.ModelForm):
 
@@ -268,3 +302,7 @@ class EditarPerfilUsuario(forms.ModelForm):
         exclude = [
             'usuario', 'nro_documento', 'prioridad'
         ]
+        widgets = {
+            'direccion': Textarea(attrs={'class': 'form-control', 'rows': '2'}),
+            'telefono': Textarea(attrs={'class': 'form-control', 'rows': '2'})
+        }
