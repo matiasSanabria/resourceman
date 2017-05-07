@@ -39,14 +39,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'login',
-    'index',
-    'permisos',
-    'tipos_recursos',
-    'roles',
-    'usuarios',
+    'resourceman.login',
+    'resourceman.index',
+    'resourceman.permisos',
+    'resourceman.tipos_recursos',
+    'resourceman.roles',
+    'resourceman.usuarios',
     'rest_framework',
-    'reclamos',
+    'resourceman.reclamos',
 ]
 
 MIDDLEWARE = [
