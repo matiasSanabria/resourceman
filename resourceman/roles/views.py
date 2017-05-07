@@ -1,3 +1,5 @@
+from django.contrib.auth.decorators import login_required
+
 __author__ = 'hector'
 
 from .forms import EditarRol, AgregarRol
@@ -6,6 +8,7 @@ from django.contrib import messages
 from django.shortcuts import render, redirect, render_to_response
 
 # Creacion de view para agregar Rol.
+@login_required
 def agregarRol(request):
     """
         Página para la agregacion de Rol.
@@ -41,6 +44,8 @@ def agregarRol(request):
             'rol_form': rol_form,
         })
 
+
+@login_required
 def listarRol(request):
     """
         Página para listar de rol.
@@ -55,6 +60,8 @@ def listarRol(request):
         'roles': roles
     })
 
+
+@login_required
 def eliminarRol(request, pk):
     """
         Página para la eliminacion de rol.
@@ -72,6 +79,8 @@ def eliminarRol(request, pk):
     eliminar.delete()
     return redirect('../listar')
 
+
+@login_required
 def editarRol(request, pk):
     """
         Página para la edicion de rol.

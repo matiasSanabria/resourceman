@@ -19,24 +19,14 @@
     </style>
 </head>
 <body>
-    <form method="post" action="{% url 'index' %}">{% csrf_token %}
-        <div class="row">
-            <div class="col-lg-6">
-                <label>Nombre de usuario</label><br>
-                {{ formulario.username }}
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-6">
-                <label>Contraseña</label><br>
-                {{ formulario.password }}
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-6">
-                <button class="btn btn-primary btn-block" type="submit">Ingresar</button>
-            </div>
-        </div>
+
+    <form method="post" action="" class="col-lg-3" style="flex-direction: row; margin-left: 45rem">{% csrf_token %}
+        {{ formulario.as_p }}
+        <button class="btn btn-primary btn-block" type="submit">Ingresar</button>
+        <p>Olvidé mi contraseña. <a>Recuperar</a></p>
+        {% if message %}
+            <b>{{ message }}</b>
+        {% endif %}
     </form>
 </body>
 </html>

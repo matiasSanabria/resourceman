@@ -18,13 +18,11 @@ from django.contrib import admin
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^login/', include('login.urls')),
-    url(r'^logout/', include('login.urls')),
+    url(r'^account/', include('login.urls')),
     url(r'^tipo_recurso/', include('tipos_recursos.urls')),
     url(r'^recursos/', include('tipos_recursos.urls')),
     url(r'^estados/', include('tipos_recursos.urls')),
     url(r'^usuarios/', include('usuarios.urls')),
-    url(r'^admin/', include(admin.site.urls)),
     url(r'', include('index.urls')),
     url(r'^permisos/', include('permisos.urls')),
     url(r'^roles/', include('roles.urls')),
