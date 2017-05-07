@@ -27,9 +27,9 @@
         {% if message %}
             <b>{{ message }}</b>
         {% endif %}
-s        <div class="row">
+        <div class="row">
             <div style="text-align:center" class="col-lg-6 ">
-                <a href="{% url 'cambioPassword' %}">¿Olvidaste la contraseña?</a>
+                {% comment %}<a href="{% url 'cambioPassword' %}">¿Olvidaste la contraseña?</a>{% endcomment %}
             </div>
         </div>
     </form>
