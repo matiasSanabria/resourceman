@@ -1,18 +1,13 @@
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, redirect
+from django.contrib import messages
+from .forms import EditarPermisos, AgregarPermiso
+from django.contrib.auth.models import Permission
+
 __author__ = 'hector'
 
-from django.shortcuts import render, redirect, render_to_response
 
-from django.contrib import messages
-from .forms import *
-
-
-
-from django.shortcuts import render_to_response
-from .forms import EditarPermisos, AgregarPermiso
-from django.contrib.auth.models import Group, Permission
-
-
-
+@login_required
 def listarPermisos(request):
     """
         Página para listar de permiso.
@@ -29,6 +24,7 @@ def listarPermisos(request):
     })
 
 
+@login_required
 def editarPermiso(request, pk):
     """
         Página para la edicion de permiso.
@@ -65,6 +61,8 @@ def editarPermiso(request, pk):
             'pk': pk
         })
 
+
+@login_required
 def eliminarPermiso(request, pk):
     """
             Página para la eliminacion de permiso.
@@ -82,6 +80,8 @@ def eliminarPermiso(request, pk):
     eliminar.delete()
     return redirect('../listar')
 
+
+@login_required
 def agregarPermiso(request):
     """
         Página para la agregacion de permiso.
@@ -91,6 +91,7 @@ def agregarPermiso(request):
         Se define un objeto para guardar los datos a traves de la funcion del form.
 
     """
+
     mensaje = 'Crear Permiso'
     messages.add_message(request, messages.INFO, mensaje)
 

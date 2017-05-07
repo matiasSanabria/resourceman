@@ -1,17 +1,11 @@
-from django.contrib.auth.forms import AuthenticationForm
-from django.contrib.auth.models import User
-from django.core.checks import messages
-from django.template import RequestContext
+from django.contrib import auth
 
 from .forms import LoginForm
-
-__author__ = 'matt'
-
 from django.contrib.auth import authenticate, login, logout
-from django.shortcuts import redirect, render_to_response, render
+from django.shortcuts import redirect, render
 import logging
 
-logger = logging.getLogger(__name__)
+__author__ = 'matt'
 
 
 def login_view(request):
@@ -20,8 +14,7 @@ def login_view(request):
     :param request: 
     :return: muestra la vista de login del sistema
     """
-    if not request.user.is_anonymous():
-        return redirect('index.html')
+    message = None
     if request.method == "POST":
         formulario = LoginForm(request.POST)
         if formulario.is_valid():
@@ -31,21 +24,23 @@ def login_view(request):
             if usuario is not None:
                 if usuario.is_active:
                     login(request, usuario)
-                    return redirect('index.html')
+                    message = "Ingreso correcto"
+                    return redirect('index')
                 else:
                     # si el usuario no esta activo
-                    return render_to_response('login/login.html', context_instance=RequestContext(request))
+                    message = "El usuario esta inactivo"
             else:
                 # si el usuario no existe
-                return render_to_response('login/login.html', context_instance=RequestContext(request))
+                message = "Nombre de usuario y/o contrasenha incorrecto"
     else:
         formulario = LoginForm()
-    return render(request, 'login/login.html', {"formulario": formulario})
+    return render(request, 'login/login.html', {"message": message, "formulario": formulario})
 
 
 def logout_view(request):
     """
         Cierra la sesión del usuario y retorna a la vista de login.
     """
-    logout(request)
-    return redirect('/login')
+    auth.logout(request)
+    return redirect('login')
+

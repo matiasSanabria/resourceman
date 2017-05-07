@@ -2,7 +2,6 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>{% block titulo %}Agregar Prioridad{% endblock %}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
@@ -37,7 +36,7 @@
             background-color: #eeeeee;
         }
     </style>
-    <title>Agregar Prioridad</title>
+    <title>Editar Reclamo</title>
     <style>
         form {
             /* Sólo para centrar el formulario a la página */
@@ -50,19 +49,27 @@
             border: 1px solid #CCC;
             border-radius: 1em;*/
         }
+        form div + div {
+           margin-top: 1em;
+        }
         h1{
-            margin-left: 30%;
-            margin-top: 10%;
-
+            margin-top: 5%;
+            margin-left: 45%;
+        }
+        label {
+            /* Para asegurarse que todos los labels tienen el mismo tamaño y están alineados correctamente */
+            display: inline-block;
+            width: 110px;
+            text-align: left;
+            margin-top: 1em;
         }
         .button {
             /* Para posicionar los botones a la misma posición que los campos de texto */
-            padding-left: 60%; /* mismo tamaño a todos los elementos label */
+            padding-left: 70%; /* mismo tamaño a todos los elementos label */
 
         }
-        #botones {
-            margin-left: 70%;
-            margin-top: 5%;
+        button {
+            margin-top: 3%;
 
         }
     </style>
@@ -70,15 +77,20 @@
 <body>
     {%include 'navbar.html'%}
     {%include 'sidenav.html'%}
+    <h1>Editar Reclamo</h1>
     <form action="" method="post">{% csrf_token %}
-    <h1>Agregar Prioridad</h1>
-
         <div>
-            {{prioridad_form.as_p}}
+{#            <label>Nombre:</label>#}
+{#            {{editar_form.codename}}#}
+{#            <label>Descripcion:</label>#}
+{#            {{editar_form.name}}#}
+{#            <label>Acceso a app:</label>#}
+{#            {{editar_form.content_type}}#}
+            {{editar_form.as_p }}
         </div>
-        <div id="botones">
-            <button id="button" type="submit" class="btn btn-primary btn-lg">Guardar</button>
-            <button type="reset" class="btn btn-danger btn-lg">Limpiar</button>
+        <div class="button">
+            <button type="submit" class="btn btn-primary btn-block">Guardar</button>
+            <!--<button type="reset" class="btn btn-danger btn-lg">Limpiar</button>-->
         </div>
     </form>
 

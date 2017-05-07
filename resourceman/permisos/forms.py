@@ -60,7 +60,6 @@ class AgregarPermiso(forms.ModelForm):
 
 
     """
-
     codename = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}))
     name = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control'}))
     #clase para extender
