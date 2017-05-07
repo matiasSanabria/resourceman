@@ -240,3 +240,60 @@ def editarPrioridad(request, codigo):
             'editar_form': editar_form,
             'codigo': codigo
         })
+
+def editarPerfilUsuario(request):
+    user = User.objects.get(username=request.user)
+    """
+            Página para la edicion de Usuario.
+
+            Recibe un Post con un atributo username del usuario a editar.
+
+            Se instancian los objetos User y Usuario con el identificador suministrado.
+
+            Se alteran los datos con el Post recibido y se guardan.
+
+    """
+    print("imprime user")
+    print(user)
+    if Usuario.objects.filter(usuario=user).exists():
+        # print("existe detalle de usuario.")
+        user_detail = Usuario.objects.get(usuario=user)
+        print("en el if", user_detail, "fin if")
+    else:
+        # print("no existe detalle. creando uno nuevo.")
+        # Superusuarios creado por línea de comando, no tienen asociado un detalle al comienzo.
+        user_detail = Usuario.objects.create(usuario=user)
+
+    if request.method == 'POST':
+        # if request.user.is_superuser:
+        print("post")
+        user_form = EditarPerfilUser(request.POST, instance=user)
+        user_detail_form = EditarPerfilUsuario(request.POST, instance=user_detail)
+
+        if user_form.is_valid():
+            # print("user form valido")
+            if user_detail_form.is_valid():
+                # print("formularios validos")
+                user = user_form.save()  # actualiza la tabla de usuario en la bd.
+                user_detail = user_detail_form.save(commit=False)  # actualiza en el model, sin guardar en BD.
+                user_detail.user = user  # actualiza (por seguridad) el campo de relación.
+                user_detail.save()  # actualiza detalle en la BD.
+                messages.add_message(request, messages.SUCCESS,
+                                     "Información del perfil de usuario -%s- se ha modificado correctamente." % user.username)
+                # print("mensaje. redirigirá al home.")
+                return redirect('logout')
+                # else:
+                #     messages.add_message(request, messages.ERROR, "Usted no tiene permisos suficientes para efectuar la operación.")
+                #     return redirect('sar:home')
+    else:
+        print("get get get get get")
+        perfil_usuario = request.user
+        print(perfil_usuario)
+        user_form = EditarPerfilUser(instance=request.user)
+        user_detail_form = EditarPerfilUsuario(instance=user_detail)
+
+
+    return render(request, 'usuario/editarPerfilUsuario.html', {
+        'user_form': user_form,
+        'user_detail_form': user_detail_form,
+    })

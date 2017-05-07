@@ -22,4 +22,5 @@ urlpatterns = [
 
     url(r'^editarPrioridad/(?P<codigo>\w+)$', views.editarPrioridad, name='editarPrioridad'),
 
+    url(r'^editarPerfilUsuario/$', views.editarPerfilUsuario, name='editarPerfilUsuario'),
 ]
