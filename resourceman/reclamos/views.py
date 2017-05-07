@@ -1,8 +1,11 @@
 import django.shortcuts
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+
 from .forms import *
 
 
+@login_required
 def crear_reclamo(request):
     # fecha = forms.DateField(widget=SelectDateWidget(), initial=(timezone.now()))
     if request.method == "POST":
@@ -28,6 +31,7 @@ def crear_reclamo(request):
         })
 
 
+@login_required
 def list_reclamo(request):
     """
     Funcion que permite listar todos los roles existentes.
@@ -42,6 +46,7 @@ def list_reclamo(request):
     })
 
 
+@login_required
 def ver_reclamo(request, pk):
     mensaje = 'Ver Reclamo'
     messages.add_message(request, messages.INFO, mensaje)
@@ -51,6 +56,8 @@ def ver_reclamo(request, pk):
         'pk': pk
     })
 
+
+@login_required
 def editar_reclamo(request, pk):
 
     mensaje = 'Editar Reclamo'
