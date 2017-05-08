@@ -1,22 +1,16 @@
 from django.db import models
 from django.contrib.auth.models import User
-
+from ..tipos_recursos.models import Recurso
 
 class Reclamo(models.Model):
-    # recurso = models.ForeignKey(
-    #     Recurso,
-    #     blank=True,
-    #     # limit_choices_to={'codename__startswith':'sar_'}
-    # )
-    recurso = models.TextField(default='', help_text='', blank=False)
-    usuario = models.ForeignKey(
-        User,
-        blank=False,
-    )
+    """
+    Clase para realizar reclamos acerca de cualquier inquietud con respecto a los recursos
+    """
+    recurso = models.ForeignKey(Recurso, blank=False, null=False)
+    usuario = models.ForeignKey(User, blank=False)
     descripcion = models.TextField(default='', help_text='', blank=False)
     fecha = models.DateField()
-    # aqui se definen los campos
-    # hora = models.TimeField()
+
     ESTADO_CHOICE = (
         ('N', "NUEVO"),
         ('P', "PENDIENTE"),
