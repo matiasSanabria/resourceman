@@ -1,14 +1,16 @@
+from django.conf import settings
 from django.contrib.auth.decorators import login_required, permission_required
-
-__author__ = 'hector'
-
+from django.core.mail import send_mail
 from .forms import *
 from .models import Usuario, PrioridadUsuario
-
-from .forms import UsuarioCreationForm,UsuarioDetalleForm, AgregarPrioridad
+from .forms import UsuarioCreationForm, UsuarioDetalleForm, AgregarPrioridad
 from django.contrib import messages
 from django.contrib.auth.models import User, Group
 from django.shortcuts import render, redirect
+from ..configuraciones.models import RegistroUsuario
+
+__author__ = 'hector'
+
 
 # Create your views here.
 @login_required
@@ -25,8 +27,6 @@ def crearUsuario(request):
     if request.method == "POST":
         user_form = UsuarioCreationForm(request.POST)
         user_detail_form = UsuarioDetalleForm(request.POST)
-        print("GRUPO")
-        print(request.POST.get('groups'))
         if user_form.is_valid():
             if user_detail_form.is_valid():
                 user = user_form.save(commit=False)  # guarda en la base de datos.
@@ -37,21 +37,23 @@ def crearUsuario(request):
                 # guardando relacion group user
                 g1 = Group.objects.get(id=request.POST.get('groups'))
 
-                print(g1.name)
-                print("")
-                print("Username")
-
                 user1 = User.objects.get(username=request.POST.get('username'))
-                print(user1.username)
-
                 user1.groups.add(g1)
 
                 user_detail = user_detail_form.save(commit=False)  # guarda en el objeto model, sin guardarlo en la BD.
                 user_detail.usuario = user  # asocia de detalle al usuario.
                 user_detail.save()  # guarda en BD.
-                print("fin")
                 messages.add_message(request, messages.SUCCESS,
                                      "Usuario -%s- ha sido creado correctamente." % user.username)
+
+                # a partir de aqui se realiza la gestion para el envio del correo al usuario
+                # para indicarle que el registro se realizo y que puede acceder al sistema con
+                # los datos que se le proveen
+
+                plantilla = RegistroUsuario.objects.get(id=1) #obtenemos los datos de la plantilla que tenemos en la BD
+                mensaje = plantilla.mensaje + '\nUsuario: ' + request.POST.get('username') + '\nContraseña: ' + request.POST.get('password1')
+                send_mail(plantilla.asunto, mensaje, settings.EMAIL_HOST_USER, [user.email], fail_silently=False)
+
                 return redirect('listarUsuario')
 
     else:
@@ -74,24 +76,19 @@ def listarUsuario(request):
     """
     mensaje = 'Listar Usuario'
     messages.add_message(request, messages.INFO, mensaje)
-    usuario = User.objects.all().order_by('pk')
-    detalle_usuario = Usuario.objects.all().order_by('pk')
+    user = User.objects.all().order_by('pk')
+    usuario = user[1:]
+    detalle_usuario = Usuario.objects.all().order_by('usuario')
 
-    print(usuario.count())
-    print(detalle_usuario.count())
     if usuario.count() == 2 and detalle_usuario.count() == 0:
-        print("aqui")
         new_detail_for_admin = Usuario.objects.create(usuario=usuario.first())
         new_detail_for_admin.save()
         detalle_usuario = Usuario.objects.all().order_by('pk')
     zipped_user_data = zip(usuario, detalle_usuario)
     return render(request, 'usuario/listarUsuarios.html', {
         'zipped_user_data': zipped_user_data, })
-        # 'usuario':usuario,'detalle_usuario':detalle_usuario,})
 
-    # return render(request, 'usuario/listarPrioridad.html', {
-    #     'prioridades': prioridades
-    # })
+
 @login_required
 @permission_required('usuarios.per_editar_usuario')
 def editarUsuario(request, username):
