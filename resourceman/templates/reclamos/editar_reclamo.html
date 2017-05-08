@@ -80,17 +80,10 @@
     <h1>Editar Reclamo</h1>
     <form action="" method="post">{% csrf_token %}
         <div>
-{#            <label>Nombre:</label>#}
-{#            {{editar_form.codename}}#}
-{#            <label>Descripcion:</label>#}
-{#            {{editar_form.name}}#}
-{#            <label>Acceso a app:</label>#}
-{#            {{editar_form.content_type}}#}
             {{editar_form.as_p }}
         </div>
         <div class="button">
             <button type="submit" class="btn btn-primary btn-block">Guardar</button>
-            <!--<button type="reset" class="btn btn-danger btn-lg">Limpiar</button>-->
         </div>
     </form>
 
