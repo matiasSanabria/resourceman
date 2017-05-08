@@ -59,13 +59,12 @@ class CaracteristicasRecursosFormSet(BaseFormSet):
                     raise forms.ValidationError()
 
 
-
-
 class RecursoForm(forms.ModelForm):
     """
         Formulario para la clase Recurso
     """
     list = TipoRecurso.lista_caracteristicas
+
     class Meta:
         model = Recurso
         fields = '__all__'
@@ -87,8 +86,9 @@ class EstadoForm(forms.ModelForm):
         fields = '__all__'
         widgets = {
             'codigo': TextInput(attrs={'class': 'col-lg-3 form-control'}),
-            'descripcion': TextInput(attrs={'class': 'col-lg-3 form-control', 'rows': '1'}),
+            'descripcion': TextInput(attrs={'class': 'col-lg-3 form-control'}),
         }
+
 
 class EncargadoForm(forms.ModelForm):
     """
@@ -103,6 +103,7 @@ class EncargadoForm(forms.ModelForm):
         #     'phone': '527-622',
         # })
         super(EncargadoForm, self).__init__(*args, **kwargs)
+
     class Meta:
         model = Encargado
         fields = '__all__'

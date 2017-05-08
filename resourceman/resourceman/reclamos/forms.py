@@ -3,6 +3,21 @@ from django import forms
 from django.forms import Textarea, Select, DateInput, TextInput
 import datetime
 
+
+class EstadoReclamoForm(forms.ModelForm):
+    """
+        Formulario para la clase Estados de los reclamos
+    """
+
+    class Meta:
+        model = EstadoReclamo
+        fields = '__all__'
+        widgets = {
+            'codigo': TextInput(attrs={'class': 'col-lg-3 form-control'}),
+            'descripcion': TextInput(attrs={'class': 'col-lg-3 form-control'}),
+        }
+
+
 class CrearReclamo(forms.ModelForm):
     """
     Formulario para crear un nuevo reclamo
@@ -25,6 +40,7 @@ class CrearReclamo(forms.ModelForm):
         if commit:
             reclamo.save()
         return reclamo
+
 
 class EditarReclamo(forms.ModelForm):
     """
