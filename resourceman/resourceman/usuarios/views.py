@@ -144,6 +144,8 @@ def editarUsuario(request, username):
             'username': user.username,
         })
 
+
+@login_required
 def eliminarUsuario(request, username):
     user = User.objects.get(username=username)
     user.is_active = 0
@@ -187,6 +189,8 @@ def agregarPrioridad(request):
         return render(request, 'usuario/agregarPrioridad.html', {
             'prioridad_form': prioridad_form,
         })
+
+
 @login_required
 @permission_required('usuarios.per_listar_prioridad')
 def listarPrioridad(request):
@@ -202,6 +206,8 @@ def listarPrioridad(request):
     return render(request, 'usuario/listarPrioridad.html', {
         'prioridades': prioridades
     })
+
+
 @login_required
 @permission_required('usuarios.per_editar_prioridad')
 def editarPrioridad(request, codigo):
@@ -240,6 +246,8 @@ def editarPrioridad(request, codigo):
             'codigo': codigo
         })
 
+
+@login_required
 def editarPerfilUsuario(request):
     user = User.objects.get(username=request.user)
     """
