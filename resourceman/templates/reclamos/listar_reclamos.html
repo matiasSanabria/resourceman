@@ -79,10 +79,6 @@
                     <td>{{reclamo.descripcion}}</td>
                     <td>{{reclamo.estado}}</td>
                     <td><a href="{% url 'editarReclamo' pk=reclamo.pk %}"><button type="button" class="btn btn-danger btn-sm">Editar</button></a></td>
-{#                    <td><a href="{% url 'verReclamo' pk=reclamo.pk %}"><button type="button" class="btn btn-danger btn-sm">Ver</button></a></td>#}
-{#                    <td>{{reclamo.descripcion}}</td>#}
-{#                    <td><a href="{% url 'editarPermisos' pk=permiso.pk %}"><button type="button" class="btn btn-primary btn-sm">Editar</button></a></td>#}
-{#                    <td><a href="{% url 'eliminarPermisos' pk=permiso.pk %}"><button type="button" class="btn btn-danger btn-sm">Eliminar</button></a></td>#}
                 </tr>
             {% endfor %}
         </tbody>
