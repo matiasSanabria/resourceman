@@ -12,7 +12,7 @@
 
         .sidenav {
             background-color: #00796b;
-            height: 544px;
+            height: 100%;
         }
 
         footer {
@@ -41,14 +41,13 @@
             text-align: center;
             margin-top:50px;
         }
-
         #content {
-            margin-left: 35rem;
-            margin-top: 5rem;
+            margin-left:20%;
+            margin-top:10px;
         }
 
         #btnGuardar {
-            margin-top: 5em;
+            margin-top:10px;
         }
     </style>
 </head>
@@ -57,15 +56,15 @@
         <div class="row content">
             {% include 'navbar.html' %}
             {% include 'sidenav.html' %}
-            <h3>Crear Estado</h3>
+            <h3>Modificar Estado</h3>
             <form id="content" class="col-lg-4" action="" method="POST">{% csrf_token %}
                 <div>
-                    <label>{{ estado.codigo.label }}</label>
-                    {{ estado.codigo }}
+                    <label>{{ editar_form.codigo.label }}</label>
+                    {{ editar_form.codigo }}
                 </div>
                 <div>
-                    <label>{{ estado.descripcion.label }}</label>
-                    {{ estado.descripcion }}
+                    <label>{{ editar_form.descripcion.label }}</label>
+                    {{ editar_form.descripcion }}
                 </div>
                 <div>
                     <button id="btnGuardar" type="submit" class="btn btn-primary btn-block">Guardar</button>

@@ -1,0 +1,108 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block titulo %}Tipos de Recursos{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <style>
+
+        .row.content {height: 560px;}
+
+        .sidenav {
+            background-color: #00796b;
+            height: 540px;
+        }
+
+        footer {
+          background-color: #FF6F00;
+          color: white;
+        }
+
+        @media screen and (max-width: 767px) {
+          .sidenav {
+            height: auto;
+              }
+          .row.content {height: auto;}
+        }
+
+        .navbar {
+          margin-bottom: 0px;
+          border-radius: 0px;
+          background-color: #004c40;
+          border-color: #004c40;
+        }
+
+        #btnBuscar{
+            margin-top: 5px;
+        }
+
+        body {
+            background-color: #eeeeee;
+        }
+        h3 {
+            text-align: center;
+            margin-top:50px;
+        }
+
+        #tablaList {
+            width: 70%;
+            display: table;
+            margin: auto;
+            margin-left:20px;
+        }
+
+        #btnAgregar{
+            float: right;
+            margin-right:8%;
+            margin-bottom: 1em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row content">
+            {% include 'navbar.html'%}
+            {% include 'sidenav.html' %}
+            <h3>Lista de Estados
+                <a href="/reclamos/crear_estado">
+                    <button id="btnAgregar" class="btn btn-success btn-lg">Agregar</button>
+                </a>
+            </h3>
+            <div id="tablaList" class="col-lg-8">
+                <table class="table table-hover" id="datatable">
+                    <thead>
+                    <tr>
+                        <th>C&oacute;digo</th>
+                        <th>Descripci&oacute;n</th>
+                        <th>Modificar</th>
+                        <th>Eliminar</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        {% for estado in lista %}
+                            <tr>
+                                <td>{{estado.codigo}}</td>
+                                <td>{{estado.descripcion}}</td>
+                                <td>
+                                    <a href="{%  url 'editar_estado_reclamo' codigo=estado.codigo %}">
+                                        <button type="button" class="btn btn-primary btn-sm">Editar</button>
+                                    </a>
+                                </td>
+                                <td>
+                                    <a href="{%  url 'eliminar_estado_reclamo' codigo=estado.codigo %}">
+                                        <button type="button" class="btn btn-danger btn-sm">Eliminar</button>
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+    {% include 'datatablescript.html' %}
+</body>
+</html>

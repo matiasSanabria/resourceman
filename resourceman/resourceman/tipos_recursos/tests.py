@@ -14,7 +14,6 @@ class TipoRecursoTestCase(TestCase):
                                             '"memoria_ram": "character varying(20)"}'}
         """
         TipoRecurso.objects.create(
-<<<<<<< HEAD
             nombre="LABORATORIO_2",
             descripcion="LABORATORIO DE INFORMATICA BLOQUE G",
             lista_caracteristicas='{"cantidad":"biginteger", '
@@ -24,18 +23,6 @@ class TipoRecursoTestCase(TestCase):
         )
 
         Estados.objects.create(codigo="AUX", descripcion="DISPONIBLE")
-=======
-            nombre="NOTEBOOK",
-            descripcion="NOTEBOOK",
-            lista_caracteristicas='{"marca":"character varying(10), '
-                                  '"pantalla_pulgadas":"biginteger",'
-                                  '"procesador":"character varying(20)",'
-                                  '"memoria_ram": "character varying(20)"}'
-        )
-
-        Estados.objects.create(codigo="DIS", descripcion="DISPONIBLE")
->>>>>>> origin/carlos
-
 
     # para ejecutar el test de objener recurso
     # ./manage.py test tipos_recursos.tests.TipoRecursoTestCase.obtener_tipo_recurso
