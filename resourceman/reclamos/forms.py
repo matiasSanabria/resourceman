@@ -3,7 +3,7 @@ from django import forms
 from django.forms import ModelForm, TextInput, Textarea, Select
 import datetime
 
-class CrearReclamo(forms.ModelForm):
+class CrearReclamo(ModelForm):
     # aqui se config el campo de fecha
     # fecha = forms.DateTimeField(initial=datetime.datetime.now())
     fecha = forms.DateField(initial=datetime.datetime.now().date())
@@ -17,11 +17,15 @@ class CrearReclamo(forms.ModelForm):
         REQUIRED_FIELDS = [
             'recurso', 'descripcion'
         ]
-        exclude = []
+        exclude = ['usuario', 'estado']
 
-class EditarReclamo(forms.ModelForm):
-    recurso = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}))
-    descripcion = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}))
+    def save(self, commit=True):
+        reclamo = super(CrearReclamo, self).save(commit=False)
+        if commit:
+            reclamo.save()
+        return reclamo
+
+class EditarReclamo(ModelForm):
 
     class Meta:
         model = Reclamo
@@ -30,7 +34,9 @@ class EditarReclamo(forms.ModelForm):
             'recurso', 'descripcion', 'estado',
         ]
         widgets = {
-            'estado': Select(attrs={'class': 'btn dropdown-toggle'})
+            'estado': Select(attrs={'class': 'btn dropdown-toggle'}),
+            'recurso': forms.TextInput({'class': 'form-control','readonly': 'readonly'}),
+            'descripcion': forms.Textarea({'class': 'form-control','readonly': 'readonly', 'rows':'3'}),
         }
-        exclude = []
+        exclude = ['usuario']
 

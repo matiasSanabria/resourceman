@@ -8,8 +8,11 @@ def crear_reclamo(request):
     if request.method == "POST":
         # aquí código que guarda el formulario en la bd :)
         crear_reclamo = CrearReclamo(request.POST)
+        print(crear_reclamo)
         if crear_reclamo.is_valid():
-            crear_reclamo.save()
+            rec = crear_reclamo.save(commit=False)
+            rec.usuario = User.objects.get(username=request.user)
+            rec.save()
 
             mensaje = "Se ha hecho el reclamo, gracias..\n"
             messages.add_message(request, messages.INFO, mensaje)
@@ -57,8 +60,13 @@ def editar_reclamo(request, pk):
     messages.add_message(request, messages.INFO, mensaje)
     # mod = Permission.objects.get(pk=pk)
     editar= Reclamo.objects.get(id=pk)
+    recu = getattr(editar,'recurso')
+    des = getattr(editar, 'descripcion')
+    fec = getattr(editar,'fecha')
     # editar_form= EditarPermisos(instance=editar)
-
+    print (recu)
+    print (des)
+    print (fec)
     if request.method == 'POST':
         editar_form = EditarReclamo(request.POST, instance=editar)
         if editar_form.is_valid():

@@ -1,4 +1,5 @@
 from django.db import models
+from django.conf import settings
 from django.contrib.auth.models import User
 
 
@@ -9,10 +10,7 @@ class Reclamo(models.Model):
     #     # limit_choices_to={'codename__startswith':'sar_'}
     # )
     recurso = models.TextField(default='', help_text='', blank=False)
-    usuario = models.ForeignKey(
-        User,
-        blank=False,
-    )
+    usuario = models.ForeignKey(User)
     descripcion = models.TextField(default='', help_text='', blank=False)
     fecha = models.DateField()
     # aqui se definen los campos
