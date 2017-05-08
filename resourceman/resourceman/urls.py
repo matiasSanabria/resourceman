@@ -27,4 +27,5 @@ urlpatterns = [
     url(r'^permisos/', include('resourceman.permisos.urls')),
     url(r'^roles/', include('resourceman.roles.urls')),
     url(r'^reclamos/', include('resourceman.reclamos.urls')),
+    url(r'^configuraciones/', include('resourceman.configuraciones.urls')),
 ]
