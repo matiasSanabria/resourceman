@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block titulo %}Configuraciones{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <style>
+        .row.content {height: 560px;}
+
+        .sidenav {
+            background-color: #00796b;
+            height: 604px;
+        }
+
+        footer {
+          background-color: #FF6F00;
+          color: white;
+        }
+
+        @media screen and (max-width: 767px) {
+          .sidenav {
+            height: auto;
+              }
+          .row.content {height: auto;}
+        }
+
+        .navbar {
+          margin-bottom: 0px;
+          border-radius: 0px;
+          background-color: #004c40;
+          border-color: #004c40;
+        }
+
+        body {
+            background-color: #eeeeee;
+        }
+        h3 {
+            text-align: center;
+            margin-top:50px;
+        }
+        #content {
+            width: 67%;
+            margin-top:10px;
+            margin-left: .5rem;
+        }
+
+        #btnGuardar {
+            margin-top:10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row content">
+            {% include 'navbar.html' %}
+            {% include 'sidenav.html' %}
+            {% include 'sidenav_configuraciones.html' %}
+            <h3>Plantilla de notificación de registro de usuario</h3>
+            <form id="content" class="col-lg-6" action="" method="POST">{% csrf_token %}
+                <p style="margin-top: 4rem; margin-left: 14rem">
+                    Aqui se debe especificar el ASUNTO con el que se va a enviar el correo de confirmación de registro
+                </p>
+                <div class="col-lg-9" style="margin-left: 12.2rem;">
+                    {{ registro_usuario_form.as_p }}
+                </div>
+                <div class="col-lg-9" style="margin-left: 12.2rem;">
+                    <button id="btnGuardar" type="submit" class="btn btn-primary btn-block">Guardar</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</body>
+</html>

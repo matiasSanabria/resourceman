@@ -1,5 +1,5 @@
 <div class="col-sm-3 sidenav"
-     style="padding-top:0px;padding-left:3px;padding-right:3px; height: 604px;">
+     style="padding-top:0px;padding-left:3px;padding-right:3px; height: 604px; width: 20rem;">
     <ul class="nav nav-pills nav-stacked" style="padding-top:80px;">
         <li class="active">
             <a style="background-color:#00796b;" href="/reservas/listar/">Reservas</a>
@@ -11,19 +11,13 @@
             <a style="background-color:#00796b;" href="/recursos/listar_recursos/">Recursos</a>
         </li>
         <li class="active">
-            <a style="background-color:#00796b;" href="/mantenimientos/listar/">Mantenimientos</a>
-        </li>
-        <li class="active">
-            <a style="background-color:#00796b;" href="/usuarios/listarPrioridad/">Prioridades</a>
-        </li>
-        <li class="active">
-            <a style="background-color:#00796b;" href="/reclamos/listar/">Reclamos</a>
-        </li>
-        <li class="active">
-            <a style="background-color:#00796b;" href="/estados/listar_estados/">Estados</a>
+            <a style="background-color:#00796b;" href="/estados/listar_estados/">Estados de Recursos</a>
         </li>
         <li class="active">
             <a style="background-color:#00796b;" href="/usuarios/listar/">Usuarios</a>
+        </li>
+        <li class="active">
+            <a style="background-color:#00796b;" href="/usuarios/listarPrioridad/">Prioridades de Usuarios</a>
         </li>
         <li class="active">
             <a style="background-color:#00796b;" href="/roles/listar/">Roles</a>
@@ -32,7 +26,13 @@
             <a style="background-color:#00796b;" href="/permisos/listar/">Permisos</a>
         </li>
         <li class="active">
-            <a style="background-color:#00796b;" href="/configuraciones/">Configuraciones</a>
+            <a style="background-color:#00796b;" href="/reclamos/listar/">Reclamos</a>
+        </li>
+        <li class="active">
+            <a style="background-color:#00796b;" href="/mantenimientos/listar/">Mantenimientos</a>
+        </li>
+        <li class="active">
+            <a style="background-color:#00796b;" href="{% url 'configuraciones' %}">Configuraciones</a>
         </li>
     </ul>
 </div>
