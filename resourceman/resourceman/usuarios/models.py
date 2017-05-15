@@ -2,47 +2,48 @@ from django.contrib.auth.models import User, Group, Permission
 from django.db import models
 
 """
-    Utilizacion del modelo User de Django para el manejo de usuarios.
+Utilizacion del modelo User de Django para el manejo de usuarios.
 
-    *Campos de User*
+*Campos de User*
 
-    1. ``id``: Codificacion del Usuario.
-    #. ``password``: Contraseña del usuario.
-    #. ``last_login``: Ultimo acceso del usuario.
-    #. ``is_superuser``: Deficion de superusuario.
-    #. ``username``: Username para el inicio de sesion.
-    #. ``first_name``: Nombre del usuario.
-    #. ``last_name``: Apellido del usuario.
-    #. ``email``: Email del usuario.
-    #. ``is_staff``: Es personal.
-    #. ``is_active``: El usuario existe dentro del sistema.
-    #. ``date_joined``: Fecha de registro.
+1. ``id``: Codificacion del Usuario.
+#. ``password``: Contraseña del usuario.
+#. ``last_login``: Ultimo acceso del usuario.
+#. ``is_superuser``: Deficion de superusuario.
+#. ``username``: Username para el inicio de sesion.
+#. ``first_name``: Nombre del usuario.
+#. ``last_name``: Apellido del usuario.
+#. ``email``: Email del usuario.
+#. ``is_staff``: Es personal.
+#. ``is_active``: El usuario existe dentro del sistema.
+#. ``date_joined``: Fecha de registro.
 
-    Returns
-    -------
-    model: ``django.contrib.auth.models``
-        Un model propio heredado de django.contrib.auth.models .
+Returns
+-------
+model: ``django.contrib.auth.models``
+    Un model propio heredado de django.contrib.auth.models .
 
 """
 
+
 class PrioridadUsuario(models.Model):
     """
-        Un model de definicion de prioridades para model Usuario.
+    Un model de definicion de prioridades para model Usuario.
 
-        Se asocia al model Usuario, mediante una relación de 1-1.
+    Se asocia al model Usuario, mediante una relación de 1-1.
 
-        *Campos:*
+    *Campos:*
 
-        1. ``id``: Identificador de la prioridad.
-        #. ``codigo``: Codigo alfabetico referenciado a la prioridad.
-        #. ``descipcion``: Describe la prioidad.
+    1. ``id``: Identificador de la prioridad.
+    #. ``codigo``: Codigo alfabetico referenciado a la prioridad.
+    #. ``descipcion``: Describe la prioidad.
 
-        Returns
-        -------
-        model: ``PrioridadUsuario``
-            Un model propio.
+    Returns
+    -------
+    model: ``PrioridadUsuario``
+    Un model propio.
 
-        """
+    """
     def __str__(self):
         return self.descripcion
 

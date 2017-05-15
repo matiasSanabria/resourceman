@@ -8,6 +8,9 @@ class MantenimientoForm(forms.ModelForm):
     """
     Formulario para los mantenimientos de recursos
     """
+    def __init__(self, *args, **kwargs):
+        super(Mantenimiento, self).__init__(*args, **kwargs)
+
     tipo_recurso = Select(attrs={'class': 'dropdown-toggle'})
 
     class Meta:

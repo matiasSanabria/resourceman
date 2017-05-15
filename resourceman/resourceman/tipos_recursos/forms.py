@@ -8,7 +8,7 @@ from django.forms import TextInput, Textarea, Select
 
 class TipoRecursoForm(forms.ModelForm):
     """
-        Formulario para los Tipos de Recursos
+    Formulario para los Tipos de Recursos
     """
     class Meta:
         model = TipoRecurso
@@ -61,7 +61,7 @@ class CaracteristicasRecursosFormSet(BaseFormSet):
 
 class RecursoForm(forms.ModelForm):
     """
-        Formulario para la clase Recurso
+    Formulario para la clase Recurso
     """
     list = TipoRecurso.lista_caracteristicas
     tipo_recurso = TipoRecurso.objects.filter(estado='A')
@@ -80,7 +80,7 @@ class RecursoForm(forms.ModelForm):
 
 class EncargadoForm(forms.ModelForm):
     """
-        Formulario para la clase Estados de Recurso
+    Formulario para la clase Estados de Recurso
     """
     def __init__(self, *args, **kwargs):
         # instance = kwargs.get('instance', None)

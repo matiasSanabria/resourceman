@@ -18,6 +18,9 @@ class Mantenimiento(models.Model):
     #. mantenimiento_programado: fecha del siguiente mantenimiento
     #. costo: cuanto es el costo del mantenimiento
     """
+    def __str__(self):
+        return self.recurso
+
 
     TIPOS_MANTENIMIENTOS_CHOICE = (
         ('PRE', 'PREVENTIVO'),
