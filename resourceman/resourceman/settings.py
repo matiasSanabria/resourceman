@@ -47,7 +47,8 @@ INSTALLED_APPS = [
     'resourceman.usuarios',
     'rest_framework',
     'resourceman.reclamos',
-    'resourceman.configuraciones'
+    'resourceman.configuraciones',
+    'resourceman.reservas'
 ]
 
 MIDDLEWARE = [
