@@ -40,14 +40,18 @@ def crearReserva(request):
         if reserva_form.is_valid():
             print("reserva valida")
             reserva = reserva_form.save(commit=False)
-            # reserva.fecha_ini = timezone.now
-            # reserva.fecha_fin = timezone.now
             reserva.fecha = datetime.datetime.now().date()
             reserva.usuario = request.user
 
+            # comprobar si existe otra reserva en el mismo horario fecha.
+            # solo se guardara si el recurso esta disponible.
+            # recurso = Recurso.objects.filter(estado_id='D')
+            # for r in recurso:
+            # if(r.codigo_recurso==reserva.recurso):
+
             reserva.save()
             return redirect('crear_reserva')
-
+            # print("Recurso no disponible")
         else:
             pass
 

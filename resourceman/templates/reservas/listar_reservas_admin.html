@@ -48,10 +48,8 @@
         }
 
         #tablaList {
-            width: 70%;
-            display: table;
-            margin: auto;
-            margin-left:20px;
+            width: auto;
+            margin-left: 27px;
             margin-top: 30px;
         }
 
@@ -74,7 +72,8 @@
                         <th>Inicio</th>
                         <th>Fin</th>
                         <th>Estado</th>
-{#                        <th>Cancelar</th>#}
+                        <th>Recurso Entregado</th>
+                        <th>Recurso Devuelto</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -87,7 +86,11 @@
                                 <td>{{ reserva.hora_ini }}</td>
                                 <td>{{ reserva.hora_fin }}</td>
                                 <td>{{ reserva.estado }}</td>
-{#                                <td><a><button type="button" class="btn btn-danger btn-sm">Cancelar</button></a></td>#}
+{#                                Al momento de cliquear en el boton En curso el estado de la resera y del recurso cambiaran#}
+{#                                a En curso y en uso respectivamente#}
+                                <td><a><button type="button" class="btn btn-primary btn-sm">En Curso</button></a></td>
+{#                                Terminada sera cuando el usuario devuelva el recurso, se realizara el cambio de estado de la reserva#}
+                                <td><a><button type="button" class="btn btn-danger btn-sm">Terminada</button></a></td>
                             </tr>
                         {% endfor %}
                     </tbody>
