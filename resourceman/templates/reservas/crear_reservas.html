@@ -1,0 +1,103 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block titulo %}Crear Reserva{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+{#    <script>#}
+{#        var recursos_por_tipo_recurso = {{ recursos_por_tipo_recurso|safe }};#}
+{#        var select_tipo_recurso = $('#id_tipo_recurso');#}
+{#        var select_recurso = $('#id_recurso');#}
+{##}
+{##}
+{#        function show_hide_options() {#}
+{#            select_recurso.find('option').each(function () {#}
+{#                console.log('rife');#}
+{#            })#}
+{##}
+{#        }#}
+{#        $(function () {#}
+{#            console.log('asdas');#}
+{#            $('body').on('change', '#id_tipo_recurso', function () {#}
+{#                if($(this).val() !== '') {#}
+{##}
+{#                }#}
+{#            })#}
+{##}
+{#        })#}
+{#    </script>#}
+    <style>
+        .row.content {height: 560px;}
+
+        .sidenav {
+            background-color: #00796b;
+            height: 910px;
+        }
+
+        footer {
+          background-color: #FF6F00;
+          color: white;
+        }
+
+        @media screen and (max-width: 767px) {
+          .sidenav {
+            height: auto;
+              }
+          .row.content {height: auto;}
+        }
+
+        .navbar {
+          margin-bottom: 0px;
+          border-radius: 0px;
+          background-color: #004c40;
+          border-color: #004c40;
+        }
+
+        body {
+            background-color: #eeeeee;
+        }
+        h3 {
+            text-align: center;
+            margin-top:50px;
+        }
+        #content {
+            margin-left:20%;
+            margin-top:10px;
+{#            width: 40%;#}
+        }
+
+        #btnGuardar {
+            margin-top:10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row content">
+            {% include 'navbar.html' %}
+            {% include 'sidenav.html' %}
+            <h3>Crear Reserva</h3>
+            <form id="content" class="col-lg-4" action="" method="POST">{% csrf_token %}
+                <div>
+{#                    <label>Tipo de recurso:</label>#}
+{#                    {{reserva_form.tipo_recurso}}#}
+{#                    <label>Recurso:</label>#}
+{#                    {{reserva_form.recurso}}#}
+{#                    <label>Hora de inicio:</label>#}
+{#                    {{reserva_form.hora_ini}}#}
+{#                    <label>Hora fin:</label>#}
+{#                    {{reserva_form.hora_fin}}#}
+                    {{reserva_form.as_p}}
+                </div>
+                <button id="btnGuardar" type="submit" class="btn btn-primary btn-block">Guardar</button>
+            </form>
+        </div>
+    </div>
+    <script type="text/javascript" src="{% static 'admin/js/vendor/jquery/jquery.js' %}"></script>
+    {{ reserva_form.media }}
+</body>
+</html>

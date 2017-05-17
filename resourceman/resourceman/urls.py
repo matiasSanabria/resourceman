@@ -40,4 +40,5 @@ urlpatterns = [
         name='password_reset_confirm'),
     url(r'^reset/done', password_reset_complete, {'template_name': 'registration/password_reset_complete.html'},
         name='password_reset_complete'),
+    url(r'^reservas/', include('resourceman.reservas.urls')),
 ]
