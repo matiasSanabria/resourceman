@@ -65,32 +65,30 @@
                 <table class="table table-striped table-bordered" id="datatable">
                     <thead>
                     <tr>
-                        <th>N°</th>
+{#                        <th>N°</th>#}
                         <th>Usuario</th>
                         <th>Recurso</th>
                         <th>Fecha</th>
                         <th>Inicio</th>
                         <th>Fin</th>
                         <th>Estado</th>
-                        <th>Recurso Entregado</th>
-                        <th>Recurso Devuelto</th>
+                        <th>Entregado</th>
+                        <th>Devuelto</th>
+{#                        <th>No Devuelto</th>#}
                     </tr>
                     </thead>
                     <tbody>
                         {% for reserva in reservas %}
                             <tr>
-                                <td>{{ reserva.id }}</td>
+{#                                <td>{{ reserva.id }}</td>#}
                                 <td>{{ reserva.usuario }}</td>
                                 <td>{{ reserva.recurso }}</td>
                                 <td>{{ reserva.fecha }}</td>
                                 <td>{{ reserva.hora_ini }}</td>
                                 <td>{{ reserva.hora_fin }}</td>
                                 <td>{{ reserva.estado }}</td>
-{#                                Al momento de cliquear en el boton En curso el estado de la resera y del recurso cambiaran#}
-{#                                a En curso y en uso respectivamente#}
-                                <td><a><button type="button" class="btn btn-primary btn-sm">En Curso</button></a></td>
-{#                                Terminada sera cuando el usuario devuelva el recurso, se realizara el cambio de estado de la reserva#}
-                                <td><a><button type="button" class="btn btn-danger btn-sm">Terminada</button></a></td>
+                                <td><a href="{% url 'enCurso' pk=reserva.id %}"><button type="button" class="btn btn-primary btn-sm">En Curso</button></a></td>
+                                <td><a href="{% url 'devuelto' pk=reserva.id %}"><button type="button" class="btn btn-danger btn-sm">Terminada</button></a></td>
                             </tr>
                         {% endfor %}
                     </tbody>

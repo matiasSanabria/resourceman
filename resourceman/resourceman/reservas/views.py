@@ -5,65 +5,69 @@ from django.shortcuts import redirect, render
 # from .models import CaracteristicasRecursos
 from .forms import ReservasForm
 from django.utils import timezone
-from ..tipos_recursos.models import TipoRecurso
+from ..tipos_recursos.models import TipoRecurso, Recurso, Estados
 from ..reservas.models import Reservas
 from django.contrib import messages
-from rest_framework.decorators import api_view
-from rest_framework.response import Response
 import datetime
+
 
 __author__ = 'hector'
 # Create your views here.
+def comprobarTime(reserva):
+
+    reservas = Reservas.objects.filter(fecha=reserva.fecha).filter(recurso=reserva.recurso.codigo_recurso)
+    for rese in reservas:
+            if reserva.hora_ini<rese.hora_fin and reserva.hora_ini>rese.hora_ini:
+                return False
+            elif reserva.hora_fin<rese.hora_fin and reserva.hora_fin>rese.hora_ini:
+                return False
+            elif reserva.hora_ini==rese.hora_ini and reserva.hora_fin==rese.hora_fin:
+                return False
+    return True
 @login_required
 def crearReserva(request):
     """
     Permite crear una nueva reserva con los siguientes datos
 
-    Recruso:
-                    clave del recurso que se reservara
-    Inicio:
-                    fecha y hora de inicio de reserva
-    Fin:
-                    fecha y hora de fin de reserva
-    usuario:
-                    Usuario que realiza la reserva
+    tipo_recurso: tipo de recurso a reserva
+
+    recruso: clave del recurso que se reservara
+
+    fecha: fecha de reserva
+
+    hora_ini: hora de inicio de reserva
+
+    hora_fin: hora fin de reserva
+
+    usuario: Usuario que realiza la reserva
+
+    descripcion: breve descripcion del uso del recurso
+
+    estado: estado de la reserva
+
+
     :param request:
     :return: el formulario para crear otra reserva
     """
     if request.method == "POST":
 
         reserva_form = ReservasForm(request.POST)
-        print("comprobando datos")
-        print("...................inicio................")
-        print(reserva_form)
-        print("...................fin................")
         if reserva_form.is_valid():
-            print("reserva valida")
             reserva = reserva_form.save(commit=False)
             reserva.fecha = datetime.datetime.now().date()
             reserva.usuario = request.user
-
-            # comprobar si existe otra reserva en el mismo horario fecha.
-            # solo se guardara si el recurso esta disponible.
-            # recurso = Recurso.objects.filter(estado_id='D')
-            # for r in recurso:
-            # if(r.codigo_recurso==reserva.recurso):
-
-            reserva.save()
-            return redirect('crear_reserva')
+            if(comprobarTime(reserva)== True):
+                reserva.save()
+                return redirect('crear_reserva')
             # print("Recurso no disponible")
         else:
             pass
 
     reserva_form = ReservasForm()
-    dicc = {}
-    for tipo_recurso in TipoRecurso.objects.all():
-        dicc[tipo_recurso.nombre] = [r.codigo_recurso for r in tipo_recurso.recurso_set.filter(estado__descripcion='DISPONIBLE')]
-    # reserva.tipo_recurso = TipoRecurso.objets.all()
     return render(
         request, 'reservas/crear_reservas.html', {
         'reserva_form': reserva_form,
-        'recursos_por_tipo_recurso': dicc}
+        }
     )
 
 @login_required
@@ -71,7 +75,7 @@ def listarReservasUser(request):
 
     mensaje = 'Listar Reservas'
     messages.add_message(request, messages.INFO, mensaje)
-    reservas = Reservas.objects.filter(usuario=request.user)
+    reservas = Reservas.objects.filter(usuario=request.user).exclude(estado='TE')
     return render(request, 'reservas/listar_reservas_usuario.html', {'reservas': reservas})
 
 @login_required
@@ -79,8 +83,9 @@ def listarReservasAdmin(request):
 
     mensaje = 'Listar Reservas'
     messages.add_message(request, messages.INFO, mensaje)
-    reservas = Reservas.objects.all()
+    reservas = Reservas.objects.all().exclude(estado='TE')
     return render(request, 'reservas/listar_reservas_admin.html', {'reservas': reservas})
+
 
 def per_num():
     per = Permission.objects.get(codename='per_listar_reservas')
@@ -94,3 +99,29 @@ def listarReserva(request):
         if(u.id == request.user.id):
             return redirect('listar_reservas_admin')
     return redirect('listar_reservas_usuarios')
+
+@login_required
+def enCurso(request, pk):
+
+    reserva = Reservas.objects.get(id=pk)
+    recu_id = reserva.recurso.codigo_recurso
+    recurso = Recurso.objects.get(codigo_recurso=recu_id)
+    reserva.estado = 'EC'
+    reserva.save()
+    enuso = Estados.objects.get(descripcion="EN USO")
+    recurso.estado = enuso
+    recurso.save()
+    return redirect('../listar/admin')
+
+@login_required
+def devuelto(request, pk):
+    reserva = Reservas.objects.get(id=pk)
+    recu_id = reserva.recurso.codigo_recurso
+    recurso = Recurso.objects.get(codigo_recurso=recu_id)
+    reserva.estado = 'TE'
+    reserva.save()
+    disponible = Estados.objects.get(descripcion="DISPONIBLE")
+    recurso.estado = disponible
+    recurso.save()
+    return redirect('../listar/admin')
+

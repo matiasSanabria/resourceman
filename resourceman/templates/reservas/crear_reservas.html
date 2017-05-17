@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,28 +8,28 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script>
-        var recursos_por_tipo_recurso = {{ recursos_por_tipo_recurso|safe }};
-        var select_tipo_recurso = $('#id_tipo_recurso');
-        var select_recurso = $('#id_recurso');
-
-
-        function show_hide_options() {
-            select_recurso.find('option').each(function () {
-                console.log('rife');
-            })
-
-        }
-        $(function () {
-            console.log('asdas');
-            $('body').on('change', '#id_tipo_recurso', function () {
-                if($(this).val() !== '') {
-
-                }
-            })
-
-        })
-    </script>
+{#    <script>#}
+{#        var recursos_por_tipo_recurso = {{ recursos_por_tipo_recurso|safe }};#}
+{#        var select_tipo_recurso = $('#id_tipo_recurso');#}
+{#        var select_recurso = $('#id_recurso');#}
+{##}
+{##}
+{#        function show_hide_options() {#}
+{#            select_recurso.find('option').each(function () {#}
+{#                console.log('rife');#}
+{#            })#}
+{##}
+{#        }#}
+{#        $(function () {#}
+{#            console.log('asdas');#}
+{#            $('body').on('change', '#id_tipo_recurso', function () {#}
+{#                if($(this).val() !== '') {#}
+{##}
+{#                }#}
+{#            })#}
+{##}
+{#        })#}
+{#    </script>#}
     <style>
         .row.content {height: 560px;}
 
@@ -96,6 +97,7 @@
             </form>
         </div>
     </div>
-
+    <script type="text/javascript" src="{% static 'admin/js/vendor/jquery/jquery.js' %}"></script>
+    {{ reserva_form.media }}
 </body>
 </html>
