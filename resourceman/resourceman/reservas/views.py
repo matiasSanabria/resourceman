@@ -58,12 +58,12 @@ def crearReserva(request):
             reserva.usuario = request.user
             if(comprobarTime(reserva)== True):
                 reserva.save()
+                messages.success(request,"Reserva realizada")
                 return redirect('crear_reserva')
-            # print("Recurso no disponible")
-        else:
-            pass
-
-    reserva_form = ReservasForm()
+            else:
+                messages.error(request, "La reserva no pudo ser realizada")
+    else:
+        reserva_form = ReservasForm()
     return render(
         request, 'reservas/crear_reservas.html', {
         'reserva_form': reserva_form,

@@ -20,7 +20,7 @@ class ReservasForm(forms.ModelForm):
         model = Reservas
         fields = '__all__'
         REQUIRED_FIELDS = [
-            'tipo_recurso','recurso', 'hora_ini', 'hora_fin', 'descripcion',
+             'hora_ini', 'hora_fin', 'tipo_recurso','recurso', 'descripcion',
         ]
         widgets = {
             'tipo_recurso': Select(attrs={'class': 'btn dropdown-toggle'}),

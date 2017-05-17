@@ -10,7 +10,7 @@ class RecursoByTipoRecursoAutocomplete(autocomplete.Select2QuerySetView):
 
         qs = Recurso.objects.all().exclude(estado__descripcion="EN MANTENIMIENTO").exclude(estado__descripcion="FUERA DE USO")
         tipo_recurso = self.forwarded.get('tipo_recurso', None)
-        print(tipo_recurso)
+        # print(tipo_recurso)
         if tipo_recurso:
             qs = qs.filter(tipo_recurso=tipo_recurso)
         else:
