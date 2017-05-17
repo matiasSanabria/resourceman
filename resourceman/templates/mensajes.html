@@ -8,6 +8,8 @@
                         toastr.success('{{mensaje}}');
                     {% elif mensaje.tags == 'error'%}
                         toastr.error('{{mensaje}}');
+                    {% elif mensaje.tags == 'warning' %}
+                        toastr.warning('{{mensaje}}')
                     {% endif%}
                 {% endfor %}
             {% endif %}
