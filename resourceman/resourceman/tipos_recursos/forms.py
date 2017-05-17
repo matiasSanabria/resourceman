@@ -6,6 +6,7 @@ from django import forms
 from .models import TipoRecurso, Recurso, Encargado, CaracteristicasRecursos
 from django.forms import TextInput, Textarea, Select
 
+
 class TipoRecursoForm(forms.ModelForm):
     """
     Formulario para los Tipos de Recursos

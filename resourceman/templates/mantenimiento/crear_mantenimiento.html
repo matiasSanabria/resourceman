@@ -20,17 +20,14 @@
         }
 
         @media screen and (max-width: 767px) {
-          .sidenav {
-            height: auto;
-              }
           .row.content {height: auto;}
         }
 
         .navbar {
-          margin-bottom: 0px;
-          border-radius: 0px;
-          background-color: #004c40;
-          border-color: #004c40;
+            margin-bottom: 0px;
+            border-radius: 0px;
+            background-color: #004c40;
+            border-color: #004c40;
         }
         body {
             background-color: #eeeeee;
@@ -51,10 +48,6 @@
         }
         form div + div {
            margin-top: 1em;
-        }
-        h1{
-            margin-top: 5%;
-            margin-left: 45%;
         }
         label {
             /* Para asegurarse que todos los labels tienen el mismo tamaño y están alineados correctamente */
@@ -77,14 +70,16 @@
 <body>
     {%include 'navbar.html'%}
     {%include 'sidenav.html'%}
-    <h1>Mantenimiento</h1>
+    <h3 align="center">Mantenimiento</h3>
     <form action="" method="post">{% csrf_token %}
-        <div>
-            <label>Tipo de recurso</label>
+        <div class="col-lg-8 col-lg-offset-2">
+            {% for tr in tipos_recursos %}
+                {{tr.descripcion}}
+            {% endfor %}
+            {{ mantenimiento.as_p }}
         </div>
-        <div>
-            <button type="submit" class="btn btn-primary btn-lg">Guardar</button>
-            <button type="reset" class="btn btn-danger btn-lg">Limpiar</button>
+        <div class="col-lg-8 col-lg-offset-2">
+            <button type="submit" class="btn btn-primary btn-block">Guardar</button>
         </div>
     </form>
 

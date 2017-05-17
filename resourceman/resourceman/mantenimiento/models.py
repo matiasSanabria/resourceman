@@ -1,9 +1,7 @@
-from django.contrib.auth.decorators import login_required
-from ..tipos_recursos.models import Recurso
+from ..tipos_recursos.models import Recurso, TipoRecurso
 from django.db import models
 
 
-@login_required
 class Mantenimiento(models.Model):
     """
     Model que define un mantenimiento de recurso
@@ -19,16 +17,15 @@ class Mantenimiento(models.Model):
     #. costo: cuanto es el costo del mantenimiento
     """
     def __str__(self):
-        return self.recurso
-
+        return self.codigo
 
     TIPOS_MANTENIMIENTOS_CHOICE = (
         ('PRE', 'PREVENTIVO'),
         ('COR', 'CORRECTIVO')
     )
 
-    codigo = models.AutoField(primary_key=True)
-    recurso = models.OneToOneField(Recurso, null=False)
+    tipo_recurso = models.ForeignKey(TipoRecurso, blank=False)
+    recurso = models.ForeignKey(Recurso, null=False)
     motivo = models.TextField(max_length=50, null=False)
     tipo_mantenimiento = models.CharField(max_length=3, null=False, choices=TIPOS_MANTENIMIENTOS_CHOICE, default='PRE')
     fecha_inicio = models.DateField(null=False)
