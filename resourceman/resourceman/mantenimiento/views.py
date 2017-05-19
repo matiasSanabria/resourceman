@@ -1,8 +1,11 @@
-from django.shortcuts import render
-from ..tipos_recursos.models import TipoRecurso
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, redirect
+
+from ..tipos_recursos.models import Estados, Recurso
 from ..mantenimiento.forms import MantenimientoForm
 
 
+@login_required
 def crear_mantenimiento(request):
     """
     Crea un nuevo mantenimiento para un recurso indicado
@@ -12,8 +15,14 @@ def crear_mantenimiento(request):
     if request.method == "POST":
         mantenimiento = MantenimientoForm(request.POST)
         if mantenimiento.is_valid():
+            # obtenemos el objeto de la base de datos del recurso cuyo estado sera modificado
+            # para entrar al mantenimiento
+            recurso = Recurso.objects.get(codigo_recurso=request.POST.get('recurso'))
+            recurso.estado = Estados.objects.get(codigo='MAN')
+            recurso.save()
+
             mantenimiento.save()
-            return request('crear_mantenimiento')
+            return redirect('crear_mantenimiento')
         else:
             pass
 

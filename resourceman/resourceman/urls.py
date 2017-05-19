@@ -23,6 +23,7 @@ urlpatterns = [
     url(r'^account/', include('resourceman.login.urls')),
     url(r'^tipo_recurso/', include('resourceman.tipos_recursos.urls')),
     url(r'^recursos/', include('resourceman.tipos_recursos.urls')),
+    url(r'^estados/', include('resourceman.tipos_recursos.urls')),
     url(r'^usuarios/', include('resourceman.usuarios.urls')),
     url(r'', include('resourceman.index.urls')),
     url(r'^permisos/', include('resourceman.permisos.urls')),

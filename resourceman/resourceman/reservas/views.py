@@ -1,11 +1,8 @@
-from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import Group, Permission, User
+from django.contrib.auth.models import Permission, User
 from django.shortcuts import redirect, render
-# from .models import CaracteristicasRecursos
 from .forms import ReservasForm
-from django.utils import timezone
-from ..tipos_recursos.models import TipoRecurso, Recurso, Estados
+from ..tipos_recursos.models import Recurso, Estados
 from ..reservas.models import Reservas
 from django.contrib import messages
 import datetime
@@ -17,13 +14,15 @@ def comprobarTime(reserva):
 
     reservas = Reservas.objects.filter(fecha=reserva.fecha).filter(recurso=reserva.recurso.codigo_recurso)
     for rese in reservas:
-            if reserva.hora_ini<rese.hora_fin and reserva.hora_ini>rese.hora_ini:
+            if (reserva.hora_ini < rese.hora_fin) and (reserva.hora_ini > rese.hora_ini):
                 return False
-            elif reserva.hora_fin<rese.hora_fin and reserva.hora_fin>rese.hora_ini:
+            elif (reserva.hora_fin < rese.hora_fin) and (reserva.hora_fin > rese.hora_ini):
                 return False
-            elif reserva.hora_ini==rese.hora_ini and reserva.hora_fin==rese.hora_fin:
+            elif (reserva.hora_ini == rese.hora_ini) and (reserva.hora_fin == rese.hora_fin):
                 return False
     return True
+
+
 @login_required
 def crearReserva(request):
     """
@@ -56,7 +55,7 @@ def crearReserva(request):
             reserva = reserva_form.save(commit=False)
             reserva.fecha = datetime.datetime.now().date()
             reserva.usuario = request.user
-            if(comprobarTime(reserva)== True):
+            if comprobarTime(reserva) == True:
                 reserva.save()
                 return redirect('crear_reserva')
             # print("Recurso no disponible")
@@ -70,6 +69,7 @@ def crearReserva(request):
         }
     )
 
+
 @login_required
 def listarReservasUser(request):
 
@@ -77,6 +77,7 @@ def listarReservasUser(request):
     messages.add_message(request, messages.INFO, mensaje)
     reservas = Reservas.objects.filter(usuario=request.user).exclude(estado='TE')
     return render(request, 'reservas/listar_reservas_usuario.html', {'reservas': reservas})
+
 
 @login_required
 def listarReservasAdmin(request):
@@ -91,6 +92,7 @@ def per_num():
     per = Permission.objects.get(codename='per_listar_reservas')
     return per.id
 
+
 @login_required
 def listarReserva(request):
 
@@ -99,6 +101,7 @@ def listarReserva(request):
         if(u.id == request.user.id):
             return redirect('listar_reservas_admin')
     return redirect('listar_reservas_usuarios')
+
 
 @login_required
 def enCurso(request, pk):
@@ -112,6 +115,7 @@ def enCurso(request, pk):
     recurso.estado = enuso
     recurso.save()
     return redirect('../listar/admin')
+
 
 @login_required
 def devuelto(request, pk):

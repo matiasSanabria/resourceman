@@ -29,7 +29,7 @@ class TipoRecurso(models.Model):
     estado = models.CharField(max_length=1, null=False, blank=False, choices=ESTADO_CHOICE, default='A')
 
     def __str__(self):
-        return self.descripcion
+        return self.nombre
 
     class Meta:
         permissions = (
@@ -39,6 +39,37 @@ class TipoRecurso(models.Model):
             ("per_editar_tiporecurso", "Puede editar tipo recurso")
         )
         db_table = 'tipos_recursos'
+
+
+class Estados(models.Model):
+    """
+    Definicion del model para los Estados de los recursos
+
+    *Campos:*
+
+    1. ``codigo``: nombre del estado del recurso utilizado como clave primaria
+    #. ``descripcion``: descripcion del estado del recurso
+
+    Returns
+    -------
+    model: ``django.db.models.Model``
+        Un model propio heredado de django.db.models.Model con los campos adicionales.
+
+    """
+    codigo = models.CharField(max_length=3, null=False, primary_key=True)
+    descripcion = models.TextField(max_length=50, null=False)
+
+    def __str__(self):
+        return self.descripcion
+
+    class Meta:
+        permissions = (
+            ("per_crear_estado", "Puede crear estado de recurso"),
+            ("per_eliminar_estado", "Puede eliminar estado de recurso"),
+            ("per_ver_estado", "Puede ver estado de recurso"),
+            ("per_editar_estado", "Puede editar estado de recurso")
+        )
+        db_table = 'estados'
 
 
 class Recurso(models.Model):
@@ -66,20 +97,11 @@ class Recurso(models.Model):
         ('A', "ACTIVO"),
         ('I', "INACTIVO")
     )
-    ESTADOS_CHOICE = (
-        ('DIS', 'DISPONIBLE'),
-        ('SOL', 'SOLICITADO'),
-        ('RES', 'RESERVADO'),
-        ('USO', 'EN USO'),
-        ('FUS', 'FUERA DE USO'),
-        ('MAN', 'EN MANTENIMIENTO'),
-        ('NDE', 'NO DEVUELTO')
-    )
 
     codigo_recurso = models.CharField(max_length=10, null=False, primary_key=True)
     nombre_recurso = models.TextField(max_length=50, null=False)
-    tipo_recurso = models.ForeignKey(TipoRecurso, null=False, limit_choices_to={'estado':'A'})
-    estado = models.CharField(max_length=3, blank=False, null=False, choices=ESTADOS_CHOICE, default='DIS')
+    tipo_recurso = models.ForeignKey(TipoRecurso, null=False)
+    estado = models.ForeignKey(Estados, blank=False, null=False)
     activo = models.CharField(max_length=1, null=False, choices=ACTIVO_CHOICE, default='A')
 
     class Meta:
@@ -93,29 +115,26 @@ class Recurso(models.Model):
         db_table = 'recursos'
 
 
-# def per_num():
-#     per = Permission.objects.get(codename='per_crear_recurso')
-#     return per.id
+def per_num():
+    per = Permission.objects.get(codename='per_crear_recurso')
+    return per.id
 
 
 class Encargado(models.Model):
     """
-    Definicion del model para el Encargado del Tipo de Recurso
+        Definicion del model para el Encargado del Tipo de Recurso
 
-    *Campos:*
+        *Campos:*
 
-    1. ``tipo_recurso``: Tipo de Recurso del que se encargara el usuario
-    #. ``usuario``: Usuario con permisos de administracion de recursos.
+        1. ``tipo_recurso``: Tipo de Recurso del que se encargara el usuario
+        #. ``usuario``: Usuario con permisos de administracion de recursos.
 
-    Returns
-    -------
-    model: ``django.db.models.Model``
-    Un model propio heredado de django.db.models.Model con los campos adicionales.
+        Returns
+        -------
+        model: ``django.db.models.Model``
+            Un model propio heredado de django.db.models.Model con los campos adicionales.
+
     """
-
-    def per_num(self):
-        per = Permission.objects.get(codename='per_crear_recurso')
-        return per.id
     tipo_recurso = models.OneToOneField(TipoRecurso, on_delete=models.CASCADE)
     usuario = models.ForeignKey(
         User,

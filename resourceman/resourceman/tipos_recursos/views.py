@@ -1,9 +1,8 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect, render
-
 from .models import CaracteristicasRecursos
-from .forms import TipoRecursoForm, RecursoForm, EncargadoForm
-from .models import TipoRecurso, Recurso, Encargado
+from .forms import TipoRecursoForm, EstadoForm, RecursoForm, EncargadoForm
+from .models import TipoRecurso, Estados, Recurso, Encargado
 from django.contrib import messages
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -28,13 +27,22 @@ def crear(request):
 
         tipo_recursoform = TipoRecursoForm(request.POST)
         encargadoform = EncargadoForm(request.POST)
+        print("comprobando datos")
         if tipo_recursoform.is_valid():
+            print("tipo recurso valido")
+            print("...................inicio................")
+            print(encargadoform)
+            print("...................fin................")
             if encargadoform.is_valid():
+                print("encargado valido")
                 tipo = tipo_recursoform.save(commit=False)
                 tipo.save()
                 encar = encargadoform.save(commit=False)
+                print("Tipo de recurso guardado")
                 encar.tipo_recurso = tipo
+                print("asignado a encargado")
                 encar.save()
+                print("guardado")
                 return redirect('crear')
 
             else:
@@ -54,11 +62,12 @@ def editar(request, nombre):
 
     nombre nombre: del tipo de recurso que se utiliza como clave primaria
     descripcion: descripcion del tipo de recurso
-    lista de caracteristicas: lista de las caracteristicas que seran utilizadas para instanciar una clase de recurso
+    lista de caracteristicas:  lista de las caracteristicas que seran utilizadas para instanciar una clase de recurso
     estado: indica si el tipo de recurso esta activo o no
     - A 'Activo'
     - I 'Inactivo'
-    encargado: referencia a un usuario con permisos para manejar recursos
+    encargado:
+                    referencia a un usuario con permisos para manejar recursos
     :param request: 
     :return: el formulario para editar otro tipo de recurso
     """
@@ -74,8 +83,7 @@ def editar(request, nombre):
                 editar_form.save()
                 encargado_form.save()
                 return redirect('listar')
-        # else:
-        #     editar_form = TipoRecursoForm(request.POST, instance=editar)
+
         return render(request, 'tipo_recurso/editar_tipo_recurso.html', {
             'editar_form': editar_form,
             'encargado_form': encargado_form,
@@ -96,7 +104,8 @@ def eliminar(request, nombre):
     """
     Permite eliminar tipo de recurso con los siguientes datos
     
-    nombre nombre: del tipo de recurso que se utiliza como clave primaria
+    nombre nombre: 
+                    del tipo de recurso que se utiliza como clave primaria
     :param request: 
     :return: el formulario para listar los tipos de recursos
     """
@@ -130,7 +139,7 @@ def listar_tipos_recursos(request):
 
     nombre nombre: del tipo de recurso que se utiliza como clave primaria
     descripcion: descripcion del tipo de recurso
-    lista de caracteristicas: lista de las caracteristicas que seran utilizadas para instanciar una clase de recurso
+    lista de caracteristicas:  lista de las caracteristicas que seran utilizadas para instanciar una clase de recurso
     estado: indica si el tipo de recurso esta activo o no
     - A 'Activo'
     - I 'Inactivo'
@@ -142,8 +151,96 @@ def listar_tipos_recursos(request):
     lista = TipoRecurso.objects.all()
     return render(request, 'tipo_recurso/listar_tipos_recursos.html', {'lista': lista})
 
-########################################################################################################################
 
+########################################################################################################################
+@login_required
+def listar_estados(request):
+    """
+    Permite listar los estados de los recursos con los siguientes datos
+
+    codigo: del estado del recurso que se utiliza como clave primaria
+    descripcion: descripcion del estado del recurso
+    
+    :param request: 
+    :return: el formulario para listar los estados de los recursos
+    """
+    mensaje = 'Listar Estados'
+    messages.add_message(request, messages.INFO, mensaje)
+    lista = Estados.objects.all()
+    return render(request, 'estados/listar_estados.html', {'lista': lista})
+
+
+@login_required
+def crear_estado(request):
+    """
+    Permite crear un estado de recurso con los siguientes datos
+    codigo: del estado de recurso que se utiliza como clave primaria
+    descripcion: descripcion del estado de recurso
+    :param request: 
+    :return: el formulario para crear otro tipo de recurso
+    """
+    if request.method == "POST":
+        estado = EstadoForm(request.POST)
+        if estado is not None:
+            if estado.is_valid():
+                estado.save()
+                messages.success(request, "Estado guardado correctamente")
+                return redirect('crear_estado')
+        else:
+            messages.error(request, "Ocurrio un error al guardar el estado. Vuelva a intentarlo")
+
+    estado = EstadoForm()
+    return render(request, 'estados/crear_estado.html', {'estado': estado})
+
+
+@login_required
+def editar_estado(request, codigo):
+    """
+    Permite editar un estado de recurso con los siguientes datos
+    codigo:  del estado de recurso que se utiliza como clave primaria
+    descripcion: descripcion del estado de recurso
+    :param request: 
+    :return: el formulario para editar otro tipo de recurso
+    """
+    mensaje = 'Modificar Estado'
+    messages.add_message(request, messages.INFO, mensaje)
+    editar = Estados.objects.get(codigo=codigo)
+
+    if request.method == 'POST':
+        editar_form = EstadoForm(request.POST, instance=editar)
+        if editar_form.is_valid():
+            editar_form.save()
+            return redirect('listar_estados')
+        else:
+            editar_form = EstadoForm(request.POST, instance=editar)
+
+        return render(request, 'estados/editar_estado.html', {
+            'editar_form': editar_form,
+            'codigo': codigo
+        })
+    else:
+        editar_form = EstadoForm(instance=editar)
+        return render(request, 'estados/editar_estado.html', {
+            'editar_form': editar_form,
+            'codigo': codigo
+        })
+
+@login_required
+def eliminar_estado(request, codigo):
+    """
+    Permite eliminar estado de recurso
+
+    nombre nombre: del estado de recurso a eliminar
+    :param request: 
+    :return: el formulario para listar los estados de recursos
+    """
+    eliminar = Estados.objects.get(codigo=codigo)
+    mensaje = "Estado de Recurso \'%s\' eliminado..\n" % eliminar
+    messages.add_message(request, messages.INFO, mensaje)
+    eliminar.codigo = 'I'
+    return redirect('../listar_estados')
+
+########################################################################################################################
 
 @login_required
 @api_view(['GET', 'POST'])
@@ -195,7 +292,7 @@ def editar_recurso(request, codigo_recurso):
         editar_form = RecursoForm(request.POST, instance=editar)
         if editar_form.is_valid():
             editar_form.save()
-            return redirect('listar')
+            return redirect('listar_recursos')
         else:
             editar_form = RecursoForm(request.POST, instance=editar)
 
@@ -222,6 +319,7 @@ def eliminar_recurso(request, codigo_recurso):
     eliminar = Recurso.objects.get(codigo_recurso=codigo_recurso)
     mensaje = "Recurso \'%s\' eliminado..\n" % eliminar
     messages.add_message(request, messages.INFO, mensaje)
+    eliminar.estado = Estados.objects.get(codigo="FUS")
     eliminar.activo = 'I'
     eliminar.save()
     return redirect('../listar_recursos')

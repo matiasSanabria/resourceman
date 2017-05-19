@@ -3,13 +3,12 @@ from django.forms.formsets import BaseFormSet
 __author__ = 'matt'
 
 from django import forms
-from .models import TipoRecurso, Recurso, Encargado, CaracteristicasRecursos
+from .models import TipoRecurso, Estados, Recurso, Encargado, CaracteristicasRecursos
 from django.forms import TextInput, Textarea, Select
-
 
 class TipoRecursoForm(forms.ModelForm):
     """
-    Formulario para los Tipos de Recursos
+        Formulario para los Tipos de Recursos
     """
     class Meta:
         model = TipoRecurso
@@ -65,7 +64,6 @@ class RecursoForm(forms.ModelForm):
     Formulario para la clase Recurso
     """
     list = TipoRecurso.lista_caracteristicas
-    tipo_recurso = TipoRecurso.objects.filter(estado='A')
 
     class Meta:
         model = Recurso
@@ -79,9 +77,22 @@ class RecursoForm(forms.ModelForm):
         }
 
 
+class EstadoForm(forms.ModelForm):
+    """
+        Formulario para la clase Estados de Recurso
+    """
+    class Meta:
+        model = Estados
+        fields = '__all__'
+        widgets = {
+            'codigo': TextInput(attrs={'class': 'col-lg-3 form-control'}),
+            'descripcion': TextInput(attrs={'class': 'col-lg-3 form-control'}),
+        }
+
+
 class EncargadoForm(forms.ModelForm):
     """
-    Formulario para la clase Estados de Recurso
+        Formulario para la clase Estados de Recurso
     """
     def __init__(self, *args, **kwargs):
         # instance = kwargs.get('instance', None)
