@@ -1,4 +1,5 @@
 from dal import autocomplete
+from dal import forward
 from django.forms.formsets import BaseFormSet
 
 __author__ = 'hector'
@@ -25,7 +26,7 @@ class ReservasForm(forms.ModelForm):
         widgets = {
             'tipo_recurso': Select(attrs={'class': 'btn dropdown-toggle'}),
             'recurso': autocomplete.ModelSelect2(url='recu_by_tipo-autocomplete',
-                                                 forward=['tipo_recurso']),
+                                                 forward=['tipo_recurso','hora_ini','hora_fin']),
             'hora_ini': TextInput(attrs={'class': 'col-lg-3 form-control'}),
             'hora_fin': TextInput(attrs={'class': 'col-lg-3 form-control'}),
             'descripcion': Textarea(attrs={'rows': '3', 'class': 'form-control'}),

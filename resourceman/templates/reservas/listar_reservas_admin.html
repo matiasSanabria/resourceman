@@ -73,8 +73,8 @@
                         <th>Fin</th>
                         <th>Estado</th>
                         <th>Entregado</th>
+                        <th>No Devuelto</th>
                         <th>Devuelto</th>
-{#                        <th>No Devuelto</th>#}
                     </tr>
                     </thead>
                     <tbody>
@@ -88,7 +88,8 @@
                                 <td>{{ reserva.hora_fin }}</td>
                                 <td>{{ reserva.estado }}</td>
                                 <td><a href="{% url 'enCurso' pk=reserva.id %}"><button type="button" class="btn btn-primary btn-sm">En Curso</button></a></td>
-                                <td><a href="{% url 'devuelto' pk=reserva.id %}"><button type="button" class="btn btn-danger btn-sm">Terminada</button></a></td>
+                                <td><a href="{% url 'noDevuelto' pk=reserva.id %}"><button type="button" class="btn btn-danger btn-sm">No Devuelto</button></a></td>
+                                <td><a href="{% url 'devuelto' pk=reserva.id %}"><button type="button" class="btn btn-success btn-sm">Terminada</button></a></td>
                             </tr>
                         {% endfor %}
                     </tbody>
@@ -98,5 +99,6 @@
         </div>
     </div>
     {% include 'datatablescript.html' %}
+    {% include 'mensajes.html' %}
 </body>
 </html>
