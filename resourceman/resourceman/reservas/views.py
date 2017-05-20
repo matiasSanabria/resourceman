@@ -1,11 +1,8 @@
-from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import Group, Permission, User
+from django.contrib.auth.models import Permission, User
 from django.shortcuts import redirect, render
-# from .models import CaracteristicasRecursos
 from .forms import ReservasForm
-from django.utils import timezone
-from ..tipos_recursos.models import TipoRecurso, Recurso, Estados
+from ..tipos_recursos.models import Recurso, Estados
 from ..reservas.models import Reservas
 from django.contrib import messages
 from django.core.mail import send_mail
@@ -19,13 +16,15 @@ def comprobarTime(reserva):
 
     reservas = Reservas.objects.filter(fecha=reserva.fecha).filter(recurso=reserva.recurso.codigo_recurso).exclude(estado='TE')
     for rese in reservas:
-            if reserva.hora_ini<rese.hora_fin and reserva.hora_ini>rese.hora_ini:
+            if (reserva.hora_ini < rese.hora_fin) and (reserva.hora_ini > rese.hora_ini):
                 return False
-            elif reserva.hora_fin<rese.hora_fin and reserva.hora_fin>rese.hora_ini:
+            elif (reserva.hora_fin < rese.hora_fin) and (reserva.hora_fin > rese.hora_ini):
                 return False
-            elif reserva.hora_ini==rese.hora_ini and reserva.hora_fin==rese.hora_fin:
+            elif (reserva.hora_ini == rese.hora_ini) and (reserva.hora_fin == rese.hora_fin):
                 return False
     return True
+
+
 @login_required
 def crearReserva(request):
     """
@@ -92,18 +91,60 @@ def crearReserva(request):
         }
     )
 
+
 @login_required
 def listarReservasUser(request):
+    """
+    Permite listar las reservas realizadas por el usuario con los siguientes datos
 
+    nombre del recuros:  del recurso reservado
+
+    fecha:    fecha de reserva
+
+    inicio:    hora de inicio de reserva
+
+    fin:       hora del final de la reserva
+    estado:
+        indica si el tipo de recurso esta activo o no
+        - RE "REALIZADA"
+        - CA "CANCELADA"
+        - RA "REASIGNADA"
+        - EC "EN CURSO"
+        - ND "NO DEVUELTO"
+        - TE "TERMINADA"
+    :param request:
+    :return: el formulario para listar reservas
+    """
     mensaje = 'Listar Reservas'
     messages.add_message(request, messages.INFO, mensaje)
     reservas = Reservas.objects.filter(usuario=request.user).exclude(estado='TE'
                                                             ).exclude(estado='CA')
     return render(request, 'reservas/listar_reservas_usuario.html', {'reservas': reservas})
 
+
 @login_required
 def listarReservasAdmin(request):
+    """
+    Permite listar las reservas realizadas por el usuario con los siguientes datos
 
+    nombre de usuario:  del usuario que realizo la reserva
+
+    nombre del recuros:  del recurso reservado
+
+    fecha:    fecha de reserva
+
+    inicio:    hora de inicio de reserva
+
+    fin:       hora del final de la reserva
+    estado:
+        indica si el tipo de recurso esta activo o no
+        - RE "REALIZADA"
+        - RA "REASIGNADA"
+        - EC "EN CURSO"
+        - ND "NO DEVUELTO"
+    :param request:
+    :return: el formulario para listar reservas
+    """
     mensaje = 'Listar Reservas'
     messages.add_message(request, messages.INFO, mensaje)
     reservas = Reservas.objects.all().filter(tipo_recurso__encargado__usuario=request.user).exclude(estado='TE').exclude(estado='CA')
@@ -114,18 +155,32 @@ def per_num():
     per = Permission.objects.get(codename='per_listar_reservas')
     return per.id
 
+
 @login_required
 def listarReserva(request):
+    """
+    Verifica si el usuario logeado tiene permisos para ingresar a listar reservas admin
+    de no tenerlo se le mostrara el listar reservas user
 
+    :param request:
+    :return: lista corrresponciente al tipo de usuario
+    """
     usuarios = User.objects.filter(groups__permissions=per_num())
     for u in usuarios:
         if(u.id == request.user.id):
             return redirect('listar_reservas_admin')
     return redirect('listar_reservas_usuarios')
 
+
 @login_required
 def enCurso(request, pk):
-
+    """
+    Cambia el estado de la reserva a "EN CURSO", y el estado del recurso a "EN USO" solo si
+    el recurso se encuentra disponible
+    :param request:
+    :param pk: id identificador de reservas
+    :return: redireccion a lista de reservas admin
+    """
     reserva = Reservas.objects.get(id=pk)
     recu_id = reserva.recurso.codigo_recurso
     recurso = Recurso.objects.get(codigo_recurso=recu_id)
@@ -140,8 +195,15 @@ def enCurso(request, pk):
         messages.warning(request, "El recurso no esta disponible")
     return redirect('../listar/admin')
 
+
 @login_required
 def devuelto(request, pk):
+    """
+    Cambia el estado de la reserva a "TERMINADO", y el estado del recurso a "DISPONIBLE"
+    :param request:
+    :param pk: id identificador de reservas
+    :return: redireccion a lista de reservas admin
+    """
     reserva = Reservas.objects.get(id=pk)
     recu_id = reserva.recurso.codigo_recurso
     recurso = Recurso.objects.get(codigo_recurso=recu_id)
@@ -155,6 +217,13 @@ def devuelto(request, pk):
 
 @login_required
 def noDevuelto(request, pk):
+    """
+    Cambia el estado de la reserva a "NO DEVUELTO", y notifica al usuario via correo
+    solo si la reserva se encuentra "EN CUROS"
+    :param request:
+    :param pk: id identificador de reservas
+    :return: redireccion a lista de reservas admin
+    """
     reserva = Reservas.objects.get(id=pk)
     if reserva.estado == 'EC':
         user_id = reserva.usuario.id
@@ -168,6 +237,13 @@ def noDevuelto(request, pk):
 
 @login_required
 def cancelado(request, pk):
+    """
+    Cambia el estado de la reserva a "CANCELADO", solo si el mismo se encontraba en
+    "REALIZADO" se envia una confirmacion dde la reserva por correo
+    :param request:
+    :param pk: id identificador de reservas
+    :return: redireccion a lista de reservas user
+    """
     reserva = Reservas.objects.get(id=pk)
     if reserva.estado == 'RE':
         user_id = reserva.usuario.id

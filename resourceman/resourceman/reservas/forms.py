@@ -1,15 +1,9 @@
 from dal import autocomplete
-from dal import forward
-from django.forms.formsets import BaseFormSet
+from django import forms
+from ..reservas.models import Reservas
+from django.forms import TextInput, Textarea, Select
 
 __author__ = 'hector'
-
-from django import forms
-# from django.forms import Time
-# from .models import  Reservas
-from ..tipos_recursos.models import TipoRecurso
-from ..reservas.models import Reservas
-from django.forms import TextInput, Textarea, Select, models, TimeInput, DateInput
 
 
 class ReservasForm(forms.ModelForm):
