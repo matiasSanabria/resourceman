@@ -1,0 +1,112 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block titulo %}Recursos en Mantenimiento{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <style>
+
+        .row.content {height: 560px;}
+
+        .sidenav {
+            background-color: #00796b;
+            height: 544px;
+
+        }
+
+        footer {
+          background-color: #FF6F00;
+          color: white;
+        }
+
+        @media screen and (max-width: 767px) {
+          .sidenav {
+            height: auto;
+              }
+          .row.content {height: auto;}
+        }
+
+        .navbar {
+          margin-bottom: 0px;
+          border-radius: 0px;
+          background-color: #004c40;
+          border-color: #004c40;
+        }
+
+        #btnBuscar{
+            margin-top: 5px;
+        }
+
+        body {
+            background-color: #eeeeee;
+        }
+        h3 {
+            text-align: center;
+            margin-top:50px;
+        }
+
+        #tablaList {
+            width: 80%;
+            display: table;
+            margin: auto;
+            margin-left: 3rem;
+        }
+
+        #btnAgregar{
+            float: right;
+            margin-right:6rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row content">
+            {% include 'navbar.html'%}
+            {% include 'sidenav.html' %}
+            <h3>Recursos en Mantenimiento
+                <a href="/mantenimientos/crear">
+                    <button id="btnAgregar" class="btn btn-success btn-lg">Agregar</button>
+                </a>
+            </h3>
+            <div id="tablaList" class="col-lg-8" style="margin-top:1em;">
+                <table class="table table-hover" id="datatable">
+                    <thead>
+                    <tr>
+                        <th>Codigo del Recurso</th>
+                        <th>Tipo de Recurso</th>
+                        <th>Motivo</th>
+                        <th>Estado</th>
+                        <th>Terminar</th>
+                        <th>Fuera de Uso</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        {% for mantenimiento in mantenimientos %}
+                            <tr>
+                                <td>{{mantenimiento.recurso}}</td>
+                                <td>{{ mantenimiento.tipo_recurso }}</td>
+                                <td>{{ mantenimiento.motivo }}</td>
+                                <td>{{ mantenimiento.estado }}</td>
+                                <td>
+                                    <a href="{%  url 'terminar_mantenimiento' id=mantenimiento.id %}">
+                                        <button type="button" class="btn btn-primary btn-sm">Terminar</button>
+                                    </a>
+                                </td>
+                                <td>
+                                    <a href="{%  url 'fuera_uso' id=mantenimiento.id %}">
+                                        <button type="button" class="btn btn-danger btn-sm">Fuera de Uso</button>
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                {% include 'datatablescript.html' %}
+            </div>
+        </div>
+        {% include 'mensajes.html' %}
+    </div>
+</body>
+</html>

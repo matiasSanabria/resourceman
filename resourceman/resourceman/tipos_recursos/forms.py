@@ -61,7 +61,7 @@ class CaracteristicasRecursosFormSet(BaseFormSet):
 
 class RecursoForm(forms.ModelForm):
     """
-        Formulario para la clase Recurso
+    Formulario para la clase Recurso
     """
     list = TipoRecurso.lista_caracteristicas
 

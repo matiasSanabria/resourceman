@@ -100,8 +100,8 @@ class Recurso(models.Model):
 
     codigo_recurso = models.CharField(max_length=10, null=False, primary_key=True)
     nombre_recurso = models.TextField(max_length=50, null=False)
-    tipo_recurso = models.OneToOneField(TipoRecurso, null=False)
-    estado = models.OneToOneField(Estados, blank=False, null=False)
+    tipo_recurso = models.ForeignKey(TipoRecurso, null=False)
+    estado = models.ForeignKey(Estados, blank=False, null=False)
     activo = models.CharField(max_length=1, null=False, choices=ACTIVO_CHOICE, default='A')
 
     class Meta:
