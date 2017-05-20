@@ -1,0 +1,17 @@
+<script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <script>
+        $(function () {
+            {% if messages  %}
+                {% for mensaje in messages %}
+                    {% if mensaje.tags == 'success' %}
+                        toastr.success('{{mensaje}}');
+                    {% elif mensaje.tags == 'error'%}
+                        toastr.error('{{mensaje}}');
+                    {% elif mensaje.tags == 'warning' %}
+                        toastr.warning('{{mensaje}}')
+                    {% endif%}
+                {% endfor %}
+            {% endif %}
+        })
+    </script>

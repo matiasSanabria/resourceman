@@ -24,6 +24,11 @@ class Mantenimiento(models.Model):
         ('COR', 'CORRECTIVO')
     )
 
+    ESTADO_MANTENIMIENTO_CHOICE = (
+        ('INI', 'INICIADO'),
+        ('FIN', 'FINALIZADO')
+    )
+
     tipo_recurso = models.ForeignKey(TipoRecurso, blank=False)
     recurso = models.ForeignKey(Recurso, null=False)
     motivo = models.TextField(max_length=50, null=False)
@@ -32,6 +37,7 @@ class Mantenimiento(models.Model):
     fecha_fin = models.DateField(blank=True, null=True)
     mantenimiento_programado = models.DateField(null=False)
     costo = models.IntegerField(null=False)
+    estado = models.CharField(max_length=3, choices=ESTADO_MANTENIMIENTO_CHOICE, default='INI')
 
     class Meta:
         permissions = (
