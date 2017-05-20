@@ -91,7 +91,9 @@ def editar_reclamo(request, pk):
     """
     mensaje = 'Editar Reclamo'
     messages.add_message(request, messages.INFO, mensaje)
+    # mod = Permission.objects.get(pk=pk)
     editar= Reclamo.objects.get(id=pk)
+    # editar_form= EditarPermisos(instance=editar)
 
     if request.method == 'POST':
         editar_form = EditarReclamo(request.POST, instance=editar)

@@ -1,6 +1,5 @@
 .idea/
 desarrollo/
-resourceman/__pycache__/
 resourceman/*/__pycache__/
 resourceman/resourceman/*/__pycache__/
 resourceman/resourceman/*/migrations/*

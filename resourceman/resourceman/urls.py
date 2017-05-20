@@ -30,7 +30,6 @@ urlpatterns = [
     url(r'^roles/', include('resourceman.roles.urls')),
     url(r'^reclamos/', include('resourceman.reclamos.urls')),
     url(r'^configuraciones/', include('resourceman.configuraciones.urls')),
-    url(r'^mantenimientos/', include('resourceman.mantenimiento.urls')),
     url(r'^reset/password_reset', password_reset, {'template_name': 'registration/password_reset_form.html',
                                                    'email_template_name': 'registration/password_reset_email.html'},
         name='password_reset'),
@@ -41,5 +40,4 @@ urlpatterns = [
         name='password_reset_confirm'),
     url(r'^reset/done', password_reset_complete, {'template_name': 'registration/password_reset_complete.html'},
         name='password_reset_complete'),
-    url(r'^reservas/', include('resourceman.reservas.urls')),
 ]

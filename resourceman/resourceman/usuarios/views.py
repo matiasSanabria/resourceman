@@ -32,7 +32,6 @@ def crearUsuario(request):
                 user = user_form.save(commit=False)  # guarda en la base de datos.
 
                 user.is_active = 1
-                user.is_staff = 1
                 user.save()
 
                 # guardando relacion group user
