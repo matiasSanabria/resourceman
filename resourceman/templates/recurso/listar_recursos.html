@@ -75,7 +75,7 @@
                     <thead>
                     <tr>
                         <th>Nombre</th>
-                        <th>Tipo de Recurso</th>
+                        <th>Descripcion</th>
                         <th>Estado</th>
                         <th>Activo</th>
                         <th>Modificar</th>
@@ -86,7 +86,7 @@
                         {% for recurso in lista %}
                             <tr>
                                 <td>{{recurso.nombre_recurso}}</td>
-                                <td>{{ recurso.tipo_recurso }}</td>
+                                <td>{{recurso.descripcion_recurso}}</td>
                                 <td>{{ recurso.estado }}</td>
                                 <td>{{recurso.activo}}</td>
                                 <td>
@@ -95,7 +95,7 @@
                                     </a>
                                 </td>
                                 <td>
-                                    <a href="{%  url 'eliminar_recurso' codigo_recurso=recurso.codigo_recurso %}">
+                                    {% comment %}<a href="{%  url 'eliminar' nombre=tr.nombre %}">{% endcomment %}
                                         <button type="button" class="btn btn-danger btn-sm">Eliminar</button>
                                     </a>
                                 </td>

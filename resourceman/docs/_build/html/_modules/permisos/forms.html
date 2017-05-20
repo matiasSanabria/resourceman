@@ -1,0 +1,163 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>permisos.forms &#8212; tipos_recursos  documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for permisos.forms</h1><div class="highlight"><pre>
+<span></span><span class="n">__author__</span> <span class="o">=</span> <span class="s1">&#39;hector&#39;</span>
+
+<span class="kn">from</span> <span class="nn">.models</span> <span class="k">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">django.contrib.auth.models</span> <span class="k">import</span> <span class="n">Permission</span>
+
+<span class="kn">from</span> <span class="nn">django</span> <span class="k">import</span> <span class="n">forms</span>
+
+<span class="kn">from</span> <span class="nn">django.forms</span> <span class="k">import</span> <span class="n">Select</span>
+
+<span class="c1"># class ListarPermisos(forms.Form):</span>
+<span class="c1">#</span>
+<span class="c1">#     class Meta:</span>
+<span class="c1">#         model = Permission</span>
+<span class="c1">#         fields = &#39;__all__&#39;</span>
+<span class="c1">#         REQUIRED_FIELDS = [</span>
+<span class="c1">#             &#39;content_type&#39;, &#39;codename&#39;, &#39;name&#39;,</span>
+<span class="c1">#         ]</span>
+<span class="c1">#         exclude = []</span>
+
+<div class="viewcode-block" id="EditarPermisos"><a class="viewcode-back" href="../../permisos.html#permisos.forms.EditarPermisos">[docs]</a><span class="k">class</span> <span class="nc">EditarPermisos</span><span class="p">(</span><span class="n">forms</span><span class="o">.</span><span class="n">ModelForm</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        EditarPermisos ModelForm para la edicion de permisos, con campos de Permission.</span>
+
+<span class="sd">        Muestra campos del model Permission en inputs de HTML con sus valores para luego ser modificado.</span>
+
+<span class="sd">        *Campos:* Los establecidos en Permission.</span>
+
+<span class="sd">        1. ``codename``:</span>
+<span class="sd">        #. ``name``:</span>
+<span class="sd">        #. ``content_type``:</span>
+
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">codename</span> <span class="o">=</span> <span class="n">forms</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">widget</span><span class="o">=</span><span class="n">forms</span><span class="o">.</span><span class="n">TextInput</span><span class="p">(</span><span class="n">attrs</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;class&#39;</span><span class="p">:</span> <span class="s1">&#39;form-control&#39;</span><span class="p">}))</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="n">forms</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">widget</span><span class="o">=</span><span class="n">forms</span><span class="o">.</span><span class="n">TextInput</span><span class="p">(</span><span class="n">attrs</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;class&#39;</span><span class="p">:</span> <span class="s1">&#39;form-control&#39;</span><span class="p">}))</span>
+
+<div class="viewcode-block" id="EditarPermisos.Meta"><a class="viewcode-back" href="../../permisos.html#permisos.forms.EditarPermisos.Meta">[docs]</a>    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">Permission</span>
+        <span class="n">fields</span> <span class="o">=</span> <span class="s1">&#39;__all__&#39;</span>
+        <span class="n">REQUIRED_FIELDS</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="s1">&#39;content_type&#39;</span><span class="p">,</span> <span class="s1">&#39;codename&#39;</span><span class="p">,</span> <span class="s1">&#39;name&#39;</span><span class="p">,</span>
+        <span class="p">]</span>
+        <span class="n">widgets</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;content_type&#39;</span><span class="p">:</span> <span class="n">Select</span><span class="p">(</span><span class="n">attrs</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;class&#39;</span><span class="p">:</span> <span class="s1">&#39;btn dropdown-toggle&#39;</span><span class="p">})</span>
+        <span class="p">}</span>
+        <span class="n">exclude</span> <span class="o">=</span> <span class="p">[]</span></div></div>
+
+<div class="viewcode-block" id="AgregarPermiso"><a class="viewcode-back" href="../../permisos.html#permisos.forms.AgregarPermiso">[docs]</a><span class="k">class</span> <span class="nc">AgregarPermiso</span><span class="p">(</span><span class="n">forms</span><span class="o">.</span><span class="n">ModelForm</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            AgregarPermiso ModelForm para la creacion de permisos, con campos de Permission.</span>
+
+<span class="sd">            Muestra campos del model Permission en inputs de HTML.</span>
+
+<span class="sd">            *Campos:* Los establecidos en Permission.</span>
+
+<span class="sd">            1. ``codename``:</span>
+<span class="sd">            #. ``name``:</span>
+<span class="sd">            #. ``content_type``:</span>
+
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">codename</span> <span class="o">=</span> <span class="n">forms</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">widget</span><span class="o">=</span><span class="n">forms</span><span class="o">.</span><span class="n">TextInput</span><span class="p">(</span><span class="n">attrs</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;class&#39;</span><span class="p">:</span> <span class="s1">&#39;form-control&#39;</span><span class="p">}))</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="n">forms</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">widget</span><span class="o">=</span><span class="n">forms</span><span class="o">.</span><span class="n">TextInput</span><span class="p">(</span><span class="n">attrs</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;class&#39;</span><span class="p">:</span><span class="s1">&#39;form-control&#39;</span><span class="p">}))</span>
+    <span class="c1">#clase para extender</span>
+<div class="viewcode-block" id="AgregarPermiso.Meta"><a class="viewcode-back" href="../../permisos.html#permisos.forms.AgregarPermiso.Meta">[docs]</a>    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">Permission</span>
+        <span class="n">fields</span> <span class="o">=</span> <span class="s1">&#39;__all__&#39;</span>
+        <span class="n">REQUIRED_FIELDS</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="s1">&#39;content_type&#39;</span><span class="p">,</span> <span class="s1">&#39;codename&#39;</span><span class="p">,</span><span class="s1">&#39;name&#39;</span><span class="p">,</span>
+        <span class="p">]</span>
+        <span class="n">widgets</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;content_type&#39;</span><span class="p">:</span> <span class="n">Select</span><span class="p">(</span><span class="n">attrs</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;class&#39;</span><span class="p">:</span><span class="s1">&#39;btn dropdown-toggle&#39;</span><span class="p">})</span>
+        <span class="p">}</span>
+        <span class="n">exclude</span> <span class="o">=</span> <span class="p">[]</span></div></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, Author.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

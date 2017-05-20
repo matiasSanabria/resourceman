@@ -21,11 +21,12 @@ urlpatterns = [
     ###################################################################################################################
     # Url de los recursos
     ###################################################################################################################
-    url(r'^listar_recursos/$', views.listar_recursos, name='listar_recursos'),
+    url(r'^listar_recursos/$', views.listar_recursos, name='listar_recurso'),
     url(r'^crear_recurso/$', views.crear_recurso, name='crear_recurso'),
     url(r'^crear_recurso/get_tipo_recurso/(?P<id>\w+)$', views.get_tipo_recurso, name='get_tipo_recurso'),
     url(r'^editar_recurso/(?P<codigo_recurso>\w+)$', views.editar_recurso, name='editar_recurso'),
-    url(r'^eliminar_recurso/(?P<codigo_recurso>\w+)$', views.eliminar_recurso, name='eliminar_recurso'),
+
+    #url(r'^eliminar_recurso/(?P<codigo_recurso>\w+)$', views.eliminar_recurso, name='eliminar_recurso'),
 
     # Url de encargados de recurso
     url(r'^listar_encargado/$', views.listar_encargado, name='listar_encargado'),

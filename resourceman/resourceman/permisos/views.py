@@ -17,8 +17,8 @@ def listarPermisos(request):
     """
     mensaje = 'Listar Permisos'
     messages.add_message(request, messages.INFO, mensaje)
-    permisos = Permission.objects.filter(codename__contains='per_').order_by('id')
-
+    aux = Permission.objects.all().order_by('id')
+    permisos = aux[21:]
     return render(request, 'permisos/listarPermisos.html', {
         'permisos': permisos
     })
