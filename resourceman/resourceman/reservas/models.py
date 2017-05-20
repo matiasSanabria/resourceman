@@ -10,6 +10,25 @@ from django import forms
 
 
 class Reservas(models.Model):
+    """
+    Definicion del model para las reservas
+
+    *Campos:*
+
+    1. ``tipo_recurso``: tipo de recurso a reservar
+    #. ``recurso``: recurso a reservar
+    #. ``fecha``: fecha de reserva
+    #. ``hora_ini``: hora de inicio de la reserva
+    #. ``hora_fin``: hora de fin de reserva
+    #. ``usuario``: usuario que realizo la reserva
+    #. ``descripcion``: pequeña descripcion de la reserva
+    #. ``estado``: indica el estado en que se encuentra la reserva
+
+    Returns
+    -------
+    model: ``django.db.models.Model``
+        Un model propio heredado de django.db.models.Model con los campos adicionales.
+    """
     ESTADO_RESERVA = (
         ('RE', "REALIZADA"),
         ('CA', "CANCELADA"),
