@@ -8,28 +8,6 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-{#    <script>#}
-{#        var recursos_por_tipo_recurso = {{ recursos_por_tipo_recurso|safe }};#}
-{#        var select_tipo_recurso = $('#id_tipo_recurso');#}
-{#        var select_recurso = $('#id_recurso');#}
-{##}
-{##}
-{#        function show_hide_options() {#}
-{#            select_recurso.find('option').each(function () {#}
-{#                console.log('rife');#}
-{#            })#}
-{##}
-{#        }#}
-{#        $(function () {#}
-{#            console.log('asdas');#}
-{#            $('body').on('change', '#id_tipo_recurso', function () {#}
-{#                if($(this).val() !== '') {#}
-{##}
-{#                }#}
-{#            })#}
-{##}
-{#        })#}
-{#    </script>#}
     <style>
         .row.content {height: 560px;}
 
@@ -61,7 +39,8 @@
             background-color: #eeeeee;
         }
         h3 {
-            text-align: center;
+{#            text-align: center;#}
+            margin-left: 45%;
             margin-top:50px;
         }
         #content {
@@ -74,6 +53,14 @@
             margin-top:10px;
         }
     </style>
+    <style>
+        label {
+                display: inline-block;
+                width: 110px;
+                text-align: left;
+                margin-top: 1em;
+            }
+    </style>
 </head>
 <body>
     <div class="container-fluid">
@@ -81,23 +68,35 @@
             {% include 'navbar.html' %}
             {% include 'sidenav.html' %}
             <h3>Crear Reserva</h3>
+
             <form id="content" class="col-lg-4" action="" method="POST">{% csrf_token %}
                 <div>
-{#                    <label>Tipo de recurso:</label>#}
-{#                    {{reserva_form.tipo_recurso}}#}
-{#                    <label>Recurso:</label>#}
-{#                    {{reserva_form.recurso}}#}
-{#                    <label>Hora de inicio:</label>#}
-{#                    {{reserva_form.hora_ini}}#}
-{#                    <label>Hora fin:</label>#}
-{#                    {{reserva_form.hora_fin}}#}
-                    {{reserva_form.as_p}}
+                    <label>Hora de inicio: </label>
+                    {{reserva_form.hora_ini}}
+                    <div>
+                        <label>Hora fin:</label>
+                        {{reserva_form.hora_fin}}
+                    </div>
+                    <div>
+                        <label style="margin-top: 15px">Tipo de recurso:</label>
+                        {{reserva_form.tipo_recurso}}
+                    </div>
+                    <div>
+                        <label>Recurso:</label>
+                        {{reserva_form.recurso}}
+                    </div>
+                    <label>Descripcion:</label>
+                    {{reserva_form.descripcion}}
+{#                    {{reserva_form.as_p}}#}
+{#                    {{ reserva_form.non_field_errors }}#}
                 </div>
                 <button id="btnGuardar" type="submit" class="btn btn-primary btn-block">Guardar</button>
             </form>
         </div>
     </div>
+    {% include 'mensajes.html' %}
     <script type="text/javascript" src="{% static 'admin/js/vendor/jquery/jquery.js' %}"></script>
     {{ reserva_form.media }}
+
 </body>
 </html>

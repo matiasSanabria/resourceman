@@ -15,6 +15,7 @@ class Reservas(models.Model):
         ('CA', "CANCELADA"),
         ('RA', "REASIGNADA"),
         ('EC', "EN CURSO"),
+        ('ND', "NO DEVUELTO"),
         ('TE', "TERMINADA"),
     )
     tipo_recurso = models.ForeignKey(TipoRecurso, blank=True)

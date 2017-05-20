@@ -14,6 +14,8 @@ urlpatterns = [
     url(r'^get_recurso_by_tipo', RecursoByTipoRecursoAutocomplete.as_view(), name='recu_by_tipo-autocomplete'),
     url(r'^enCurso/(?P<pk>\d+)$', views.enCurso, name='enCurso'),
     url(r'^devuelto/(?P<pk>\d+)$', views.devuelto, name='devuelto'),
+    url(r'^nodevuelto/(?P<pk>\d+)$', views.noDevuelto, name='noDevuelto'),
+    url(r'^cancelado/(?P<pk>\d+)$', views.cancelado, name='cancelado'),
     # url(r'^editar/(?P<nombre>\w+)$', views.editar, name='editar'),
     # url(r'^eliminar/(?P<nombre>\w+)$', views.eliminar, name='eliminar'),
 ]

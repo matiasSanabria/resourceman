@@ -15,12 +15,12 @@ class ReservasForm(forms.ModelForm):
         model = Reservas
         fields = '__all__'
         REQUIRED_FIELDS = [
-            'tipo_recurso','recurso', 'hora_ini', 'hora_fin', 'descripcion',
+             'hora_ini', 'hora_fin', 'tipo_recurso','recurso', 'descripcion',
         ]
         widgets = {
             'tipo_recurso': Select(attrs={'class': 'btn dropdown-toggle'}),
             'recurso': autocomplete.ModelSelect2(url='recu_by_tipo-autocomplete',
-                                                 forward=['tipo_recurso']),
+                                                 forward=['tipo_recurso','hora_ini','hora_fin']),
             'hora_ini': TextInput(attrs={'class': 'col-lg-3 form-control'}),
             'hora_fin': TextInput(attrs={'class': 'col-lg-3 form-control'}),
             'descripcion': Textarea(attrs={'rows': '3', 'class': 'form-control'}),
