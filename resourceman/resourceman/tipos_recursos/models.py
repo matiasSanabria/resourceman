@@ -100,8 +100,8 @@ class Recurso(models.Model):
 
     codigo_recurso = models.CharField(max_length=10, null=False, primary_key=True)
     nombre_recurso = models.TextField(max_length=50, null=False)
-    tipo_recurso = models.OneToOneField(TipoRecurso, null=False)
-    estado = models.OneToOneField(Estados, blank=False, null=False)
+    tipo_recurso = models.ForeignKey(TipoRecurso, null=False)
+    estado = models.ForeignKey(Estados, blank=False, null=False)
     activo = models.CharField(max_length=1, null=False, choices=ACTIVO_CHOICE, default='A')
 
     class Meta:
@@ -115,9 +115,9 @@ class Recurso(models.Model):
         db_table = 'recursos'
 
 
-def per_num():
-    per = Permission.objects.get(codename='per_crear_recurso')
-    return per.id
+# def per_num():
+#     per = Permission.objects.get(codename='per_crear_recurso')
+#     return per.id
 
 
 class Encargado(models.Model):
@@ -135,6 +135,10 @@ class Encargado(models.Model):
             Un model propio heredado de django.db.models.Model con los campos adicionales.
 
     """
+
+    def per_num():
+        per = Permission.objects.get(codename='per_crear_recurso')
+        return per.id
     tipo_recurso = models.OneToOneField(TipoRecurso, on_delete=models.CASCADE)
     usuario = models.ForeignKey(
         User,
