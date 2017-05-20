@@ -1,7 +1,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>{% block titulo %}Tipos de Recursos{% endblock %}</title>
+    <title>{% block titulo %}Reservas{% endblock %}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
@@ -12,8 +12,7 @@
 
         .sidenav {
             background-color: #00796b;
-            height: 544px;
-
+            height: 604px;
         }
 
         footer {
@@ -56,7 +55,8 @@
 
         #btnAgregar{
             float: right;
-            margin-right:5%;
+            margin-right: 20%;
+            margin-bottom: 1em;
         }
     </style>
 </head>
@@ -65,48 +65,40 @@
         <div class="row content">
             {% include 'navbar.html'%}
             {% include 'sidenav.html' %}
-            <h3>Lista de Recursos
-                <a href="/recursos/crear_recurso">
-                    <button id="btnAgregar" class="btn btn-success btn-lg">Agregar</button>
+            <h3>Reservas
+                <a href="/reservas/crear">
+                    <button id="btnAgregar" class="btn btn-danger btn-lg">Agregar</button>
                 </a>
             </h3>
-            <div id="tablaList" class="col-lg-8" style="margin-top:1em;">
-                <table class="table table-hover" id="datatable">
+            <div id="tablaList" class="col-lg-8">
+                <table class="table table-striped table-bordered" id="datatable">
                     <thead>
                     <tr>
-                        <th>Nombre</th>
-                        <th>Tipo de Recurso</th>
+                        <th>Recurso</th>
+                        <th>Fecha</th>
+                        <th>Inicio</th>
+                        <th>Fin</th>
                         <th>Estado</th>
-                        <th>Activo</th>
-                        <th>Modificar</th>
-                        <th>Eliminar</th>
+                        <th>Cancelar</th>
                     </tr>
                     </thead>
                     <tbody>
-                        {% for recurso in lista %}
+                        {% for reserva in reservas %}
                             <tr>
-                                <td>{{recurso.nombre_recurso}}</td>
-                                <td>{{ recurso.tipo_recurso }}</td>
-                                <td>{{ recurso.estado }}</td>
-                                <td>{{recurso.activo}}</td>
-                                <td>
-                                    <a href="{%  url 'editar_recurso' codigo_recurso=recurso.codigo_recurso %}">
-                                        <button type="button" class="btn btn-primary btn-sm">Editar</button>
-                                    </a>
-                                </td>
-                                <td>
-                                    <a href="{%  url 'eliminar_recurso' codigo_recurso=recurso.codigo_recurso %}">
-                                        <button type="button" class="btn btn-danger btn-sm">Eliminar</button>
-                                    </a>
-                                </td>
+                                <td>{{ reserva.recurso }}</td>
+                                <td>{{ reserva.fecha }}</td>
+                                <td>{{ reserva.hora_ini }}</td>
+                                <td>{{ reserva.hora_fin }}</td>
+                                <td>{{ reserva.estado }}</td>
+                                <td><a href="{% url 'cancelado' pk=reserva.id %}"><button type="button" class="btn btn-danger btn-sm">Cancelar</button></a></td>
                             </tr>
                         {% endfor %}
                     </tbody>
                 </table>
-                {% include 'datatablescript.html' %}
 
             </div>
         </div>
     </div>
+    {% include 'datatablescript.html' %}
 </body>
 </html>

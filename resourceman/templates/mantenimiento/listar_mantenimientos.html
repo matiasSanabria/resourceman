@@ -1,7 +1,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>{% block titulo %}Tipos de Recursos{% endblock %}</title>
+    <title>{% block titulo %}Recursos en Mantenimiento{% endblock %}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
@@ -48,15 +48,15 @@
         }
 
         #tablaList {
-            width: 70%;
+            width: 80%;
             display: table;
             margin: auto;
-            margin-left:20px;
+            margin-left: 3rem;
         }
 
         #btnAgregar{
             float: right;
-            margin-right:5%;
+            margin-right:6rem;
         }
     </style>
 </head>
@@ -65,8 +65,8 @@
         <div class="row content">
             {% include 'navbar.html'%}
             {% include 'sidenav.html' %}
-            <h3>Lista de Recursos
-                <a href="/recursos/crear_recurso">
+            <h3>Recursos en Mantenimiento
+                <a href="/mantenimientos/crear">
                     <button id="btnAgregar" class="btn btn-success btn-lg">Agregar</button>
                 </a>
             </h3>
@@ -74,29 +74,29 @@
                 <table class="table table-hover" id="datatable">
                     <thead>
                     <tr>
-                        <th>Nombre</th>
+                        <th>Codigo del Recurso</th>
                         <th>Tipo de Recurso</th>
+                        <th>Motivo</th>
                         <th>Estado</th>
-                        <th>Activo</th>
-                        <th>Modificar</th>
-                        <th>Eliminar</th>
+                        <th>Terminar</th>
+                        <th>Fuera de Uso</th>
                     </tr>
                     </thead>
                     <tbody>
-                        {% for recurso in lista %}
+                        {% for mantenimiento in mantenimientos %}
                             <tr>
-                                <td>{{recurso.nombre_recurso}}</td>
-                                <td>{{ recurso.tipo_recurso }}</td>
-                                <td>{{ recurso.estado }}</td>
-                                <td>{{recurso.activo}}</td>
+                                <td>{{mantenimiento.recurso}}</td>
+                                <td>{{ mantenimiento.tipo_recurso }}</td>
+                                <td>{{ mantenimiento.motivo }}</td>
+                                <td>{{ mantenimiento.estado }}</td>
                                 <td>
-                                    <a href="{%  url 'editar_recurso' codigo_recurso=recurso.codigo_recurso %}">
-                                        <button type="button" class="btn btn-primary btn-sm">Editar</button>
+                                    <a href="{%  url 'terminar_mantenimiento' id=mantenimiento.id %}">
+                                        <button type="button" class="btn btn-primary btn-sm">Terminar</button>
                                     </a>
                                 </td>
                                 <td>
-                                    <a href="{%  url 'eliminar_recurso' codigo_recurso=recurso.codigo_recurso %}">
-                                        <button type="button" class="btn btn-danger btn-sm">Eliminar</button>
+                                    <a href="{%  url 'fuera_uso' id=mantenimiento.id %}">
+                                        <button type="button" class="btn btn-danger btn-sm">Fuera de Uso</button>
                                     </a>
                                 </td>
                             </tr>
@@ -104,9 +104,9 @@
                     </tbody>
                 </table>
                 {% include 'datatablescript.html' %}
-
             </div>
         </div>
+        {% include 'mensajes.html' %}
     </div>
 </body>
 </html>

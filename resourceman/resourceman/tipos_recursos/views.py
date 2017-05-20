@@ -14,16 +14,12 @@ def crear(request):
     """
     Permite crear un nuevo tipo de recurso con los siguientes datos
     
-    nombre nombre: 
-                    del tipo de recurso que se utiliza como clave primaria
-    descripcion: 
-                    descripcion del tipo de recurso
-    lista de caracteristicas:
-                    lista de las caracteristicas que seran utilizadas para instanciar una clase de recurso
-    estado:
-                    indica si el tipo de recurso esta activo o no
-                    - A 'Activo'
-                    - I 'Inactivo'
+    nombre nombre: del tipo de recurso que se utiliza como clave primaria
+    descripcion: descripcion del tipo de recurso
+    lista de caracteristicas: lista de las caracteristicas que seran utilizadas para instanciar una clase de recurso
+    estado: indica si el tipo de recurso esta activo o no
+    - A 'Activo'
+    - I 'Inactivo'
     :param request: 
     :return: el formulario para crear otro tipo de recurso
     """
@@ -62,22 +58,18 @@ def crear(request):
 @login_required
 def editar(request, nombre):
     """
-        Permite editar tipo de recurso con los siguientes datos
+    Permite editar tipo de recurso con los siguientes datos
 
-        nombre nombre: 
-                        del tipo de recurso que se utiliza como clave primaria
-        descripcion: 
-                        descripcion del tipo de recurso
-        lista de caracteristicas:
-                        lista de las caracteristicas que seran utilizadas para instanciar una clase de recurso
-        estado:
-                        indica si el tipo de recurso esta activo o no
-                        - A 'Activo'
-                        - I 'Inactivo'
-        encargado:
-                        referencia a un usuario con permisos para manejar recursos
-        :param request: 
-        :return: el formulario para editar otro tipo de recurso
+    nombre nombre: del tipo de recurso que se utiliza como clave primaria
+    descripcion: descripcion del tipo de recurso
+    lista de caracteristicas:  lista de las caracteristicas que seran utilizadas para instanciar una clase de recurso
+    estado: indica si el tipo de recurso esta activo o no
+    - A 'Activo'
+    - I 'Inactivo'
+    encargado:
+                    referencia a un usuario con permisos para manejar recursos
+    :param request: 
+    :return: el formulario para editar otro tipo de recurso
     """
     mensaje = 'Modificar Tipo de Recurso'
     messages.add_message(request, messages.INFO, mensaje)
@@ -91,8 +83,7 @@ def editar(request, nombre):
                 editar_form.save()
                 encargado_form.save()
                 return redirect('listar')
-        # else:
-        #     editar_form = TipoRecursoForm(request.POST, instance=editar)
+
         return render(request, 'tipo_recurso/editar_tipo_recurso.html', {
             'editar_form': editar_form,
             'encargado_form': encargado_form,
@@ -144,21 +135,17 @@ def get_tipo_recurso(request, id):
 @login_required
 def listar_tipos_recursos(request):
     """
-        Permite listar los tipos de recursos con los siguientes datos
+    Permite listar los tipos de recursos con los siguientes datos
 
-        nombre nombre: 
-                        del tipo de recurso que se utiliza como clave primaria
-        descripcion: 
-                        descripcion del tipo de recurso
-        lista de caracteristicas:
-                        lista de las caracteristicas que seran utilizadas para instanciar una clase de recurso
-        estado:
-                        indica si el tipo de recurso esta activo o no
-                        - A 'Activo'
-                        - I 'Inactivo'
-        :param request: 
-        :return: el formulario para listar los tipos de recursos
-        """
+    nombre nombre: del tipo de recurso que se utiliza como clave primaria
+    descripcion: descripcion del tipo de recurso
+    lista de caracteristicas:  lista de las caracteristicas que seran utilizadas para instanciar una clase de recurso
+    estado: indica si el tipo de recurso esta activo o no
+    - A 'Activo'
+    - I 'Inactivo'
+    :param request: 
+    :return: el formulario para listar los tipos de recursos
+    """
     mensaje = 'Listar Permisos'
     messages.add_message(request, messages.INFO, mensaje)
     lista = TipoRecurso.objects.all()
@@ -169,15 +156,13 @@ def listar_tipos_recursos(request):
 @login_required
 def listar_estados(request):
     """
-        Permite listar los estados de los recursos con los siguientes datos
+    Permite listar los estados de los recursos con los siguientes datos
 
-        codigo: 
-                        del estado del recurso que se utiliza como clave primaria
-        descripcion: 
-                        descripcion del estado del recurso
-        
-        :param request: 
-        :return: el formulario para listar los estados de los recursos
+    codigo: del estado del recurso que se utiliza como clave primaria
+    descripcion: descripcion del estado del recurso
+    
+    :param request: 
+    :return: el formulario para listar los estados de los recursos
     """
     mensaje = 'Listar Estados'
     messages.add_message(request, messages.INFO, mensaje)
@@ -188,13 +173,11 @@ def listar_estados(request):
 @login_required
 def crear_estado(request):
     """
-        Permite crear un estado de recurso con los siguientes datos
-        codigo: 
-                        del estado de recurso que se utiliza como clave primaria
-        descripcion: 
-                        descripcion del estado de recurso
-        :param request: 
-        :return: el formulario para crear otro tipo de recurso
+    Permite crear un estado de recurso con los siguientes datos
+    codigo: del estado de recurso que se utiliza como clave primaria
+    descripcion: descripcion del estado de recurso
+    :param request: 
+    :return: el formulario para crear otro tipo de recurso
     """
     if request.method == "POST":
         estado = EstadoForm(request.POST)
@@ -213,13 +196,11 @@ def crear_estado(request):
 @login_required
 def editar_estado(request, codigo):
     """
-        Permite editar un estado de recurso con los siguientes datos
-        codigo: 
-                        del estado de recurso que se utiliza como clave primaria
-        descripcion: 
-                        descripcion del estado de recurso
-        :param request: 
-        :return: el formulario para editar otro tipo de recurso
+    Permite editar un estado de recurso con los siguientes datos
+    codigo:  del estado de recurso que se utiliza como clave primaria
+    descripcion: descripcion del estado de recurso
+    :param request: 
+    :return: el formulario para editar otro tipo de recurso
     """
     mensaje = 'Modificar Estado'
     messages.add_message(request, messages.INFO, mensaje)
@@ -247,12 +228,11 @@ def editar_estado(request, codigo):
 @login_required
 def eliminar_estado(request, codigo):
     """
-        Permite eliminar estado de recurso
-    
-        nombre nombre: 
-                        del estado de recurso a eliminar
-        :param request: 
-        :return: el formulario para listar los estados de recursos
+    Permite eliminar estado de recurso
+
+    nombre nombre: del estado de recurso a eliminar
+    :param request: 
+    :return: el formulario para listar los estados de recursos
     """
     eliminar = Estados.objects.get(codigo=codigo)
     mensaje = "Estado de Recurso \'%s\' eliminado..\n" % eliminar
@@ -268,16 +248,11 @@ def crear_recurso(request):
     """
     Crea un nuevo recurso con los siguientes datos
     
-    codigo_recurso:
-                    codigo del recurso utilizado como clave primaria
-    nombre_recurso:
-                    nombre para el recurso
-    descripcion_recurso:
-                    descripcion del recurso a crear
-    tipo_recurso:
-                    indica a que tipo de recurso pertenece
-    activo:
-                    indica si esta activo o inactivo
+    codigo_recurso: codigo del recurso utilizado como clave primaria
+    nombre_recurso: nombre para el recurso
+    descripcion_recurso: descripcion del recurso a crear
+    tipo_recurso: indica a que tipo de recurso pertenece
+    activo: indica si esta activo o inactivo
     :param request: 
     :return: formulario para crear un nuevo recurso
     """
@@ -299,25 +274,19 @@ def crear_recurso(request):
 @login_required
 def editar_recurso(request, codigo_recurso):
     """
-        Edita recurso con los siguientes datos
+    Edita recurso con los siguientes datos
 
-        codigo_recurso:
-                        codigo del recurso utilizado como clave primaria
-        nombre_recurso:
-                        nombre para el recurso
-        descripcion_recurso:
-                        descripcion del recurso a crear
-        tipo_recurso:
-                        indica a que tipo de recurso pertenece
-        activo:
-                        indica si esta activo o inactivo
-        :param request: 
-        :return: formulario para listar los recursos
+    codigo_recurso: codigo del recurso utilizado como clave primaria
+    nombre_recurso: nombre para el recurso
+    descripcion_recurso: descripcion del recurso a crear
+    tipo_recurso: indica a que tipo de recurso pertenece
+    activo: indica si esta activo o inactivo
+    :param request: 
+    :return: formulario para listar los recursos
     """
     mensaje = 'Modificar Recurso'
     messages.add_message(request, messages.INFO, mensaje)
     editar = Recurso.objects.get(codigo_recurso=codigo_recurso)
-    #caracteristicas = CaracteristicasRecursos.objects.get(codigo_recurso=codigo_recurso, tipo_recurso=editar.tipo_recurso)
 
     if request.method == 'POST':
         editar_form = RecursoForm(request.POST, instance=editar)
@@ -340,16 +309,17 @@ def editar_recurso(request, codigo_recurso):
 
 
 @login_required
-def eliminar_recurso(request, codigo):
+def eliminar_recurso(request, codigo_recurso):
     """
     Elimina un recurso
     :param request: 
     :param codigo: del recurso a ser eliminado
     :return: lista de todos los recursos disponibles
     """
-    eliminar = Recurso.objects.get(codigo_recurso=codigo)
+    eliminar = Recurso.objects.get(codigo_recurso=codigo_recurso)
     mensaje = "Recurso \'%s\' eliminado..\n" % eliminar
     messages.add_message(request, messages.INFO, mensaje)
+    eliminar.estado = Estados.objects.get(codigo="FUS")
     eliminar.activo = 'I'
     eliminar.save()
     return redirect('../listar_recursos')
