@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'resourceman.usuarios',
     'rest_framework',
     'resourceman.reclamos',
+    'resourceman.configuraciones'
 ]
 
 MIDDLEWARE = [
@@ -133,3 +134,10 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, "static/")
 LOGIN_URL = reverse_lazy('login')
+
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 25
+EMAIL_HOST_USER = 'resourcemanis2@gmail.com'
+EMAIL_HOST_PASSWORD = 'is2resourceman'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'

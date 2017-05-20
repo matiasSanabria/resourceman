@@ -14,9 +14,8 @@ class TipoRecurso(models.Model):
     #. ``estado``: indica si el tipo de recurso esta activo o inactivo
 
     Returns
-    -------
     model: ``django.db.models.Model``
-        Un model propio heredado de django.db.models.Model con los campos adicionales.
+    Un model propio heredado de django.db.models.Model con los campos adicionales.
 
     """
 
@@ -120,6 +119,7 @@ def per_num():
     per = Permission.objects.get(codename='per_crear_recurso')
     return per.id
 
+
 class Encargado(models.Model):
     """
         Definicion del model para el Encargado del Tipo de Recurso
@@ -143,8 +143,8 @@ class Encargado(models.Model):
     )
 
     class Meta:
-
         db_table = 'encargado_recurso'
+
 
 class CaracteristicasRecursos(models.Model):
     """

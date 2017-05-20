@@ -1,28 +1,22 @@
 from django.db import models
 from django.contrib.auth.models import User
-
+from ..tipos_recursos.models import Recurso
 
 class Reclamo(models.Model):
-    # recurso = models.ForeignKey(
-    #     Recurso,
-    #     blank=True,
-    #     # limit_choices_to={'codename__startswith':'sar_'}
-    # )
-    recurso = models.TextField(default='', help_text='', blank=False)
-    usuario = models.ForeignKey(
-        User,
-        blank=False,
+    """
+    Clase para realizar reclamos acerca de cualquier inquietud con respecto a los recursos
+    """
+    ESTADOS_RECLAMO_CHOICES = (
+        ('NUE', 'NUEVO'),
+        ('PEN', 'PENDIENTE'),
+        ('ATE', 'ATENDIDO'),
     )
+
+    recurso = models.ForeignKey(Recurso, blank=False, null=False)
+    usuario = models.ForeignKey(User, blank=False)
     descripcion = models.TextField(default='', help_text='', blank=False)
     fecha = models.DateField()
-    # aqui se definen los campos
-    # hora = models.TimeField()
-    ESTADO_CHOICE = (
-        ('N', "NUEVO"),
-        ('P', "PENDIENTE"),
-        ('A', "ATENDIDO")
-    )
-    estado = models.CharField(max_length=1, null=False, choices=ESTADO_CHOICE, default='N')
+    estado = models.CharField(max_length=3, null=False, choices=ESTADOS_RECLAMO_CHOICES, default='NUE')
 
     class Meta:
         permissions = (
@@ -31,4 +25,5 @@ class Reclamo(models.Model):
             ("per_ver_reclamo", "Puede ver ")
         )
         db_table = 'reclamos'
+
 

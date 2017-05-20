@@ -77,31 +77,17 @@
 <body>
     {%include 'navbar.html'%}
     {%include 'sidenav.html'%}
-    <h1>Crear Reclamo.</h1>
+    <h1>Crear Reclamo</h1>
     <form action="" method="post">{% csrf_token %}
         <div>
-{#            <label>Recurso:</label>#}
             {{crear_reclamo.as_p}}
             </div>
             <div>
-{#            <label>Descripcion:</label>#}
-{#            {{crear_reclamo.descripcion}}#}
         </div>
         <div>
             <button type="submit" class="btn btn-primary btn-lg">Guardar</button>
             <button type="reset" class="btn btn-danger btn-lg">Limpiar</button>
         </div>
-{#       <div>#}
-{#            <h2>CREAR RECLAMO</h2>#}
-{#        </div>#}
-{#        <div class="panel-body">#}
-{#            <form accept-charset="UTF-8" role="form" action="" method="post">{% csrf_token %}#}
-{#                <div class="form-details">#}
-{#                    {{ permiso_form.as_p }}#}
-{#                </div>#}
-{#                <button type="submit" class="form-btn" onsubmit="" id="rol_form_btn">Crear</button>#}
-{#            </form>#}
-{#        </div>#}
     </form>
 
 </body>

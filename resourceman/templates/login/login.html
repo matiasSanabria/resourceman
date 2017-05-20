@@ -23,10 +23,15 @@
     <form method="post" action="" class="col-lg-3" style="flex-direction: row; margin-left: 45rem">{% csrf_token %}
         {{ formulario.as_p }}
         <button class="btn btn-primary btn-block" type="submit">Ingresar</button>
-        <p>Olvidé mi contraseña. <a>Recuperar</a></p>
+        <p>Olvidé mi contraseña. <a href="{% url 'password_reset' %}">Recuperar</a></p>
         {% if message %}
             <b>{{ message }}</b>
         {% endif %}
+        <div class="row">
+            <div style="text-align:center" class="col-lg-6 ">
+                {% comment %}<a href="{% url 'cambioPassword' %}">¿Olvidaste la contraseña?</a>{% endcomment %}
+            </div>
+        </div>
     </form>
 </body>
 </html>
