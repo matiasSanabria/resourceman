@@ -97,7 +97,8 @@ def listarReservasUser(request):
 
     mensaje = 'Listar Reservas'
     messages.add_message(request, messages.INFO, mensaje)
-    reservas = Reservas.objects.filter(usuario=request.user).exclude(estado='TE')
+    reservas = Reservas.objects.filter(usuario=request.user).exclude(estado='TE'
+                                                            ).exclude(estado='CA')
     return render(request, 'reservas/listar_reservas_usuario.html', {'reservas': reservas})
 
 @login_required
@@ -105,7 +106,7 @@ def listarReservasAdmin(request):
 
     mensaje = 'Listar Reservas'
     messages.add_message(request, messages.INFO, mensaje)
-    reservas = Reservas.objects.all().exclude(estado='TE')
+    reservas = Reservas.objects.all().filter(tipo_recurso__encargado__usuario=request.user).exclude(estado='TE').exclude(estado='CA')
     return render(request, 'reservas/listar_reservas_admin.html', {'reservas': reservas})
 
 
@@ -128,11 +129,15 @@ def enCurso(request, pk):
     reserva = Reservas.objects.get(id=pk)
     recu_id = reserva.recurso.codigo_recurso
     recurso = Recurso.objects.get(codigo_recurso=recu_id)
-    reserva.estado = 'EC'
-    reserva.save()
-    enuso = Estados.objects.get(descripcion="EN USO")
-    recurso.estado = enuso
-    recurso.save()
+    if recurso.estado.descripcion != "EN USO":
+        reserva.estado = 'EC'
+        reserva.save()
+        enuso = Estados.objects.get(descripcion="EN USO")
+        recurso.estado = enuso
+        recurso.save()
+        messages.success(request, "En curso")
+    else:
+        messages.warning(request, "El recurso no esta disponible")
     return redirect('../listar/admin')
 
 @login_required
@@ -145,6 +150,7 @@ def devuelto(request, pk):
     disponible = Estados.objects.get(descripcion="DISPONIBLE")
     recurso.estado = disponible
     recurso.save()
+    messages.success(request, "Devuelto")
     return redirect('../listar/admin')
 
 @login_required
@@ -158,6 +164,19 @@ def noDevuelto(request, pk):
         mensaje = 'Estimado ' + user.first_name + ' le informamos que su tiempo de reserva del recurso ' + reserva.recurso.nombre_recurso + ' ha culminado, por favor devolverlo cuanto antes.'
         send_mail('Recurso no devuelto', mensaje, settings.EMAIL_HOST_USER, [user.email], fail_silently=False)
         messages.success(request, "Usuario Informado")
-
     return redirect('../listar/admin')
+
+@login_required
+def cancelado(request, pk):
+    reserva = Reservas.objects.get(id=pk)
+    if reserva.estado == 'RE':
+        user_id = reserva.usuario.id
+        user = User.objects.get(id=user_id)
+        reserva.estado = 'CA'
+        reserva.save()
+        mensaje = 'Estimado ' + user.first_name + ' le informamos que la reserva del recurso ' + reserva.recurso.nombre_recurso + ' ha sido cancelada.'
+        send_mail('Recurso no devuelto', mensaje, settings.EMAIL_HOST_USER, [user.email], fail_silently=False)
+        messages.success(request, "Cancelado")
+
+    return redirect('../listar/user')
 
