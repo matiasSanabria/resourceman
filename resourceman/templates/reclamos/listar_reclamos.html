@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Listar Reclamos</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <style>
+        .row.content {height: 560px;}
+
+        .sidenav {
+            background-color: #00796b;
+            height: 1500px;
+        }
+
+        footer {
+          background-color: #FF6F00;
+          color: white;
+        }
+
+        @media screen and (max-width: 767px) {
+          .sidenav {
+            height: auto;
+              }
+          .row.content {height: auto;}
+        }
+
+        .navbar {
+          margin-bottom: 0px;
+          border-radius: 0px;
+          background-color: #004c40;
+          border-color: #004c40;
+        }
+        body {
+            background-color: #eeeeee;
+        }
+        h1 {
+            text-align: center;
+            width: 80%;
+        }
+
+    </style>
+    <style>
+        #mitabla{
+            margin: auto;
+            display: table;
+            width: 70%;
+        }
+
+        h1{
+            margin-left: 27%;
+            text-align: center;
+        }
+        #crear{
+            margin-left: 20%;
+        }
+    </style>
+</head>
+<body>
+    {%include 'navbar.html'%}
+    {%include 'sidenav.html'%}
+    <h1>Lista de Reclamos<a href="{% url 'crearReclamo' %}"><button id="crear" type="button" class="btn btn-success btn-lg">Crear Reclamo</button></a></h1>
+    <div id="mitabla">
+    <table class="table table-hover" id="datatable">
+        <thead>
+            <tr>
+                <th>Recurso</th>
+                <th>Descripcion</th>
+                <th>Estado</th>
+                <th>Ver</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for reclamo in reclamos %}
+                <tr>
+                    <td>{{reclamo.recurso}}</td>
+                    <td>{{reclamo.descripcion}}</td>
+                    <td>{{reclamo.estado}}</td>
+                    <td><a href="{% url 'editarReclamo' pk=reclamo.pk %}"><button type="button" class="btn btn-danger btn-sm">Editar</button></a></td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    </div>
+    {% include 'datatablescript.html' %}
+</body>
+</html>
