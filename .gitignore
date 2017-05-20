@@ -1,5 +1,7 @@
 .idea/
 desarrollo/
-resourceman/*.pyc
+resourceman/__pycache__/
 resourceman/*/__pycache__/
-resourceman/*/migrations/*
+resourceman/resourceman/*/__pycache__/
+resourceman/resourceman/*/migrations/*
+resourceman/resourceman/*/*.pyc
