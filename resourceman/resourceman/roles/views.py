@@ -76,14 +76,13 @@ def eliminarRol(request, pk):
 @login_required
 def editarRol(request, pk):
     """
-        Página para la edicion de rol.
+    Página para la edicion de rol.
 
-        Recibe un Post con un atributo pk del rol a editar.
+    Recibe un Post con un atributo pk del rol a editar.
 
-        Se instancia el objeto con el identificador suministrado.
+    Se instancia el objeto con el identificador suministrado.
 
-        Se alteran los datos con el Post recibido y se guardan.
-
+    Se alteran los datos con el Post recibido y se guardan.
     """
     mensaje = 'Modificar Permiso'
     messages.add_message(request, messages.INFO, mensaje)

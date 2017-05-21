@@ -17,11 +17,11 @@ __author__ = 'hector'
 @permission_required('usuarios.per_crear_usuario')
 def crearUsuario(request):
     """
-        Página para la creacion de Usuarios.
+    Página para la creacion de Usuarios.
 
-        Recibe los datos suministrados por el usuario a traves de un post.
+    Recibe los datos suministrados por el usuario a traves de un post.
 
-        Se definen objetos de User y Usuario para guardar los datos a traves de las funciones del form.
+    Se definen objetos de User y Usuario para guardar los datos a traves de las funciones del form.
 
     """
     if request.method == "POST":
@@ -70,9 +70,9 @@ def crearUsuario(request):
 @permission_required('usuarios.per_listar_usuario')
 def listarUsuario(request):
     """
-        Página para listar de Usuario.
+    Página para listar de Usuario.
 
-        Genera una instancia de los objetos de User, Usuario y luego los devuleve al template listarUsuario.html
+    Genera una instancia de los objetos de User, Usuario y luego los devuleve al template listarUsuario.html
 
     """
     mensaje = 'Listar Usuario'
@@ -94,56 +94,45 @@ def listarUsuario(request):
 @permission_required('usuarios.per_editar_usuario')
 def editarUsuario(request, username):
 
-        user = User.objects.get(username=username)
-        """
-                Página para la edicion de Usuario.
+    """
+    Página para la edicion de Usuario.
 
-                Recibe un Post con un atributo username del usuario a editar.
+    Recibe un Post con un atributo username del usuario a editar.
 
-                Se instancian los objetos User y Usuario con el identificador suministrado.
+    Se instancian los objetos User y Usuario con el identificador suministrado.
 
-                Se alteran los datos con el Post recibido y se guardan.
+    Se alteran los datos con el Post recibido y se guardan.
 
-        """
-        if Usuario.objects.filter(usuario=user).exists():
-            # print("existe detalle de usuario.")
-            user_detail = Usuario.objects.get(usuario=user)
-        else:
-            # print("no existe detalle. creando uno nuevo.")
-            # Superusuarios creado por línea de comando, no tienen asociado un detalle al comienzo.
-            user_detail = Usuario.objects.create(usuario=user)
+    """
+    user = User.objects.get(username=username)
+    if Usuario.objects.filter(usuario=user).exists():
+        user_detail = Usuario.objects.get(usuario=user)
+    else:
+        # Superusuarios creado por línea de comando, no tienen asociado un detalle al comienzo.
+        user_detail = Usuario.objects.create(usuario=user)
 
-        if request.method == 'POST':
-            # if request.user.is_superuser:
-            print("post")
-            user_form = UserInfoForm(request.POST, instance=user)
-            user_detail_form = UsuarioInfoForm(request.POST, instance=user_detail)
+    if request.method == 'POST':
+        user_form = UserInfoForm(request.POST, instance=user)
+        user_detail_form = UsuarioInfoForm(request.POST, instance=user_detail)
 
-            if user_form.is_valid():
-                # print("user form valido")
-                if user_detail_form.is_valid():
-                    # print("formularios validos")
-                    user = user_form.save()  # actualiza la tabla de usuario en la bd.
-                    user_detail = user_detail_form.save(commit=False)  # actualiza en el model, sin guardar en BD.
-                    user_detail.user = user  # actualiza (por seguridad) el campo de relación.
-                    user_detail.save()  # actualiza detalle en la BD.
-                    messages.add_message(request, messages.SUCCESS,
-                                         "Información del usuario -%s- se ha modificado correctamente." % user.username)
-                    # print("mensaje. redirigirá al home.")
-                    return redirect('listarUsuario')
-                    # else:
-                    #     messages.add_message(request, messages.ERROR, "Usted no tiene permisos suficientes para efectuar la operación.")
-                    #     return redirect('sar:home')
-        else:
-            print("get")
-            user_form = UserInfoForm(instance=user)
-            user_detail_form = UsuarioInfoForm(instance=user_detail)
+        if user_form.is_valid():
+            if user_detail_form.is_valid():
+                user = user_form.save()  # actualiza la tabla de usuario en la bd.
+                user_detail = user_detail_form.save(commit=False)  # actualiza en el model, sin guardar en BD.
+                user_detail.user = user  # actualiza (por seguridad) el campo de relación.
+                user_detail.save()  # actualiza detalle en la BD.
+                messages.add_message(request, messages.SUCCESS,
+                                     "Información del usuario -%s- se ha modificado correctamente." % user.username)
+                return redirect('listarUsuario')
+    else:
+        user_form = UserInfoForm(instance=user)
+        user_detail_form = UsuarioInfoForm(instance=user_detail)
 
-        return render(request, 'usuario/editarUsuario.html', {
-            'user_form': user_form,
-            'user_detail_form': user_detail_form,
-            'username': user.username,
-        })
+    return render(request, 'usuario/editarUsuario.html', {
+        'user_form': user_form,
+        'user_detail_form': user_detail_form,
+        'username': user.username,
+    })
 
 
 @login_required
@@ -161,12 +150,11 @@ def eliminarUsuario(request, username):
 @permission_required('usuarios.per_agregar_prioridad')
 def agregarPrioridad(request):
     """
-        Página para la agregacion de Prioridad.
+    Página para la agregacion de Prioridad.
 
-        Recibe los datos suministrados por el usuario a traves de un post.
+    Recibe los datos suministrados por el usuario a traves de un post.
 
-        Se define un objeto para guardar los datos a traves de la funcion del form.
-
+    Se define un objeto para guardar los datos a traves de la funcion del form.
     """
     mensaje = 'Crear Prioridad'
     messages.add_message(request, messages.INFO, mensaje)
@@ -174,14 +162,10 @@ def agregarPrioridad(request):
     if request.method == 'POST':
 
         if AgregarPrioridad(request.POST).is_valid():
-            print("si es valido")
             prioridad_form = AgregarPrioridad(request.POST)
             prioridad_form.save(commit=True)
-            # mensaje = "Prioridad \'%s\' creado..\n" % prioridad_form.codigo
-            # messages.add_message(request, messages.INFO, mensaje)
             return redirect('agregarPrioridad')  # direccion url de la app
         else:
-            print("no es valido")
             mensaje = "Error, intente datos diferentes"
             messages.add_message(request, messages.INFO, mensaje)
             prioridad_form = AgregarPrioridad()  # crea una instancia permiso_form vacia con el constructor PermisoForm()
@@ -196,10 +180,9 @@ def agregarPrioridad(request):
 @permission_required('usuarios.per_listar_prioridad')
 def listarPrioridad(request):
     """
-        Página para listar de Prioridad.
+    Página para listar de Prioridad.
 
-        Genera una instancia de los objetos de PrioridadUsuario y luego los devuleve al template listarPrioridad.html
-
+    Genera una instancia de los objetos de PrioridadUsuario y luego los devuleve al template listarPrioridad.html
     """
     mensaje = 'Listar Prioridad'
     messages.add_message(request, messages.INFO, mensaje)
@@ -213,20 +196,18 @@ def listarPrioridad(request):
 @permission_required('usuarios.per_editar_prioridad')
 def editarPrioridad(request, codigo):
     """
-        Página para la edicion de prioridad.
+    Página para la edicion de prioridad.
 
-        Recibe un Post con un atributo codigo de la Prioridad a editar.
+    Recibe un Post con un atributo codigo de la Prioridad a editar.
 
-        Se instancia el objeto con el identificador suministrado.
+    Se instancia el objeto con el identificador suministrado.
 
-        Se alteran los datos con el Post recibido y se guardan.
+    Se alteran los datos con el Post recibido y se guardan.
 
     """
     mensaje = 'Modificar Prioridad'
     messages.add_message(request, messages.INFO, mensaje)
-    # mod = Permission.objects.get(pk=pk)
     editar= PrioridadUsuario.objects.get(codigo=codigo)
-    # editar_form= EditarPermisos(instance=editar)
 
     if request.method == 'POST':
         editar_form = EditarPrioridad(request.POST, instance=editar)
@@ -252,54 +233,38 @@ def editarPrioridad(request, codigo):
 def editarPerfilUsuario(request):
     user = User.objects.get(username=request.user)
     """
-            Página para la edicion de Usuario.
+    Página para la edicion de Usuario.
 
-            Recibe un Post con un atributo username del usuario a editar.
+    Recibe un Post con un atributo username del usuario a editar.
 
-            Se instancian los objetos User y Usuario con el identificador suministrado.
+    Se instancian los objetos User y Usuario con el identificador suministrado.
 
-            Se alteran los datos con el Post recibido y se guardan.
+    Se alteran los datos con el Post recibido y se guardan.
 
     """
-    print("imprime user")
-    print(user)
     if Usuario.objects.filter(usuario=user).exists():
-        # print("existe detalle de usuario.")
         user_detail = Usuario.objects.get(usuario=user)
-        print("en el if", user_detail, "fin if")
     else:
-        # print("no existe detalle. creando uno nuevo.")
         # Superusuarios creado por línea de comando, no tienen asociado un detalle al comienzo.
         user_detail = Usuario.objects.create(usuario=user)
 
     if request.method == 'POST':
-        # if request.user.is_superuser:
-        print("post")
         user_form = EditarPerfilUser(request.POST, instance=user)
         user_detail_form = EditarPerfilUsuario(request.POST, instance=user_detail)
 
         if user_form.is_valid():
-            # print("user form valido")
             if user_detail_form.is_valid():
-                # print("formularios validos")
                 user = user_form.save()  # actualiza la tabla de usuario en la bd.
                 user_detail = user_detail_form.save(commit=False)  # actualiza en el model, sin guardar en BD.
                 user_detail.user = user  # actualiza (por seguridad) el campo de relación.
                 user_detail.save()  # actualiza detalle en la BD.
                 messages.add_message(request, messages.SUCCESS,
                                      "Información del perfil de usuario -%s- se ha modificado correctamente." % user.username)
-                # print("mensaje. redirigirá al home.")
                 return redirect('logout')
-                # else:
-                #     messages.add_message(request, messages.ERROR, "Usted no tiene permisos suficientes para efectuar la operación.")
-                #     return redirect('sar:home')
     else:
-        print("get get get get get")
         perfil_usuario = request.user
-        print(perfil_usuario)
         user_form = EditarPerfilUser(instance=request.user)
         user_detail_form = EditarPerfilUsuario(instance=user_detail)
-
 
     return render(request, 'usuario/editarPerfilUsuario.html', {
         'user_form': user_form,

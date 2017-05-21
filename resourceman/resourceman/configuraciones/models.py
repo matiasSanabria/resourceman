@@ -1,4 +1,3 @@
-from django.contrib.auth.decorators import login_required
 from django.db import models
 
 
@@ -10,13 +9,7 @@ class RegistroUsuario(models.Model):
     
     1. ``id``: id del registro de usuario utilizado como clave primaria
     #. ``asunto``: asunto con el que sera enviado el correo
-    #. ``mensaje``: mensaje del cuerpo del correo
-    
-    Returns
-    -------
-    model: ``django.db.models.Model``
-        Un model propio heredado de django.db.models.Model con los campos adicionales.
-
+    #. ``mensaje``: mensaje del cuerpo del correo    
     """
     def __str__(self):
         return self.id

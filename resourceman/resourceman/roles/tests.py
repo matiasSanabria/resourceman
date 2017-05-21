@@ -6,8 +6,7 @@ class GroupTestCase(TestCase):
     def setUp(self):
         """
          Esto es un Group
-         - fields: {name: Prueba, 
-                }
+         - fields: {name: Prueba}
         """
         Group.objects.create(name="Prueba1")
 

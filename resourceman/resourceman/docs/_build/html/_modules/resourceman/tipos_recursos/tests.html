@@ -50,21 +50,14 @@
 <div class="viewcode-block" id="TipoRecursoTestCase"><a class="viewcode-back" href="../../../tipos_recursos.html#resourceman.tipos_recursos.tests.TipoRecursoTestCase">[documentos]</a><span class="k">class</span> <span class="nc">TipoRecursoTestCase</span><span class="p">(</span><span class="n">TestCase</span><span class="p">):</span>
 <div class="viewcode-block" id="TipoRecursoTestCase.setUp"><a class="viewcode-back" href="../../../tipos_recursos.html#resourceman.tipos_recursos.tests.TipoRecursoTestCase.setUp">[documentos]</a>    <span class="k">def</span> <span class="nf">setUp</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">         Esto es un tipo de recurso</span>
-<span class="sd">         - fields: {nombre: NOTEBOOK, </span>
-<span class="sd">                    descripcion: NOTEBOOK, </span>
-<span class="sd">                    lista_caracteristicas: &#39;{&quot;marca&quot;:&quot;character varying(10), &#39;</span>
-<span class="sd">                                            &#39;&quot;pantalla_pulgadas&quot;:&quot;biginteger&quot;,&#39;</span>
-<span class="sd">                                            &#39;&quot;procesador&quot;:&quot;character varying(20)&quot;,&#39;</span>
-<span class="sd">                                            &#39;&quot;memoria_ram&quot;: &quot;character varying(20)&quot;}&#39;}</span>
+<span class="sd">        Esto es un tipo de recurso</span>
+<span class="sd">        - fields: {nombre: NOTEBOOK, descripcion: NOTEBOOK, lista_caracteristicas: &#39;{&quot;marca&quot;:&quot;character varying(10), &#39;</span>
+<span class="sd">        &#39;&quot;pantalla_pulgadas&quot;:&quot;biginteger&quot;,&#39;&#39;&quot;procesador&quot;:&quot;character varying(20)&quot;,&#39;&#39;&quot;memoria_ram&quot;: &quot;character varying(20)&quot;}&#39;}</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">TipoRecurso</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
             <span class="n">nombre</span><span class="o">=</span><span class="s2">&quot;LABORATORIO_2&quot;</span><span class="p">,</span>
             <span class="n">descripcion</span><span class="o">=</span><span class="s2">&quot;LABORATORIO DE INFORMATICA BLOQUE G&quot;</span><span class="p">,</span>
-            <span class="n">lista_caracteristicas</span><span class="o">=</span><span class="s1">&#39;{&quot;cantidad&quot;:&quot;biginteger&quot;, &#39;</span>
-                                  <span class="s1">&#39;&quot;encargado&quot;:&quot;character_variyin(20)&quot;,&#39;</span>
-                                  <span class="s1">&#39;&quot;split&quot;:&quot;biginteger&quot;,&#39;</span>
-                                  <span class="s1">&#39;&quot;sillas&quot;: &quot;biginteger&quot;}&#39;</span>
+            <span class="n">lista_caracteristicas</span><span class="o">=</span><span class="s1">&#39;{&quot;cantidad&quot;:&quot;biginteger&quot;, &#39;&#39;&quot;encargado&quot;:&quot;character_variyin(20)&quot;,&#39;&#39;&quot;split&quot;:&quot;biginteger&quot;,&#39;&#39;&quot;sillas&quot;: &quot;biginteger&quot;}&#39;</span>
         <span class="p">)</span>
 
         <span class="n">Estados</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">codigo</span><span class="o">=</span><span class="s2">&quot;AUX&quot;</span><span class="p">,</span> <span class="n">descripcion</span><span class="o">=</span><span class="s2">&quot;DISPONIBLE&quot;</span><span class="p">)</span></div>

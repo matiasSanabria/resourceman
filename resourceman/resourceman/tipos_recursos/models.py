@@ -12,11 +12,6 @@ class TipoRecurso(models.Model):
     #. ``descripcion``: descripcion del tipo de recurso
     #. ``lista_caracteristicas``: lista de las caracteristicas que tiene el tipo de recurso
     #. ``estado``: indica si el tipo de recurso esta activo o inactivo
-
-    Returns
-    model: ``django.db.models.Model``
-    Un model propio heredado de django.db.models.Model con los campos adicionales.
-
     """
 
     ESTADO_CHOICE = (
@@ -50,11 +45,6 @@ class Estados(models.Model):
     1. ``codigo``: nombre del estado del recurso utilizado como clave primaria
     #. ``descripcion``: descripcion del estado del recurso
 
-    Returns
-    -------
-    model: ``django.db.models.Model``
-        Un model propio heredado de django.db.models.Model con los campos adicionales.
-
     """
     codigo = models.CharField(max_length=3, null=False, primary_key=True)
     descripcion = models.TextField(max_length=50, null=False)
@@ -83,11 +73,6 @@ class Recurso(models.Model):
     #. ``descripcion_recurso``: descripcion del estado del recurso
     #. ``tipo_recurso``: tipo de recurso del que hereda sus caracteristicas
     #. ``activo``: indica si el recurso esta activo o no
-
-    Returns
-    -------
-    model: ``django.db.models.Model``
-        Un model propio heredado de django.db.models.Model con los campos adicionales.
     """
 
     def __str__(self):
@@ -122,18 +107,12 @@ def per_num():
 
 class Encargado(models.Model):
     """
-        Definicion del model para el Encargado del Tipo de Recurso
+    Definicion del model para el Encargado del Tipo de Recurso
 
-        *Campos:*
+    *Campos:*
 
-        1. ``tipo_recurso``: Tipo de Recurso del que se encargara el usuario
-        #. ``usuario``: Usuario con permisos de administracion de recursos.
-
-        Returns
-        -------
-        model: ``django.db.models.Model``
-            Un model propio heredado de django.db.models.Model con los campos adicionales.
-
+    1. ``tipo_recurso``: Tipo de Recurso del que se encargara el usuario
+    #. ``usuario``: Usuario con permisos de administracion de recursos.
     """
     tipo_recurso = models.OneToOneField(TipoRecurso, on_delete=models.CASCADE)
     usuario = models.ForeignKey(
@@ -157,11 +136,6 @@ class CaracteristicasRecursos(models.Model):
     #. ``caracteristica``: caracteristica del tipo de recurso
     #. ``valor``: valor que toma la caracteristica cargada en tipo de recurso
     #. ``activo``: indica si el recurso esta activo o no
-
-    Returns
-    -------
-    model: ``django.db.models.Model``
-        Un model propio heredado de django.db.models.Model con los campos adicionales.
     """
 
     codigo_recurso = models.OneToOneField(Recurso, on_delete=models.CASCADE, null=False)
