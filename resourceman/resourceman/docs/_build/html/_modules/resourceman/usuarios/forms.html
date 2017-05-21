@@ -61,23 +61,21 @@
 
 <div class="viewcode-block" id="UsuarioCreationForm"><a class="viewcode-back" href="../../../usuarios.html#resourceman.usuarios.forms.UsuarioCreationForm">[documentos]</a><span class="k">class</span> <span class="nc">UsuarioCreationForm</span><span class="p">(</span><span class="n">forms</span><span class="o">.</span><span class="n">ModelForm</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        UsuarioCreationForm ModelForm para la creacion de usuarios, con campos de User.</span>
+<span class="sd">    UsuarioCreationForm ModelForm para la creacion de usuarios, con campos de User.</span>
 
-<span class="sd">        Muestra campos del model User en inputs de HTML.</span>
+<span class="sd">    Muestra campos del model User en inputs de HTML.</span>
 
-<span class="sd">        *Campos:* Los establecidos en User.</span>
+<span class="sd">    *Campos:* Los establecidos en User.</span>
 
-<span class="sd">        1. ``id``</span>
-<span class="sd">        #. ``password``</span>
-<span class="sd">        #. ``is_superuser``</span>
-<span class="sd">        #. ``username``</span>
-<span class="sd">        #. ``first_name``</span>
-<span class="sd">        #. ``last_name``</span>
-<span class="sd">        #. ``email``.</span>
-<span class="sd">        #. ``is_active``</span>
-<span class="sd">        #. ``date_joined``</span>
-
-
+<span class="sd">    1. ``id``</span>
+<span class="sd">    #. ``password``</span>
+<span class="sd">    #. ``is_superuser``</span>
+<span class="sd">    #. ``username``</span>
+<span class="sd">    #. ``first_name``</span>
+<span class="sd">    #. ``last_name``</span>
+<span class="sd">    #. ``email``.</span>
+<span class="sd">    #. ``is_active``</span>
+<span class="sd">    #. ``date_joined``</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">username</span> <span class="o">=</span> <span class="n">forms</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">widget</span><span class="o">=</span><span class="n">forms</span><span class="o">.</span><span class="n">TextInput</span><span class="p">(</span><span class="n">attrs</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;class&#39;</span><span class="p">:</span><span class="s1">&#39;form-control&#39;</span><span class="p">}))</span>
     <span class="n">first_name</span> <span class="o">=</span> <span class="n">forms</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">widget</span><span class="o">=</span><span class="n">forms</span><span class="o">.</span><span class="n">TextInput</span><span class="p">(</span><span class="n">attrs</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;class&#39;</span><span class="p">:</span><span class="s1">&#39;form-control&#39;</span><span class="p">}))</span>
@@ -114,7 +112,6 @@
             <span class="s1">&#39;email&#39;</span><span class="p">:</span> <span class="n">TextInput</span><span class="p">(</span><span class="n">attrs</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;class&#39;</span><span class="p">:</span> <span class="s1">&#39;form-control&#39;</span><span class="p">})</span>
         <span class="p">}</span></div>
 
-
 <div class="viewcode-block" id="UsuarioCreationForm.clean_username"><a class="viewcode-back" href="../../../usuarios.html#resourceman.usuarios.forms.UsuarioCreationForm.clean_username">[documentos]</a>    <span class="k">def</span> <span class="nf">clean_username</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">username</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cleaned_data</span><span class="p">[</span><span class="s1">&#39;username&#39;</span><span class="p">]</span>
         <span class="k">if</span> <span class="n">User</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">exclude</span><span class="p">(</span><span class="n">pk</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">instance</span><span class="o">.</span><span class="n">pk</span><span class="p">)</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">username</span><span class="o">=</span><span class="n">username</span><span class="p">)</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
@@ -139,20 +136,19 @@
             <span class="n">user</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
         <span class="k">return</span> <span class="n">user</span></div></div>
 
+
 <div class="viewcode-block" id="UsuarioDetalleForm"><a class="viewcode-back" href="../../../usuarios.html#resourceman.usuarios.forms.UsuarioDetalleForm">[documentos]</a><span class="k">class</span> <span class="nc">UsuarioDetalleForm</span><span class="p">(</span><span class="n">forms</span><span class="o">.</span><span class="n">ModelForm</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        UsuarioDetalleForm ModelForm para la creacion de usuarios, con campos de Usuario.</span>
+<span class="sd">    UsuarioDetalleForm ModelForm para la creacion de usuarios, con campos de Usuario.</span>
 
-<span class="sd">        Muestra campos del model Usuario en inputs de HTML.</span>
+<span class="sd">    Muestra campos del model Usuario en inputs de HTML.</span>
 
-<span class="sd">        *Campos:* Los establecidos en Usuario.</span>
+<span class="sd">    *Campos:* Los establecidos en Usuario.</span>
 
-<span class="sd">        1. ``nro_documento``</span>
-<span class="sd">        #. ``direccion``</span>
-<span class="sd">        #. ``telefono``</span>
-<span class="sd">        #. ``prioridad``</span>
-
-
+<span class="sd">    1. ``nro_documento``</span>
+<span class="sd">    #. ``direccion``</span>
+<span class="sd">    #. ``telefono``</span>
+<span class="sd">    #. ``prioridad``</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">nro_documento</span> <span class="o">=</span> <span class="n">forms</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">widget</span><span class="o">=</span><span class="n">forms</span><span class="o">.</span><span class="n">TextInput</span><span class="p">(</span><span class="n">attrs</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;class&#39;</span><span class="p">:</span><span class="s1">&#39;form-control&#39;</span><span class="p">}))</span>
     <span class="n">direccion</span> <span class="o">=</span> <span class="n">forms</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">widget</span><span class="o">=</span><span class="n">forms</span><span class="o">.</span><span class="n">Textarea</span><span class="p">(</span><span class="n">attrs</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;class&#39;</span><span class="p">:</span><span class="s1">&#39;form-control&#39;</span><span class="p">,</span> <span class="s1">&#39;rows&#39;</span><span class="p">:</span> <span class="s1">&#39;3&#39;</span><span class="p">}))</span>
@@ -192,24 +188,25 @@
             <span class="n">user_detail</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
         <span class="k">return</span> <span class="n">user_detail</span></div></div>
 
+
 <div class="viewcode-block" id="UserInfoForm"><a class="viewcode-back" href="../../../usuarios.html#resourceman.usuarios.forms.UserInfoForm">[documentos]</a><span class="k">class</span> <span class="nc">UserInfoForm</span><span class="p">(</span><span class="n">forms</span><span class="o">.</span><span class="n">ModelForm</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        UserInfoForm ModelForm para la edicion de usuarios, con campos de User.</span>
+<span class="sd">    UserInfoForm ModelForm para la edicion de usuarios, con campos de User.</span>
 
-<span class="sd">        Muestra campos del model User en el HTML, para su edicion.</span>
+<span class="sd">    Muestra campos del model User en el HTML, para su edicion.</span>
 
-<span class="sd">        *Campos:* Los establecidos en User.</span>
+<span class="sd">    *Campos:* Los establecidos en User.</span>
 
-<span class="sd">        1. ``id``</span>
-<span class="sd">        #. ``password``</span>
-<span class="sd">        #. ``last_login``:</span>
-<span class="sd">        #. ``is_superuser``</span>
-<span class="sd">        #. ``username``</span>
-<span class="sd">        #. ``first_name``</span>
-<span class="sd">        #. ``last_name``</span>
-<span class="sd">        #. ``email``.</span>
-<span class="sd">        #. ``is_active``</span>
-<span class="sd">        #. ``date_joined``</span>
+<span class="sd">    1. ``id``</span>
+<span class="sd">    #. ``password``</span>
+<span class="sd">    #. ``last_login``:</span>
+<span class="sd">    #. ``is_superuser``</span>
+<span class="sd">    #. ``username``</span>
+<span class="sd">    #. ``first_name``</span>
+<span class="sd">    #. ``last_name``</span>
+<span class="sd">    #. ``email``.</span>
+<span class="sd">    #. ``is_active``</span>
+<span class="sd">    #. ``date_joined``</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">username</span> <span class="o">=</span> <span class="n">forms</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">widget</span><span class="o">=</span><span class="n">forms</span><span class="o">.</span><span class="n">TextInput</span><span class="p">(</span><span class="n">attrs</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;class&#39;</span><span class="p">:</span> <span class="s1">&#39;form-control&#39;</span><span class="p">}))</span>
@@ -217,6 +214,7 @@
     <span class="n">last_name</span> <span class="o">=</span> <span class="n">forms</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">widget</span><span class="o">=</span><span class="n">forms</span><span class="o">.</span><span class="n">TextInput</span><span class="p">(</span><span class="n">attrs</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;class&#39;</span><span class="p">:</span> <span class="s1">&#39;form-control&#39;</span><span class="p">}))</span>
     <span class="n">last_login</span> <span class="o">=</span> <span class="n">forms</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">widget</span><span class="o">=</span><span class="n">forms</span><span class="o">.</span><span class="n">TextInput</span><span class="p">(</span><span class="n">attrs</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;class&#39;</span><span class="p">:</span> <span class="s1">&#39;form-control&#39;</span><span class="p">}))</span>
     <span class="n">date_joined</span> <span class="o">=</span> <span class="n">forms</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">widget</span><span class="o">=</span><span class="n">forms</span><span class="o">.</span><span class="n">TextInput</span><span class="p">(</span><span class="n">attrs</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;class&#39;</span><span class="p">:</span> <span class="s1">&#39;form-control&#39;</span><span class="p">}))</span>
+
 <div class="viewcode-block" id="UserInfoForm.Meta"><a class="viewcode-back" href="../../../usuarios.html#resourceman.usuarios.forms.UserInfoForm.Meta">[documentos]</a>    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
         <span class="n">model</span> <span class="o">=</span> <span class="n">User</span>
         <span class="n">fields</span> <span class="o">=</span> <span class="s1">&#39;__all__&#39;</span>
@@ -230,20 +228,19 @@
              <span class="s1">&#39;user_permissions&#39;</span><span class="p">,</span> <span class="s1">&#39;password&#39;</span>
         <span class="p">]</span></div></div>
 
+
 <div class="viewcode-block" id="UsuarioInfoForm"><a class="viewcode-back" href="../../../usuarios.html#resourceman.usuarios.forms.UsuarioInfoForm">[documentos]</a><span class="k">class</span> <span class="nc">UsuarioInfoForm</span><span class="p">(</span><span class="n">forms</span><span class="o">.</span><span class="n">ModelForm</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        UsuarioInfoForm ModelForm para la edicion de usuarios, con campos de Usuario.</span>
+<span class="sd">    UsuarioInfoForm ModelForm para la edicion de usuarios, con campos de Usuario.</span>
 
-<span class="sd">        Muestra campos del model Usuario en el HTML, para su edicion.</span>
+<span class="sd">    Muestra campos del model Usuario en el HTML, para su edicion.</span>
 
-<span class="sd">        *Campos:* Los establecidos en Usuario.</span>
+<span class="sd">    *Campos:* Los establecidos en Usuario.</span>
 
-<span class="sd">        1. ``nro_documento``</span>
-<span class="sd">        #. ``direccion``</span>
-<span class="sd">        #. ``telefono``</span>
-<span class="sd">        #. ``prioridad``</span>
-
-
+<span class="sd">    1. ``nro_documento``</span>
+<span class="sd">    #. ``direccion``</span>
+<span class="sd">    #. ``telefono``</span>
+<span class="sd">    #. ``prioridad``</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">nro_documento</span> <span class="o">=</span> <span class="n">forms</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">widget</span><span class="o">=</span><span class="n">forms</span><span class="o">.</span><span class="n">TextInput</span><span class="p">(</span><span class="n">attrs</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;class&#39;</span><span class="p">:</span> <span class="s1">&#39;form-control&#39;</span><span class="p">}))</span>
     <span class="n">direccion</span> <span class="o">=</span> <span class="n">forms</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">widget</span><span class="o">=</span><span class="n">forms</span><span class="o">.</span><span class="n">Textarea</span><span class="p">(</span><span class="n">attrs</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;class&#39;</span><span class="p">:</span> <span class="s1">&#39;form-control&#39;</span><span class="p">,</span> <span class="s1">&#39;rows&#39;</span><span class="p">:</span> <span class="s1">&#39;3&#39;</span><span class="p">}))</span>
@@ -261,16 +258,14 @@
 
 <div class="viewcode-block" id="AgregarPrioridad"><a class="viewcode-back" href="../../../usuarios.html#resourceman.usuarios.forms.AgregarPrioridad">[documentos]</a><span class="k">class</span> <span class="nc">AgregarPrioridad</span><span class="p">(</span><span class="n">forms</span><span class="o">.</span><span class="n">ModelForm</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        AgregarPrioridad ModelForm para la creacion de prioridades, con campos de PrioridadUsuario.</span>
+<span class="sd">    AgregarPrioridad ModelForm para la creacion de prioridades, con campos de PrioridadUsuario.</span>
 
-<span class="sd">        Muestra campos del model PrioridadUsuario en inputs de HTML.</span>
+<span class="sd">    Muestra campos del model PrioridadUsuario en inputs de HTML.</span>
 
-<span class="sd">        *Campos:* Los establecidos en PrioridadUsuario.</span>
+<span class="sd">    *Campos:* Los establecidos en PrioridadUsuario.</span>
 
-<span class="sd">        1. ``codigo``</span>
-<span class="sd">        #. ``descipcion``</span>
-
-
+<span class="sd">    1. ``codigo``</span>
+<span class="sd">    #. ``descipcion``</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">codigo</span> <span class="o">=</span> <span class="n">forms</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">widget</span><span class="o">=</span><span class="n">forms</span><span class="o">.</span><span class="n">TextInput</span><span class="p">(</span><span class="n">attrs</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;class&#39;</span><span class="p">:</span><span class="s1">&#39;form-control&#39;</span><span class="p">}))</span>
     <span class="n">descripcion</span> <span class="o">=</span> <span class="n">forms</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">widget</span><span class="o">=</span><span class="n">forms</span><span class="o">.</span><span class="n">TextInput</span><span class="p">(</span><span class="n">attrs</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;class&#39;</span><span class="p">:</span><span class="s1">&#39;form-control&#39;</span><span class="p">}))</span>
@@ -282,18 +277,17 @@
         <span class="p">]</span>
         <span class="n">exclude</span> <span class="o">=</span> <span class="p">[]</span></div></div>
 
+
 <div class="viewcode-block" id="EditarPrioridad"><a class="viewcode-back" href="../../../usuarios.html#resourceman.usuarios.forms.EditarPrioridad">[documentos]</a><span class="k">class</span> <span class="nc">EditarPrioridad</span><span class="p">(</span><span class="n">forms</span><span class="o">.</span><span class="n">ModelForm</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        EditarPrioridad ModelForm para la edicion de prioridades, con campos de PrioridadUsuario.</span>
+<span class="sd">    EditarPrioridad ModelForm para la edicion de prioridades, con campos de PrioridadUsuario.</span>
 
-<span class="sd">        Muestra campos del model PrioridadUsuario en HTML, para su edicion.</span>
+<span class="sd">    Muestra campos del model PrioridadUsuario en HTML, para su edicion.</span>
 
-<span class="sd">        *Campos:* Los establecidos en PrioridadUsuario.</span>
+<span class="sd">    *Campos:* Los establecidos en PrioridadUsuario.</span>
 
-<span class="sd">        1. ``codigo``</span>
-<span class="sd">        #. ``descipcion``</span>
-
-
+<span class="sd">    1. ``codigo``</span>
+<span class="sd">    #. ``descipcion``</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">codigo</span> <span class="o">=</span> <span class="n">forms</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">widget</span><span class="o">=</span><span class="n">forms</span><span class="o">.</span><span class="n">TextInput</span><span class="p">(</span><span class="n">attrs</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;class&#39;</span><span class="p">:</span> <span class="s1">&#39;form-control&#39;</span><span class="p">}))</span>
     <span class="n">descripcion</span> <span class="o">=</span> <span class="n">forms</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">widget</span><span class="o">=</span><span class="n">forms</span><span class="o">.</span><span class="n">TextInput</span><span class="p">(</span><span class="n">attrs</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;class&#39;</span><span class="p">:</span> <span class="s1">&#39;form-control&#39;</span><span class="p">}))</span>
@@ -304,6 +298,7 @@
             <span class="s1">&#39;codigo&#39;</span><span class="p">,</span> <span class="s1">&#39;descripcion&#39;</span>
         <span class="p">]</span>
         <span class="n">exclude</span> <span class="o">=</span> <span class="p">[]</span></div></div>
+
 
 <div class="viewcode-block" id="EditarPerfilUser"><a class="viewcode-back" href="../../../usuarios.html#resourceman.usuarios.forms.EditarPerfilUser">[documentos]</a><span class="k">class</span> <span class="nc">EditarPerfilUser</span><span class="p">(</span><span class="n">forms</span><span class="o">.</span><span class="n">ModelForm</span><span class="p">):</span>
 
@@ -349,7 +344,6 @@
         <span class="k">if</span> <span class="n">commit</span><span class="p">:</span>
             <span class="n">user</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
         <span class="k">return</span> <span class="n">user</span></div></div>
-
 
 
 <div class="viewcode-block" id="EditarPerfilUsuario"><a class="viewcode-back" href="../../../usuarios.html#resourceman.usuarios.forms.EditarPerfilUsuario">[documentos]</a><span class="k">class</span> <span class="nc">EditarPerfilUsuario</span><span class="p">(</span><span class="n">forms</span><span class="o">.</span><span class="n">ModelForm</span><span class="p">):</span>

@@ -47,45 +47,21 @@
 <span class="kn">from</span> <span class="nn">django.contrib.auth.models</span> <span class="k">import</span> <span class="n">User</span>
 <span class="kn">from</span> <span class="nn">..tipos_recursos.models</span> <span class="k">import</span> <span class="n">Recurso</span>
 
-
-<div class="viewcode-block" id="EstadoReclamo"><a class="viewcode-back" href="../../../reclamos.html#resourceman.reclamos.forms.EstadoReclamo">[documentos]</a><span class="k">class</span> <span class="nc">EstadoReclamo</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Definicion del model para los Estados de los reclamos</span>
-
-<span class="sd">        *Campos:*</span>
-
-<span class="sd">        1. ``codigo``: nombre del estado del reclamo utilizado como clave primaria</span>
-<span class="sd">        #. ``descripcion``: descripcion del estado del reclamo</span>
-
-<span class="sd">        Returns</span>
-<span class="sd">        -------</span>
-<span class="sd">        model: ``django.db.models.Model``</span>
-<span class="sd">            Un model propio heredado de django.db.models.Model con los campos adicionales.</span>
-
-<span class="sd">        &quot;&quot;&quot;</span>
-    <span class="n">codigo</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">null</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">primary_key</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="n">descripcion</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">TextField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">null</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">descripcion</span>
-
-    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
-        <span class="n">permissions</span> <span class="o">=</span> <span class="p">(</span>
-            <span class="p">(</span><span class="s2">&quot;per_crear_estado_reclamo&quot;</span><span class="p">,</span> <span class="s2">&quot;Puede crear estado de reclamo&quot;</span><span class="p">),</span>
-            <span class="p">(</span><span class="s2">&quot;per_editar_estado_reclamo&quot;</span><span class="p">,</span> <span class="s2">&quot;Puede editar estado de reclamo&quot;</span><span class="p">)</span>
-        <span class="p">)</span>
-        <span class="n">db_table</span> <span class="o">=</span> <span class="s1">&#39;estado_reclamo&#39;</span></div>
-
-
 <div class="viewcode-block" id="Reclamo"><a class="viewcode-back" href="../../../reclamos.html#resourceman.reclamos.forms.Reclamo">[documentos]</a><span class="k">class</span> <span class="nc">Reclamo</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Clase para realizar reclamos acerca de cualquier inquietud con respecto a los recursos</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">ESTADOS_RECLAMO_CHOICES</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="p">(</span><span class="s1">&#39;NUE&#39;</span><span class="p">,</span> <span class="s1">&#39;NUEVO&#39;</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;PEN&#39;</span><span class="p">,</span> <span class="s1">&#39;PENDIENTE&#39;</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;ATE&#39;</span><span class="p">,</span> <span class="s1">&#39;ATENDIDO&#39;</span><span class="p">),</span>
+    <span class="p">)</span>
+
     <span class="n">recurso</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="n">Recurso</span><span class="p">,</span> <span class="n">blank</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">null</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
     <span class="n">usuario</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="n">User</span><span class="p">,</span> <span class="n">blank</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
     <span class="n">descripcion</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">TextField</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">help_text</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">blank</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
     <span class="n">fecha</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">DateField</span><span class="p">()</span>
-    <span class="n">estado</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">OneToOneField</span><span class="p">(</span><span class="n">EstadoReclamo</span><span class="p">,</span> <span class="n">max_length</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">null</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">estado</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">null</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">choices</span><span class="o">=</span><span class="n">ESTADOS_RECLAMO_CHOICES</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s1">&#39;NUE&#39;</span><span class="p">)</span>
 
     <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
         <span class="n">permissions</span> <span class="o">=</span> <span class="p">(</span>

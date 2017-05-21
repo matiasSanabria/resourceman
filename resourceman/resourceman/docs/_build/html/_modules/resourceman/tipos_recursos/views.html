@@ -59,16 +59,12 @@
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Permite crear un nuevo tipo de recurso con los siguientes datos</span>
 <span class="sd">    </span>
-<span class="sd">    nombre nombre: </span>
-<span class="sd">                    del tipo de recurso que se utiliza como clave primaria</span>
-<span class="sd">    descripcion: </span>
-<span class="sd">                    descripcion del tipo de recurso</span>
-<span class="sd">    lista de caracteristicas:</span>
-<span class="sd">                    lista de las caracteristicas que seran utilizadas para instanciar una clase de recurso</span>
-<span class="sd">    estado:</span>
-<span class="sd">                    indica si el tipo de recurso esta activo o no</span>
-<span class="sd">                    - A &#39;Activo&#39;</span>
-<span class="sd">                    - I &#39;Inactivo&#39;</span>
+<span class="sd">    nombre nombre: del tipo de recurso que se utiliza como clave primaria</span>
+<span class="sd">    descripcion: descripcion del tipo de recurso</span>
+<span class="sd">    lista de caracteristicas: lista de las caracteristicas que seran utilizadas para instanciar una clase de recurso</span>
+<span class="sd">    estado: indica si el tipo de recurso esta activo o no</span>
+<span class="sd">    - A &#39;Activo&#39;</span>
+<span class="sd">    - I &#39;Inactivo&#39;</span>
 <span class="sd">    :param request: </span>
 <span class="sd">    :return: el formulario para crear otro tipo de recurso</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -107,22 +103,17 @@
 <span class="nd">@login_required</span>
 <div class="viewcode-block" id="editar"><a class="viewcode-back" href="../../../tipos_recursos.html#resourceman.tipos_recursos.views.editar">[documentos]</a><span class="k">def</span> <span class="nf">editar</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">nombre</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Permite editar tipo de recurso con los siguientes datos</span>
+<span class="sd">    Permite editar tipo de recurso con los siguientes datos</span>
 
-<span class="sd">        nombre nombre: </span>
-<span class="sd">                        del tipo de recurso que se utiliza como clave primaria</span>
-<span class="sd">        descripcion: </span>
-<span class="sd">                        descripcion del tipo de recurso</span>
-<span class="sd">        lista de caracteristicas:</span>
-<span class="sd">                        lista de las caracteristicas que seran utilizadas para instanciar una clase de recurso</span>
-<span class="sd">        estado:</span>
-<span class="sd">                        indica si el tipo de recurso esta activo o no</span>
-<span class="sd">                        - A &#39;Activo&#39;</span>
-<span class="sd">                        - I &#39;Inactivo&#39;</span>
-<span class="sd">        encargado:</span>
-<span class="sd">                        referencia a un usuario con permisos para manejar recursos</span>
-<span class="sd">        :param request: </span>
-<span class="sd">        :return: el formulario para editar otro tipo de recurso</span>
+<span class="sd">    nombre nombre: del tipo de recurso que se utiliza como clave primaria</span>
+<span class="sd">    descripcion: descripcion del tipo de recurso</span>
+<span class="sd">    lista de caracteristicas:  lista de las caracteristicas que seran utilizadas para instanciar una clase de recurso</span>
+<span class="sd">    estado: indica si el tipo de recurso esta activo o no</span>
+<span class="sd">    - A &#39;Activo&#39;</span>
+<span class="sd">    - I &#39;Inactivo&#39;</span>
+<span class="sd">    encargado: referencia a un usuario con permisos para manejar recursos</span>
+<span class="sd">    :param request: </span>
+<span class="sd">    :return: el formulario para editar otro tipo de recurso</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">mensaje</span> <span class="o">=</span> <span class="s1">&#39;Modificar Tipo de Recurso&#39;</span>
     <span class="n">messages</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">messages</span><span class="o">.</span><span class="n">INFO</span><span class="p">,</span> <span class="n">mensaje</span><span class="p">)</span>
@@ -136,8 +127,7 @@
                 <span class="n">editar_form</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
                 <span class="n">encargado_form</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
                 <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s1">&#39;listar&#39;</span><span class="p">)</span>
-        <span class="c1"># else:</span>
-        <span class="c1">#     editar_form = TipoRecursoForm(request.POST, instance=editar)</span>
+
         <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;tipo_recurso/editar_tipo_recurso.html&#39;</span><span class="p">,</span> <span class="p">{</span>
             <span class="s1">&#39;editar_form&#39;</span><span class="p">:</span> <span class="n">editar_form</span><span class="p">,</span>
             <span class="s1">&#39;encargado_form&#39;</span><span class="p">:</span> <span class="n">encargado_form</span><span class="p">,</span>
@@ -158,8 +148,7 @@
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Permite eliminar tipo de recurso con los siguientes datos</span>
 <span class="sd">    </span>
-<span class="sd">    nombre nombre: </span>
-<span class="sd">                    del tipo de recurso que se utiliza como clave primaria</span>
+<span class="sd">    nombre nombre: del tipo de recurso que se utiliza como clave primaria</span>
 <span class="sd">    :param request: </span>
 <span class="sd">    :return: el formulario para listar los tipos de recursos</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -189,21 +178,17 @@
 <span class="nd">@login_required</span>
 <div class="viewcode-block" id="listar_tipos_recursos"><a class="viewcode-back" href="../../../tipos_recursos.html#resourceman.tipos_recursos.views.listar_tipos_recursos">[documentos]</a><span class="k">def</span> <span class="nf">listar_tipos_recursos</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Permite listar los tipos de recursos con los siguientes datos</span>
+<span class="sd">    Permite listar los tipos de recursos con los siguientes datos</span>
 
-<span class="sd">        nombre nombre: </span>
-<span class="sd">                        del tipo de recurso que se utiliza como clave primaria</span>
-<span class="sd">        descripcion: </span>
-<span class="sd">                        descripcion del tipo de recurso</span>
-<span class="sd">        lista de caracteristicas:</span>
-<span class="sd">                        lista de las caracteristicas que seran utilizadas para instanciar una clase de recurso</span>
-<span class="sd">        estado:</span>
-<span class="sd">                        indica si el tipo de recurso esta activo o no</span>
-<span class="sd">                        - A &#39;Activo&#39;</span>
-<span class="sd">                        - I &#39;Inactivo&#39;</span>
-<span class="sd">        :param request: </span>
-<span class="sd">        :return: el formulario para listar los tipos de recursos</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">    nombre nombre: del tipo de recurso que se utiliza como clave primaria</span>
+<span class="sd">    descripcion: descripcion del tipo de recurso</span>
+<span class="sd">    lista de caracteristicas:  lista de las caracteristicas que seran utilizadas para instanciar una clase de recurso</span>
+<span class="sd">    estado: indica si el tipo de recurso esta activo o no</span>
+<span class="sd">    - A &#39;Activo&#39;</span>
+<span class="sd">    - I &#39;Inactivo&#39;</span>
+<span class="sd">    :param request: </span>
+<span class="sd">    :return: el formulario para listar los tipos de recursos</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">mensaje</span> <span class="o">=</span> <span class="s1">&#39;Listar Permisos&#39;</span>
     <span class="n">messages</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">messages</span><span class="o">.</span><span class="n">INFO</span><span class="p">,</span> <span class="n">mensaje</span><span class="p">)</span>
     <span class="n">lista</span> <span class="o">=</span> <span class="n">TipoRecurso</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
@@ -214,15 +199,13 @@
 <span class="nd">@login_required</span>
 <div class="viewcode-block" id="listar_estados"><a class="viewcode-back" href="../../../tipos_recursos.html#resourceman.tipos_recursos.views.listar_estados">[documentos]</a><span class="k">def</span> <span class="nf">listar_estados</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Permite listar los estados de los recursos con los siguientes datos</span>
+<span class="sd">    Permite listar los estados de los recursos con los siguientes datos</span>
 
-<span class="sd">        codigo: </span>
-<span class="sd">                        del estado del recurso que se utiliza como clave primaria</span>
-<span class="sd">        descripcion: </span>
-<span class="sd">                        descripcion del estado del recurso</span>
-<span class="sd">        </span>
-<span class="sd">        :param request: </span>
-<span class="sd">        :return: el formulario para listar los estados de los recursos</span>
+<span class="sd">    codigo: del estado del recurso que se utiliza como clave primaria</span>
+<span class="sd">    descripcion: descripcion del estado del recurso</span>
+<span class="sd">    </span>
+<span class="sd">    :param request: </span>
+<span class="sd">    :return: el formulario para listar los estados de los recursos</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">mensaje</span> <span class="o">=</span> <span class="s1">&#39;Listar Estados&#39;</span>
     <span class="n">messages</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">messages</span><span class="o">.</span><span class="n">INFO</span><span class="p">,</span> <span class="n">mensaje</span><span class="p">)</span>
@@ -233,13 +216,11 @@
 <span class="nd">@login_required</span>
 <div class="viewcode-block" id="crear_estado"><a class="viewcode-back" href="../../../tipos_recursos.html#resourceman.tipos_recursos.views.crear_estado">[documentos]</a><span class="k">def</span> <span class="nf">crear_estado</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Permite crear un estado de recurso con los siguientes datos</span>
-<span class="sd">        codigo: </span>
-<span class="sd">                        del estado de recurso que se utiliza como clave primaria</span>
-<span class="sd">        descripcion: </span>
-<span class="sd">                        descripcion del estado de recurso</span>
-<span class="sd">        :param request: </span>
-<span class="sd">        :return: el formulario para crear otro tipo de recurso</span>
+<span class="sd">    Permite crear un estado de recurso con los siguientes datos</span>
+<span class="sd">    codigo: del estado de recurso que se utiliza como clave primaria</span>
+<span class="sd">    descripcion: descripcion del estado de recurso</span>
+<span class="sd">    :param request: </span>
+<span class="sd">    :return: el formulario para crear otro tipo de recurso</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s2">&quot;POST&quot;</span><span class="p">:</span>
         <span class="n">estado</span> <span class="o">=</span> <span class="n">EstadoForm</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="p">)</span>
@@ -258,13 +239,11 @@
 <span class="nd">@login_required</span>
 <div class="viewcode-block" id="editar_estado"><a class="viewcode-back" href="../../../tipos_recursos.html#resourceman.tipos_recursos.views.editar_estado">[documentos]</a><span class="k">def</span> <span class="nf">editar_estado</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">codigo</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Permite editar un estado de recurso con los siguientes datos</span>
-<span class="sd">        codigo: </span>
-<span class="sd">                        del estado de recurso que se utiliza como clave primaria</span>
-<span class="sd">        descripcion: </span>
-<span class="sd">                        descripcion del estado de recurso</span>
-<span class="sd">        :param request: </span>
-<span class="sd">        :return: el formulario para editar otro tipo de recurso</span>
+<span class="sd">    Permite editar un estado de recurso con los siguientes datos</span>
+<span class="sd">    codigo:  del estado de recurso que se utiliza como clave primaria</span>
+<span class="sd">    descripcion: descripcion del estado de recurso</span>
+<span class="sd">    :param request: </span>
+<span class="sd">    :return: el formulario para editar otro tipo de recurso</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">mensaje</span> <span class="o">=</span> <span class="s1">&#39;Modificar Estado&#39;</span>
     <span class="n">messages</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">messages</span><span class="o">.</span><span class="n">INFO</span><span class="p">,</span> <span class="n">mensaje</span><span class="p">)</span>
@@ -292,12 +271,11 @@
 <span class="nd">@login_required</span>
 <div class="viewcode-block" id="eliminar_estado"><a class="viewcode-back" href="../../../tipos_recursos.html#resourceman.tipos_recursos.views.eliminar_estado">[documentos]</a><span class="k">def</span> <span class="nf">eliminar_estado</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">codigo</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Permite eliminar estado de recurso</span>
-<span class="sd">    </span>
-<span class="sd">        nombre nombre: </span>
-<span class="sd">                        del estado de recurso a eliminar</span>
-<span class="sd">        :param request: </span>
-<span class="sd">        :return: el formulario para listar los estados de recursos</span>
+<span class="sd">    Permite eliminar estado de recurso</span>
+
+<span class="sd">    nombre nombre: del estado de recurso a eliminar</span>
+<span class="sd">    :param request: </span>
+<span class="sd">    :return: el formulario para listar los estados de recursos</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">eliminar</span> <span class="o">=</span> <span class="n">Estados</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">codigo</span><span class="o">=</span><span class="n">codigo</span><span class="p">)</span>
     <span class="n">mensaje</span> <span class="o">=</span> <span class="s2">&quot;Estado de Recurso </span><span class="se">\&#39;</span><span class="si">%s</span><span class="se">\&#39;</span><span class="s2"> eliminado..</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">eliminar</span>
@@ -313,16 +291,11 @@
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Crea un nuevo recurso con los siguientes datos</span>
 <span class="sd">    </span>
-<span class="sd">    codigo_recurso:</span>
-<span class="sd">                    codigo del recurso utilizado como clave primaria</span>
-<span class="sd">    nombre_recurso:</span>
-<span class="sd">                    nombre para el recurso</span>
-<span class="sd">    descripcion_recurso:</span>
-<span class="sd">                    descripcion del recurso a crear</span>
-<span class="sd">    tipo_recurso:</span>
-<span class="sd">                    indica a que tipo de recurso pertenece</span>
-<span class="sd">    activo:</span>
-<span class="sd">                    indica si esta activo o inactivo</span>
+<span class="sd">    codigo_recurso: codigo del recurso utilizado como clave primaria</span>
+<span class="sd">    nombre_recurso: nombre para el recurso</span>
+<span class="sd">    descripcion_recurso: descripcion del recurso a crear</span>
+<span class="sd">    tipo_recurso: indica a que tipo de recurso pertenece</span>
+<span class="sd">    activo: indica si esta activo o inactivo</span>
 <span class="sd">    :param request: </span>
 <span class="sd">    :return: formulario para crear un nuevo recurso</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -344,25 +317,19 @@
 <span class="nd">@login_required</span>
 <div class="viewcode-block" id="editar_recurso"><a class="viewcode-back" href="../../../tipos_recursos.html#resourceman.tipos_recursos.views.editar_recurso">[documentos]</a><span class="k">def</span> <span class="nf">editar_recurso</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">codigo_recurso</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Edita recurso con los siguientes datos</span>
+<span class="sd">    Edita recurso con los siguientes datos</span>
 
-<span class="sd">        codigo_recurso:</span>
-<span class="sd">                        codigo del recurso utilizado como clave primaria</span>
-<span class="sd">        nombre_recurso:</span>
-<span class="sd">                        nombre para el recurso</span>
-<span class="sd">        descripcion_recurso:</span>
-<span class="sd">                        descripcion del recurso a crear</span>
-<span class="sd">        tipo_recurso:</span>
-<span class="sd">                        indica a que tipo de recurso pertenece</span>
-<span class="sd">        activo:</span>
-<span class="sd">                        indica si esta activo o inactivo</span>
-<span class="sd">        :param request: </span>
-<span class="sd">        :return: formulario para listar los recursos</span>
+<span class="sd">    codigo_recurso: codigo del recurso utilizado como clave primaria</span>
+<span class="sd">    nombre_recurso: nombre para el recurso</span>
+<span class="sd">    descripcion_recurso: descripcion del recurso a crear</span>
+<span class="sd">    tipo_recurso: indica a que tipo de recurso pertenece</span>
+<span class="sd">    activo: indica si esta activo o inactivo</span>
+<span class="sd">    :param request: </span>
+<span class="sd">    :return: formulario para listar los recursos</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">mensaje</span> <span class="o">=</span> <span class="s1">&#39;Modificar Recurso&#39;</span>
     <span class="n">messages</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">messages</span><span class="o">.</span><span class="n">INFO</span><span class="p">,</span> <span class="n">mensaje</span><span class="p">)</span>
     <span class="n">editar</span> <span class="o">=</span> <span class="n">Recurso</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">codigo_recurso</span><span class="o">=</span><span class="n">codigo_recurso</span><span class="p">)</span>
-    <span class="c1">#caracteristicas = CaracteristicasRecursos.objects.get(codigo_recurso=codigo_recurso, tipo_recurso=editar.tipo_recurso)</span>
 
     <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;POST&#39;</span><span class="p">:</span>
         <span class="n">editar_form</span> <span class="o">=</span> <span class="n">RecursoForm</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="p">,</span> <span class="n">instance</span><span class="o">=</span><span class="n">editar</span><span class="p">)</span>
@@ -385,16 +352,17 @@
 
 
 <span class="nd">@login_required</span>
-<div class="viewcode-block" id="eliminar_recurso"><a class="viewcode-back" href="../../../tipos_recursos.html#resourceman.tipos_recursos.views.eliminar_recurso">[documentos]</a><span class="k">def</span> <span class="nf">eliminar_recurso</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">codigo</span><span class="p">):</span>
+<div class="viewcode-block" id="eliminar_recurso"><a class="viewcode-back" href="../../../tipos_recursos.html#resourceman.tipos_recursos.views.eliminar_recurso">[documentos]</a><span class="k">def</span> <span class="nf">eliminar_recurso</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">codigo_recurso</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Elimina un recurso</span>
 <span class="sd">    :param request: </span>
 <span class="sd">    :param codigo: del recurso a ser eliminado</span>
 <span class="sd">    :return: lista de todos los recursos disponibles</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">eliminar</span> <span class="o">=</span> <span class="n">Recurso</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">codigo_recurso</span><span class="o">=</span><span class="n">codigo</span><span class="p">)</span>
+    <span class="n">eliminar</span> <span class="o">=</span> <span class="n">Recurso</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">codigo_recurso</span><span class="o">=</span><span class="n">codigo_recurso</span><span class="p">)</span>
     <span class="n">mensaje</span> <span class="o">=</span> <span class="s2">&quot;Recurso </span><span class="se">\&#39;</span><span class="si">%s</span><span class="se">\&#39;</span><span class="s2"> eliminado..</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">eliminar</span>
     <span class="n">messages</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">messages</span><span class="o">.</span><span class="n">INFO</span><span class="p">,</span> <span class="n">mensaje</span><span class="p">)</span>
+    <span class="n">eliminar</span><span class="o">.</span><span class="n">estado</span> <span class="o">=</span> <span class="n">Estados</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">codigo</span><span class="o">=</span><span class="s2">&quot;FUS&quot;</span><span class="p">)</span>
     <span class="n">eliminar</span><span class="o">.</span><span class="n">activo</span> <span class="o">=</span> <span class="s1">&#39;I&#39;</span>
     <span class="n">eliminar</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
     <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s1">&#39;../listar_recursos&#39;</span><span class="p">)</span></div>

@@ -54,102 +54,6 @@
 
 
 <span class="nd">@login_required</span>
-<div class="viewcode-block" id="listar_estados_reclamos"><a class="viewcode-back" href="../../../reclamos.html#resourceman.reclamos.views.listar_estados_reclamos">[documentos]</a><span class="k">def</span> <span class="nf">listar_estados_reclamos</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Permite listar los estados de los reclamos con los siguientes datos</span>
-
-<span class="sd">        codigo: </span>
-<span class="sd">                        del estado del reclamo que se utiliza como clave primaria</span>
-<span class="sd">        descripcion: </span>
-<span class="sd">                        descripcion del estado del reclamo</span>
-
-<span class="sd">        :param request: </span>
-<span class="sd">        :return: el formulario para listar los estados de los reclamos</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">mensaje</span> <span class="o">=</span> <span class="s1">&#39;Listar Estados&#39;</span>
-    <span class="n">messages</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">messages</span><span class="o">.</span><span class="n">INFO</span><span class="p">,</span> <span class="n">mensaje</span><span class="p">)</span>
-    <span class="n">lista</span> <span class="o">=</span> <span class="n">EstadoReclamo</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
-    <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;reclamos/listar_estados_reclamo.html&#39;</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;lista&#39;</span><span class="p">:</span> <span class="n">lista</span><span class="p">})</span></div>
-
-
-<span class="nd">@login_required</span>
-<div class="viewcode-block" id="crear_estado_reclamo"><a class="viewcode-back" href="../../../reclamos.html#resourceman.reclamos.views.crear_estado_reclamo">[documentos]</a><span class="k">def</span> <span class="nf">crear_estado_reclamo</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Permite crear un estado de reclamo con los siguientes datos</span>
-<span class="sd">        codigo: </span>
-<span class="sd">                        del estado del reclamo que se utiliza como clave primaria</span>
-<span class="sd">        descripcion: </span>
-<span class="sd">                        descripcion del estado del reclamo</span>
-<span class="sd">        :param request: </span>
-<span class="sd">        :return: el formulario para crear un nuevo estado de reclamo</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s2">&quot;POST&quot;</span><span class="p">:</span>
-        <span class="n">estado</span> <span class="o">=</span> <span class="n">EstadoReclamoForm</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">estado</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">estado</span><span class="o">.</span><span class="n">is_valid</span><span class="p">():</span>
-                <span class="n">estado</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
-                <span class="n">messages</span><span class="o">.</span><span class="n">success</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s2">&quot;Estado guardado correctamente&quot;</span><span class="p">)</span>
-                <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s1">&#39;crear_estado&#39;</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">messages</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s2">&quot;Ocurrio un error al guardar el estado. Vuelva a intentarlo&quot;</span><span class="p">)</span>
-
-    <span class="n">estado</span> <span class="o">=</span> <span class="n">EstadoReclamoForm</span><span class="p">()</span>
-    <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;reclamos/crear_estado_reclamo.html&#39;</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;estado&#39;</span><span class="p">:</span> <span class="n">estado</span><span class="p">})</span></div>
-
-
-<span class="nd">@login_required</span>
-<div class="viewcode-block" id="editar_estado_reclamo"><a class="viewcode-back" href="../../../reclamos.html#resourceman.reclamos.views.editar_estado_reclamo">[documentos]</a><span class="k">def</span> <span class="nf">editar_estado_reclamo</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">codigo</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Permite editar un estado de reclamo con los siguientes datos</span>
-<span class="sd">        codigo: </span>
-<span class="sd">                        del estado de reclamo que se utiliza como clave primaria</span>
-<span class="sd">        descripcion: </span>
-<span class="sd">                        descripcion del estado de reclamo</span>
-<span class="sd">        :param request: </span>
-<span class="sd">        :return:</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">mensaje</span> <span class="o">=</span> <span class="s1">&#39;Modificar Estado&#39;</span>
-    <span class="n">messages</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">messages</span><span class="o">.</span><span class="n">INFO</span><span class="p">,</span> <span class="n">mensaje</span><span class="p">)</span>
-    <span class="n">editar</span> <span class="o">=</span> <span class="n">EstadoReclamo</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">codigo</span><span class="o">=</span><span class="n">codigo</span><span class="p">)</span>
-
-    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;POST&#39;</span><span class="p">:</span>
-        <span class="n">editar_form</span> <span class="o">=</span> <span class="n">EstadoReclamoForm</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="p">,</span> <span class="n">instance</span><span class="o">=</span><span class="n">editar</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">editar_form</span><span class="o">.</span><span class="n">is_valid</span><span class="p">():</span>
-            <span class="n">editar_form</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
-            <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s1">&#39;listar_estados&#39;</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">editar_form</span> <span class="o">=</span> <span class="n">EstadoReclamoForm</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="p">,</span> <span class="n">instance</span><span class="o">=</span><span class="n">editar</span><span class="p">)</span>
-
-        <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;reclamos/editar_estado_reclamo.html&#39;</span><span class="p">,</span> <span class="p">{</span>
-            <span class="s1">&#39;editar_form&#39;</span><span class="p">:</span> <span class="n">editar_form</span><span class="p">,</span>
-            <span class="s1">&#39;codigo&#39;</span><span class="p">:</span> <span class="n">codigo</span>
-        <span class="p">})</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">editar_form</span> <span class="o">=</span> <span class="n">EstadoReclamoForm</span><span class="p">(</span><span class="n">instance</span><span class="o">=</span><span class="n">editar</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;reclamos/editar_estado_reclamo.html&#39;</span><span class="p">,</span> <span class="p">{</span>
-            <span class="s1">&#39;editar_form&#39;</span><span class="p">:</span> <span class="n">editar_form</span><span class="p">,</span>
-            <span class="s1">&#39;codigo&#39;</span><span class="p">:</span> <span class="n">codigo</span>
-        <span class="p">})</span></div>
-
-
-<span class="nd">@login_required</span>
-<div class="viewcode-block" id="eliminar_estado_reclamo"><a class="viewcode-back" href="../../../reclamos.html#resourceman.reclamos.views.eliminar_estado_reclamo">[documentos]</a><span class="k">def</span> <span class="nf">eliminar_estado_reclamo</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">codigo</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Permite eliminar estado de recurso</span>
-
-<span class="sd">        nombre nombre: </span>
-<span class="sd">                        del estado de recurso a eliminar</span>
-<span class="sd">        :param request: </span>
-<span class="sd">        :return: el formulario para listar los estados de recursos</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">eliminar</span> <span class="o">=</span> <span class="n">EstadoReclamo</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">codigo</span><span class="o">=</span><span class="n">codigo</span><span class="p">)</span>
-    <span class="n">mensaje</span> <span class="o">=</span> <span class="s2">&quot;Estado de Recurso </span><span class="se">\&#39;</span><span class="si">%s</span><span class="se">\&#39;</span><span class="s2"> eliminado..</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">eliminar</span>
-    <span class="n">messages</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">messages</span><span class="o">.</span><span class="n">INFO</span><span class="p">,</span> <span class="n">mensaje</span><span class="p">)</span>
-    <span class="n">eliminar</span><span class="o">.</span><span class="n">delete</span><span class="p">()</span>
-    <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s1">&#39;../listar_estados&#39;</span><span class="p">)</span></div>
-
-
-<span class="nd">@login_required</span>
 <div class="viewcode-block" id="crear_reclamo"><a class="viewcode-back" href="../../../reclamos.html#resourceman.reclamos.views.crear_reclamo">[documentos]</a><span class="k">def</span> <span class="nf">crear_reclamo</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Metodo que permite la creacion de reclamos y el envio de un correo al encargado.</span>
@@ -232,9 +136,7 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">mensaje</span> <span class="o">=</span> <span class="s1">&#39;Editar Reclamo&#39;</span>
     <span class="n">messages</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">messages</span><span class="o">.</span><span class="n">INFO</span><span class="p">,</span> <span class="n">mensaje</span><span class="p">)</span>
-    <span class="c1"># mod = Permission.objects.get(pk=pk)</span>
     <span class="n">editar</span><span class="o">=</span> <span class="n">Reclamo</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="n">pk</span><span class="p">)</span>
-    <span class="c1"># editar_form= EditarPermisos(instance=editar)</span>
 
     <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;POST&#39;</span><span class="p">:</span>
         <span class="n">editar_form</span> <span class="o">=</span> <span class="n">EditarReclamo</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="p">,</span> <span class="n">instance</span><span class="o">=</span><span class="n">editar</span><span class="p">)</span>

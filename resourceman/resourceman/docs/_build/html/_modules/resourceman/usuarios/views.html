@@ -62,11 +62,11 @@
 <span class="nd">@permission_required</span><span class="p">(</span><span class="s1">&#39;usuarios.per_crear_usuario&#39;</span><span class="p">)</span>
 <div class="viewcode-block" id="crearUsuario"><a class="viewcode-back" href="../../../usuarios.html#resourceman.usuarios.views.crearUsuario">[documentos]</a><span class="k">def</span> <span class="nf">crearUsuario</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Página para la creacion de Usuarios.</span>
+<span class="sd">    Página para la creacion de Usuarios.</span>
 
-<span class="sd">        Recibe los datos suministrados por el usuario a traves de un post.</span>
+<span class="sd">    Recibe los datos suministrados por el usuario a traves de un post.</span>
 
-<span class="sd">        Se definen objetos de User y Usuario para guardar los datos a traves de las funciones del form.</span>
+<span class="sd">    Se definen objetos de User y Usuario para guardar los datos a traves de las funciones del form.</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s2">&quot;POST&quot;</span><span class="p">:</span>
@@ -77,6 +77,7 @@
                 <span class="n">user</span> <span class="o">=</span> <span class="n">user_form</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">commit</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>  <span class="c1"># guarda en la base de datos.</span>
 
                 <span class="n">user</span><span class="o">.</span><span class="n">is_active</span> <span class="o">=</span> <span class="mi">1</span>
+                <span class="n">user</span><span class="o">.</span><span class="n">is_staff</span> <span class="o">=</span> <span class="mi">1</span>
                 <span class="n">user</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
 
                 <span class="c1"># guardando relacion group user</span>
@@ -114,9 +115,9 @@
 <span class="nd">@permission_required</span><span class="p">(</span><span class="s1">&#39;usuarios.per_listar_usuario&#39;</span><span class="p">)</span>
 <div class="viewcode-block" id="listarUsuario"><a class="viewcode-back" href="../../../usuarios.html#resourceman.usuarios.views.listarUsuario">[documentos]</a><span class="k">def</span> <span class="nf">listarUsuario</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Página para listar de Usuario.</span>
+<span class="sd">    Página para listar de Usuario.</span>
 
-<span class="sd">        Genera una instancia de los objetos de User, Usuario y luego los devuleve al template listarUsuario.html</span>
+<span class="sd">    Genera una instancia de los objetos de User, Usuario y luego los devuleve al template listarUsuario.html</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">mensaje</span> <span class="o">=</span> <span class="s1">&#39;Listar Usuario&#39;</span>
@@ -138,56 +139,45 @@
 <span class="nd">@permission_required</span><span class="p">(</span><span class="s1">&#39;usuarios.per_editar_usuario&#39;</span><span class="p">)</span>
 <div class="viewcode-block" id="editarUsuario"><a class="viewcode-back" href="../../../usuarios.html#resourceman.usuarios.views.editarUsuario">[documentos]</a><span class="k">def</span> <span class="nf">editarUsuario</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">username</span><span class="p">):</span>
 
-        <span class="n">user</span> <span class="o">=</span> <span class="n">User</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">username</span><span class="o">=</span><span class="n">username</span><span class="p">)</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">                Página para la edicion de Usuario.</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Página para la edicion de Usuario.</span>
 
-<span class="sd">                Recibe un Post con un atributo username del usuario a editar.</span>
+<span class="sd">    Recibe un Post con un atributo username del usuario a editar.</span>
 
-<span class="sd">                Se instancian los objetos User y Usuario con el identificador suministrado.</span>
+<span class="sd">    Se instancian los objetos User y Usuario con el identificador suministrado.</span>
 
-<span class="sd">                Se alteran los datos con el Post recibido y se guardan.</span>
+<span class="sd">    Se alteran los datos con el Post recibido y se guardan.</span>
 
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="n">Usuario</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">usuario</span><span class="o">=</span><span class="n">user</span><span class="p">)</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
-            <span class="c1"># print(&quot;existe detalle de usuario.&quot;)</span>
-            <span class="n">user_detail</span> <span class="o">=</span> <span class="n">Usuario</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">usuario</span><span class="o">=</span><span class="n">user</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="c1"># print(&quot;no existe detalle. creando uno nuevo.&quot;)</span>
-            <span class="c1"># Superusuarios creado por línea de comando, no tienen asociado un detalle al comienzo.</span>
-            <span class="n">user_detail</span> <span class="o">=</span> <span class="n">Usuario</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">usuario</span><span class="o">=</span><span class="n">user</span><span class="p">)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">user</span> <span class="o">=</span> <span class="n">User</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">username</span><span class="o">=</span><span class="n">username</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">Usuario</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">usuario</span><span class="o">=</span><span class="n">user</span><span class="p">)</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+        <span class="n">user_detail</span> <span class="o">=</span> <span class="n">Usuario</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">usuario</span><span class="o">=</span><span class="n">user</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># Superusuarios creado por línea de comando, no tienen asociado un detalle al comienzo.</span>
+        <span class="n">user_detail</span> <span class="o">=</span> <span class="n">Usuario</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">usuario</span><span class="o">=</span><span class="n">user</span><span class="p">)</span>
 
-        <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;POST&#39;</span><span class="p">:</span>
-            <span class="c1"># if request.user.is_superuser:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;post&quot;</span><span class="p">)</span>
-            <span class="n">user_form</span> <span class="o">=</span> <span class="n">UserInfoForm</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="p">,</span> <span class="n">instance</span><span class="o">=</span><span class="n">user</span><span class="p">)</span>
-            <span class="n">user_detail_form</span> <span class="o">=</span> <span class="n">UsuarioInfoForm</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="p">,</span> <span class="n">instance</span><span class="o">=</span><span class="n">user_detail</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;POST&#39;</span><span class="p">:</span>
+        <span class="n">user_form</span> <span class="o">=</span> <span class="n">UserInfoForm</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="p">,</span> <span class="n">instance</span><span class="o">=</span><span class="n">user</span><span class="p">)</span>
+        <span class="n">user_detail_form</span> <span class="o">=</span> <span class="n">UsuarioInfoForm</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="p">,</span> <span class="n">instance</span><span class="o">=</span><span class="n">user_detail</span><span class="p">)</span>
 
-            <span class="k">if</span> <span class="n">user_form</span><span class="o">.</span><span class="n">is_valid</span><span class="p">():</span>
-                <span class="c1"># print(&quot;user form valido&quot;)</span>
-                <span class="k">if</span> <span class="n">user_detail_form</span><span class="o">.</span><span class="n">is_valid</span><span class="p">():</span>
-                    <span class="c1"># print(&quot;formularios validos&quot;)</span>
-                    <span class="n">user</span> <span class="o">=</span> <span class="n">user_form</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>  <span class="c1"># actualiza la tabla de usuario en la bd.</span>
-                    <span class="n">user_detail</span> <span class="o">=</span> <span class="n">user_detail_form</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">commit</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>  <span class="c1"># actualiza en el model, sin guardar en BD.</span>
-                    <span class="n">user_detail</span><span class="o">.</span><span class="n">user</span> <span class="o">=</span> <span class="n">user</span>  <span class="c1"># actualiza (por seguridad) el campo de relación.</span>
-                    <span class="n">user_detail</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>  <span class="c1"># actualiza detalle en la BD.</span>
-                    <span class="n">messages</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">messages</span><span class="o">.</span><span class="n">SUCCESS</span><span class="p">,</span>
-                                         <span class="s2">&quot;Información del usuario -</span><span class="si">%s</span><span class="s2">- se ha modificado correctamente.&quot;</span> <span class="o">%</span> <span class="n">user</span><span class="o">.</span><span class="n">username</span><span class="p">)</span>
-                    <span class="c1"># print(&quot;mensaje. redirigirá al home.&quot;)</span>
-                    <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s1">&#39;listarUsuario&#39;</span><span class="p">)</span>
-                    <span class="c1"># else:</span>
-                    <span class="c1">#     messages.add_message(request, messages.ERROR, &quot;Usted no tiene permisos suficientes para efectuar la operación.&quot;)</span>
-                    <span class="c1">#     return redirect(&#39;sar:home&#39;)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;get&quot;</span><span class="p">)</span>
-            <span class="n">user_form</span> <span class="o">=</span> <span class="n">UserInfoForm</span><span class="p">(</span><span class="n">instance</span><span class="o">=</span><span class="n">user</span><span class="p">)</span>
-            <span class="n">user_detail_form</span> <span class="o">=</span> <span class="n">UsuarioInfoForm</span><span class="p">(</span><span class="n">instance</span><span class="o">=</span><span class="n">user_detail</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">user_form</span><span class="o">.</span><span class="n">is_valid</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">user_detail_form</span><span class="o">.</span><span class="n">is_valid</span><span class="p">():</span>
+                <span class="n">user</span> <span class="o">=</span> <span class="n">user_form</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>  <span class="c1"># actualiza la tabla de usuario en la bd.</span>
+                <span class="n">user_detail</span> <span class="o">=</span> <span class="n">user_detail_form</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">commit</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>  <span class="c1"># actualiza en el model, sin guardar en BD.</span>
+                <span class="n">user_detail</span><span class="o">.</span><span class="n">user</span> <span class="o">=</span> <span class="n">user</span>  <span class="c1"># actualiza (por seguridad) el campo de relación.</span>
+                <span class="n">user_detail</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>  <span class="c1"># actualiza detalle en la BD.</span>
+                <span class="n">messages</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">messages</span><span class="o">.</span><span class="n">SUCCESS</span><span class="p">,</span>
+                                     <span class="s2">&quot;Información del usuario -</span><span class="si">%s</span><span class="s2">- se ha modificado correctamente.&quot;</span> <span class="o">%</span> <span class="n">user</span><span class="o">.</span><span class="n">username</span><span class="p">)</span>
+                <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s1">&#39;listarUsuario&#39;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">user_form</span> <span class="o">=</span> <span class="n">UserInfoForm</span><span class="p">(</span><span class="n">instance</span><span class="o">=</span><span class="n">user</span><span class="p">)</span>
+        <span class="n">user_detail_form</span> <span class="o">=</span> <span class="n">UsuarioInfoForm</span><span class="p">(</span><span class="n">instance</span><span class="o">=</span><span class="n">user_detail</span><span class="p">)</span>
 
-        <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;usuario/editarUsuario.html&#39;</span><span class="p">,</span> <span class="p">{</span>
-            <span class="s1">&#39;user_form&#39;</span><span class="p">:</span> <span class="n">user_form</span><span class="p">,</span>
-            <span class="s1">&#39;user_detail_form&#39;</span><span class="p">:</span> <span class="n">user_detail_form</span><span class="p">,</span>
-            <span class="s1">&#39;username&#39;</span><span class="p">:</span> <span class="n">user</span><span class="o">.</span><span class="n">username</span><span class="p">,</span>
-        <span class="p">})</span></div>
+    <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;usuario/editarUsuario.html&#39;</span><span class="p">,</span> <span class="p">{</span>
+        <span class="s1">&#39;user_form&#39;</span><span class="p">:</span> <span class="n">user_form</span><span class="p">,</span>
+        <span class="s1">&#39;user_detail_form&#39;</span><span class="p">:</span> <span class="n">user_detail_form</span><span class="p">,</span>
+        <span class="s1">&#39;username&#39;</span><span class="p">:</span> <span class="n">user</span><span class="o">.</span><span class="n">username</span><span class="p">,</span>
+    <span class="p">})</span></div>
 
 
 <span class="nd">@login_required</span>
@@ -205,12 +195,11 @@
 <span class="nd">@permission_required</span><span class="p">(</span><span class="s1">&#39;usuarios.per_agregar_prioridad&#39;</span><span class="p">)</span>
 <div class="viewcode-block" id="agregarPrioridad"><a class="viewcode-back" href="../../../usuarios.html#resourceman.usuarios.views.agregarPrioridad">[documentos]</a><span class="k">def</span> <span class="nf">agregarPrioridad</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Página para la agregacion de Prioridad.</span>
+<span class="sd">    Página para la agregacion de Prioridad.</span>
 
-<span class="sd">        Recibe los datos suministrados por el usuario a traves de un post.</span>
+<span class="sd">    Recibe los datos suministrados por el usuario a traves de un post.</span>
 
-<span class="sd">        Se define un objeto para guardar los datos a traves de la funcion del form.</span>
-
+<span class="sd">    Se define un objeto para guardar los datos a traves de la funcion del form.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">mensaje</span> <span class="o">=</span> <span class="s1">&#39;Crear Prioridad&#39;</span>
     <span class="n">messages</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">messages</span><span class="o">.</span><span class="n">INFO</span><span class="p">,</span> <span class="n">mensaje</span><span class="p">)</span>
@@ -218,14 +207,10 @@
     <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;POST&#39;</span><span class="p">:</span>
 
         <span class="k">if</span> <span class="n">AgregarPrioridad</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="p">)</span><span class="o">.</span><span class="n">is_valid</span><span class="p">():</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;si es valido&quot;</span><span class="p">)</span>
             <span class="n">prioridad_form</span> <span class="o">=</span> <span class="n">AgregarPrioridad</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="p">)</span>
             <span class="n">prioridad_form</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">commit</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-            <span class="c1"># mensaje = &quot;Prioridad \&#39;%s\&#39; creado..\n&quot; % prioridad_form.codigo</span>
-            <span class="c1"># messages.add_message(request, messages.INFO, mensaje)</span>
             <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s1">&#39;agregarPrioridad&#39;</span><span class="p">)</span>  <span class="c1"># direccion url de la app</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;no es valido&quot;</span><span class="p">)</span>
             <span class="n">mensaje</span> <span class="o">=</span> <span class="s2">&quot;Error, intente datos diferentes&quot;</span>
             <span class="n">messages</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">messages</span><span class="o">.</span><span class="n">INFO</span><span class="p">,</span> <span class="n">mensaje</span><span class="p">)</span>
             <span class="n">prioridad_form</span> <span class="o">=</span> <span class="n">AgregarPrioridad</span><span class="p">()</span>  <span class="c1"># crea una instancia permiso_form vacia con el constructor PermisoForm()</span>
@@ -240,10 +225,9 @@
 <span class="nd">@permission_required</span><span class="p">(</span><span class="s1">&#39;usuarios.per_listar_prioridad&#39;</span><span class="p">)</span>
 <div class="viewcode-block" id="listarPrioridad"><a class="viewcode-back" href="../../../usuarios.html#resourceman.usuarios.views.listarPrioridad">[documentos]</a><span class="k">def</span> <span class="nf">listarPrioridad</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Página para listar de Prioridad.</span>
+<span class="sd">    Página para listar de Prioridad.</span>
 
-<span class="sd">        Genera una instancia de los objetos de PrioridadUsuario y luego los devuleve al template listarPrioridad.html</span>
-
+<span class="sd">    Genera una instancia de los objetos de PrioridadUsuario y luego los devuleve al template listarPrioridad.html</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">mensaje</span> <span class="o">=</span> <span class="s1">&#39;Listar Prioridad&#39;</span>
     <span class="n">messages</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">messages</span><span class="o">.</span><span class="n">INFO</span><span class="p">,</span> <span class="n">mensaje</span><span class="p">)</span>
@@ -257,20 +241,18 @@
 <span class="nd">@permission_required</span><span class="p">(</span><span class="s1">&#39;usuarios.per_editar_prioridad&#39;</span><span class="p">)</span>
 <div class="viewcode-block" id="editarPrioridad"><a class="viewcode-back" href="../../../usuarios.html#resourceman.usuarios.views.editarPrioridad">[documentos]</a><span class="k">def</span> <span class="nf">editarPrioridad</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">codigo</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Página para la edicion de prioridad.</span>
+<span class="sd">    Página para la edicion de prioridad.</span>
 
-<span class="sd">        Recibe un Post con un atributo codigo de la Prioridad a editar.</span>
+<span class="sd">    Recibe un Post con un atributo codigo de la Prioridad a editar.</span>
 
-<span class="sd">        Se instancia el objeto con el identificador suministrado.</span>
+<span class="sd">    Se instancia el objeto con el identificador suministrado.</span>
 
-<span class="sd">        Se alteran los datos con el Post recibido y se guardan.</span>
+<span class="sd">    Se alteran los datos con el Post recibido y se guardan.</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">mensaje</span> <span class="o">=</span> <span class="s1">&#39;Modificar Prioridad&#39;</span>
     <span class="n">messages</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">messages</span><span class="o">.</span><span class="n">INFO</span><span class="p">,</span> <span class="n">mensaje</span><span class="p">)</span>
-    <span class="c1"># mod = Permission.objects.get(pk=pk)</span>
     <span class="n">editar</span><span class="o">=</span> <span class="n">PrioridadUsuario</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">codigo</span><span class="o">=</span><span class="n">codigo</span><span class="p">)</span>
-    <span class="c1"># editar_form= EditarPermisos(instance=editar)</span>
 
     <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;POST&#39;</span><span class="p">:</span>
         <span class="n">editar_form</span> <span class="o">=</span> <span class="n">EditarPrioridad</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="p">,</span> <span class="n">instance</span><span class="o">=</span><span class="n">editar</span><span class="p">)</span>
@@ -296,54 +278,38 @@
 <div class="viewcode-block" id="editarPerfilUsuario"><a class="viewcode-back" href="../../../usuarios.html#resourceman.usuarios.views.editarPerfilUsuario">[documentos]</a><span class="k">def</span> <span class="nf">editarPerfilUsuario</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
     <span class="n">user</span> <span class="o">=</span> <span class="n">User</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">username</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="p">)</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">            Página para la edicion de Usuario.</span>
+<span class="sd">    Página para la edicion de Usuario.</span>
 
-<span class="sd">            Recibe un Post con un atributo username del usuario a editar.</span>
+<span class="sd">    Recibe un Post con un atributo username del usuario a editar.</span>
 
-<span class="sd">            Se instancian los objetos User y Usuario con el identificador suministrado.</span>
+<span class="sd">    Se instancian los objetos User y Usuario con el identificador suministrado.</span>
 
-<span class="sd">            Se alteran los datos con el Post recibido y se guardan.</span>
+<span class="sd">    Se alteran los datos con el Post recibido y se guardan.</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;imprime user&quot;</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">user</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">Usuario</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">usuario</span><span class="o">=</span><span class="n">user</span><span class="p">)</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
-        <span class="c1"># print(&quot;existe detalle de usuario.&quot;)</span>
         <span class="n">user_detail</span> <span class="o">=</span> <span class="n">Usuario</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">usuario</span><span class="o">=</span><span class="n">user</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;en el if&quot;</span><span class="p">,</span> <span class="n">user_detail</span><span class="p">,</span> <span class="s2">&quot;fin if&quot;</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="c1"># print(&quot;no existe detalle. creando uno nuevo.&quot;)</span>
         <span class="c1"># Superusuarios creado por línea de comando, no tienen asociado un detalle al comienzo.</span>
         <span class="n">user_detail</span> <span class="o">=</span> <span class="n">Usuario</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">usuario</span><span class="o">=</span><span class="n">user</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;POST&#39;</span><span class="p">:</span>
-        <span class="c1"># if request.user.is_superuser:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;post&quot;</span><span class="p">)</span>
         <span class="n">user_form</span> <span class="o">=</span> <span class="n">EditarPerfilUser</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="p">,</span> <span class="n">instance</span><span class="o">=</span><span class="n">user</span><span class="p">)</span>
         <span class="n">user_detail_form</span> <span class="o">=</span> <span class="n">EditarPerfilUsuario</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="p">,</span> <span class="n">instance</span><span class="o">=</span><span class="n">user_detail</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">user_form</span><span class="o">.</span><span class="n">is_valid</span><span class="p">():</span>
-            <span class="c1"># print(&quot;user form valido&quot;)</span>
             <span class="k">if</span> <span class="n">user_detail_form</span><span class="o">.</span><span class="n">is_valid</span><span class="p">():</span>
-                <span class="c1"># print(&quot;formularios validos&quot;)</span>
                 <span class="n">user</span> <span class="o">=</span> <span class="n">user_form</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>  <span class="c1"># actualiza la tabla de usuario en la bd.</span>
                 <span class="n">user_detail</span> <span class="o">=</span> <span class="n">user_detail_form</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">commit</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>  <span class="c1"># actualiza en el model, sin guardar en BD.</span>
                 <span class="n">user_detail</span><span class="o">.</span><span class="n">user</span> <span class="o">=</span> <span class="n">user</span>  <span class="c1"># actualiza (por seguridad) el campo de relación.</span>
                 <span class="n">user_detail</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>  <span class="c1"># actualiza detalle en la BD.</span>
                 <span class="n">messages</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">messages</span><span class="o">.</span><span class="n">SUCCESS</span><span class="p">,</span>
                                      <span class="s2">&quot;Información del perfil de usuario -</span><span class="si">%s</span><span class="s2">- se ha modificado correctamente.&quot;</span> <span class="o">%</span> <span class="n">user</span><span class="o">.</span><span class="n">username</span><span class="p">)</span>
-                <span class="c1"># print(&quot;mensaje. redirigirá al home.&quot;)</span>
                 <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s1">&#39;logout&#39;</span><span class="p">)</span>
-                <span class="c1"># else:</span>
-                <span class="c1">#     messages.add_message(request, messages.ERROR, &quot;Usted no tiene permisos suficientes para efectuar la operación.&quot;)</span>
-                <span class="c1">#     return redirect(&#39;sar:home&#39;)</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;get get get get get&quot;</span><span class="p">)</span>
         <span class="n">perfil_usuario</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span>
-        <span class="nb">print</span><span class="p">(</span><span class="n">perfil_usuario</span><span class="p">)</span>
         <span class="n">user_form</span> <span class="o">=</span> <span class="n">EditarPerfilUser</span><span class="p">(</span><span class="n">instance</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="p">)</span>
         <span class="n">user_detail_form</span> <span class="o">=</span> <span class="n">EditarPerfilUsuario</span><span class="p">(</span><span class="n">instance</span><span class="o">=</span><span class="n">user_detail</span><span class="p">)</span>
-
 
     <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;usuario/editarPerfilUsuario.html&#39;</span><span class="p">,</span> <span class="p">{</span>
         <span class="s1">&#39;user_form&#39;</span><span class="p">:</span> <span class="n">user_form</span><span class="p">,</span>

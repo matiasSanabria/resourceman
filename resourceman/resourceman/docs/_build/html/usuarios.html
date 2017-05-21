@@ -154,7 +154,7 @@
 
 <dl class="attribute">
 <dt id="resourceman.usuarios.forms.EditarPerfilUser.Meta.widgets">
-<code class="descname">widgets</code><em class="property"> = {'first_name': &lt;django.forms.widgets.TextInput object&gt;, 'email': &lt;django.forms.widgets.EmailInput object&gt;, 'last_name': &lt;django.forms.widgets.TextInput object&gt;}</em><a class="headerlink" href="#resourceman.usuarios.forms.EditarPerfilUser.Meta.widgets" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<code class="descname">widgets</code><em class="property"> = {'last_name': &lt;django.forms.widgets.TextInput object&gt;, 'email': &lt;django.forms.widgets.EmailInput object&gt;, 'first_name': &lt;django.forms.widgets.TextInput object&gt;}</em><a class="headerlink" href="#resourceman.usuarios.forms.EditarPerfilUser.Meta.widgets" title="Enlazar permanentemente con esta definición">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -212,7 +212,7 @@
 
 <dl class="attribute">
 <dt id="resourceman.usuarios.forms.EditarPerfilUsuario.Meta.widgets">
-<code class="descname">widgets</code><em class="property"> = {'direccion': &lt;django.forms.widgets.Textarea object&gt;, 'telefono': &lt;django.forms.widgets.Textarea object&gt;}</em><a class="headerlink" href="#resourceman.usuarios.forms.EditarPerfilUsuario.Meta.widgets" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<code class="descname">widgets</code><em class="property"> = {'telefono': &lt;django.forms.widgets.Textarea object&gt;, 'direccion': &lt;django.forms.widgets.Textarea object&gt;}</em><a class="headerlink" href="#resourceman.usuarios.forms.EditarPerfilUsuario.Meta.widgets" title="Enlazar permanentemente con esta definición">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -573,10 +573,6 @@
 <li><code class="docutils literal"><span class="pre">codigo</span></code>: Codigo alfabetico referenciado a la prioridad.</li>
 <li><code class="docutils literal"><span class="pre">descipcion</span></code>: Describe la prioidad.</li>
 </ol>
-<dl class="docutils">
-<dt>model: <code class="docutils literal"><span class="pre">PrioridadUsuario</span></code></dt>
-<dd>Un model propio.</dd>
-</dl>
 <dl class="exception">
 <dt id="resourceman.usuarios.models.PrioridadUsuario.DoesNotExist">
 <em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#resourceman.usuarios.models.PrioridadUsuario.DoesNotExist" title="Enlazar permanentemente con esta definición">¶</a></dt>
@@ -646,10 +642,6 @@ class built by <code class="docutils literal"><span class="pre">create_forward_m
 <li><code class="docutils literal"><span class="pre">telefono</span></code>: Número de teléfono del usuario.</li>
 <li><code class="docutils literal"><span class="pre">prioridad</span></code>: referencia al model prioridad de usuarios.</li>
 </ol>
-<dl class="docutils">
-<dt>model: <code class="docutils literal"><span class="pre">django.db.models.Model</span></code></dt>
-<dd>Un model propio heredado de django.db.models.Model con los campos adicionales.</dd>
-</dl>
 <dl class="exception">
 <dt id="resourceman.usuarios.models.Usuario.DoesNotExist">
 <em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#resourceman.usuarios.models.Usuario.DoesNotExist" title="Enlazar permanentemente con esta definición">¶</a></dt>
@@ -779,7 +771,11 @@ object the first time, the query is executed.</p>
 <dl class="function">
 <dt id="resourceman.usuarios.views.editarUsuario">
 <code class="descclassname">resourceman.usuarios.views.</code><code class="descname">editarUsuario</code><span class="sig-paren">(</span><em>request</em>, <em>username</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/resourceman/usuarios/views.html#editarUsuario"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#resourceman.usuarios.views.editarUsuario" title="Enlazar permanentemente con esta definición">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Página para la edicion de Usuario.</p>
+<p>Recibe un Post con un atributo username del usuario a editar.</p>
+<p>Se instancian los objetos User y Usuario con el identificador suministrado.</p>
+<p>Se alteran los datos con el Post recibido y se guardan.</p>
+</dd></dl>
 
 <dl class="function">
 <dt id="resourceman.usuarios.views.eliminarUsuario">

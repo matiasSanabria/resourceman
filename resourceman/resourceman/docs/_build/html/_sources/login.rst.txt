@@ -4,22 +4,6 @@ login
 Submodulos
 ----------
 
-admin
-------------------
-
-.. automodule:: resourceman.login.admin
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-apps
------------------
-
-.. automodule:: resourceman.login.apps
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
 forms
 ------------------
 
@@ -32,14 +16,6 @@ models
 -------------------
 
 .. automodule:: resourceman.login.models
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-test_url
----------------------
-
-.. automodule:: resourceman.login.test_url
     :members:
     :undoc-members:
     :show-inheritance:

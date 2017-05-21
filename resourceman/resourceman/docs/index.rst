@@ -17,6 +17,8 @@ Documentacion del Sistema Gerenciador de Reservas
    tipos_recursos
    reclamos
    configuraciones
+   mantenimiento
+   reservas
 
 
 Indices and tables

@@ -248,7 +248,7 @@
 
 <dl class="attribute">
 <dt id="resourceman.tipos_recursos.forms.RecursoForm.Meta.widgets">
-<code class="descname">widgets</code><em class="property"> = {'estado': &lt;django.forms.widgets.Select object&gt;, 'codigo_recurso': &lt;django.forms.widgets.TextInput object&gt;, 'tipo_recurso': &lt;django.forms.widgets.Select object&gt;, 'nombre_recurso': &lt;django.forms.widgets.TextInput object&gt;, 'activo': &lt;django.forms.widgets.Select object&gt;}</em><a class="headerlink" href="#resourceman.tipos_recursos.forms.RecursoForm.Meta.widgets" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<code class="descname">widgets</code><em class="property"> = {'tipo_recurso': &lt;django.forms.widgets.Select object&gt;, 'activo': &lt;django.forms.widgets.Select object&gt;, 'estado': &lt;django.forms.widgets.Select object&gt;, 'codigo_recurso': &lt;django.forms.widgets.TextInput object&gt;, 'nombre_recurso': &lt;django.forms.widgets.TextInput object&gt;}</em><a class="headerlink" href="#resourceman.tipos_recursos.forms.RecursoForm.Meta.widgets" title="Enlazar permanentemente con esta definición">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -299,7 +299,7 @@ object the first time, the query is executed.</p>
 
 <dl class="attribute">
 <dt id="resourceman.tipos_recursos.forms.TipoRecursoForm.Meta.widgets">
-<code class="descname">widgets</code><em class="property"> = {'lista_caracteristicas': &lt;django.forms.widgets.Textarea object&gt;, 'estado': &lt;django.forms.widgets.Select object&gt;, 'descripcion': &lt;django.forms.widgets.TextInput object&gt;, 'nombre': &lt;django.forms.widgets.TextInput object&gt;}</em><a class="headerlink" href="#resourceman.tipos_recursos.forms.TipoRecursoForm.Meta.widgets" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<code class="descname">widgets</code><em class="property"> = {'estado': &lt;django.forms.widgets.Select object&gt;, 'lista_caracteristicas': &lt;django.forms.widgets.Textarea object&gt;, 'descripcion': &lt;django.forms.widgets.TextInput object&gt;, 'nombre': &lt;django.forms.widgets.TextInput object&gt;}</em><a class="headerlink" href="#resourceman.tipos_recursos.forms.TipoRecursoForm.Meta.widgets" title="Enlazar permanentemente con esta definición">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -337,10 +337,6 @@ object the first time, the query is executed.</p>
 <li><code class="docutils literal"><span class="pre">valor</span></code>: valor que toma la caracteristica cargada en tipo de recurso</li>
 <li><code class="docutils literal"><span class="pre">activo</span></code>: indica si el recurso esta activo o no</li>
 </ol>
-<dl class="docutils">
-<dt>model: <code class="docutils literal"><span class="pre">django.db.models.Model</span></code></dt>
-<dd>Un model propio heredado de django.db.models.Model con los campos adicionales.</dd>
-</dl>
 <dl class="exception">
 <dt id="resourceman.tipos_recursos.models.CaracteristicasRecursos.DoesNotExist">
 <em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#resourceman.tipos_recursos.models.CaracteristicasRecursos.DoesNotExist" title="Enlazar permanentemente con esta definición">¶</a></dt>
@@ -431,10 +427,6 @@ object the first time, the query is executed.</p>
 <li><code class="docutils literal"><span class="pre">tipo_recurso</span></code>: Tipo de Recurso del que se encargara el usuario</li>
 <li><code class="docutils literal"><span class="pre">usuario</span></code>: Usuario con permisos de administracion de recursos.</li>
 </ol>
-<dl class="docutils">
-<dt>model: <code class="docutils literal"><span class="pre">django.db.models.Model</span></code></dt>
-<dd>Un model propio heredado de django.db.models.Model con los campos adicionales.</dd>
-</dl>
 <dl class="exception">
 <dt id="resourceman.tipos_recursos.models.Encargado.DoesNotExist">
 <em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#resourceman.tipos_recursos.models.Encargado.DoesNotExist" title="Enlazar permanentemente con esta definición">¶</a></dt>
@@ -511,10 +503,6 @@ object the first time, the query is executed.</p>
 <li><code class="docutils literal"><span class="pre">codigo</span></code>: nombre del estado del recurso utilizado como clave primaria</li>
 <li><code class="docutils literal"><span class="pre">descripcion</span></code>: descripcion del estado del recurso</li>
 </ol>
-<dl class="docutils">
-<dt>model: <code class="docutils literal"><span class="pre">django.db.models.Model</span></code></dt>
-<dd>Un model propio heredado de django.db.models.Model con los campos adicionales.</dd>
-</dl>
 <dl class="exception">
 <dt id="resourceman.tipos_recursos.models.Estados.DoesNotExist">
 <em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#resourceman.tipos_recursos.models.Estados.DoesNotExist" title="Enlazar permanentemente con esta definición">¶</a></dt>
@@ -547,16 +535,18 @@ object the first time, the query is executed.</p>
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="resourceman.tipos_recursos.models.Estados.recurso">
-<code class="descclassname">Estados.</code><code class="descname">recurso</code><a class="headerlink" href="#resourceman.tipos_recursos.models.Estados.recurso" title="Enlazar permanentemente con esta definición">¶</a></dt>
-<dd><p>Accessor to the related object on the reverse side of a one-to-one
-relation.</p>
+<dt id="resourceman.tipos_recursos.models.Estados.recurso_set">
+<code class="descclassname">Estados.</code><code class="descname">recurso_set</code><a class="headerlink" href="#resourceman.tipos_recursos.models.Estados.recurso_set" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Accessor to the related objects manager on the reverse side of a
+many-to-one relation.</p>
 <p>In the example:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Restaurant</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
-    <span class="n">place</span> <span class="o">=</span> <span class="n">OneToOneField</span><span class="p">(</span><span class="n">Place</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;restaurant&#39;</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Child</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">parent</span> <span class="o">=</span> <span class="n">ForeignKey</span><span class="p">(</span><span class="n">Parent</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;children&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p><code class="docutils literal"><span class="pre">place.restaurant</span></code> is a <code class="docutils literal"><span class="pre">ReverseOneToOneDescriptor</span></code> instance.</p>
+<p><code class="docutils literal"><span class="pre">parent.children</span></code> is a <code class="docutils literal"><span class="pre">ReverseManyToOneDescriptor</span></code> instance.</p>
+<p>Most of the implementation is delegated to a dynamically defined manager
+class built by <code class="docutils literal"><span class="pre">create_forward_many_to_many_manager()</span></code> defined below.</p>
 </dd></dl>
 
 </dd></dl>
@@ -574,10 +564,6 @@ relation.</p>
 <li><code class="docutils literal"><span class="pre">tipo_recurso</span></code>: tipo de recurso del que hereda sus caracteristicas</li>
 <li><code class="docutils literal"><span class="pre">activo</span></code>: indica si el recurso esta activo o no</li>
 </ol>
-<dl class="docutils">
-<dt>model: <code class="docutils literal"><span class="pre">django.db.models.Model</span></code></dt>
-<dd>Un model propio heredado de django.db.models.Model con los campos adicionales.</dd>
-</dl>
 <dl class="attribute">
 <dt id="resourceman.tipos_recursos.models.Recurso.ACTIVO_CHOICE">
 <code class="descname">ACTIVO_CHOICE</code><em class="property"> = (('A', 'ACTIVO'), ('I', 'INACTIVO'))</em><a class="headerlink" href="#resourceman.tipos_recursos.models.Recurso.ACTIVO_CHOICE" title="Enlazar permanentemente con esta definición">¶</a></dt>
@@ -648,6 +634,21 @@ object the first time, the query is executed.</p>
 <dd></dd></dl>
 
 <dl class="attribute">
+<dt id="resourceman.tipos_recursos.models.Recurso.mantenimiento_set">
+<code class="descclassname">Recurso.</code><code class="descname">mantenimiento_set</code><a class="headerlink" href="#resourceman.tipos_recursos.models.Recurso.mantenimiento_set" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Accessor to the related objects manager on the reverse side of a
+many-to-one relation.</p>
+<p>In the example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Child</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">parent</span> <span class="o">=</span> <span class="n">ForeignKey</span><span class="p">(</span><span class="n">Parent</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;children&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal"><span class="pre">parent.children</span></code> is a <code class="docutils literal"><span class="pre">ReverseManyToOneDescriptor</span></code> instance.</p>
+<p>Most of the implementation is delegated to a dynamically defined manager
+class built by <code class="docutils literal"><span class="pre">create_forward_many_to_many_manager()</span></code> defined below.</p>
+</dd></dl>
+
+<dl class="attribute">
 <dt id="resourceman.tipos_recursos.models.Recurso.nombre_recurso">
 <code class="descclassname">Recurso.</code><code class="descname">nombre_recurso</code><a class="headerlink" href="#resourceman.tipos_recursos.models.Recurso.nombre_recurso" title="Enlazar permanentemente con esta definición">¶</a></dt>
 <dd><p>A wrapper for a deferred-loading field. When the value is read from this
@@ -662,6 +663,21 @@ object the first time, the query is executed.</p>
 <dl class="attribute">
 <dt id="resourceman.tipos_recursos.models.Recurso.reclamo_set">
 <code class="descclassname">Recurso.</code><code class="descname">reclamo_set</code><a class="headerlink" href="#resourceman.tipos_recursos.models.Recurso.reclamo_set" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Accessor to the related objects manager on the reverse side of a
+many-to-one relation.</p>
+<p>In the example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Child</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">parent</span> <span class="o">=</span> <span class="n">ForeignKey</span><span class="p">(</span><span class="n">Parent</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;children&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal"><span class="pre">parent.children</span></code> is a <code class="docutils literal"><span class="pre">ReverseManyToOneDescriptor</span></code> instance.</p>
+<p>Most of the implementation is delegated to a dynamically defined manager
+class built by <code class="docutils literal"><span class="pre">create_forward_many_to_many_manager()</span></code> defined below.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="resourceman.tipos_recursos.models.Recurso.reservas_set">
+<code class="descclassname">Recurso.</code><code class="descname">reservas_set</code><a class="headerlink" href="#resourceman.tipos_recursos.models.Recurso.reservas_set" title="Enlazar permanentemente con esta definición">¶</a></dt>
 <dd><p>Accessor to the related objects manager on the reverse side of a
 many-to-one relation.</p>
 <p>In the example:</p>
@@ -708,10 +724,6 @@ object the first time, the query is executed.</p>
 <li><code class="docutils literal"><span class="pre">lista_caracteristicas</span></code>: lista de las caracteristicas que tiene el tipo de recurso</li>
 <li><code class="docutils literal"><span class="pre">estado</span></code>: indica si el tipo de recurso esta activo o inactivo</li>
 </ol>
-<dl class="docutils">
-<dt>model: <code class="docutils literal"><span class="pre">django.db.models.Model</span></code></dt>
-<dd>Un model propio heredado de django.db.models.Model con los campos adicionales.</dd>
-</dl>
 <dl class="exception">
 <dt id="resourceman.tipos_recursos.models.TipoRecurso.DoesNotExist">
 <em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#resourceman.tipos_recursos.models.TipoRecurso.DoesNotExist" title="Enlazar permanentemente con esta definición">¶</a></dt>
@@ -782,6 +794,21 @@ object the first time, the query is executed.</p>
 </dd></dl>
 
 <dl class="attribute">
+<dt id="resourceman.tipos_recursos.models.TipoRecurso.mantenimiento_set">
+<code class="descclassname">TipoRecurso.</code><code class="descname">mantenimiento_set</code><a class="headerlink" href="#resourceman.tipos_recursos.models.TipoRecurso.mantenimiento_set" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Accessor to the related objects manager on the reverse side of a
+many-to-one relation.</p>
+<p>In the example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Child</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">parent</span> <span class="o">=</span> <span class="n">ForeignKey</span><span class="p">(</span><span class="n">Parent</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;children&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal"><span class="pre">parent.children</span></code> is a <code class="docutils literal"><span class="pre">ReverseManyToOneDescriptor</span></code> instance.</p>
+<p>Most of the implementation is delegated to a dynamically defined manager
+class built by <code class="docutils literal"><span class="pre">create_forward_many_to_many_manager()</span></code> defined below.</p>
+</dd></dl>
+
+<dl class="attribute">
 <dt id="resourceman.tipos_recursos.models.TipoRecurso.nombre">
 <code class="descclassname">TipoRecurso.</code><code class="descname">nombre</code><a class="headerlink" href="#resourceman.tipos_recursos.models.TipoRecurso.nombre" title="Enlazar permanentemente con esta definición">¶</a></dt>
 <dd><p>A wrapper for a deferred-loading field. When the value is read from this
@@ -794,16 +821,33 @@ object the first time, the query is executed.</p>
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="resourceman.tipos_recursos.models.TipoRecurso.recurso">
-<code class="descclassname">TipoRecurso.</code><code class="descname">recurso</code><a class="headerlink" href="#resourceman.tipos_recursos.models.TipoRecurso.recurso" title="Enlazar permanentemente con esta definición">¶</a></dt>
-<dd><p>Accessor to the related object on the reverse side of a one-to-one
-relation.</p>
+<dt id="resourceman.tipos_recursos.models.TipoRecurso.recurso_set">
+<code class="descclassname">TipoRecurso.</code><code class="descname">recurso_set</code><a class="headerlink" href="#resourceman.tipos_recursos.models.TipoRecurso.recurso_set" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Accessor to the related objects manager on the reverse side of a
+many-to-one relation.</p>
 <p>In the example:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Restaurant</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
-    <span class="n">place</span> <span class="o">=</span> <span class="n">OneToOneField</span><span class="p">(</span><span class="n">Place</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;restaurant&#39;</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Child</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">parent</span> <span class="o">=</span> <span class="n">ForeignKey</span><span class="p">(</span><span class="n">Parent</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;children&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p><code class="docutils literal"><span class="pre">place.restaurant</span></code> is a <code class="docutils literal"><span class="pre">ReverseOneToOneDescriptor</span></code> instance.</p>
+<p><code class="docutils literal"><span class="pre">parent.children</span></code> is a <code class="docutils literal"><span class="pre">ReverseManyToOneDescriptor</span></code> instance.</p>
+<p>Most of the implementation is delegated to a dynamically defined manager
+class built by <code class="docutils literal"><span class="pre">create_forward_many_to_many_manager()</span></code> defined below.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="resourceman.tipos_recursos.models.TipoRecurso.reservas_set">
+<code class="descclassname">TipoRecurso.</code><code class="descname">reservas_set</code><a class="headerlink" href="#resourceman.tipos_recursos.models.TipoRecurso.reservas_set" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Accessor to the related objects manager on the reverse side of a
+many-to-one relation.</p>
+<p>In the example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Child</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">parent</span> <span class="o">=</span> <span class="n">ForeignKey</span><span class="p">(</span><span class="n">Parent</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;children&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal"><span class="pre">parent.children</span></code> is a <code class="docutils literal"><span class="pre">ReverseManyToOneDescriptor</span></code> instance.</p>
+<p>Most of the implementation is delegated to a dynamically defined manager
+class built by <code class="docutils literal"><span class="pre">create_forward_many_to_many_manager()</span></code> defined below.</p>
 </dd></dl>
 
 </dd></dl>
@@ -829,15 +873,8 @@ relation.</p>
 <dt id="resourceman.tipos_recursos.tests.TipoRecursoTestCase.setUp">
 <code class="descname">setUp</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/resourceman/tipos_recursos/tests.html#TipoRecursoTestCase.setUp"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#resourceman.tipos_recursos.tests.TipoRecursoTestCase.setUp" title="Enlazar permanentemente con esta definición">¶</a></dt>
 <dd><p>Esto es un tipo de recurso
-- fields: {nombre: NOTEBOOK,</p>
-<blockquote>
-<div><p>descripcion: NOTEBOOK, 
-lista_caracteristicas: &#8216;{&#8220;marca&#8221;:&#8221;character varying(10), &#8216;</p>
-<blockquote>
-<div>&#8216;&#8220;pantalla_pulgadas&#8221;:&#8221;biginteger&#8221;,&#8217;
-&#8216;&#8220;procesador&#8221;:&#8221;character varying(20)&#8221;,&#8217;
-&#8216;&#8220;memoria_ram&#8221;: &#8220;character varying(20)&#8221;}&#8217;}</div></blockquote>
-</div></blockquote>
+- fields: {nombre: NOTEBOOK, descripcion: NOTEBOOK, lista_caracteristicas: &#8216;{&#8220;marca&#8221;:&#8221;character varying(10), &#8216;
+&#8216;&#8220;pantalla_pulgadas&#8221;:&#8221;biginteger&#8221;,&#8217;&#8216;&#8220;procesador&#8221;:&#8221;character varying(20)&#8221;,&#8217;&#8216;&#8220;memoria_ram&#8221;: &#8220;character varying(20)&#8221;}&#8217;}</p>
 </dd></dl>
 
 </dd></dl>
@@ -852,205 +889,98 @@ lista_caracteristicas: &#8216;{&#8220;marca&#8221;:&#8221;character varying(10),
 <dt id="resourceman.tipos_recursos.views.crear">
 <code class="descclassname">resourceman.tipos_recursos.views.</code><code class="descname">crear</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/resourceman/tipos_recursos/views.html#crear"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#resourceman.tipos_recursos.views.crear" title="Enlazar permanentemente con esta definición">¶</a></dt>
 <dd><p>Permite crear un nuevo tipo de recurso con los siguientes datos</p>
-<dl class="docutils">
-<dt>nombre nombre: </dt>
-<dd>del tipo de recurso que se utiliza como clave primaria</dd>
-<dt>descripcion: </dt>
-<dd>descripcion del tipo de recurso</dd>
-<dt>lista de caracteristicas:</dt>
-<dd>lista de las caracteristicas que seran utilizadas para instanciar una clase de recurso</dd>
-<dt>estado:</dt>
-<dd>indica si el tipo de recurso esta activo o no
+<p>nombre nombre: del tipo de recurso que se utiliza como clave primaria
+descripcion: descripcion del tipo de recurso
+lista de caracteristicas: lista de las caracteristicas que seran utilizadas para instanciar una clase de recurso
+estado: indica si el tipo de recurso esta activo o no
 - A &#8216;Activo&#8217;
-- I &#8216;Inactivo&#8217;</dd>
-</dl>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parámetros:</th><td class="field-body"><strong>request</strong> &#8211; </td>
-</tr>
-<tr class="field-even field"><th class="field-name">Devuelve:</th><td class="field-body">el formulario para crear otro tipo de recurso</td>
-</tr>
-</tbody>
-</table>
+- I &#8216;Inactivo&#8217;
+:param request: 
+:return: el formulario para crear otro tipo de recurso</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="resourceman.tipos_recursos.views.crear_estado">
 <code class="descclassname">resourceman.tipos_recursos.views.</code><code class="descname">crear_estado</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/resourceman/tipos_recursos/views.html#crear_estado"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#resourceman.tipos_recursos.views.crear_estado" title="Enlazar permanentemente con esta definición">¶</a></dt>
 <dd><p>Permite crear un estado de recurso con los siguientes datos
-codigo:</p>
-<blockquote>
-<div>del estado de recurso que se utiliza como clave primaria</div></blockquote>
-<dl class="docutils">
-<dt>descripcion: </dt>
-<dd>descripcion del estado de recurso</dd>
-</dl>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parámetros:</th><td class="field-body"><strong>request</strong> &#8211; </td>
-</tr>
-<tr class="field-even field"><th class="field-name">Devuelve:</th><td class="field-body">el formulario para crear otro tipo de recurso</td>
-</tr>
-</tbody>
-</table>
+codigo: del estado de recurso que se utiliza como clave primaria
+descripcion: descripcion del estado de recurso
+:param request: 
+:return: el formulario para crear otro tipo de recurso</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="resourceman.tipos_recursos.views.crear_recurso">
 <code class="descclassname">resourceman.tipos_recursos.views.</code><code class="descname">crear_recurso</code><span class="sig-paren">(</span><em>self</em>, <em>request</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/resourceman/tipos_recursos/views.html#crear_recurso"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#resourceman.tipos_recursos.views.crear_recurso" title="Enlazar permanentemente con esta definición">¶</a></dt>
 <dd><p>Crea un nuevo recurso con los siguientes datos</p>
-<dl class="docutils">
-<dt>codigo_recurso:</dt>
-<dd>codigo del recurso utilizado como clave primaria</dd>
-<dt>nombre_recurso:</dt>
-<dd>nombre para el recurso</dd>
-<dt>descripcion_recurso:</dt>
-<dd>descripcion del recurso a crear</dd>
-<dt>tipo_recurso:</dt>
-<dd>indica a que tipo de recurso pertenece</dd>
-<dt>activo:</dt>
-<dd>indica si esta activo o inactivo</dd>
-</dl>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parámetros:</th><td class="field-body"><strong>request</strong> &#8211; </td>
-</tr>
-<tr class="field-even field"><th class="field-name">Devuelve:</th><td class="field-body">formulario para crear un nuevo recurso</td>
-</tr>
-</tbody>
-</table>
+<p>codigo_recurso: codigo del recurso utilizado como clave primaria
+nombre_recurso: nombre para el recurso
+descripcion_recurso: descripcion del recurso a crear
+tipo_recurso: indica a que tipo de recurso pertenece
+activo: indica si esta activo o inactivo
+:param request: 
+:return: formulario para crear un nuevo recurso</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="resourceman.tipos_recursos.views.editar">
 <code class="descclassname">resourceman.tipos_recursos.views.</code><code class="descname">editar</code><span class="sig-paren">(</span><em>request</em>, <em>nombre</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/resourceman/tipos_recursos/views.html#editar"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#resourceman.tipos_recursos.views.editar" title="Enlazar permanentemente con esta definición">¶</a></dt>
 <dd><p>Permite editar tipo de recurso con los siguientes datos</p>
-<dl class="docutils">
-<dt>nombre nombre: </dt>
-<dd>del tipo de recurso que se utiliza como clave primaria</dd>
-<dt>descripcion: </dt>
-<dd>descripcion del tipo de recurso</dd>
-<dt>lista de caracteristicas:</dt>
-<dd>lista de las caracteristicas que seran utilizadas para instanciar una clase de recurso</dd>
-<dt>estado:</dt>
-<dd>indica si el tipo de recurso esta activo o no
+<p>nombre nombre: del tipo de recurso que se utiliza como clave primaria
+descripcion: descripcion del tipo de recurso
+lista de caracteristicas:  lista de las caracteristicas que seran utilizadas para instanciar una clase de recurso
+estado: indica si el tipo de recurso esta activo o no
 - A &#8216;Activo&#8217;
-- I &#8216;Inactivo&#8217;</dd>
-<dt>encargado:</dt>
-<dd>referencia a un usuario con permisos para manejar recursos</dd>
-</dl>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parámetros:</th><td class="field-body"><strong>request</strong> &#8211; </td>
-</tr>
-<tr class="field-even field"><th class="field-name">Devuelve:</th><td class="field-body">el formulario para editar otro tipo de recurso</td>
-</tr>
-</tbody>
-</table>
+- I &#8216;Inactivo&#8217;
+encargado: referencia a un usuario con permisos para manejar recursos
+:param request: 
+:return: el formulario para editar otro tipo de recurso</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="resourceman.tipos_recursos.views.editar_estado">
 <code class="descclassname">resourceman.tipos_recursos.views.</code><code class="descname">editar_estado</code><span class="sig-paren">(</span><em>request</em>, <em>codigo</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/resourceman/tipos_recursos/views.html#editar_estado"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#resourceman.tipos_recursos.views.editar_estado" title="Enlazar permanentemente con esta definición">¶</a></dt>
 <dd><p>Permite editar un estado de recurso con los siguientes datos
-codigo:</p>
-<blockquote>
-<div>del estado de recurso que se utiliza como clave primaria</div></blockquote>
-<dl class="docutils">
-<dt>descripcion: </dt>
-<dd>descripcion del estado de recurso</dd>
-</dl>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parámetros:</th><td class="field-body"><strong>request</strong> &#8211; </td>
-</tr>
-<tr class="field-even field"><th class="field-name">Devuelve:</th><td class="field-body">el formulario para editar otro tipo de recurso</td>
-</tr>
-</tbody>
-</table>
+codigo:  del estado de recurso que se utiliza como clave primaria
+descripcion: descripcion del estado de recurso
+:param request: 
+:return: el formulario para editar otro tipo de recurso</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="resourceman.tipos_recursos.views.editar_recurso">
 <code class="descclassname">resourceman.tipos_recursos.views.</code><code class="descname">editar_recurso</code><span class="sig-paren">(</span><em>request</em>, <em>codigo_recurso</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/resourceman/tipos_recursos/views.html#editar_recurso"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#resourceman.tipos_recursos.views.editar_recurso" title="Enlazar permanentemente con esta definición">¶</a></dt>
 <dd><p>Edita recurso con los siguientes datos</p>
-<dl class="docutils">
-<dt>codigo_recurso:</dt>
-<dd>codigo del recurso utilizado como clave primaria</dd>
-<dt>nombre_recurso:</dt>
-<dd>nombre para el recurso</dd>
-<dt>descripcion_recurso:</dt>
-<dd>descripcion del recurso a crear</dd>
-<dt>tipo_recurso:</dt>
-<dd>indica a que tipo de recurso pertenece</dd>
-<dt>activo:</dt>
-<dd>indica si esta activo o inactivo</dd>
-</dl>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parámetros:</th><td class="field-body"><strong>request</strong> &#8211; </td>
-</tr>
-<tr class="field-even field"><th class="field-name">Devuelve:</th><td class="field-body">formulario para listar los recursos</td>
-</tr>
-</tbody>
-</table>
+<p>codigo_recurso: codigo del recurso utilizado como clave primaria
+nombre_recurso: nombre para el recurso
+descripcion_recurso: descripcion del recurso a crear
+tipo_recurso: indica a que tipo de recurso pertenece
+activo: indica si esta activo o inactivo
+:param request: 
+:return: formulario para listar los recursos</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="resourceman.tipos_recursos.views.eliminar">
 <code class="descclassname">resourceman.tipos_recursos.views.</code><code class="descname">eliminar</code><span class="sig-paren">(</span><em>request</em>, <em>nombre</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/resourceman/tipos_recursos/views.html#eliminar"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#resourceman.tipos_recursos.views.eliminar" title="Enlazar permanentemente con esta definición">¶</a></dt>
 <dd><p>Permite eliminar tipo de recurso con los siguientes datos</p>
-<dl class="docutils">
-<dt>nombre nombre: </dt>
-<dd>del tipo de recurso que se utiliza como clave primaria</dd>
-</dl>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parámetros:</th><td class="field-body"><strong>request</strong> &#8211; </td>
-</tr>
-<tr class="field-even field"><th class="field-name">Devuelve:</th><td class="field-body">el formulario para listar los tipos de recursos</td>
-</tr>
-</tbody>
-</table>
+<p>nombre nombre: del tipo de recurso que se utiliza como clave primaria
+:param request: 
+:return: el formulario para listar los tipos de recursos</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="resourceman.tipos_recursos.views.eliminar_estado">
 <code class="descclassname">resourceman.tipos_recursos.views.</code><code class="descname">eliminar_estado</code><span class="sig-paren">(</span><em>request</em>, <em>codigo</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/resourceman/tipos_recursos/views.html#eliminar_estado"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#resourceman.tipos_recursos.views.eliminar_estado" title="Enlazar permanentemente con esta definición">¶</a></dt>
 <dd><p>Permite eliminar estado de recurso</p>
-<dl class="docutils">
-<dt>nombre nombre: </dt>
-<dd>del estado de recurso a eliminar</dd>
-</dl>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parámetros:</th><td class="field-body"><strong>request</strong> &#8211; </td>
-</tr>
-<tr class="field-even field"><th class="field-name">Devuelve:</th><td class="field-body">el formulario para listar los estados de recursos</td>
-</tr>
-</tbody>
-</table>
+<p>nombre nombre: del estado de recurso a eliminar
+:param request: 
+:return: el formulario para listar los estados de recursos</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="resourceman.tipos_recursos.views.eliminar_recurso">
-<code class="descclassname">resourceman.tipos_recursos.views.</code><code class="descname">eliminar_recurso</code><span class="sig-paren">(</span><em>request</em>, <em>codigo</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/resourceman/tipos_recursos/views.html#eliminar_recurso"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#resourceman.tipos_recursos.views.eliminar_recurso" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<code class="descclassname">resourceman.tipos_recursos.views.</code><code class="descname">eliminar_recurso</code><span class="sig-paren">(</span><em>request</em>, <em>codigo_recurso</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/resourceman/tipos_recursos/views.html#eliminar_recurso"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#resourceman.tipos_recursos.views.eliminar_recurso" title="Enlazar permanentemente con esta definición">¶</a></dt>
 <dd><p>Elimina un recurso
 :param request: 
 :param codigo: del recurso a ser eliminado
@@ -1079,12 +1009,8 @@ para ser mostrado en el formulario de creacion de un recurso.
 <dt id="resourceman.tipos_recursos.views.listar_estados">
 <code class="descclassname">resourceman.tipos_recursos.views.</code><code class="descname">listar_estados</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/resourceman/tipos_recursos/views.html#listar_estados"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#resourceman.tipos_recursos.views.listar_estados" title="Enlazar permanentemente con esta definición">¶</a></dt>
 <dd><p>Permite listar los estados de los recursos con los siguientes datos</p>
-<dl class="docutils">
-<dt>codigo: </dt>
-<dd>del estado del recurso que se utiliza como clave primaria</dd>
-<dt>descripcion: </dt>
-<dd>descripcion del estado del recurso</dd>
-</dl>
+<p>codigo: del estado del recurso que se utiliza como clave primaria
+descripcion: descripcion del estado del recurso</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1109,28 +1035,14 @@ para ser mostrado en el formulario de creacion de un recurso.
 <dt id="resourceman.tipos_recursos.views.listar_tipos_recursos">
 <code class="descclassname">resourceman.tipos_recursos.views.</code><code class="descname">listar_tipos_recursos</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/resourceman/tipos_recursos/views.html#listar_tipos_recursos"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#resourceman.tipos_recursos.views.listar_tipos_recursos" title="Enlazar permanentemente con esta definición">¶</a></dt>
 <dd><p>Permite listar los tipos de recursos con los siguientes datos</p>
-<dl class="docutils">
-<dt>nombre nombre: </dt>
-<dd>del tipo de recurso que se utiliza como clave primaria</dd>
-<dt>descripcion: </dt>
-<dd>descripcion del tipo de recurso</dd>
-<dt>lista de caracteristicas:</dt>
-<dd>lista de las caracteristicas que seran utilizadas para instanciar una clase de recurso</dd>
-<dt>estado:</dt>
-<dd>indica si el tipo de recurso esta activo o no
+<p>nombre nombre: del tipo de recurso que se utiliza como clave primaria
+descripcion: descripcion del tipo de recurso
+lista de caracteristicas:  lista de las caracteristicas que seran utilizadas para instanciar una clase de recurso
+estado: indica si el tipo de recurso esta activo o no
 - A &#8216;Activo&#8217;
-- I &#8216;Inactivo&#8217;</dd>
-</dl>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parámetros:</th><td class="field-body"><strong>request</strong> &#8211; </td>
-</tr>
-<tr class="field-even field"><th class="field-name">Devuelve:</th><td class="field-body">el formulario para listar los tipos de recursos</td>
-</tr>
-</tbody>
-</table>
+- I &#8216;Inactivo&#8217;
+:param request: 
+:return: el formulario para listar los tipos de recursos</p>
 </dd></dl>
 
 </div>
