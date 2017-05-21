@@ -1,0 +1,144 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>resourceman.reservas.models &#8212; documentación de tipos_recursos - </title>
+    
+    <link rel="stylesheet" href="../../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../_static/translations.js"></script>
+    <link rel="index" title="Índice" href="../../../genindex.html" />
+    <link rel="search" title="Búsqueda" href="../../../search.html" />
+   
+  <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Código fuente para resourceman.reservas.models</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">django.db</span> <span class="k">import</span> <span class="n">models</span>
+
+<span class="c1"># Create your models here.</span>
+<span class="kn">from</span> <span class="nn">django.utils</span> <span class="k">import</span> <span class="n">timezone</span>
+
+<span class="c1"># from resourceman.resourceman.tipos_recursos.models import Recurso, TipoRecurso</span>
+<span class="kn">from</span> <span class="nn">..tipos_recursos.models</span> <span class="k">import</span> <span class="n">Recurso</span><span class="p">,</span> <span class="n">TipoRecurso</span>
+<span class="kn">from</span> <span class="nn">django.contrib.auth.models</span> <span class="k">import</span> <span class="n">User</span>
+<span class="kn">from</span> <span class="nn">django</span> <span class="k">import</span> <span class="n">forms</span>
+
+
+<div class="viewcode-block" id="Reservas"><a class="viewcode-back" href="../../../reservas.html#resourceman.reservas.forms.Reservas">[documentos]</a><span class="k">class</span> <span class="nc">Reservas</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Definicion del model para las reservas</span>
+
+<span class="sd">    *Campos:*</span>
+
+<span class="sd">    1. ``tipo_recurso``: tipo de recurso a reservar</span>
+<span class="sd">    #. ``recurso``: recurso a reservar</span>
+<span class="sd">    #. ``fecha``: fecha de reserva</span>
+<span class="sd">    #. ``hora_ini``: hora de inicio de la reserva</span>
+<span class="sd">    #. ``hora_fin``: hora de fin de reserva</span>
+<span class="sd">    #. ``usuario``: usuario que realizo la reserva</span>
+<span class="sd">    #. ``descripcion``: pequeña descripcion de la reserva</span>
+<span class="sd">    #. ``estado``: indica el estado en que se encuentra la reserva</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">ESTADO_RESERVA</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="p">(</span><span class="s1">&#39;RE&#39;</span><span class="p">,</span> <span class="s2">&quot;REALIZADA&quot;</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;CA&#39;</span><span class="p">,</span> <span class="s2">&quot;CANCELADA&quot;</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;RA&#39;</span><span class="p">,</span> <span class="s2">&quot;REASIGNADA&quot;</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;EC&#39;</span><span class="p">,</span> <span class="s2">&quot;EN CURSO&quot;</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;ND&#39;</span><span class="p">,</span> <span class="s2">&quot;NO DEVUELTO&quot;</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;TE&#39;</span><span class="p">,</span> <span class="s2">&quot;TERMINADA&quot;</span><span class="p">),</span>
+    <span class="p">)</span>
+    <span class="n">tipo_recurso</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="n">TipoRecurso</span><span class="p">,</span> <span class="n">blank</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">recurso</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span>
+        <span class="n">Recurso</span><span class="p">,</span>
+        <span class="n">blank</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">limit_choices_to</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;estado__descripcion&#39;</span><span class="p">:</span> <span class="s1">&#39;DISPONIBLE&#39;</span><span class="p">}</span>
+    <span class="p">)</span>
+    <span class="c1"># default = timezone.now</span>
+    <span class="n">fecha</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">DateField</span><span class="p">(</span><span class="n">blank</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">null</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">hora_ini</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">TimeField</span><span class="p">(</span><span class="n">blank</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">null</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">hora_fin</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">TimeField</span><span class="p">(</span><span class="n">blank</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">null</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">usuario</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="n">User</span><span class="p">,</span> <span class="n">on_delete</span><span class="o">=</span><span class="n">models</span><span class="o">.</span><span class="n">CASCADE</span><span class="p">)</span>
+    <span class="n">descripcion</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">70</span><span class="p">,</span> <span class="n">blank</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">null</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">estado</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">null</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">choices</span><span class="o">=</span><span class="n">ESTADO_RESERVA</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s1">&#39;RE&#39;</span><span class="p">)</span>
+
+    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+        <span class="n">permissions</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="p">(</span><span class="s1">&#39;per_realizar_reserva&#39;</span><span class="p">,</span> <span class="s2">&quot;Puede reservar&quot;</span><span class="p">),</span>
+            <span class="p">(</span><span class="s1">&#39;per_cancelar_reserva&#39;</span><span class="p">,</span> <span class="s2">&quot;Puede cancelar la reserva&quot;</span><span class="p">),</span>
+            <span class="p">(</span><span class="s1">&#39;per_listar_sus_reservas&#39;</span><span class="p">,</span> <span class="s2">&quot;Puede ver sus reservas&quot;</span><span class="p">),</span><span class="c1">#desde el user</span>
+            <span class="p">(</span><span class="s1">&#39;per_listar_reservas&#39;</span><span class="p">,</span> <span class="s2">&quot;Puede listar las reservas&quot;</span><span class="p">),</span><span class="c1">#desde el admin</span>
+        <span class="p">)</span>
+        <span class="n">db_table</span> <span class="o">=</span> <span class="s1">&#39;reservas&#39;</span></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../index.html">Código de módulo</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Búsqueda rápida</h3>
+    <form class="search" action="../../../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Ir a" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, Author.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

@@ -23,11 +23,6 @@ class Reservas(models.Model):
     #. ``usuario``: usuario que realizo la reserva
     #. ``descripcion``: pequeña descripcion de la reserva
     #. ``estado``: indica el estado en que se encuentra la reserva
-
-    Returns
-    -------
-    model: ``django.db.models.Model``
-        Un model propio heredado de django.db.models.Model con los campos adicionales.
     """
     ESTADO_RESERVA = (
         ('RE', "REALIZADA"),

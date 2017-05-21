@@ -47,47 +47,37 @@
 <span class="kn">from</span> <span class="nn">django.db</span> <span class="k">import</span> <span class="n">models</span>
 
 <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Utilizacion del modelo User de Django para el manejo de usuarios.</span>
+<span class="sd">Utilizacion del modelo User de Django para el manejo de usuarios.</span>
 
-<span class="sd">    *Campos de User*</span>
+<span class="sd">*Campos de User*</span>
 
-<span class="sd">    1. ``id``: Codificacion del Usuario.</span>
-<span class="sd">    #. ``password``: Contraseña del usuario.</span>
-<span class="sd">    #. ``last_login``: Ultimo acceso del usuario.</span>
-<span class="sd">    #. ``is_superuser``: Deficion de superusuario.</span>
-<span class="sd">    #. ``username``: Username para el inicio de sesion.</span>
-<span class="sd">    #. ``first_name``: Nombre del usuario.</span>
-<span class="sd">    #. ``last_name``: Apellido del usuario.</span>
-<span class="sd">    #. ``email``: Email del usuario.</span>
-<span class="sd">    #. ``is_staff``: Es personal.</span>
-<span class="sd">    #. ``is_active``: El usuario existe dentro del sistema.</span>
-<span class="sd">    #. ``date_joined``: Fecha de registro.</span>
-
-<span class="sd">    Returns</span>
-<span class="sd">    -------</span>
-<span class="sd">    model: ``django.contrib.auth.models``</span>
-<span class="sd">        Un model propio heredado de django.contrib.auth.models .</span>
+<span class="sd">1. ``id``: Codificacion del Usuario.</span>
+<span class="sd">#. ``password``: Contraseña del usuario.</span>
+<span class="sd">#. ``last_login``: Ultimo acceso del usuario.</span>
+<span class="sd">#. ``is_superuser``: Deficion de superusuario.</span>
+<span class="sd">#. ``username``: Username para el inicio de sesion.</span>
+<span class="sd">#. ``first_name``: Nombre del usuario.</span>
+<span class="sd">#. ``last_name``: Apellido del usuario.</span>
+<span class="sd">#. ``email``: Email del usuario.</span>
+<span class="sd">#. ``is_staff``: Es personal.</span>
+<span class="sd">#. ``is_active``: El usuario existe dentro del sistema.</span>
+<span class="sd">#. ``date_joined``: Fecha de registro.</span>
 
 <span class="sd">&quot;&quot;&quot;</span>
 
+
 <div class="viewcode-block" id="PrioridadUsuario"><a class="viewcode-back" href="../../../usuarios.html#resourceman.usuarios.forms.PrioridadUsuario">[documentos]</a><span class="k">class</span> <span class="nc">PrioridadUsuario</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Un model de definicion de prioridades para model Usuario.</span>
+<span class="sd">    Un model de definicion de prioridades para model Usuario.</span>
 
-<span class="sd">        Se asocia al model Usuario, mediante una relación de 1-1.</span>
+<span class="sd">    Se asocia al model Usuario, mediante una relación de 1-1.</span>
 
-<span class="sd">        *Campos:*</span>
+<span class="sd">    *Campos:*</span>
 
-<span class="sd">        1. ``id``: Identificador de la prioridad.</span>
-<span class="sd">        #. ``codigo``: Codigo alfabetico referenciado a la prioridad.</span>
-<span class="sd">        #. ``descipcion``: Describe la prioidad.</span>
-
-<span class="sd">        Returns</span>
-<span class="sd">        -------</span>
-<span class="sd">        model: ``PrioridadUsuario``</span>
-<span class="sd">            Un model propio.</span>
-
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">    1. ``id``: Identificador de la prioridad.</span>
+<span class="sd">    #. ``codigo``: Codigo alfabetico referenciado a la prioridad.</span>
+<span class="sd">    #. ``descipcion``: Describe la prioidad.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">descripcion</span>
 
@@ -105,22 +95,17 @@
 
 <div class="viewcode-block" id="Usuario"><a class="viewcode-back" href="../../../usuarios.html#resourceman.usuarios.forms.Usuario">[documentos]</a><span class="k">class</span> <span class="nc">Usuario</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Un model con campos adicionales para model User.</span>
+<span class="sd">    Un model con campos adicionales para model User.</span>
 
-<span class="sd">        Asocia más campos al model user de Django, mediante una relación de 1-1.</span>
+<span class="sd">    Asocia más campos al model user de Django, mediante una relación de 1-1.</span>
 
-<span class="sd">        *Campos adicionales:*</span>
+<span class="sd">    *Campos adicionales:*</span>
 
-<span class="sd">        1. ``usuario``: Referencia al model User de Django.</span>
-<span class="sd">        #. ``nro_documento``: Cédula de identidad u otro número de identidad del usuario.</span>
-<span class="sd">        #. ``direccion``: Domicilio del usuario.</span>
-<span class="sd">        #. ``telefono``: Número de teléfono del usuario.</span>
-<span class="sd">        #. ``prioridad``: referencia al model prioridad de usuarios.</span>
-
-<span class="sd">        Returns</span>
-<span class="sd">        -------</span>
-<span class="sd">        model: ``django.db.models.Model``</span>
-<span class="sd">            Un model propio heredado de django.db.models.Model con los campos adicionales.</span>
+<span class="sd">    1. ``usuario``: Referencia al model User de Django.</span>
+<span class="sd">    #. ``nro_documento``: Cédula de identidad u otro número de identidad del usuario.</span>
+<span class="sd">    #. ``direccion``: Domicilio del usuario.</span>
+<span class="sd">    #. ``telefono``: Número de teléfono del usuario.</span>
+<span class="sd">    #. ``prioridad``: referencia al model prioridad de usuarios.</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
 

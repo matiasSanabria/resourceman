@@ -5,7 +5,6 @@ from ..reservas.models import Reservas
 from datetime import datetime, time
 
 
-
 class RecursoByTipoRecursoAutocomplete(autocomplete.Select2QuerySetView):
     def get_queryset(self):
         if not self.request.user.is_authenticated():

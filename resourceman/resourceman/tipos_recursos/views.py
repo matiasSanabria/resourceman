@@ -66,8 +66,7 @@ def editar(request, nombre):
     estado: indica si el tipo de recurso esta activo o no
     - A 'Activo'
     - I 'Inactivo'
-    encargado:
-                    referencia a un usuario con permisos para manejar recursos
+    encargado: referencia a un usuario con permisos para manejar recursos
     :param request: 
     :return: el formulario para editar otro tipo de recurso
     """
@@ -104,8 +103,7 @@ def eliminar(request, nombre):
     """
     Permite eliminar tipo de recurso con los siguientes datos
     
-    nombre nombre: 
-                    del tipo de recurso que se utiliza como clave primaria
+    nombre nombre: del tipo de recurso que se utiliza como clave primaria
     :param request: 
     :return: el formulario para listar los tipos de recursos
     """

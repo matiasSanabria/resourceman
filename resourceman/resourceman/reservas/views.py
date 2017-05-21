@@ -97,21 +97,20 @@ def listarReservasUser(request):
     """
     Permite listar las reservas realizadas por el usuario con los siguientes datos
 
-    nombre del recuros:  del recurso reservado
+    nombre del recuros: del recurso reservado
 
-    fecha:    fecha de reserva
+    fecha: fecha de reserva
 
-    inicio:    hora de inicio de reserva
+    inicio: hora de inicio de reserva
 
-    fin:       hora del final de la reserva
-    estado:
-        indica si el tipo de recurso esta activo o no
-        - RE "REALIZADA"
-        - CA "CANCELADA"
-        - RA "REASIGNADA"
-        - EC "EN CURSO"
-        - ND "NO DEVUELTO"
-        - TE "TERMINADA"
+    fin: hora del final de la reserva
+    estado: indica si el tipo de recurso esta activo o no
+    - RE "REALIZADA"
+    - CA "CANCELADA"
+    - RA "REASIGNADA"
+    - EC "EN CURSO"
+    - ND "NO DEVUELTO"
+    - TE "TERMINADA"
     :param request:
     :return: el formulario para listar reservas
     """
@@ -127,21 +126,20 @@ def listarReservasAdmin(request):
     """
     Permite listar las reservas realizadas por el usuario con los siguientes datos
 
-    nombre de usuario:  del usuario que realizo la reserva
+    nombre de usuario: del usuario que realizo la reserva
 
-    nombre del recuros:  del recurso reservado
+    nombre del recuros: del recurso reservado
 
-    fecha:    fecha de reserva
+    fecha: fecha de reserva
 
-    inicio:    hora de inicio de reserva
+    inicio: hora de inicio de reserva
 
-    fin:       hora del final de la reserva
-    estado:
-        indica si el tipo de recurso esta activo o no
-        - RE "REALIZADA"
-        - RA "REASIGNADA"
-        - EC "EN CURSO"
-        - ND "NO DEVUELTO"
+    fin: hora del final de la reserva
+    estado: indica si el tipo de recurso esta activo o no
+    - RE "REALIZADA"
+    - RA "REASIGNADA"
+    - EC "EN CURSO"
+    - ND "NO DEVUELTO"
     :param request:
     :return: el formulario para listar reservas
     """

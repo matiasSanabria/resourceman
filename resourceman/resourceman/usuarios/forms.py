@@ -67,7 +67,6 @@ class UsuarioCreationForm(forms.ModelForm):
             'email': TextInput(attrs={'class': 'form-control'})
         }
 
-
     def clean_username(self):
         username = self.cleaned_data['username']
         if User.objects.exclude(pk=self.instance.pk).filter(username=username).exists():
@@ -105,8 +104,6 @@ class UsuarioDetalleForm(forms.ModelForm):
     #. ``direccion``
     #. ``telefono``
     #. ``prioridad``
-
-
     """
     nro_documento = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control'}))
     direccion = forms.CharField(widget=forms.Textarea(attrs={'class':'form-control', 'rows': '3'}))
@@ -186,6 +183,7 @@ class UserInfoForm(forms.ModelForm):
              'user_permissions', 'password'
         ]
 
+
 class UsuarioInfoForm(forms.ModelForm):
     """
     UsuarioInfoForm ModelForm para la edicion de usuarios, con campos de Usuario.
@@ -198,8 +196,6 @@ class UsuarioInfoForm(forms.ModelForm):
     #. ``direccion``
     #. ``telefono``
     #. ``prioridad``
-
-
     """
     nro_documento = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}))
     direccion = forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control', 'rows': '3'}))
@@ -225,8 +221,6 @@ class AgregarPrioridad(forms.ModelForm):
 
     1. ``codigo``
     #. ``descipcion``
-
-
     """
     codigo = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control'}))
     descripcion = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control'}))
@@ -249,8 +243,6 @@ class EditarPrioridad(forms.ModelForm):
 
     1. ``codigo``
     #. ``descipcion``
-
-
     """
     codigo = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}))
     descripcion = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}))

@@ -39,7 +39,7 @@ def login_view(request):
 
 def logout_view(request):
     """
-        Cierra la sesión del usuario y retorna a la vista de login.
+    Cierra la sesión del usuario y retorna a la vista de login.
     """
     auth.logout(request)
     return redirect('login')

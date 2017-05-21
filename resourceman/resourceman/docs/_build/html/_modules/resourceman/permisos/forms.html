@@ -64,17 +64,15 @@
 
 <div class="viewcode-block" id="EditarPermisos"><a class="viewcode-back" href="../../../permisos.html#resourceman.permisos.forms.EditarPermisos">[documentos]</a><span class="k">class</span> <span class="nc">EditarPermisos</span><span class="p">(</span><span class="n">forms</span><span class="o">.</span><span class="n">ModelForm</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        EditarPermisos ModelForm para la edicion de permisos, con campos de Permission.</span>
+<span class="sd">    EditarPermisos ModelForm para la edicion de permisos, con campos de Permission.</span>
 
-<span class="sd">        Muestra campos del model Permission en inputs de HTML con sus valores para luego ser modificado.</span>
+<span class="sd">    Muestra campos del model Permission en inputs de HTML con sus valores para luego ser modificado.</span>
 
-<span class="sd">        *Campos:* Los establecidos en Permission.</span>
+<span class="sd">    *Campos:* Los establecidos en Permission.</span>
 
-<span class="sd">        1. ``codename``:</span>
-<span class="sd">        #. ``name``:</span>
-<span class="sd">        #. ``content_type``:</span>
-
-
+<span class="sd">    1. ``codename``:</span>
+<span class="sd">    #. ``name``:</span>
+<span class="sd">    #. ``content_type``:</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">codename</span> <span class="o">=</span> <span class="n">forms</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">widget</span><span class="o">=</span><span class="n">forms</span><span class="o">.</span><span class="n">TextInput</span><span class="p">(</span><span class="n">attrs</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;class&#39;</span><span class="p">:</span> <span class="s1">&#39;form-control&#39;</span><span class="p">}))</span>
@@ -93,17 +91,15 @@
 
 <div class="viewcode-block" id="AgregarPermiso"><a class="viewcode-back" href="../../../permisos.html#resourceman.permisos.forms.AgregarPermiso">[documentos]</a><span class="k">class</span> <span class="nc">AgregarPermiso</span><span class="p">(</span><span class="n">forms</span><span class="o">.</span><span class="n">ModelForm</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">            AgregarPermiso ModelForm para la creacion de permisos, con campos de Permission.</span>
+<span class="sd">    AgregarPermiso ModelForm para la creacion de permisos, con campos de Permission.</span>
 
-<span class="sd">            Muestra campos del model Permission en inputs de HTML.</span>
+<span class="sd">    Muestra campos del model Permission en inputs de HTML.</span>
 
-<span class="sd">            *Campos:* Los establecidos en Permission.</span>
+<span class="sd">    *Campos:* Los establecidos en Permission.</span>
 
-<span class="sd">            1. ``codename``:</span>
-<span class="sd">            #. ``name``:</span>
-<span class="sd">            #. ``content_type``:</span>
-
-
+<span class="sd">    1. ``codename``:</span>
+<span class="sd">    #. ``name``:</span>
+<span class="sd">    #. ``content_type``:</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">codename</span> <span class="o">=</span> <span class="n">forms</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">widget</span><span class="o">=</span><span class="n">forms</span><span class="o">.</span><span class="n">TextInput</span><span class="p">(</span><span class="n">attrs</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;class&#39;</span><span class="p">:</span> <span class="s1">&#39;form-control&#39;</span><span class="p">}))</span>
     <span class="n">name</span> <span class="o">=</span> <span class="n">forms</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">widget</span><span class="o">=</span><span class="n">forms</span><span class="o">.</span><span class="n">TextInput</span><span class="p">(</span><span class="n">attrs</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;class&#39;</span><span class="p">:</span><span class="s1">&#39;form-control&#39;</span><span class="p">}))</span>
