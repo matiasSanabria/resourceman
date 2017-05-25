@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <title>Reclamos</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
@@ -15,29 +16,26 @@
         }
 
         footer {
-          background-color: #FF6F00;
-          color: white;
+            background-color: #FF6F00;
+            color: white;
         }
 
         @media screen and (max-width: 767px) {
-          .sidenav {
-            height: auto;
-              }
-          .row.content {height: auto;}
+            .sidenav {
+                height: auto;
+            }
+            .row.content {height: auto;}
         }
 
         .navbar {
-          margin-bottom: 0px;
-          border-radius: 0px;
-          background-color: #004c40;
-          border-color: #004c40;
+            margin-bottom: 0px;
+            border-radius: 0px;
+            background-color: #004c40;
+            border-color: #004c40;
         }
         body {
             background-color: #eeeeee;
         }
-    </style>
-    <title>Editar Reclamo</title>
-    <style>
         form {
             /* Sólo para centrar el formulario a la página */
             /*margin: 0 auto;*/
@@ -50,7 +48,7 @@
             border-radius: 1em;*/
         }
         form div + div {
-           margin-top: 1em;
+            margin-top: 1em;
         }
         h1{
             margin-top: 5%;
@@ -75,17 +73,17 @@
     </style>
 </head>
 <body>
-    {%include 'navbar.html'%}
-    {%include 'sidenav.html'%}
-    <h1>Editar Reclamo</h1>
-    <form action="" method="post">{% csrf_token %}
-        <div>
-            {{editar_form.as_p }}
-        </div>
-        <div class="button">
-            <button type="submit" class="btn btn-primary btn-block">Guardar</button>
-        </div>
-    </form>
+{%include 'navbar.html'%}
+{%include 'sidenav.html'%}
+<h1>Editar Reclamo</h1>
+<form action="" method="post">{% csrf_token %}
+    <div>
+        {{editar_form.as_p }}
+    </div>
+    <div class="button">
+        <button type="submit" class="btn btn-primary btn-block">Guardar</button>
+    </div>
+</form>
 
 </body>
 </html>

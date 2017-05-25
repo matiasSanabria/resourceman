@@ -1,7 +1,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>{% block titulo %}Tipos de Recursos{% endblock %}</title>
+    <title>{% block titulo %}Estados{% endblock %}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
@@ -47,15 +47,14 @@
         }
 
         #tablaList {
-            width: 70%;
+            width: 82%;
             display: table;
-            margin: auto;
-            margin-left:20px;
+            margin: auto auto auto 20px;
         }
 
         #btnAgregar{
             float: right;
-            margin-right:8%;
+            margin-right: 4rem;
             margin-bottom: 1em;
         }
     </style>
@@ -65,7 +64,7 @@
         <div class="row content">
             {% include 'navbar.html'%}
             {% include 'sidenav.html' %}
-            <h3>Lista de Estados
+            <h3>Estados
                 <a href="/estados/crear_estado">
                     <button id="btnAgregar" class="btn btn-success btn-lg">Agregar</button>
                 </a>
