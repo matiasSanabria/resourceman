@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <title>Roles</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
@@ -15,29 +16,26 @@
         }
 
         footer {
-          background-color: #FF6F00;
-          color: white;
+            background-color: #FF6F00;
+            color: white;
         }
 
         @media screen and (max-width: 767px) {
-          .sidenav {
-            height: auto;
-              }
-          .row.content {height: auto;}
+            .sidenav {
+                height: auto;
+            }
+            .row.content {height: auto;}
         }
 
         .navbar {
-          margin-bottom: 0px;
-          border-radius: 0px;
-          background-color: #004c40;
-          border-color: #004c40;
+            margin-bottom: 0px;
+            border-radius: 0px;
+            background-color: #004c40;
+            border-color: #004c40;
         }
         body {
             background-color: #eeeeee;
         }
-    </style>
-    <title>Editar Roles</title>
-    <style>
         form {
             /* Sólo para centrar el formulario a la página */
             /*margin: 0 auto;*/
@@ -64,21 +62,21 @@
     </style>
 </head>
 <body>
-    {%include 'navbar.html'%}
-    {%include 'sidenav.html'%}
-    <form action="" method="post">{% csrf_token %}
+{%include 'navbar.html'%}
+{%include 'sidenav.html'%}
+<form action="" method="post">{% csrf_token %}
     <h1>Editar Rol<button id="button" type="submit" class="btn btn-primary btn-lg">Guardar</button>
         {#            <button type="reset" class="btn btn-danger btn-lg">Limpiar</button></h1>#}</h1>
 
-        <div>
-            <label>Nombre:</label>
-            {{ editar_form.name }}
-        </div>
-        <div>
-            <label>Seleccione los permisos:</label>
-            {{ editar_form.permissions }}
-        </div>
-    </form>
+    <div>
+        <label>Nombre:</label>
+        {{ editar_form.name }}
+    </div>
+    <div>
+        <label>Seleccione los permisos:</label>
+        {{ editar_form.permissions }}
+    </div>
+</form>
 
 </body>
 </html>
