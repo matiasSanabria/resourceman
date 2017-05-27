@@ -33,7 +33,7 @@ class Mantenimiento(models.Model):
     recurso = models.ForeignKey(Recurso, null=False)
     motivo = models.TextField(max_length=50, null=False)
     tipo_mantenimiento = models.CharField(max_length=3, null=False, choices=TIPOS_MANTENIMIENTOS_CHOICE, default='PRE')
-    fecha_inicio = models.DateField(null=False)
+    fecha_inicio = models.DateField(input(),null=False)
     fecha_fin = models.DateField(blank=True, null=True)
     mantenimiento_programado = models.DateField(null=False)
     costo = models.IntegerField(null=False)
