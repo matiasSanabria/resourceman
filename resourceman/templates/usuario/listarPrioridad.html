@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Listar Prioridad</title>
+    <title>Prioridades</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
@@ -16,76 +16,71 @@
         }
 
         footer {
-          background-color: #FF6F00;
-          color: white;
+            background-color: #FF6F00;
+            color: white;
         }
 
         @media screen and (max-width: 767px) {
-          .sidenav {
-            height: auto;
-              }
-          .row.content {height: auto;}
+            .sidenav {
+                height: auto;
+            }
+            .row.content {height: auto;}
         }
 
         .navbar {
-          margin-bottom: 0px;
-          border-radius: 0px;
-          background-color: #004c40;
-          border-color: #004c40;
+            margin-bottom: 0px;
+            border-radius: 0px;
+            background-color: #004c40;
+            border-color: #004c40;
         }
         body {
             background-color: #eeeeee;
         }
-        h1 {
+        h3 {
             text-align: center;
-            width: 80%;
+            margin-left: 30%;
+            margin-top:50px;
         }
-
-    </style>
-    <style>
         #mitabla{
             margin: auto;
             display: table;
-            width: 70%;
+            width: 80%;
         }
 
-{#        h1{#}
-{#            margin-left: 27%;#}
-{#            text-align: center;#}
-{#        }#}
-
         #agregar{
-            margin-left: 20%;
+            float: right;
+            margin-right: 4rem;
+            margin-bottom: 1em;
         }
     </style>
 </head>
 <body>
-    {%include 'navbar.html'%}
-    {%include 'sidenav.html'%}
-    <h1 style="margin-left: 350px;">Lista de Prioridad<a href="{% url 'agregarPrioridad' %}"><button id="agregar" type="button" class="btn btn-success btn-lg">Agregar Prioridad</button></a></h1>
-    <div id="mitabla">
+{%include 'navbar.html'%}
+{%include 'sidenav.html'%}
+<h3 style="margin-left: 350px;">Prioridades<a href="{% url 'agregarPrioridad' %}">
+    <button id="agregar" type="button" class="btn btn-success btn-lg">Agregar</button></a>
+</h3>
+<div id="mitabla">
     <table class="table table-hover" id="datatable">
 
         <thead>
-            <tr>
-                <th>Codigo</th>
-                <th>Descripcion</th>
-                <th>Modificar</th>
-{#                <th>Eliminar</th>#}
-            </tr>
+        <tr>
+            <th>Codigo</th>
+            <th>Descripcion</th>
+            <th>Modificar</th>
+        </tr>
         </thead>
         <tbody>
-            {% for prioridad in prioridades %}
-                <tr>
-                    <td>{{prioridad.codigo}}</td>
-                    <td>{{prioridad.descripcion}}</td>
-                    <td><a href="{% url 'editarPrioridad' codigo=prioridad.codigo %}"><button type="button" class="btn btn-primary btn-sm">Editar</button></a></td>
-{#                    <td><a href="{% url 'eliminarPermisos' pk=permiso.pk %}"><button type="button" class="btn btn-danger btn-sm">Eliminar</button></a></td>#}
-                </tr>
-            {% endfor %}
+        {% for prioridad in prioridades %}
+            <tr>
+                <td>{{prioridad.codigo}}</td>
+                <td>{{prioridad.descripcion}}</td>
+                <td><a href="{% url 'editarPrioridad' codigo=prioridad.codigo %}"><button type="button" class="btn btn-primary btn-sm">Editar</button></a></td>
+            </tr>
+        {% endfor %}
         </tbody>
     </table>
-    </div>
-    {% include 'datatablescript.html' %}
+</div>
+{% include 'datatablescript.html' %}
 </body>
 </html>

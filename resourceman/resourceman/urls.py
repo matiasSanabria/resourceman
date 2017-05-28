@@ -13,23 +13,25 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
-from django.conf.urls import include, url
+from django.conf.urls import url, include
 from django.contrib import admin
 from django.contrib.auth.views import password_reset, password_reset_done, password_reset_confirm, \
     password_reset_complete
 
 urlpatterns = [
-    url(r'^admin/', include(admin.site.urls)),
-    url(r'^account/', include('resourceman.login.urls')),
-    url(r'^tipo_recurso/', include('resourceman.tipos_recursos.urls')),
-    url(r'^recursos/', include('resourceman.tipos_recursos.urls')),
-    url(r'^estados/', include('resourceman.tipos_recursos.urls')),
-    url(r'^usuarios/', include('resourceman.usuarios.urls')),
-    url(r'', include('resourceman.index.urls')),
-    url(r'^permisos/', include('resourceman.permisos.urls')),
-    url(r'^roles/', include('resourceman.roles.urls')),
-    url(r'^reclamos/', include('resourceman.reclamos.urls')),
-    url(r'^configuraciones/', include('resourceman.configuraciones.urls')),
+    url(r'^admin/', admin.site.urls),
+    url(r'^accounts/', include('login.urls')),
+    url(r'', include('index.urls')),
+    url(r'^permisos/', include('permisos.urls')),
+    url(r'^roles/', include('roles.urls')),
+    url(r'^usuarios/', include('usuarios.urls')),
+    url(r'^configuraciones/', include('configuraciones.urls')),
+    url(r'^tipo_recurso/', include('tipos_recursos.urls')),
+    url(r'^recursos/', include('tipos_recursos.urls')),
+    url(r'^estados/', include('tipos_recursos.urls')),
+    url(r'^reclamos/', include('reclamos.urls')),
+    url(r'^mantenimientos/', include('mantenimiento.urls')),
+    url(r'^reservas/', include('reservas.urls')),
     url(r'^reset/password_reset', password_reset, {'template_name': 'registration/password_reset_form.html',
                                                    'email_template_name': 'registration/password_reset_email.html'},
         name='password_reset'),
@@ -40,5 +42,5 @@ urlpatterns = [
         name='password_reset_confirm'),
     url(r'^reset/done', password_reset_complete, {'template_name': 'registration/password_reset_complete.html'},
         name='password_reset_complete'),
-    url(r'^reservas/', include('resourceman.reservas.urls')),
+
 ]

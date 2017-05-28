@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <title>Reclamos</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -15,29 +16,26 @@
         }
 
         footer {
-          background-color: #FF6F00;
-          color: white;
+            background-color: #FF6F00;
+            color: white;
         }
 
         @media screen and (max-width: 767px) {
-          .sidenav {
-            height: auto;
-              }
-          .row.content {height: auto;}
+            .sidenav {
+                height: auto;
+            }
+            .row.content {height: auto;}
         }
 
         .navbar {
-          margin-bottom: 0px;
-          border-radius: 0px;
-          background-color: #004c40;
-          border-color: #004c40;
+            margin-bottom: 0px;
+            border-radius: 0px;
+            background-color: #004c40;
+            border-color: #004c40;
         }
         body {
             background-color: #eeeeee;
         }
-    </style>
-    <title>Crear Reclamo</title>
-    <style>
         form {
             /* Sólo para centrar el formulario a la página */
             /*margin: 0 auto;*/
@@ -50,7 +48,7 @@
             border-radius: 1em;*/
         }
         form div + div {
-           margin-top: 1em;
+            margin-top: 1em;
         }
         h1{
             margin-top: 5%;
@@ -75,20 +73,20 @@
     </style>
 </head>
 <body>
-    {%include 'navbar.html'%}
-    {%include 'sidenav.html'%}
-    <h1>Crear Reclamo</h1>
-    <form action="" method="post">{% csrf_token %}
-        <div>
-            {{crear_reclamo.as_p}}
-            </div>
-            <div>
-        </div>
-        <div>
-            <button type="submit" class="btn btn-primary btn-lg">Guardar</button>
-            <button type="reset" class="btn btn-danger btn-lg">Limpiar</button>
-        </div>
-    </form>
+{%include 'navbar.html'%}
+{%include 'sidenav.html'%}
+<h1>Crear Reclamo</h1>
+<form action="" method="post">{% csrf_token %}
+    <div>
+        {{crear_reclamo.as_p}}
+    </div>
+    <div>
+    </div>
+    <div>
+        <button type="submit" class="btn btn-primary btn-lg">Guardar</button>
+        <button type="reset" class="btn btn-danger btn-lg">Limpiar</button>
+    </div>
+</form>
 
 </body>
 </html>

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>{% block titulo %}Crear Tipo de Recurso{% endblock %}</title>
+    <title>{% block titulo %}Tipos de Recursos{% endblock %}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
@@ -16,22 +16,22 @@
         }
 
         footer {
-          background-color: #FF6F00;
-          color: white;
+            background-color: #FF6F00;
+            color: white;
         }
 
         @media screen and (max-width: 767px) {
-          .sidenav {
-            height: auto;
-              }
-          .row.content {height: auto;}
+            .sidenav {
+                height: auto;
+            }
+            .row.content {height: auto;}
         }
 
         .navbar {
-          margin-bottom: 0px;
-          border-radius: 0px;
-          background-color: #004c40;
-          border-color: #004c40;
+            margin-bottom: 0px;
+            border-radius: 0px;
+            background-color: #004c40;
+            border-color: #004c40;
         }
 
         body {
@@ -42,7 +42,7 @@
             margin-top:50px;
         }
         #content {
-            margin-left:20%;
+            margin-left:35rem;
             margin-top:10px;
         }
 
@@ -52,17 +52,17 @@
     </style>
 </head>
 <body>
-    <div class="container-fluid">
-        <div class="row content">
-            {% include 'navbar.html' %}
-            {% include 'sidenav.html' %}
-            <h3>Modificar Tipo de Recurso</h3>
-            <form id="content" class="col-lg-4" action="" method="POST">{% csrf_token %}
-                {{ editar_form.as_p }}
-                <label>Encargado: {{ encargado_form.usuario }}</label>
-                <button id="btnGuardar" type="submit" class="btn btn-primary btn-block">Guardar</button>
-            </form>
-        </div>
+<div class="container-fluid">
+    <div class="row content">
+        {% include 'navbar.html' %}
+        {% include 'sidenav.html' %}
+        <h3>Modificar Tipo de Recurso</h3>
+        <form id="content" class="col-lg-4" action="" method="POST">{% csrf_token %}
+            {{ editar_form.as_p }}
+            <label>Encargado: {{ encargado_form.usuario }}</label>
+            <button id="btnGuardar" type="submit" class="btn btn-primary btn-block">Guardar</button>
+        </form>
     </div>
+</div>
 </body>
 </html>
