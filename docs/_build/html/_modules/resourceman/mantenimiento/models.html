@@ -1,0 +1,135 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>resourceman.mantenimiento.models &#8212; documentación de tipos_recursos - </title>
+    
+    <link rel="stylesheet" href="../../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../_static/translations.js"></script>
+    <link rel="index" title="Índice" href="../../../genindex.html" />
+    <link rel="search" title="Búsqueda" href="../../../search.html" />
+   
+  <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Código fuente para resourceman.mantenimiento.models</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">..tipos_recursos.models</span> <span class="k">import</span> <span class="n">Recurso</span><span class="p">,</span> <span class="n">TipoRecurso</span>
+<span class="kn">from</span> <span class="nn">django.db</span> <span class="k">import</span> <span class="n">models</span>
+
+
+<div class="viewcode-block" id="Mantenimiento"><a class="viewcode-back" href="../../../mantenimiento.html#resourceman.mantenimiento.forms.Mantenimiento">[documentos]</a><span class="k">class</span> <span class="nc">Mantenimiento</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Model que define un mantenimiento de recurso</span>
+<span class="sd">    *Campos*</span>
+<span class="sd">    </span>
+<span class="sd">    1. codigo: codigo del mantenimiento e identificador primario</span>
+<span class="sd">    #. recurso: id del recurso que esta en mantenimiento</span>
+<span class="sd">    #. motivo: descripcio por la  que el recurso esta en mantenimiento</span>
+<span class="sd">    #. tipo_mantenimiento: si es mantenimiento correctivo o preventivo</span>
+<span class="sd">    #. fecha_inicio: fecha de inicio del mantenimiento</span>
+<span class="sd">    #. fecha_fin: fecha de finalizacion del mantenimiento</span>
+<span class="sd">    #. mantenimiento_programado: fecha del siguiente mantenimiento</span>
+<span class="sd">    #. costo: cuanto es el costo del mantenimiento</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">codigo</span>
+
+    <span class="n">TIPOS_MANTENIMIENTOS_CHOICE</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="p">(</span><span class="s1">&#39;PRE&#39;</span><span class="p">,</span> <span class="s1">&#39;PREVENTIVO&#39;</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;COR&#39;</span><span class="p">,</span> <span class="s1">&#39;CORRECTIVO&#39;</span><span class="p">)</span>
+    <span class="p">)</span>
+
+    <span class="n">ESTADO_MANTENIMIENTO_CHOICE</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="p">(</span><span class="s1">&#39;INI&#39;</span><span class="p">,</span> <span class="s1">&#39;INICIADO&#39;</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;FIN&#39;</span><span class="p">,</span> <span class="s1">&#39;FINALIZADO&#39;</span><span class="p">)</span>
+    <span class="p">)</span>
+
+    <span class="n">tipo_recurso</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="n">TipoRecurso</span><span class="p">,</span> <span class="n">blank</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">recurso</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="n">Recurso</span><span class="p">,</span> <span class="n">null</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">motivo</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">TextField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">null</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">tipo_mantenimiento</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">null</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">choices</span><span class="o">=</span><span class="n">TIPOS_MANTENIMIENTOS_CHOICE</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s1">&#39;PRE&#39;</span><span class="p">)</span>
+    <span class="n">fecha_inicio</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">DateField</span><span class="p">(</span><span class="n">null</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">fecha_fin</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">DateField</span><span class="p">(</span><span class="n">blank</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">null</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">mantenimiento_programado</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">DateField</span><span class="p">(</span><span class="n">null</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">costo</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">IntegerField</span><span class="p">(</span><span class="n">null</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">estado</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">choices</span><span class="o">=</span><span class="n">ESTADO_MANTENIMIENTO_CHOICE</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s1">&#39;INI&#39;</span><span class="p">)</span>
+
+    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+        <span class="n">permissions</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="p">(</span><span class="s1">&#39;per_crear_mantenimiento_recurso&#39;</span><span class="p">,</span> <span class="s1">&#39;Puede crear el mantenimiento de un recurso&#39;</span><span class="p">),</span>
+            <span class="p">(</span><span class="s1">&#39;per_modificar_mantenimiento_recurso&#39;</span><span class="p">,</span> <span class="s1">&#39;Puede modificar el mantenimiento de un recurso&#39;</span><span class="p">),</span>
+        <span class="p">)</span>
+        <span class="n">db_table</span> <span class="o">=</span> <span class="s1">&#39;mantenimiento&#39;</span></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../index.html">Código de módulo</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Búsqueda rápida</h3>
+    <form class="search" action="../../../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Ir a" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, Author.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>
