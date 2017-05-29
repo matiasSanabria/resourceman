@@ -1,0 +1,152 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>resourceman.configuraciones.views &#8212; documentación de tipos_recursos - </title>
+    
+    <link rel="stylesheet" href="../../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../_static/translations.js"></script>
+    <link rel="index" title="Índice" href="../../../genindex.html" />
+    <link rel="search" title="Búsqueda" href="../../../search.html" />
+   
+  <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Código fuente para resourceman.configuraciones.views</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">django.contrib.auth.decorators</span> <span class="k">import</span> <span class="n">login_required</span>
+<span class="kn">from</span> <span class="nn">django.contrib</span> <span class="k">import</span> <span class="n">messages</span>
+<span class="kn">from</span> <span class="nn">django.shortcuts</span> <span class="k">import</span> <span class="n">render_to_response</span><span class="p">,</span> <span class="n">render</span><span class="p">,</span> <span class="n">redirect</span>
+
+<span class="kn">from</span> <span class="nn">.forms</span> <span class="k">import</span> <span class="n">RegistroUsuarioForm</span>
+<span class="kn">from</span> <span class="nn">.models</span> <span class="k">import</span> <span class="n">RegistroUsuario</span>
+
+
+<span class="nd">@login_required</span>
+<div class="viewcode-block" id="submenu_configuraciones"><a class="viewcode-back" href="../../../configuraciones.html#resourceman.configuraciones.views.submenu_configuraciones">[documentos]</a><span class="k">def</span> <span class="nf">submenu_configuraciones</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Muestra el submenu del menu de configuraciones</span>
+<span class="sd">    :param request:</span>
+<span class="sd">    :return:</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">render_to_response</span><span class="p">(</span><span class="s2">&quot;configuraciones/menu_configuraciones.html&quot;</span><span class="p">)</span></div>
+
+
+<span class="nd">@login_required</span>
+<div class="viewcode-block" id="registro_usuario"><a class="viewcode-back" href="../../../configuraciones.html#resourceman.configuraciones.views.registro_usuario">[documentos]</a><span class="k">def</span> <span class="nf">registro_usuario</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="nb">id</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Muestra la plantilla que contiene los datos que seran utilizados para el envio de la notificacion de registro</span>
+<span class="sd">    de un nuevo usuario</span>
+<span class="sd">    :param request: </span>
+<span class="sd">    :return: </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s2">&quot;POST&quot;</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">registro_usuario</span> <span class="o">=</span> <span class="n">RegistroUsuario</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">registro_usuario_form</span> <span class="o">=</span> <span class="n">RegistroUsuarioForm</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="p">,</span> <span class="n">instance</span><span class="o">=</span><span class="n">registro_usuario</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">registro_usuario_form</span><span class="o">.</span><span class="n">is_valid</span><span class="p">():</span>
+                <span class="n">reg</span> <span class="o">=</span> <span class="n">registro_usuario_form</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">commit</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+                <span class="n">reg</span><span class="o">.</span><span class="n">id</span> <span class="o">=</span> <span class="mi">1</span>
+                <span class="n">reg</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+                <span class="n">messages</span><span class="o">.</span><span class="n">success</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s2">&quot;Datos guardados exitosamente&quot;</span><span class="p">)</span>
+                <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s1">&#39;configuraciones&#39;</span><span class="p">)</span>
+
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">registro_usuario_form</span> <span class="o">=</span> <span class="n">RegistroUsuarioForm</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="p">,</span> <span class="n">instance</span><span class="o">=</span><span class="n">registro_usuario</span><span class="p">)</span>
+                <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;configuraciones/registro_usuario.html&#39;</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;registro_usuario_form&#39;</span><span class="p">:</span> <span class="n">registro_usuario_form</span><span class="p">})</span>
+
+        <span class="k">except</span> <span class="n">RegistroUsuario</span><span class="o">.</span><span class="n">DoesNotExist</span><span class="p">:</span>
+            <span class="n">registro_usuario</span> <span class="o">=</span> <span class="n">RegistroUsuarioForm</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">registro_usuario</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">registro_usuario</span><span class="o">.</span><span class="n">is_valid</span><span class="p">():</span>
+                    <span class="n">reg</span> <span class="o">=</span> <span class="n">registro_usuario</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">commit</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+                    <span class="n">reg</span><span class="o">.</span><span class="n">id</span> <span class="o">=</span> <span class="mi">1</span>
+                    <span class="n">reg</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+                    <span class="n">messages</span><span class="o">.</span><span class="n">success</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s2">&quot;Datos guardados exitosamente&quot;</span><span class="p">)</span>
+                    <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s1">&#39;configuraciones&#39;</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">messages</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s2">&quot;Ocurrio un error al guardar los datos. Vuelva a intentarlo&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s2">&quot;GET&quot;</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">registro_usuario</span> <span class="o">=</span> <span class="n">RegistroUsuario</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+        <span class="k">except</span> <span class="n">RegistroUsuario</span><span class="o">.</span><span class="n">DoesNotExist</span><span class="p">:</span>
+            <span class="n">registro_usuario</span> <span class="o">=</span> <span class="n">RegistroUsuarioForm</span><span class="p">()</span>
+            <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;configuraciones/registro_usuario_inicial.html&#39;</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;registro_usuario&#39;</span><span class="p">:</span> <span class="n">registro_usuario</span><span class="p">})</span>
+
+    <span class="n">registro_usuario_form</span> <span class="o">=</span> <span class="n">RegistroUsuarioForm</span><span class="p">(</span><span class="n">instance</span><span class="o">=</span><span class="n">registro_usuario</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;configuraciones/registro_usuario.html&#39;</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;registro_usuario_form&#39;</span><span class="p">:</span> <span class="n">registro_usuario_form</span><span class="p">})</span></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../index.html">Código de módulo</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Búsqueda rápida</h3>
+    <form class="search" action="../../../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Ir a" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, Author.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

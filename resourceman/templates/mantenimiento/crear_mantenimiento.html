@@ -1,0 +1,90 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <style>
+
+        .sidenav {
+            background-color: #00796b;
+        }
+
+        footer {
+          background-color: #FF6F00;
+          color: white;
+        }
+
+        @media screen and (max-width: 767px) {
+          .row.content {height: auto;}
+        }
+
+        .navbar {
+            margin-bottom: 0px;
+            border-radius: 0px;
+            background-color: #004c40;
+            border-color: #004c40;
+        }
+        body {
+            background-color: #eeeeee;
+        }
+                form {
+            /* Sólo para centrar el formulario a la página */
+            /*margin: 0 auto;*/
+            width: 50%;
+            margin-left: 35%;
+
+            /* Para ver el borde del formulario */
+            /*padding: 1em;
+            border: 1px solid #CCC;
+            border-radius: 1em;*/
+        }
+        form div + div {
+           margin-top: 1em;
+        }
+        label {
+            /* Para asegurarse que todos los labels tienen el mismo tamaño y están alineados correctamente */
+            display: inline-block;
+            width: 110px;
+            text-align: left;
+            margin-top: 1em;
+        }
+        h3 {
+            margin-top: .5rem;
+            margin-bottom: 0;
+        }
+        label {
+            width: 100%;
+            margin-top: .5rem;
+            margin-bottom: 0;
+        }
+        #btn-agregar {
+            margin-top: 0;
+        }
+    </style>
+    <title>Mantenimiento</title>
+</head>
+<body>
+    {%include 'navbar.html'%}
+    {%include 'sidenav.html'%}
+    <h3 align="center">Mantenimiento</h3>
+    <form action="" method="post">{% csrf_token %}
+        <div class="col-lg-8 col-lg-offset-2">
+            <div class="div-form">
+                {{ mantenimiento.as_p }}
+            </div>
+        </div>
+        <div id="btn-agregar" class="col-lg-8 col-lg-offset-2">
+            <button type="submit" class="btn btn-primary btn-block">Guardar</button>
+        </div>
+    </form>
+    {% include 'mensajes.html' %}
+    <script type="text/javascript" src="{% static 'admin/js/vendor/jquery/jquery.js' %}"></script>
+    {{ mantenimiento.media }}
+
+</body>
+</html>
