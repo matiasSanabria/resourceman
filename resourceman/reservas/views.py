@@ -3,7 +3,6 @@ from django.contrib.auth.models import Permission, User
 from django.shortcuts import redirect, render
 from .forms import ReservasForm, SolicitudForm
 from tipos_recursos.models import Recurso, Estados
-from usuarios.models import Usuario
 from .models import Reservas, SolicitudReservas
 from django.contrib import messages
 from django.core.mail import send_mail
@@ -266,6 +265,7 @@ def cancelado(request, pk):
 
     return redirect('../listar/user')
 
+
 @login_required
 @permission_required('reservas.per_solicitar_reserva')
 def solicitarReserva(request):
@@ -316,6 +316,7 @@ def solicitarReserva(request):
                             # mensaje = 'Hola ' + user.first_name + ' la solicitud del recurso: ' + sol.recurso.nombre_recurso + ' se ha realizado con exito.\n' + '\nFecha:  ' + sol.fecha_reserva.strftime('%d/%m/%Y') + '\nDesde las: ' + sol.hora_ini.strftime('%H:%M') + ' hasta las ' + sol.hora_fin.strftime('%H:%M')
                             # send_mail('Solicitud de Reserva', mensaje, settings.EMAIL_HOST_USER, [user.email], fail_silently=False)
                             return redirect('listar_solicitudes')
+
 
                         else:
                             messages.warning(request, "Complete el compo Descripcion")
@@ -418,8 +419,6 @@ def cancelarSolicitud(request, pk):
         user = User.objects.get(id=user_id)
         solicitud.estado = 'CA'
         solicitud.save()
-        # mensaje = 'Estimado ' + user.first_name + ' le informamos que su solicitud de reserva del recurso ' + solicitud.recurso.nombre_recurso + ' ha sido cancelada.'
-        # send_mail('Cancelacion de Solicitud', mensaje, settings.EMAIL_HOST_USER, [user.email], fail_silently=False)
         messages.success(request, "Cancelado")
 
     return redirect('../listar/solicitudes')

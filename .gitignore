@@ -3,7 +3,7 @@ resourceman/desarrollo/
 resourceman/__pycache__/
 resourceman/*/__pycache__/
 resourceman/resourceman/*/__pycache__/
-resourceman/resourceman/*/migrations/*
-resourceman/*/migrations/*
-resourceman/*/*.pyc
+resourceman/*/migrations/
+resourceman/resourceman/*/*.pyc
 resourceman/*.sqlite3
+resourceman/resourceman/*/migrations/*
