@@ -1,0 +1,184 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>resourceman.mantenimiento.views &#8212; documentación de tipos_recursos - </title>
+    
+    <link rel="stylesheet" href="../../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../_static/translations.js"></script>
+    <link rel="index" title="Índice" href="../../../genindex.html" />
+    <link rel="search" title="Búsqueda" href="../../../search.html" />
+   
+  <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Código fuente para resourceman.mantenimiento.views</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">django.contrib</span> <span class="k">import</span> <span class="n">messages</span>
+<span class="kn">from</span> <span class="nn">django.contrib.auth.decorators</span> <span class="k">import</span> <span class="n">login_required</span>
+<span class="kn">from</span> <span class="nn">django.shortcuts</span> <span class="k">import</span> <span class="n">render</span><span class="p">,</span> <span class="n">redirect</span>
+
+<span class="kn">from</span> <span class="nn">..mantenimiento.models</span> <span class="k">import</span> <span class="n">Mantenimiento</span>
+<span class="kn">from</span> <span class="nn">..tipos_recursos.models</span> <span class="k">import</span> <span class="n">Estados</span><span class="p">,</span> <span class="n">Recurso</span>
+<span class="kn">from</span> <span class="nn">..mantenimiento.forms</span> <span class="k">import</span> <span class="n">MantenimientoForm</span>
+
+
+<span class="nd">@login_required</span>
+<div class="viewcode-block" id="crear_mantenimiento"><a class="viewcode-back" href="../../../mantenimiento.html#resourceman.mantenimiento.views.crear_mantenimiento">[documentos]</a><span class="k">def</span> <span class="nf">crear_mantenimiento</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Crea un nuevo mantenimiento para un recurso indicado</span>
+<span class="sd">    :param request: </span>
+<span class="sd">    :return: </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s2">&quot;POST&quot;</span><span class="p">:</span>
+        <span class="n">mantenimiento</span> <span class="o">=</span> <span class="n">MantenimientoForm</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">mantenimiento</span><span class="o">.</span><span class="n">is_valid</span><span class="p">():</span>
+            <span class="c1"># obtenemos el objeto de la base de datos del recurso cuyo estado sera modificado</span>
+            <span class="c1"># para entrar al mantenimiento</span>
+            <span class="n">recurso</span> <span class="o">=</span> <span class="n">Recurso</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">codigo_recurso</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;recurso&#39;</span><span class="p">))</span>
+            <span class="n">recurso</span><span class="o">.</span><span class="n">estado</span> <span class="o">=</span> <span class="n">Estados</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">codigo</span><span class="o">=</span><span class="s1">&#39;MAN&#39;</span><span class="p">)</span>
+            <span class="n">recurso</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+
+            <span class="n">mantenimiento</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+            <span class="n">messages</span><span class="o">.</span><span class="n">success</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s2">&quot;Mantenimiento guardado correctamente&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s1">&#39;crear_mantenimiento&#39;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">messages</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s2">&quot;Ocurrio un error al guardar el mantenimiento&quot;</span><span class="p">)</span>
+            <span class="k">pass</span>
+
+    <span class="n">mantenimiento</span> <span class="o">=</span> <span class="n">MantenimientoForm</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;mantenimiento/crear_mantenimiento.html&#39;</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;mantenimiento&#39;</span><span class="p">:</span> <span class="n">mantenimiento</span><span class="p">})</span></div>
+
+
+<span class="nd">@login_required</span>
+<div class="viewcode-block" id="listar_mantenimientos"><a class="viewcode-back" href="../../../mantenimiento.html#resourceman.mantenimiento.views.listar_mantenimientos">[documentos]</a><span class="k">def</span> <span class="nf">listar_mantenimientos</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Muestra la lista de mantenimientos en curso del sistema</span>
+<span class="sd">    :param request: </span>
+<span class="sd">    :return: </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">mensaje</span> <span class="o">=</span> <span class="s1">&#39;Listar mantenimientos&#39;</span>
+    <span class="n">messages</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">messages</span><span class="o">.</span><span class="n">INFO</span><span class="p">,</span> <span class="n">mensaje</span><span class="p">)</span>
+    <span class="n">mantenimientos</span> <span class="o">=</span> <span class="n">Mantenimiento</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">()</span><span class="o">.</span><span class="n">exclude</span><span class="p">(</span><span class="n">estado</span><span class="o">=</span><span class="s1">&#39;FIN&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;mantenimiento/listar_mantenimientos.html&#39;</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;mantenimientos&#39;</span><span class="p">:</span> <span class="n">mantenimientos</span><span class="p">})</span></div>
+
+
+<span class="nd">@login_required</span>
+<div class="viewcode-block" id="terminar_mantenimiento"><a class="viewcode-back" href="../../../mantenimiento.html#resourceman.mantenimiento.views.terminar_mantenimiento">[documentos]</a><span class="k">def</span> <span class="nf">terminar_mantenimiento</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="nb">id</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Cambia el estado del mantenimiento a terminado y pone el estado del recurso</span>
+<span class="sd">    a disponible</span>
+<span class="sd">    :param request: </span>
+<span class="sd">    :return: </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">mantenimiento</span> <span class="o">=</span> <span class="n">Mantenimiento</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="nb">id</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">mantenimiento</span><span class="o">.</span><span class="n">estado</span> <span class="o">==</span> <span class="s2">&quot;INI&quot;</span><span class="p">:</span>
+        <span class="n">mantenimiento</span><span class="o">.</span><span class="n">estado</span> <span class="o">=</span> <span class="s1">&#39;FIN&#39;</span>
+        <span class="n">recurso</span> <span class="o">=</span> <span class="n">Recurso</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">nombre_recurso</span><span class="o">=</span><span class="n">mantenimiento</span><span class="o">.</span><span class="n">recurso</span><span class="p">)</span>
+        <span class="n">recurso</span><span class="o">.</span><span class="n">estado</span> <span class="o">=</span> <span class="n">Estados</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">codigo</span><span class="o">=</span><span class="s2">&quot;DIS&quot;</span><span class="p">)</span>
+        <span class="n">mantenimiento</span><span class="o">.</span><span class="n">recurso</span> <span class="o">=</span> <span class="n">recurso</span>
+        <span class="n">recurso</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+        <span class="n">mantenimiento</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+        <span class="n">messages</span><span class="o">.</span><span class="n">success</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s2">&quot;El mantenimiento ha finalizado&quot;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">messages</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s2">&quot;El mantenimiento aun no ha iniciado&quot;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s1">&#39;../listar&#39;</span><span class="p">)</span></div>
+
+
+<span class="nd">@login_required</span>
+<div class="viewcode-block" id="recurso_fuera_uso"><a class="viewcode-back" href="../../../mantenimiento.html#resourceman.mantenimiento.views.recurso_fuera_uso">[documentos]</a><span class="k">def</span> <span class="nf">recurso_fuera_uso</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="nb">id</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Cambia el estado del mantenimiento a terminado y pone el estado del recurso</span>
+<span class="sd">    a disponible</span>
+<span class="sd">    :param request: </span>
+<span class="sd">    :return: </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">mantenimiento</span> <span class="o">=</span> <span class="n">Mantenimiento</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="nb">id</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">mantenimiento</span><span class="o">.</span><span class="n">estado</span> <span class="o">==</span> <span class="s2">&quot;INI&quot;</span><span class="p">:</span>
+        <span class="n">mantenimiento</span><span class="o">.</span><span class="n">estado</span> <span class="o">=</span> <span class="s1">&#39;FIN&#39;</span>
+        <span class="n">recurso</span> <span class="o">=</span> <span class="n">Recurso</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">nombre_recurso</span><span class="o">=</span><span class="n">mantenimiento</span><span class="o">.</span><span class="n">recurso</span><span class="p">)</span>
+        <span class="n">recurso</span><span class="o">.</span><span class="n">estado</span> <span class="o">=</span> <span class="n">Estados</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">codigo</span><span class="o">=</span><span class="s2">&quot;FUS&quot;</span><span class="p">)</span>
+        <span class="n">recurso</span><span class="o">.</span><span class="n">activo</span> <span class="o">=</span> <span class="s1">&#39;I&#39;</span>
+        <span class="n">mantenimiento</span><span class="o">.</span><span class="n">recurso</span> <span class="o">=</span> <span class="n">recurso</span>
+        <span class="n">recurso</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+        <span class="n">mantenimiento</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+        <span class="n">messages</span><span class="o">.</span><span class="n">success</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s2">&quot;El mantenimiento ha finalizado. El recurso ha pasado a fuera de uso&quot;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">messages</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s2">&quot;El mantenimiento aun no ha iniciado&quot;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s1">&#39;../listar&#39;</span><span class="p">)</span></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../index.html">Código de módulo</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Búsqueda rápida</h3>
+    <form class="search" action="../../../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Ir a" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, Author.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

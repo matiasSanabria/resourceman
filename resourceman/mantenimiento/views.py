@@ -23,6 +23,7 @@ def crear_mantenimiento(request):
             recurso.estado = Estados.objects.get(codigo='MAN')
             recurso.save()
 
+            mantenimiento.tipo_mantenimiento = 'COR'
             mantenimiento.save()
             messages.success(request, "Mantenimiento guardado correctamente")
             return redirect('crear_mantenimiento')
@@ -43,9 +44,9 @@ def listar_mantenimientos(request):
     """
     mensaje = 'Listar mantenimientos'
     messages.add_message(request, messages.INFO, mensaje)
-    mantenimientos = Mantenimiento.objects.filter(recurso_id=2)
-    #mantenimientos = Mantenimiento.objects.all().exclude(estado='FIN')
+    mantenimientos = Mantenimiento.objects.all().exclude(estado='FIN')
     return render(request, 'mantenimiento/listar_mantenimientos.html', {'mantenimientos': mantenimientos})
+
 
 @login_required
 def terminar_mantenimiento(request, id):

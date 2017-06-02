@@ -26,11 +26,10 @@ def agregarRol(request):
         if AgregarRol(request.POST).is_valid():
             rol_form = AgregarRol(request.POST)
             rol_form.save(commit=True)
-            return redirect('agregarRol')# direccion url de la app
+            messages.success(request, "Rol creado correctamente")
+            return redirect('agregarRol')
         else:
-            mensaje = "Error, intente datos diferentes"
-            messages.add_message(request, messages.INFO, mensaje)
-            rol_form = AgregarRol()  # crea una instancia permiso_form vacia con el constructor PermisoForm()
+            messages.error(request, "Se produjo un error al guardar el rol. Intente mas tarde")
     else:
         rol_form = AgregarRol()
         return render(request, 'roles/agregarRoles.html', {
@@ -92,9 +91,11 @@ def editarRol(request, pk):
         editar_form = EditarRol(request.POST, instance=editar)
         if editar_form.is_valid():
             editar_form.save()
+            messages.success(request, "Rol editado correctamente")
             return redirect('listarRol')
         else:
             editar_form = EditarRol(request.POST, instance=editar)
+            messages.error(request, "Se produjo un error al editar el rol")
 
         return render(request, 'roles/editarRoles.html', {
             'editar_form': editar_form,
