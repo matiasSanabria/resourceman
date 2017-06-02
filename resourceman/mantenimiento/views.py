@@ -23,6 +23,7 @@ def crear_mantenimiento(request):
             recurso.estado = Estados.objects.get(codigo='MAN')
             recurso.save()
 
+            mantenimiento.tipo_mantenimiento = 'COR'
             mantenimiento.save()
             messages.success(request, "Mantenimiento guardado correctamente")
             return redirect('crear_mantenimiento')
