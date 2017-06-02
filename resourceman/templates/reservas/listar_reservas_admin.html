@@ -70,7 +70,7 @@
                         <td>{{ reserva.fecha }}</td>
                         <td>{{ reserva.hora_ini }}</td>
                         <td>{{ reserva.hora_fin }}</td>
-                        <td>{{ reserva.estado }}</td>
+                        <td>{{ reserva.get_estado_display  }}</td>
                         <td><a href="{% url 'enCurso' pk=reserva.id %}"><button type="button" class="btn btn-primary btn-sm">En Curso</button></a></td>
                         <td><a href="{% url 'noDevuelto' pk=reserva.id %}"><button type="button" class="btn btn-danger btn-sm">No Devuelto</button></a></td>
                         <td><a href="{% url 'devuelto' pk=reserva.id %}"><button type="button" class="btn btn-success btn-sm">Terminada</button></a></td>
