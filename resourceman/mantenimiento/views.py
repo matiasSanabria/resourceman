@@ -1,5 +1,5 @@
 from django.contrib import messages
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, permission_required
 from django.shortcuts import render, redirect
 
 from mantenimiento.models import Mantenimiento
@@ -8,6 +8,7 @@ from mantenimiento.forms import MantenimientoForm
 
 
 @login_required
+@permission_required('mantenimiento.per_crear_mantenimiento_recurso')
 def crear_mantenimiento(request):
     """
     Crea un nuevo mantenimiento para un recurso indicado
@@ -36,6 +37,7 @@ def crear_mantenimiento(request):
 
 
 @login_required
+@permission_required('mantenimiento.per_lista_mantenimientos')
 def listar_mantenimientos(request):
     """
     Muestra la lista de mantenimientos en curso del sistema
