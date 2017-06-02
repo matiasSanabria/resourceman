@@ -1,6 +1,0 @@
-*.sqlite3
-.idea/
-desarrollo/
-*/migrations/
-*/__pycache__/
-__pycache__/

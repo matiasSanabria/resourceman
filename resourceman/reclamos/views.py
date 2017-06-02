@@ -1,14 +1,13 @@
 from django.shortcuts import redirect, render
-from django.conf import settings
 from django.contrib import messages
-from django.contrib.auth.decorators import login_required
-from django.core.mail import send_mail
+from django.contrib.auth.decorators import login_required, permission_required
 
 from .forms import *
 from tipos_recursos.models import Recurso
 
 
 @login_required
+@permission_required('reclamos.per_crear_reclamo')
 def crear_reclamo(request):
     """
     Metodo que permite la creacion de reclamos y el envio de un correo al encargado.
@@ -50,6 +49,7 @@ def crear_reclamo(request):
 
 
 @login_required
+@permission_required('reclamos.per_listar_reclamos')
 def list_reclamo(request):
     """
     Funcion que permite listar todos los roles existentes.
@@ -65,6 +65,7 @@ def list_reclamo(request):
 
 
 @login_required
+@permission_required('reclamos.per_ver_reclamo')
 def ver_reclamo(request, pk):
     """
     Metodo que permite ver un reclamo sin editarlo
@@ -82,6 +83,7 @@ def ver_reclamo(request, pk):
 
 
 @login_required
+@permission_required('reclamos.per_modificar_reclamo')
 def editar_reclamo(request, pk):
     """
     Metodo para editar un reclamo. Que consiste en cambiar el estado del mismo
