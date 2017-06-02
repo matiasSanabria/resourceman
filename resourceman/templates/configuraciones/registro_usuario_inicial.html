@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -72,5 +73,9 @@
 
         </div>
     </div>
+    {% include 'mensajes.html' %}
+    <script type="text/javascript" src="{% static 'admin/js/vendor/jquery/jquery.js' %}"></script>
+    {{ mantenimiento.media }}
+
 </body>
 </html>

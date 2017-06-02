@@ -1,7 +1,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>{% block titulo %}Tipos de Recursos{% endblock %}</title>
+    <title>{% block titulo %}Recursos{% endblock %}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
@@ -17,28 +17,23 @@
         }
 
         footer {
-          background-color: #FF6F00;
-          color: white;
+            background-color: #FF6F00;
+            color: white;
         }
 
         @media screen and (max-width: 767px) {
-          .sidenav {
-            height: auto;
-              }
-          .row.content {height: auto;}
+            .sidenav {
+                height: auto;
+            }
+            .row.content {height: auto;}
         }
 
         .navbar {
-          margin-bottom: 0px;
-          border-radius: 0px;
-          background-color: #004c40;
-          border-color: #004c40;
+            margin-bottom: 0px;
+            border-radius: 0px;
+            background-color: #004c40;
+            border-color: #004c40;
         }
-
-        #btnBuscar{
-            margin-top: 5px;
-        }
-
         body {
             background-color: #eeeeee;
         }
@@ -48,65 +43,70 @@
         }
 
         #tablaList {
-            width: 80%;
+            width: 82%;
             display: table;
-            margin: auto;
-            margin-left:20px;
+            margin: auto auto auto 20px;
         }
 
         #btnAgregar{
             float: right;
-            margin-right:5%;
+            margin-right: 4rem;
         }
     </style>
 </head>
 <body>
-    <div class="container-fluid">
-        <div class="row content">
-            {% include 'navbar.html'%}
-            {% include 'sidenav.html' %}
-            <h3>Lista de Recursos
-                <a href="/recursos/crear_recurso">
-                    <button id="btnAgregar" class="btn btn-success btn-lg">Agregar</button>
-                </a>
-            </h3>
-            <div id="tablaList" class="col-lg-8" style="margin-top:1em;">
-                <table class="table table-hover" id="datatable">
-                    <thead>
+<div class="container-fluid">
+    <div class="row content">
+        {% include 'navbar.html'%}
+        {% include 'sidenav.html' %}
+        <h3>Recursos
+            <a href="/recursos/crear_recurso">
+                <button id="btnAgregar" class="btn btn-success btn-lg">Agregar</button>
+            </a>
+        </h3>
+        <div id="tablaList" class="col-lg-8" style="margin-top:1em;">
+            <table class="table table-hover" id="datatable">
+                <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Tipo de Recurso</th>
+                    <th>Estado</th>
+                    <th>Activo</th>
+                    <th>Modificar</th>
+                    <th>Eliminar</th>
+                    <th>Ver Historial</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for recurso in lista %}
                     <tr>
-                        <th>Nombre</th>
-                        <th>Tipo de Recurso</th>
-                        <th>Estado</th>
-                        <th>Activo</th>
-                        <th>Modificar</th>
-                        <th>Eliminar</th>
+                        <td>{{recurso.nombre_recurso}}</td>
+                        <td>{{ recurso.tipo_recurso }}</td>
+                        <td>{{ recurso.estado }}</td>
+                        <td>{{recurso.activo}}</td>
+                        <td>
+                            <a href="{%  url 'editar_recurso' codigo_recurso=recurso.codigo_recurso %}">
+                                <button type="button" class="btn btn-primary btn-sm">Editar</button>
+                            </a>
+                        </td>
+                        <td>
+                            <a href="{%  url 'eliminar_recurso' codigo_recurso=recurso.codigo_recurso %}">
+                                <button type="button" class="btn btn-danger btn-sm">Eliminar</button>
+                            </a>
+                        </td>
+                        <td>
+                            <a href="{%  url 'historial_mantenimientos' codigo_recurso=recurso.codigo_recurso %}">
+                                <button type="button" class="btn btn-danger btn-sm">Historial</button>
+                            </a>
+                        </td>
                     </tr>
-                    </thead>
-                    <tbody>
-                        {% for recurso in lista %}
-                            <tr>
-                                <td>{{recurso.nombre_recurso}}</td>
-                                <td>{{ recurso.tipo_recurso }}</td>
-                                <td>{{ recurso.estado }}</td>
-                                <td>{{recurso.activo}}</td>
-                                <td>
-                                    <a href="{%  url 'editar_recurso' codigo_recurso=recurso.codigo_recurso %}">
-                                        <button type="button" class="btn btn-primary btn-sm">Editar</button>
-                                    </a>
-                                </td>
-                                <td>
-                                    <a href="{%  url 'eliminar_recurso' codigo_recurso=recurso.codigo_recurso %}">
-                                        <button type="button" class="btn btn-danger btn-sm">Eliminar</button>
-                                    </a>
-                                </td>
-                            </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-                {% include 'datatablescript.html' %}
+                {% endfor %}
+                </tbody>
+            </table>
+            {% include 'datatablescript.html' %}
 
-            </div>
         </div>
     </div>
+</div>
 </body>
 </html>

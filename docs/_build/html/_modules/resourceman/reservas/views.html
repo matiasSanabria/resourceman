@@ -1,0 +1,344 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>resourceman.reservas.views &#8212; documentación de tipos_recursos - </title>
+    
+    <link rel="stylesheet" href="../../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../_static/translations.js"></script>
+    <link rel="index" title="Índice" href="../../../genindex.html" />
+    <link rel="search" title="Búsqueda" href="../../../search.html" />
+   
+  <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Código fuente para resourceman.reservas.views</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">django.contrib.auth.decorators</span> <span class="k">import</span> <span class="n">login_required</span>
+<span class="kn">from</span> <span class="nn">django.contrib.auth.models</span> <span class="k">import</span> <span class="n">Permission</span><span class="p">,</span> <span class="n">User</span>
+<span class="kn">from</span> <span class="nn">django.shortcuts</span> <span class="k">import</span> <span class="n">redirect</span><span class="p">,</span> <span class="n">render</span>
+<span class="kn">from</span> <span class="nn">.forms</span> <span class="k">import</span> <span class="n">ReservasForm</span>
+<span class="kn">from</span> <span class="nn">..tipos_recursos.models</span> <span class="k">import</span> <span class="n">Recurso</span><span class="p">,</span> <span class="n">Estados</span>
+<span class="kn">from</span> <span class="nn">..reservas.models</span> <span class="k">import</span> <span class="n">Reservas</span>
+<span class="kn">from</span> <span class="nn">django.contrib</span> <span class="k">import</span> <span class="n">messages</span>
+<span class="kn">from</span> <span class="nn">django.core.mail</span> <span class="k">import</span> <span class="n">send_mail</span>
+<span class="kn">from</span> <span class="nn">django.conf</span> <span class="k">import</span> <span class="n">settings</span>
+<span class="kn">import</span> <span class="nn">datetime</span>
+
+
+<span class="n">__author__</span> <span class="o">=</span> <span class="s1">&#39;hector&#39;</span>
+<span class="c1"># Create your views here.</span>
+<div class="viewcode-block" id="comprobarTime"><a class="viewcode-back" href="../../../reservas.html#resourceman.reservas.views.comprobarTime">[documentos]</a><span class="k">def</span> <span class="nf">comprobarTime</span><span class="p">(</span><span class="n">reserva</span><span class="p">):</span>
+
+    <span class="n">reservas</span> <span class="o">=</span> <span class="n">Reservas</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">fecha</span><span class="o">=</span><span class="n">reserva</span><span class="o">.</span><span class="n">fecha</span><span class="p">)</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">recurso</span><span class="o">=</span><span class="n">reserva</span><span class="o">.</span><span class="n">recurso</span><span class="o">.</span><span class="n">codigo_recurso</span><span class="p">)</span><span class="o">.</span><span class="n">exclude</span><span class="p">(</span><span class="n">estado</span><span class="o">=</span><span class="s1">&#39;TE&#39;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">rese</span> <span class="ow">in</span> <span class="n">reservas</span><span class="p">:</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">reserva</span><span class="o">.</span><span class="n">hora_ini</span> <span class="o">&lt;</span> <span class="n">rese</span><span class="o">.</span><span class="n">hora_fin</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">reserva</span><span class="o">.</span><span class="n">hora_ini</span> <span class="o">&gt;</span> <span class="n">rese</span><span class="o">.</span><span class="n">hora_ini</span><span class="p">):</span>
+                <span class="k">return</span> <span class="kc">False</span>
+            <span class="k">elif</span> <span class="p">(</span><span class="n">reserva</span><span class="o">.</span><span class="n">hora_fin</span> <span class="o">&lt;</span> <span class="n">rese</span><span class="o">.</span><span class="n">hora_fin</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">reserva</span><span class="o">.</span><span class="n">hora_fin</span> <span class="o">&gt;</span> <span class="n">rese</span><span class="o">.</span><span class="n">hora_ini</span><span class="p">):</span>
+                <span class="k">return</span> <span class="kc">False</span>
+            <span class="k">elif</span> <span class="p">(</span><span class="n">reserva</span><span class="o">.</span><span class="n">hora_ini</span> <span class="o">==</span> <span class="n">rese</span><span class="o">.</span><span class="n">hora_ini</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">reserva</span><span class="o">.</span><span class="n">hora_fin</span> <span class="o">==</span> <span class="n">rese</span><span class="o">.</span><span class="n">hora_fin</span><span class="p">):</span>
+                <span class="k">return</span> <span class="kc">False</span>
+    <span class="k">return</span> <span class="kc">True</span></div>
+
+
+<span class="nd">@login_required</span>
+<div class="viewcode-block" id="crearReserva"><a class="viewcode-back" href="../../../reservas.html#resourceman.reservas.views.crearReserva">[documentos]</a><span class="k">def</span> <span class="nf">crearReserva</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Permite crear una nueva reserva con los siguientes datos</span>
+
+<span class="sd">    tipo_recurso: tipo de recurso a reserva</span>
+
+<span class="sd">    recruso: clave del recurso que se reservara</span>
+
+<span class="sd">    fecha: fecha de reserva</span>
+
+<span class="sd">    hora_ini: hora de inicio de reserva</span>
+
+<span class="sd">    hora_fin: hora fin de reserva</span>
+
+<span class="sd">    usuario: Usuario que realiza la reserva</span>
+
+<span class="sd">    descripcion: breve descripcion del uso del recurso</span>
+
+<span class="sd">    estado: estado de la reserva</span>
+
+
+<span class="sd">    :param request:</span>
+<span class="sd">    :return: el formulario para crear otra reserva</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s2">&quot;POST&quot;</span><span class="p">:</span>
+
+        <span class="n">reserva_form</span> <span class="o">=</span> <span class="n">ReservasForm</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">reserva_form</span><span class="o">.</span><span class="n">is_valid</span><span class="p">():</span>
+            <span class="n">reserva</span> <span class="o">=</span> <span class="n">reserva_form</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">commit</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+            <span class="n">reserva</span><span class="o">.</span><span class="n">fecha</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">date</span><span class="p">()</span>
+            <span class="n">reserva</span><span class="o">.</span><span class="n">usuario</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span>
+            <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;recurso&#39;</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">reserva</span><span class="o">.</span><span class="n">hora_ini</span> <span class="o">&gt;=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="s1">&#39;07:00&#39;</span><span class="p">,</span> <span class="s1">&#39;%H:%M&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="ow">and</span> <span class="n">reserva</span><span class="o">.</span><span class="n">hora_fin</span> <span class="o">&lt;=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="s1">&#39;22:00&#39;</span><span class="p">,</span> <span class="s1">&#39;%H:%M&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">time</span><span class="p">():</span>
+                    <span class="k">if</span> <span class="n">comprobarTime</span><span class="p">(</span><span class="n">reserva</span><span class="p">)</span><span class="o">==</span> <span class="kc">True</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="n">reserva</span><span class="o">.</span><span class="n">descripcion</span><span class="p">:</span>
+                            <span class="n">reserva</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+                            <span class="n">messages</span><span class="o">.</span><span class="n">success</span><span class="p">(</span><span class="n">request</span><span class="p">,</span><span class="s2">&quot;Reserva realizada con exito&quot;</span><span class="p">)</span>
+
+                            <span class="c1"># res = Reservas.objects.get(id=request.POST.get(&#39;reserva&#39;))</span>
+                            <span class="n">res</span> <span class="o">=</span> <span class="n">reserva</span>
+                            <span class="n">user</span> <span class="o">=</span> <span class="n">User</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">username</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="p">)</span>
+                            <span class="n">mensaje</span> <span class="o">=</span> <span class="s1">&#39;Hola &#39;</span> <span class="o">+</span> <span class="n">user</span><span class="o">.</span><span class="n">first_name</span> <span class="o">+</span> <span class="s1">&#39; la reserva del recurso: &#39;</span> <span class="o">+</span> <span class="n">res</span><span class="o">.</span><span class="n">recurso</span><span class="o">.</span><span class="n">nombre_recurso</span> <span class="o">+</span> <span class="s1">&#39; se ha realizado con exito.</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Fecha:  &#39;</span> <span class="o">+</span> <span class="n">res</span><span class="o">.</span><span class="n">fecha</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%d</span><span class="s1">/%m/%Y&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Desde las: &#39;</span> <span class="o">+</span> <span class="n">res</span><span class="o">.</span><span class="n">hora_ini</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%H:%M&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39; hasta las &#39;</span> <span class="o">+</span> <span class="n">res</span><span class="o">.</span><span class="n">hora_fin</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%H:%M&#39;</span><span class="p">)</span>
+                            <span class="n">send_mail</span><span class="p">(</span><span class="s1">&#39;Reserva&#39;</span><span class="p">,</span> <span class="n">mensaje</span><span class="p">,</span> <span class="n">settings</span><span class="o">.</span><span class="n">EMAIL_HOST_USER</span><span class="p">,</span> <span class="p">[</span><span class="n">user</span><span class="o">.</span><span class="n">email</span><span class="p">],</span> <span class="n">fail_silently</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+                            <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s1">&#39;crear_reserva&#39;</span><span class="p">)</span>
+                        <span class="k">else</span><span class="p">:</span>
+                            <span class="n">messages</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s2">&quot;Complete el compo Descripcion&quot;</span><span class="p">)</span>
+
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">messages</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s2">&quot;Las horas introducidas no son validas&quot;</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">messages</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s2">&quot;Las horas de reserva estan establecidas desde las 07:00 hasta las 22:00 seleccione un rango valido.&quot;</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">messages</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s2">&quot;Seleccione un recurso valido&quot;</span><span class="p">)</span>
+                <span class="n">messages</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s2">&quot;Si no le aparece opciones en recursos; no tiene disponible recursos de ese tipo en el horario deseado&quot;</span><span class="p">)</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">messages</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s2">&quot;La reserva no pudo ser realizada. Datos invalidos&quot;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">reserva_form</span> <span class="o">=</span> <span class="n">ReservasForm</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">render</span><span class="p">(</span>
+        <span class="n">request</span><span class="p">,</span> <span class="s1">&#39;reservas/crear_reservas.html&#39;</span><span class="p">,</span> <span class="p">{</span>
+        <span class="s1">&#39;reserva_form&#39;</span><span class="p">:</span> <span class="n">reserva_form</span><span class="p">,</span>
+        <span class="p">}</span>
+    <span class="p">)</span></div>
+
+
+<span class="nd">@login_required</span>
+<div class="viewcode-block" id="listarReservasUser"><a class="viewcode-back" href="../../../reservas.html#resourceman.reservas.views.listarReservasUser">[documentos]</a><span class="k">def</span> <span class="nf">listarReservasUser</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Permite listar las reservas realizadas por el usuario con los siguientes datos</span>
+
+<span class="sd">    nombre del recuros: del recurso reservado</span>
+
+<span class="sd">    fecha: fecha de reserva</span>
+
+<span class="sd">    inicio: hora de inicio de reserva</span>
+
+<span class="sd">    fin: hora del final de la reserva</span>
+<span class="sd">    estado: indica si el tipo de recurso esta activo o no</span>
+<span class="sd">    - RE &quot;REALIZADA&quot;</span>
+<span class="sd">    - CA &quot;CANCELADA&quot;</span>
+<span class="sd">    - RA &quot;REASIGNADA&quot;</span>
+<span class="sd">    - EC &quot;EN CURSO&quot;</span>
+<span class="sd">    - ND &quot;NO DEVUELTO&quot;</span>
+<span class="sd">    - TE &quot;TERMINADA&quot;</span>
+<span class="sd">    :param request:</span>
+<span class="sd">    :return: el formulario para listar reservas</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">mensaje</span> <span class="o">=</span> <span class="s1">&#39;Listar Reservas&#39;</span>
+    <span class="n">messages</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">messages</span><span class="o">.</span><span class="n">INFO</span><span class="p">,</span> <span class="n">mensaje</span><span class="p">)</span>
+    <span class="n">reservas</span> <span class="o">=</span> <span class="n">Reservas</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">usuario</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="p">)</span><span class="o">.</span><span class="n">exclude</span><span class="p">(</span><span class="n">estado</span><span class="o">=</span><span class="s1">&#39;TE&#39;</span>
+                                                            <span class="p">)</span><span class="o">.</span><span class="n">exclude</span><span class="p">(</span><span class="n">estado</span><span class="o">=</span><span class="s1">&#39;CA&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;reservas/listar_reservas_usuario.html&#39;</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;reservas&#39;</span><span class="p">:</span> <span class="n">reservas</span><span class="p">})</span></div>
+
+
+<span class="nd">@login_required</span>
+<div class="viewcode-block" id="listarReservasAdmin"><a class="viewcode-back" href="../../../reservas.html#resourceman.reservas.views.listarReservasAdmin">[documentos]</a><span class="k">def</span> <span class="nf">listarReservasAdmin</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Permite listar las reservas realizadas por el usuario con los siguientes datos</span>
+
+<span class="sd">    nombre de usuario: del usuario que realizo la reserva</span>
+
+<span class="sd">    nombre del recuros: del recurso reservado</span>
+
+<span class="sd">    fecha: fecha de reserva</span>
+
+<span class="sd">    inicio: hora de inicio de reserva</span>
+
+<span class="sd">    fin: hora del final de la reserva</span>
+<span class="sd">    estado: indica si el tipo de recurso esta activo o no</span>
+<span class="sd">    - RE &quot;REALIZADA&quot;</span>
+<span class="sd">    - RA &quot;REASIGNADA&quot;</span>
+<span class="sd">    - EC &quot;EN CURSO&quot;</span>
+<span class="sd">    - ND &quot;NO DEVUELTO&quot;</span>
+<span class="sd">    :param request:</span>
+<span class="sd">    :return: el formulario para listar reservas</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">mensaje</span> <span class="o">=</span> <span class="s1">&#39;Listar Reservas&#39;</span>
+    <span class="n">messages</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">messages</span><span class="o">.</span><span class="n">INFO</span><span class="p">,</span> <span class="n">mensaje</span><span class="p">)</span>
+    <span class="n">reservas</span> <span class="o">=</span> <span class="n">Reservas</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">()</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">tipo_recurso__encargado__usuario</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="p">)</span><span class="o">.</span><span class="n">exclude</span><span class="p">(</span><span class="n">estado</span><span class="o">=</span><span class="s1">&#39;TE&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">exclude</span><span class="p">(</span><span class="n">estado</span><span class="o">=</span><span class="s1">&#39;CA&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;reservas/listar_reservas_admin.html&#39;</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;reservas&#39;</span><span class="p">:</span> <span class="n">reservas</span><span class="p">})</span></div>
+
+
+<div class="viewcode-block" id="per_num"><a class="viewcode-back" href="../../../reservas.html#resourceman.reservas.views.per_num">[documentos]</a><span class="k">def</span> <span class="nf">per_num</span><span class="p">():</span>
+    <span class="n">per</span> <span class="o">=</span> <span class="n">Permission</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">codename</span><span class="o">=</span><span class="s1">&#39;per_listar_reservas&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">per</span><span class="o">.</span><span class="n">id</span></div>
+
+
+<span class="nd">@login_required</span>
+<div class="viewcode-block" id="listarReserva"><a class="viewcode-back" href="../../../reservas.html#resourceman.reservas.views.listarReserva">[documentos]</a><span class="k">def</span> <span class="nf">listarReserva</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Verifica si el usuario logeado tiene permisos para ingresar a listar reservas admin</span>
+<span class="sd">    de no tenerlo se le mostrara el listar reservas user</span>
+
+<span class="sd">    :param request:</span>
+<span class="sd">    :return: lista corrresponciente al tipo de usuario</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">usuarios</span> <span class="o">=</span> <span class="n">User</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">groups__permissions</span><span class="o">=</span><span class="n">per_num</span><span class="p">())</span>
+    <span class="k">for</span> <span class="n">u</span> <span class="ow">in</span> <span class="n">usuarios</span><span class="p">:</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">u</span><span class="o">.</span><span class="n">id</span> <span class="o">==</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">id</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s1">&#39;listar_reservas_admin&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s1">&#39;listar_reservas_usuarios&#39;</span><span class="p">)</span></div>
+
+
+<span class="nd">@login_required</span>
+<div class="viewcode-block" id="enCurso"><a class="viewcode-back" href="../../../reservas.html#resourceman.reservas.views.enCurso">[documentos]</a><span class="k">def</span> <span class="nf">enCurso</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">pk</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Cambia el estado de la reserva a &quot;EN CURSO&quot;, y el estado del recurso a &quot;EN USO&quot; solo si</span>
+<span class="sd">    el recurso se encuentra disponible</span>
+<span class="sd">    :param request:</span>
+<span class="sd">    :param pk: id identificador de reservas</span>
+<span class="sd">    :return: redireccion a lista de reservas admin</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">reserva</span> <span class="o">=</span> <span class="n">Reservas</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="n">pk</span><span class="p">)</span>
+    <span class="n">recu_id</span> <span class="o">=</span> <span class="n">reserva</span><span class="o">.</span><span class="n">recurso</span><span class="o">.</span><span class="n">codigo_recurso</span>
+    <span class="n">recurso</span> <span class="o">=</span> <span class="n">Recurso</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">codigo_recurso</span><span class="o">=</span><span class="n">recu_id</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">recurso</span><span class="o">.</span><span class="n">estado</span><span class="o">.</span><span class="n">descripcion</span> <span class="o">!=</span> <span class="s2">&quot;EN USO&quot;</span><span class="p">:</span>
+        <span class="n">reserva</span><span class="o">.</span><span class="n">estado</span> <span class="o">=</span> <span class="s1">&#39;EC&#39;</span>
+        <span class="n">reserva</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+        <span class="n">enuso</span> <span class="o">=</span> <span class="n">Estados</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">descripcion</span><span class="o">=</span><span class="s2">&quot;EN USO&quot;</span><span class="p">)</span>
+        <span class="n">recurso</span><span class="o">.</span><span class="n">estado</span> <span class="o">=</span> <span class="n">enuso</span>
+        <span class="n">recurso</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+        <span class="n">messages</span><span class="o">.</span><span class="n">success</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s2">&quot;En curso&quot;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">messages</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s2">&quot;El recurso no esta disponible&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s1">&#39;../listar/admin&#39;</span><span class="p">)</span></div>
+
+
+<span class="nd">@login_required</span>
+<div class="viewcode-block" id="devuelto"><a class="viewcode-back" href="../../../reservas.html#resourceman.reservas.views.devuelto">[documentos]</a><span class="k">def</span> <span class="nf">devuelto</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">pk</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Cambia el estado de la reserva a &quot;TERMINADO&quot;, y el estado del recurso a &quot;DISPONIBLE&quot;</span>
+<span class="sd">    :param request:</span>
+<span class="sd">    :param pk: id identificador de reservas</span>
+<span class="sd">    :return: redireccion a lista de reservas admin</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">reserva</span> <span class="o">=</span> <span class="n">Reservas</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="n">pk</span><span class="p">)</span>
+    <span class="n">recu_id</span> <span class="o">=</span> <span class="n">reserva</span><span class="o">.</span><span class="n">recurso</span><span class="o">.</span><span class="n">codigo_recurso</span>
+    <span class="n">recurso</span> <span class="o">=</span> <span class="n">Recurso</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">codigo_recurso</span><span class="o">=</span><span class="n">recu_id</span><span class="p">)</span>
+    <span class="n">reserva</span><span class="o">.</span><span class="n">estado</span> <span class="o">=</span> <span class="s1">&#39;TE&#39;</span>
+    <span class="n">reserva</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+    <span class="n">disponible</span> <span class="o">=</span> <span class="n">Estados</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">descripcion</span><span class="o">=</span><span class="s2">&quot;DISPONIBLE&quot;</span><span class="p">)</span>
+    <span class="n">recurso</span><span class="o">.</span><span class="n">estado</span> <span class="o">=</span> <span class="n">disponible</span>
+    <span class="n">recurso</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+    <span class="n">messages</span><span class="o">.</span><span class="n">success</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s2">&quot;Devuelto&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s1">&#39;../listar/admin&#39;</span><span class="p">)</span></div>
+
+<span class="nd">@login_required</span>
+<div class="viewcode-block" id="noDevuelto"><a class="viewcode-back" href="../../../reservas.html#resourceman.reservas.views.noDevuelto">[documentos]</a><span class="k">def</span> <span class="nf">noDevuelto</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">pk</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Cambia el estado de la reserva a &quot;NO DEVUELTO&quot;, y notifica al usuario via correo</span>
+<span class="sd">    solo si la reserva se encuentra &quot;EN CUROS&quot;</span>
+<span class="sd">    :param request:</span>
+<span class="sd">    :param pk: id identificador de reservas</span>
+<span class="sd">    :return: redireccion a lista de reservas admin</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">reserva</span> <span class="o">=</span> <span class="n">Reservas</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="n">pk</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">reserva</span><span class="o">.</span><span class="n">estado</span> <span class="o">==</span> <span class="s1">&#39;EC&#39;</span><span class="p">:</span>
+        <span class="n">user_id</span> <span class="o">=</span> <span class="n">reserva</span><span class="o">.</span><span class="n">usuario</span><span class="o">.</span><span class="n">id</span>
+        <span class="n">user</span> <span class="o">=</span> <span class="n">User</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="n">user_id</span><span class="p">)</span>
+        <span class="n">reserva</span><span class="o">.</span><span class="n">estado</span> <span class="o">=</span> <span class="s1">&#39;ND&#39;</span>
+        <span class="n">reserva</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+        <span class="n">mensaje</span> <span class="o">=</span> <span class="s1">&#39;Estimado &#39;</span> <span class="o">+</span> <span class="n">user</span><span class="o">.</span><span class="n">first_name</span> <span class="o">+</span> <span class="s1">&#39; le informamos que su tiempo de reserva del recurso &#39;</span> <span class="o">+</span> <span class="n">reserva</span><span class="o">.</span><span class="n">recurso</span><span class="o">.</span><span class="n">nombre_recurso</span> <span class="o">+</span> <span class="s1">&#39; ha culminado, por favor devolverlo cuanto antes.&#39;</span>
+        <span class="n">send_mail</span><span class="p">(</span><span class="s1">&#39;Recurso no devuelto&#39;</span><span class="p">,</span> <span class="n">mensaje</span><span class="p">,</span> <span class="n">settings</span><span class="o">.</span><span class="n">EMAIL_HOST_USER</span><span class="p">,</span> <span class="p">[</span><span class="n">user</span><span class="o">.</span><span class="n">email</span><span class="p">],</span> <span class="n">fail_silently</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">messages</span><span class="o">.</span><span class="n">success</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s2">&quot;Usuario Informado&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s1">&#39;../listar/admin&#39;</span><span class="p">)</span></div>
+
+<span class="nd">@login_required</span>
+<div class="viewcode-block" id="cancelado"><a class="viewcode-back" href="../../../reservas.html#resourceman.reservas.views.cancelado">[documentos]</a><span class="k">def</span> <span class="nf">cancelado</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">pk</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Cambia el estado de la reserva a &quot;CANCELADO&quot;, solo si el mismo se encontraba en</span>
+<span class="sd">    &quot;REALIZADO&quot; se envia una confirmacion dde la reserva por correo</span>
+<span class="sd">    :param request:</span>
+<span class="sd">    :param pk: id identificador de reservas</span>
+<span class="sd">    :return: redireccion a lista de reservas user</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">reserva</span> <span class="o">=</span> <span class="n">Reservas</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="n">pk</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">reserva</span><span class="o">.</span><span class="n">estado</span> <span class="o">==</span> <span class="s1">&#39;RE&#39;</span><span class="p">:</span>
+        <span class="n">user_id</span> <span class="o">=</span> <span class="n">reserva</span><span class="o">.</span><span class="n">usuario</span><span class="o">.</span><span class="n">id</span>
+        <span class="n">user</span> <span class="o">=</span> <span class="n">User</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="n">user_id</span><span class="p">)</span>
+        <span class="n">reserva</span><span class="o">.</span><span class="n">estado</span> <span class="o">=</span> <span class="s1">&#39;CA&#39;</span>
+        <span class="n">reserva</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+        <span class="n">mensaje</span> <span class="o">=</span> <span class="s1">&#39;Estimado &#39;</span> <span class="o">+</span> <span class="n">user</span><span class="o">.</span><span class="n">first_name</span> <span class="o">+</span> <span class="s1">&#39; le informamos que la reserva del recurso &#39;</span> <span class="o">+</span> <span class="n">reserva</span><span class="o">.</span><span class="n">recurso</span><span class="o">.</span><span class="n">nombre_recurso</span> <span class="o">+</span> <span class="s1">&#39; ha sido cancelada.&#39;</span>
+        <span class="n">send_mail</span><span class="p">(</span><span class="s1">&#39;Recurso no devuelto&#39;</span><span class="p">,</span> <span class="n">mensaje</span><span class="p">,</span> <span class="n">settings</span><span class="o">.</span><span class="n">EMAIL_HOST_USER</span><span class="p">,</span> <span class="p">[</span><span class="n">user</span><span class="o">.</span><span class="n">email</span><span class="p">],</span> <span class="n">fail_silently</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">messages</span><span class="o">.</span><span class="n">success</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s2">&quot;Cancelado&quot;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s1">&#39;../listar/user&#39;</span><span class="p">)</span></div>
+
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../index.html">Código de módulo</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Búsqueda rápida</h3>
+    <form class="search" action="../../../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Ir a" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, Author.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

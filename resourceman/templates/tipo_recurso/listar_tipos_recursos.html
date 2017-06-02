@@ -16,22 +16,22 @@
         }
 
         footer {
-          background-color: #FF6F00;
-          color: white;
+            background-color: #FF6F00;
+            color: white;
         }
 
         @media screen and (max-width: 767px) {
-          .sidenav {
-            height: auto;
-              }
-          .row.content {height: auto;}
+            .sidenav {
+                height: auto;
+            }
+            .row.content {height: auto;}
         }
 
         .navbar {
-          margin-bottom: 0px;
-          border-radius: 0px;
-          background-color: #004c40;
-          border-color: #004c40;
+            margin-bottom: 0px;
+            border-radius: 0px;
+            background-color: #004c40;
+            border-color: #004c40;
         }
 
         #btnBuscar{
@@ -48,71 +48,71 @@
         }
 
         #tablaList {
-            width: 80%;
+            width: 82%;
             display: table;
             margin: auto auto auto 3rem;
         }
         #btnEncargado{
             float: right;
-            margin-right: 6rem;
+            margin-right: 3rem;
             margin-bottom: 1em;
         }
         #btnAgregar{
             width: 13rem;
             float: right;
-            margin-right:1%;
+            margin-right: 3rem;
             margin-bottom: 1em;
         }
     </style>
 </head>
 <body>
-    <div class="container-fluid">
-        <div class="row content">
-            {% include 'navbar.html'%}
-            {% include 'sidenav.html' %}
-            <h3>Lista de Tipos de Recursos
-                <a href="/tipo_recurso/listar_encargado">
-                    <button id="btnEncargado" class="btn btn-primary btn-lg">Encargados</button>
-                </a>
-                <a href="/tipo_recurso/crear">
-                    <button id="btnAgregar" class="btn btn-success btn-lg">Agregar</button>
-                </a>
-            </h3>
-            <div id="tablaList" class="col-lg-8">
-                <table class="table table-hover" id="datatable">
-                    <thead>
+<div class="container-fluid">
+    <div class="row content">
+        {% include 'navbar.html'%}
+        {% include 'sidenav.html' %}
+        <h3>Tipos de Recursos
+            <a href="/tipo_recurso/listar_encargado">
+                <button id="btnEncargado" class="btn btn-primary btn-lg">Encargados</button>
+            </a>
+            <a href="/tipo_recurso/crear">
+                <button id="btnAgregar" class="btn btn-success btn-lg">Agregar</button>
+            </a>
+        </h3>
+        <div id="tablaList" class="col-lg-8">
+            <table class="table table-hover" id="datatable">
+                <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Descripcion</th>
+                    <th>Activo</th>
+                    <th>Modificar</th>
+                    <th>Eliminar</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for tr in lista %}
                     <tr>
-                        <th>Nombre</th>
-                        <th>Descripcion</th>
-                        <th>Activo</th>
-                        <th>Modificar</th>
-                        <th>Eliminar</th>
+                        <td>{{ tr.nombre }}</td>
+                        <td>{{ tr.descripcion }}</td>
+                        <td>{{ tr.estado }}</td>
+                        <td>
+                            <a href="{%  url 'editar' nombre=tr.nombre %}">
+                                <button type="button" class="btn btn-primary btn-sm">Editar</button>
+                            </a>
+                        </td>
+                        <td>
+                            <a href="{%  url 'eliminar' nombre=tr.nombre %}">
+                                <button type="button" class="btn btn-danger btn-sm">Eliminar</button>
+                            </a>
+                        </td>
                     </tr>
-                    </thead>
-                    <tbody>
-                        {% for tr in lista %}
-                            <tr>
-                                <td>{{ tr.nombre }}</td>
-                                <td>{{ tr.descripcion }}</td>
-                                <td>{{ tr.estado }}</td>
-                                <td>
-                                    <a href="{%  url 'editar' nombre=tr.nombre %}">
-                                        <button type="button" class="btn btn-primary btn-sm">Editar</button>
-                                    </a>
-                                </td>
-                                <td>
-                                    <a href="{%  url 'eliminar' nombre=tr.nombre %}">
-                                        <button type="button" class="btn btn-danger btn-sm">Eliminar</button>
-                                    </a>
-                                </td>
-                            </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
+                {% endfor %}
+                </tbody>
+            </table>
 
-            </div>
         </div>
     </div>
-    {% include 'datatablescript.html' %}
+</div>
+{% include 'datatablescript.html' %}
 </body>
 </html>
