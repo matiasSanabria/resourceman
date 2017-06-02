@@ -30,4 +30,6 @@ urlpatterns = [
     # Url de encargados de recurso
     url(r'^listar_encargado/$', views.listar_encargado, name='listar_encargado'),
 
+    # Url de historial mantenimientos
+    url(r'^historial_mantenimientos/(?P<codigo_recurso>\w+)$', views.historial_mantenimientos, name='historial_mantenimientos'),
 ]

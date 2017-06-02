@@ -7,12 +7,14 @@ from datetime import datetime
 
 class RecursoByTipoRecursoAutocomplete(autocomplete.Select2QuerySetView):
     def get_queryset(self):
+        print("crear recurso//////////")
         if not self.request.user.is_authenticated():
             return Recurso.objects.none()
 
         recurso = Recurso.objects.all().exclude(estado__descripcion="EN MANTENIMIENTO"
                                                 ).exclude(estado__descripcion="FUERA DE USO"
                                                           ).order_by('nombre_recurso')
+        # print(recurso)
         tipo_recurso = self.forwarded.get('tipo_recurso', None)
         reservados = Reservas.objects.filter(tipo_recurso=tipo_recurso).filter(
                                                     fecha=datetime.now().date()
@@ -49,3 +51,23 @@ class RecursoByTipoRecursoAutocomplete(autocomplete.Select2QuerySetView):
             recurso2 = recurso2.filter(nombre_recurso__icontains=self.q)
 
         return recurso2
+
+
+class SolicitudAutocomplete(autocomplete.Select2QuerySetView):
+    def get_queryset(self):
+        if not self.request.user.is_authenticated():
+            return Recurso.objects.none()
+
+        recurso = Recurso.objects.all().exclude(estado__descripcion="FUERA DE USO"
+                                                          ).order_by('nombre_recurso')
+        print(recurso)
+        tipo_recurso = self.forwarded.get('tipo_recurso', None)
+        if tipo_recurso:
+            recurso = recurso.filter(tipo_recurso=tipo_recurso)
+            print(recurso)
+        else:
+            return recurso.none()
+        if self.q:
+            recurso = recurso.filter(nombre_recurso__icontains=self.q)
+
+        return recurso

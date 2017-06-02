@@ -74,6 +74,7 @@
                     <th>Activo</th>
                     <th>Modificar</th>
                     <th>Eliminar</th>
+                    <th>Ver Historial</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -91,6 +92,11 @@
                         <td>
                             <a href="{%  url 'eliminar_recurso' codigo_recurso=recurso.codigo_recurso %}">
                                 <button type="button" class="btn btn-danger btn-sm">Eliminar</button>
+                            </a>
+                        </td>
+                        <td>
+                            <a href="{%  url 'historial_mantenimientos' codigo_recurso=recurso.codigo_recurso %}">
+                                <button type="button" class="btn btn-danger btn-sm">Historial</button>
                             </a>
                         </td>
                     </tr>
