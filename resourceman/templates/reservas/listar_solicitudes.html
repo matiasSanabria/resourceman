@@ -43,7 +43,6 @@
         }
         h3 {
             text-align: center;
-            margin-left: 30%;
             margin-top:50px;
         }
 
@@ -58,11 +57,6 @@
             margin-right: 6rem;
             margin-bottom: 1em;
         }
-        #btnSolicitudes{
-            float: right;
-            margin-right: 3rem;
-            margin-bottom: 1em;
-        }
     </style>
 </head>
 <body>
@@ -70,12 +64,9 @@
         <div class="row content">
             {% include 'navbar.html'%}
             {% include 'sidenav.html' %}
-            <h3>Reservas
-                <a href="/reservas/crear">
+            <h3>Solicitudes
+                <a href="/reservas/crear_solicitud">
                     <button id="btnAgregar" class="btn btn-success btn-lg">Agregar</button>
-                </a>
-                <a href="/reservas/listar/solicitudes">
-                    <button id="btnSolicitudes" class="btn btn-primary btn-lg">Solicitudes de Reserva</button>
                 </a>
             </h3>
             <div id="tablaList" class="col-lg-8">
@@ -83,7 +74,8 @@
                     <thead>
                     <tr>
                         <th>Recurso</th>
-                        <th>Fecha</th>
+                        <th>Fecha Solicitud</th>
+                        <th>Fecha de Reserva</th>
                         <th>Inicio</th>
                         <th>Fin</th>
                         <th>Estado</th>
@@ -91,14 +83,15 @@
                     </tr>
                     </thead>
                     <tbody>
-                        {% for reserva in reservas %}
+                        {% for solicitud in solicitudes %}
                             <tr>
-                                <td>{{ reserva.recurso }}</td>
-                                <td>{{ reserva.fecha }}</td>
-                                <td>{{ reserva.hora_ini }}</td>
-                                <td>{{ reserva.hora_fin }}</td>
-                                <td>{{ reserva.estado }}</td>
-                                <td><a href="{% url 'cancelado' pk=reserva.id %}"><button type="button" class="btn btn-danger btn-sm">Cancelar</button></a></td>
+                                <td>{{ solicitud.recurso }}</td>
+                                <td>{{ solicitud.fecha_solicitud }}</td>
+                                <td>{{ solicitud.fecha_reserva }}</td>
+                                <td>{{ solicitud.hora_ini }}</td>
+                                <td>{{ solicitud.hora_fin }}</td>
+                                <td>{{ solicitud.estado }}</td>
+                                <td><a href="{% url 'cancelar_solicitud' pk=solicitud.id %}"><button type="button" class="btn btn-danger btn-sm">Cancelar</button></a></td>
                             </tr>
                         {% endfor %}
                     </tbody>
@@ -107,7 +100,6 @@
             </div>
         </div>
     </div>
-    {{ reserva.media }}
     {% include 'datatablescript.html' %}
 </body>
 </html>

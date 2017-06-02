@@ -3,12 +3,13 @@ from django.contrib.auth.models import Permission, User
 from django.shortcuts import redirect, render
 from .forms import ReservasForm, SolicitudForm
 from tipos_recursos.models import Recurso, Estados
-from .models import Reservas
+from usuarios.models import Usuario
+from .models import Reservas, SolicitudReservas
 from django.contrib import messages
 from django.core.mail import send_mail
 from django.conf import settings
 import datetime
-
+from datetime import date, timedelta
 __author__ = 'hector'
 # Create your views here.
 
@@ -252,7 +253,7 @@ def cancelado(request, pk):
         reserva.estado = 'CA'
         reserva.save()
         mensaje = 'Estimado ' + user.first_name + ' le informamos que la reserva del recurso ' + reserva.recurso.nombre_recurso + ' ha sido cancelada.'
-        send_mail('Recurso no devuelto', mensaje, settings.EMAIL_HOST_USER, [user.email], fail_silently=False)
+        send_mail('Reserva Cancelada', mensaje, settings.EMAIL_HOST_USER, [user.email], fail_silently=False)
         messages.success(request, "Cancelado")
 
     return redirect('../listar/user')
@@ -260,13 +261,15 @@ def cancelado(request, pk):
 
 def solicitarReserva(request):
     """
-    Permite crear una nueva reserva con los siguientes datos
+    Permite crear una nueva solicitud de reserva con los siguientes datos
 
     tipo_recurso: tipo de recurso a reserva
 
     recruso: clave del recurso que se reservara
 
-    fecha: fecha de reserva
+    fecha_solicitud: fecha en la que se realizo la solicitud
+
+    fecha_reserva: fecha de reserva
 
     hora_ini: hora de inicio de reserva
 
@@ -276,7 +279,7 @@ def solicitarReserva(request):
 
     descripcion: breve descripcion del uso del recurso
 
-    estado: estado de la reserva
+    estado: estado de la solicitud
 
 
     :param request:
@@ -290,23 +293,27 @@ def solicitarReserva(request):
             solicitud.fecha_solicitud = datetime.datetime.now()
             solicitud.usuario = request.user
             if request.POST.get('recurso'):
-                # if solicitud.hora_ini >= datetime.datetime.strptime('07:00', '%H:%M').time() and solicitud.hora_fin <= datetime.datetime.strptime('22:00', '%H:%M').time() and solicitud.hora_ini < solicitud.hora_fin:
+                if solicitud.hora_ini >= datetime.datetime.strptime('07:00', '%H:%M').time() and solicitud.hora_fin <= datetime.datetime.strptime('22:00', '%H:%M').time() and solicitud.hora_ini < solicitud.hora_fin:
+                    inicio = date.today() + timedelta(days=2)
+                    limite = date.today() + timedelta(days=15)
+                    if solicitud.fecha_reserva > inicio and solicitud.fecha_reserva < limite:
+                        if solicitud.descripcion:
+                            solicitud.estado='PP'
+                            solicitud.save()
+                            messages.success(request,"Solicitud realizada con exito")
 
-                    if solicitud.descripcion:
-                        solicitud.save()
-                        messages.success(request,"Solicitud realizada con exito")
-
-                        sol = solicitud
-                        user = User.objects.get(username=request.user)
-                        mensaje = 'Hola ' + user.first_name + ' la solicitud del recurso: ' + sol.recurso.nombre_recurso + ' se ha realizado con exito.\n' + '\nFecha:  ' + sol.fecha_reserva.strftime('%d/%m/%Y') + '\nDesde las: ' + sol.hora_ini.strftime('%H:%M') + ' hasta las ' + sol.hora_fin.strftime('%H:%M')
-                        send_mail('Solicitud de Reserva', mensaje, settings.EMAIL_HOST_USER, [user.email], fail_silently=False)
-                        return redirect('crear_solicitud')
+                            sol = solicitud
+                            user = User.objects.get(username=request.user)
+                            # mensaje = 'Hola ' + user.first_name + ' la solicitud del recurso: ' + sol.recurso.nombre_recurso + ' se ha realizado con exito.\n' + '\nFecha:  ' + sol.fecha_reserva.strftime('%d/%m/%Y') + '\nDesde las: ' + sol.hora_ini.strftime('%H:%M') + ' hasta las ' + sol.hora_fin.strftime('%H:%M')
+                            # send_mail('Solicitud de Reserva', mensaje, settings.EMAIL_HOST_USER, [user.email], fail_silently=False)
+                            return redirect('crear_solicitud')
+                        else:
+                            messages.warning(request, "Complete el compo Descripcion")
                     else:
-                        messages.warning(request, "Complete el compo Descripcion")
+                        messages.warning(request, "Fecha seleccionada invalida!!")
 
-
-                # else:
-                #     messages.warning(request, "Las horas de reserva estan establecidas desde las 07:00 hasta las 22:00 seleccione un rango valido.")
+                else:
+                    messages.warning(request, "Las horas de reserva estan establecidas desde las 07:00 hasta las 22:00 seleccione un rango valido.")
             else:
                 messages.error(request, "Seleccione un recurso valido")
                 messages.warning(request, "Si no le aparece opciones en recursos; no tiene disponible recursos de ese tipo en el horario deseado")
@@ -320,3 +327,52 @@ def solicitarReserva(request):
         'solicitud_form': solicitud_form,
         }
     )
+
+
+def listarSolicitudes(request):
+    """
+    Permite listar las solicitudes de reservas reservas realizadas por el usuario con los siguientes datos
+
+    nombre del recuros: del recurso reservado
+
+    fecha: fecha de reserva
+
+    inicio: hora de inicio de reserva
+
+    fin: hora del final de la reserva
+    estado: indica si el tipo de recurso esta activo o no
+    - PP "POR PROCESAR"
+    - CA "CANCELADA"
+    - CO "CONCLUIDA"
+
+    :param request:
+    :return: el formulario para listar solicitudes
+    """
+    mensaje = 'Listar Solicitudes de Reservas'
+    messages.add_message(request, messages.INFO, mensaje)
+    solicitudes = SolicitudReservas.objects.filter(usuario=request.user).exclude(estado='CO'
+                                                                     ).exclude(estado='CA')
+    return render(request, 'reservas/listar_solicitudes.html', {'solicitudes': solicitudes})
+
+
+
+def cancelarSolicitud(request, pk):
+    """
+    Cambia el estado de la reserva a "CANCELADO", solo si el mismo se encontraba en
+    "REALIZADO" se envia una confirmacion dde la reserva por correo
+    :param request:
+    :param pk: id identificador de reservas
+    :return: redireccion a lista de reservas user
+    """
+    solicitud = SolicitudReservas.objects.get(id=pk)
+    if solicitud.estado == 'PP':
+        user_id = solicitud.usuario.id
+        user = User.objects.get(id=user_id)
+        solicitud.estado = 'CA'
+        solicitud.save()
+        # mensaje = 'Estimado ' + user.first_name + ' le informamos que su solicitud de reserva del recurso ' + solicitud.recurso.nombre_recurso + ' ha sido cancelada.'
+        # send_mail('Cancelacion de Solicitud', mensaje, settings.EMAIL_HOST_USER, [user.email], fail_silently=False)
+        messages.success(request, "Cancelado")
+
+    return redirect('../listar/solicitudes')
+
