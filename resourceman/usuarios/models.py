@@ -38,7 +38,7 @@ class PrioridadUsuario(models.Model):
 
     codigo = models.TextField(blank=False, max_length=4, null=False, unique=True)
     descripcion = models.TextField(blank=False, max_length=50, null=False, unique=True)
-
+    prioridad = models.IntegerField(blank=False)
     class Meta:
         permissions = (
             ('per_crear_prioridad', "Puede crear Prioridad"),

@@ -43,6 +43,7 @@
         }
         h3 {
             text-align: center;
+            margin-left: 30%;
             margin-top:50px;
         }
 
@@ -57,6 +58,11 @@
             margin-right: 4rem;
             margin-bottom: 1em;
         }
+        #btnSolicitudes{
+            float: right;
+            margin-right: 3rem;
+            margin-bottom: 1em;
+        }
     </style>
 </head>
 <body>
@@ -67,6 +73,9 @@
             <h3>Reservas
                 <a href="/reservas/crear">
                     <button id="btnAgregar" class="btn btn-success btn-lg">Agregar</button>
+                </a>
+                <a href="/reservas/listar/solicitudes">
+                    <button id="btnSolicitudes" class="btn btn-primary btn-lg">Solicitudes de Reserva</button>
                 </a>
             </h3>
             <div id="tablaList" class="col-lg-8">
@@ -98,6 +107,7 @@
             </div>
         </div>
     </div>
+    {{ reserva.media }}
     {% include 'datatablescript.html' %}
 </body>
 </html>

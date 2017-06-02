@@ -240,7 +240,14 @@ class AgregarPrioridad(forms.ModelForm):
         REQUIRED_FIELDS = [
             'codigo', 'descripcion'
         ]
-        exclude = []
+        exclude = ['prioridad']
+
+    def save(self, commit=True):
+        # Save the provided password in hashed format
+        prioridad = super(AgregarPrioridad, self).save(commit=False)
+        if commit:
+            prioridad.save()
+        return prioridad
 
 
 class EditarPrioridad(forms.ModelForm):
