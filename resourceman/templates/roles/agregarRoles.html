@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -63,7 +64,6 @@
 <form action="" method="post">{% csrf_token %}
     <h1>Agregar Rol<button id="button" type="submit" class="btn btn-primary btn-lg">Guardar</button>
         <button type="reset" class="btn btn-danger btn-lg">Limpiar</button></h1>
-
     <div>
         <label>Nombre:</label>
         {{ rol_form.name }}
@@ -73,6 +73,9 @@
         {{ rol_form.permissions }}
     </div>
 </form>
-
+</form>
+    {% include 'mensajes.html' %}
+    <script type="text/javascript" src="{% static 'admin/js/vendor/jquery/jquery.js' %}"></script>
+    {{ mantenimiento.media }}
 </body>
 </html>

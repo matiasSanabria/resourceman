@@ -19,36 +19,22 @@
             background-color: #FF6F00;
             color: white;
         }
-
-        @media screen and (max-width: 767px) {
-            .sidenav {
-                height: auto;
-            }
-            .row.content {height: auto;}
-        }
-
         .navbar {
             margin-bottom: 0px;
             border-radius: 0px;
             background-color: #004c40;
             border-color: #004c40;
         }
-
-        #btnBuscar{
-            margin-top: 5px;
-        }
-
         body {
             background-color: #eeeeee;
         }
         h3 {
-        {#            text-align: center;#}
             margin-left: 45%;
             margin-top:50px;
         }
 
         #tablaList {
-            width: auto;
+            width: 82%;
             margin-left: 27px;
             margin-top: 30px;
         }
@@ -84,7 +70,7 @@
                         <td>{{ reserva.fecha }}</td>
                         <td>{{ reserva.hora_ini }}</td>
                         <td>{{ reserva.hora_fin }}</td>
-                        <td>{{ reserva.estado }}</td>
+                        <td>{{ reserva.get_estado_display  }}</td>
                         <td><a href="{% url 'enCurso' pk=reserva.id %}"><button type="button" class="btn btn-primary btn-sm">En Curso</button></a></td>
                         <td><a href="{% url 'noDevuelto' pk=reserva.id %}"><button type="button" class="btn btn-danger btn-sm">No Devuelto</button></a></td>
                         <td><a href="{% url 'devuelto' pk=reserva.id %}"><button type="button" class="btn btn-success btn-sm">Terminada</button></a></td>

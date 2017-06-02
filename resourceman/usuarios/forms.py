@@ -33,29 +33,28 @@ class UsuarioCreationForm(forms.ModelForm):
     #. ``is_active``
     #. ``date_joined``
     """
-    username = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control'}))
-    first_name = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control'}))
-    last_name = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control'}))
+    username = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}))
+    first_name = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}))
+    last_name = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}))
 
     password1 = forms.CharField(label='Password', widget=forms.PasswordInput(attrs={'class':'form-control'}), initial='password')
-    password2 = forms.CharField(label='Password confirmation', widget=forms.PasswordInput(attrs={'class':'form-control'}), initial='password')
+    password2 = forms.CharField(label='Password confirmation', widget=forms.PasswordInput(attrs={'class': 'form-control'}), initial='password')
 
     def __init__(self, *args, **kwargs):
-        # instance = kwargs.get('instance', None)
-        # kwargs.update(initial={
-        #     # 'field': 'value'
-        #     'username': 'daniel',
-        #     'first_name': 'daniel',
-        #     'last_name': 'min',
-        #     'email': 'dpark8752@gmail.com',
-        # })
         super(UsuarioCreationForm, self).__init__(*args, **kwargs)
+        self.fields['username'].label = 'Usuario'
+        self.fields['first_name'].label = 'Nombres'
+        self.fields['last_name'].label = 'Apellidos'
+        self.fields['email'].label = 'Correo electronico'
+        self.fields['password1'].label = 'Contraseña'
+        self.fields['password2'].label = 'Confirmar contraseña'
+        self.fields['groups'].label = 'Rol'
 
     class Meta:
         model = User
-        # fields = ('username', 'first_name', 'last_name', 'email')
         help_texts = {
-            'username': ''
+            'username': '',
+            'groups':''
         }
         REQUIRED_FIELDS = [
             'username', 'first_name', 'last_name', 'email', 'password1', 'password2',
@@ -168,20 +167,30 @@ class UserInfoForm(forms.ModelForm):
     username = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}))
     first_name = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}))
     last_name = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}))
-    last_login = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}))
-    date_joined = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}))
+
+    def __init__(self, *args, **kwargs):
+        super(UserInfoForm, self).__init__(*args, **kwargs)
+        self.fields['username'].label = 'Usuario'
+        self.fields['first_name'].label = 'Nombres'
+        self.fields['last_name'].label = 'Apellidos'
+        self.fields['email'].label = 'Correo electronico'
+        self.fields['groups'].label = 'Rol'
 
     class Meta:
         model = User
         fields = '__all__'
         help_texts = {
-            'username': ''
+            'username': '',
+            'is_superuser': '',
+            'is_active': '',
+            'is_staff': '',
+            'groups': ''
         }
         widgets = {
             'email': TextInput(attrs={'class': 'form-control'})
         }
         exclude = [
-             'user_permissions', 'password'
+             'user_permissions', 'password', 'last_login', 'date_joined'
         ]
 
 
@@ -231,7 +240,14 @@ class AgregarPrioridad(forms.ModelForm):
         REQUIRED_FIELDS = [
             'codigo', 'descripcion'
         ]
-        exclude = []
+        exclude = ['prioridad']
+
+    def save(self, commit=True):
+        # Save the provided password in hashed format
+        prioridad = super(AgregarPrioridad, self).save(commit=False)
+        if commit:
+            prioridad.save()
+        return prioridad
 
 
 class EditarPrioridad(forms.ModelForm):
@@ -258,10 +274,11 @@ class EditarPrioridad(forms.ModelForm):
 
 class EditarPerfilUser(forms.ModelForm):
 
-    password1 = forms.CharField(label='Password', widget=forms.PasswordInput(attrs={'class': 'form-control'}),
-                                initial='password')
-    password2 = forms.CharField(label='Password confirmation',
-                                widget=forms.PasswordInput(attrs={'class': 'form-control'}), initial='password')
+    def __init__(self, *args, **kwargs):
+        super(EditarPerfilUser, self).__init__(*args, **kwargs)
+        self.fields['first_name'].label = 'Nombres'
+        self.fields['last_name'].label = 'Apellidos'
+        self.fields['email'].label = 'Correo electronico'
 
     class Meta:
         model = User
@@ -281,7 +298,7 @@ class EditarPerfilUser(forms.ModelForm):
 
         }
         REQUIRED_FIELDS = [
-            'username', 'first_name', 'last_name', 'email', 'password1', 'password2',
+            'username', 'first_name', 'last_name', 'email',
         ]
 
     def clean_password2(self):

@@ -1,8 +1,9 @@
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, permission_required
 from django.shortcuts import redirect, render
 from .models import CaracteristicasRecursos
 from .forms import TipoRecursoForm, EstadoForm, RecursoForm, EncargadoForm
 from .models import TipoRecurso, Estados, Recurso, Encargado
+from mantenimiento.models import Mantenimiento
 from django.contrib import messages
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -10,6 +11,7 @@ from rest_framework.response import Response
 __author__ = 'matt'
 
 @login_required
+@permission_required('tipos_recursos.per_crear_tiporecurso')
 def crear(request):
     """
     Permite crear un nuevo tipo de recurso con los siguientes datos
@@ -47,6 +49,7 @@ def crear(request):
 
 
 @login_required
+@permission_required('tipos_recursos.per_editar_tiporecurso')
 def editar(request, nombre):
     """
     Permite editar tipo de recurso con los siguientes datos
@@ -90,6 +93,7 @@ def editar(request, nombre):
 
 
 @login_required
+@permission_required('tipos_recursos.per_eliminar_tiporecurso')
 def eliminar(request, nombre):
     """
     Permite eliminar tipo de recurso con los siguientes datos
@@ -122,6 +126,7 @@ def get_tipo_recurso(request, id):
 
 
 @login_required
+@permission_required('tipos_recursos.per_listar_tiporecurso')
 def listar_tipos_recursos(request):
     """
     Permite listar los tipos de recursos con los siguientes datos
@@ -143,6 +148,7 @@ def listar_tipos_recursos(request):
 
 ########################################################################################################################
 @login_required
+@permission_required('tipos_recursos.per_listar_estados')
 def listar_estados(request):
     """
     Permite listar los estados de los recursos con los siguientes datos
@@ -160,6 +166,7 @@ def listar_estados(request):
 
 
 @login_required
+@permission_required('tipos_recursos.per_crear_estado')
 def crear_estado(request):
     """
     Permite crear un estado de recurso con los siguientes datos
@@ -183,6 +190,7 @@ def crear_estado(request):
 
 
 @login_required
+@permission_required('tipos_recursos.per_editar_estado')
 def editar_estado(request, codigo):
     """
     Permite editar un estado de recurso con los siguientes datos
@@ -214,7 +222,9 @@ def editar_estado(request, codigo):
             'codigo': codigo
         })
 
+
 @login_required
+@permission_required('tipos_recursos.per_eliminar_estado')
 def eliminar_estado(request, codigo):
     """
     Permite eliminar estado de recurso
@@ -233,6 +243,7 @@ def eliminar_estado(request, codigo):
 
 @login_required
 @api_view(['GET', 'POST'])
+@permission_required('tipos_recursos.per_crear_recurso')
 def crear_recurso(request):
     """
     Crea un nuevo recurso con los siguientes datos
@@ -259,6 +270,7 @@ def crear_recurso(request):
 
 
 @login_required
+@permission_required('tipos_recursos.per_editar_recurso')
 def editar_recurso(request, codigo_recurso):
     """
     Edita recurso con los siguientes datos
@@ -296,6 +308,7 @@ def editar_recurso(request, codigo_recurso):
 
 
 @login_required
+@permission_required('tipos_recursos.per_eliminar_recurso')
 def eliminar_recurso(request, codigo_recurso):
     """
     Elimina un recurso
@@ -313,6 +326,7 @@ def eliminar_recurso(request, codigo_recurso):
 
 
 @login_required
+@permission_required('tipos_recursos.per_listar_recursos')
 def listar_recursos(request):
     """
     Lista todos los recursos disponibles en el sistema
@@ -336,3 +350,17 @@ def listar_encargado(request):
     messages.add_message(request, messages.INFO, mensaje)
     lista = Encargado.objects.all()
     return render(request, 'tipo_recurso/listar_encargados.html', {'lista': lista})
+
+@login_required
+@permission_required('tipos_recursos.per_historial_mantenimiento_recursos')
+def historial_mantenimientos(request, codigo_recurso):
+    """
+    Muestra la lista de mantenimientos en curso del sistema
+    :param request:
+    :return:
+    """
+    item = Recurso.objects.get(codigo_recurso=codigo_recurso)
+    mensaje = 'Historial Mantenimientos'
+    messages.add_message(request, messages.INFO, mensaje)
+    mantenimientos = Mantenimiento.objects.filter(recurso_id=item)
+    return render(request, 'recurso/historial_mantenimientos.html', {'mantenimientos': mantenimientos,})

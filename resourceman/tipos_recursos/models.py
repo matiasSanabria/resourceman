@@ -1,3 +1,4 @@
+import datetime
 from django.db import models
 from django.contrib.auth.models import User, Permission
 
@@ -30,7 +31,7 @@ class TipoRecurso(models.Model):
         permissions = (
             ("per_crear_tiporecurso", "Puede crear tipo recurso"),
             ("per_eliminar_tiporecurso", "Puede eliminar tipo recurso"),
-            ("per_ver_tiporecurso", "Puede ver tipo recurso"),
+            ("per_listar_tiporecurso", "Puede listar los tipos recursos"),
             ("per_editar_tiporecurso", "Puede editar tipo recurso")
         )
         db_table = 'tipos_recursos'
@@ -56,7 +57,7 @@ class Estados(models.Model):
         permissions = (
             ("per_crear_estado", "Puede crear estado de recurso"),
             ("per_eliminar_estado", "Puede eliminar estado de recurso"),
-            ("per_ver_estado", "Puede ver estado de recurso"),
+            ("per_listar_estados", "Puede listar estados de los recursos"),
             ("per_editar_estado", "Puede editar estado de recurso")
         )
         db_table = 'estados'
@@ -88,21 +89,21 @@ class Recurso(models.Model):
     tipo_recurso = models.ForeignKey(TipoRecurso, null=False)
     estado = models.ForeignKey(Estados, blank=False, null=False)
     activo = models.CharField(max_length=1, null=False, choices=ACTIVO_CHOICE, default='A')
+    mantenimiento_programado = models.DateField(max_length=10,
+                                                null=True,
+                                                blank=True,
+                                                default=datetime.date.today)
 
     class Meta:
         permissions = (
             ("per_crear_recurso", "Puede crear recurso"),
             ("per_eliminar_recurso", "Puede eliminar recurso"),
-            ("per_ver_recurso", "Puede ver recurso"),
-            ("per_editar_recurso", "Puede editar recurso")
+            ("per_listar_recursos", "Puede listar recursos"),
+            ("per_editar_recurso", "Puede editar recurso"),
+            ("per_historial_mantenimiento_recursos", "Puede ver el historial de mantenimientos de recursos")
         )
 
         db_table = 'recursos'
-
-
-def per_num():
-    per = Permission.objects.get(codename='per_crear_recurso')
-    return per.id
 
 
 class Encargado(models.Model):
@@ -118,7 +119,10 @@ class Encargado(models.Model):
     usuario = models.ForeignKey(
         User,
         blank=True,
-        limit_choices_to={'groups__permissions': per_num()}
+        limit_choices_to={
+            'groups__permissions': Permission.objects.get(
+                                                codename='per_crear_recurso').id
+        }
     )
 
     class Meta:
