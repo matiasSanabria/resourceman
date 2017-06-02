@@ -90,7 +90,7 @@
                         <td>{{recurso.nombre_recurso}}</td>
                         <td>{{ recurso.tipo_recurso }}</td>
                         <td>{{ recurso.estado }}</td>
-                        <td>{{recurso.activo}}</td>
+                        <td>{{recurso.get_activo_display}}</td>
                         <td>
                             <a href="{%  url 'editar_recurso' codigo_recurso=recurso.codigo_recurso %}">
                                 <button type="button" class="btn btn-primary btn-sm">Editar</button>
