@@ -1,4 +1,3 @@
-from django import forms
 from django.db import models
 
 # Create your models here.
@@ -52,6 +51,7 @@ class Reservas(models.Model):
             ('per_listar_reservas', "Puede listar las reservas"),#desde el admin
         )
         db_table = 'reservas'
+
 
 class SolicitudReservas(models.Model):
     ESTADO_SOLICITUD = (

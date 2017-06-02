@@ -1,9 +1,8 @@
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth.models import Permission, User
 from django.shortcuts import redirect, render
 from .forms import ReservasForm, SolicitudForm
 from tipos_recursos.models import Recurso, Estados
-from usuarios.models import Usuario
 from .models import Reservas, SolicitudReservas
 from django.contrib import messages
 from django.core.mail import send_mail
@@ -28,6 +27,7 @@ def comprobarTime(reserva):
 
 
 @login_required
+@permission_required('reservas.per_realizar_reserva')
 def crearReserva(request):
     """
     Permite crear una nueva reserva con los siguientes datos
@@ -95,6 +95,7 @@ def crearReserva(request):
 
 
 @login_required
+@permission_required('reservas.per_listar_sus_reservas')
 def listarReservasUser(request):
     """
     Permite listar las reservas realizadas por el usuario con los siguientes datos
@@ -124,6 +125,7 @@ def listarReservasUser(request):
 
 
 @login_required
+@permission_required('reservas.per_listar_reservas')
 def listarReservasAdmin(request):
     """
     Permite listar las reservas realizadas por el usuario con los siguientes datos
@@ -259,6 +261,8 @@ def cancelado(request, pk):
     return redirect('../listar/user')
 
 
+@login_required
+@permission_required('reservas.per_solicitar_reserva')
 def solicitarReserva(request):
     """
     Permite crear una nueva solicitud de reserva con los siguientes datos
@@ -304,8 +308,6 @@ def solicitarReserva(request):
 
                             sol = solicitud
                             user = User.objects.get(username=request.user)
-                            # mensaje = 'Hola ' + user.first_name + ' la solicitud del recurso: ' + sol.recurso.nombre_recurso + ' se ha realizado con exito.\n' + '\nFecha:  ' + sol.fecha_reserva.strftime('%d/%m/%Y') + '\nDesde las: ' + sol.hora_ini.strftime('%H:%M') + ' hasta las ' + sol.hora_fin.strftime('%H:%M')
-                            # send_mail('Solicitud de Reserva', mensaje, settings.EMAIL_HOST_USER, [user.email], fail_silently=False)
                             return redirect('crear_solicitud')
                         else:
                             messages.warning(request, "Complete el compo Descripcion")
@@ -329,6 +331,8 @@ def solicitarReserva(request):
     )
 
 
+@login_required
+@permission_required('reservas.per_listar_sus_solicitudes_reservas')
 def listarSolicitudes(request):
     """
     Permite listar las solicitudes de reservas reservas realizadas por el usuario con los siguientes datos
@@ -356,6 +360,8 @@ def listarSolicitudes(request):
 
 
 
+@login_required
+@permission_required('reservas.cancelar_solicitud_reserva')
 def cancelarSolicitud(request, pk):
     """
     Cambia el estado de la reserva a "CANCELADO", solo si el mismo se encontraba en
@@ -370,8 +376,6 @@ def cancelarSolicitud(request, pk):
         user = User.objects.get(id=user_id)
         solicitud.estado = 'CA'
         solicitud.save()
-        # mensaje = 'Estimado ' + user.first_name + ' le informamos que su solicitud de reserva del recurso ' + solicitud.recurso.nombre_recurso + ' ha sido cancelada.'
-        # send_mail('Cancelacion de Solicitud', mensaje, settings.EMAIL_HOST_USER, [user.email], fail_silently=False)
         messages.success(request, "Cancelado")
 
     return redirect('../listar/solicitudes')

@@ -3,7 +3,6 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from .forms import EditarPermisos, AgregarPermiso
 from django.contrib.auth.models import Permission
-from roles.models import Persona
 
 __author__ = 'hector'
 
@@ -18,7 +17,6 @@ def listarPermisos(request):
     mensaje = 'Listar Permisos'
     messages.add_message(request, messages.INFO, mensaje)
     permisos = Permission.objects.filter(codename__contains='per_').order_by('id')
-    persona = Persona()
 
     return render(request, 'permisos/listarPermisos.html', {
         'permisos': permisos
