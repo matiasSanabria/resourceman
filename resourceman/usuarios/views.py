@@ -235,6 +235,7 @@ def editarPrioridad(request, codigo):
             'codigo': codigo
         })
 
+
 def bajarPrioridad(request, codigo):
     """
     Reduce la prioridad del usuario
@@ -251,6 +252,7 @@ def bajarPrioridad(request, codigo):
         subir.save()
         bajar.save()
     return redirect('listarPrioridad')
+
 
 def subirPrioridad(request, codigo):
     """
@@ -272,6 +274,7 @@ def subirPrioridad(request, codigo):
         subir.save()
         bajar.save()
     return redirect('listarPrioridad')
+
 
 @login_required
 def editarPerfilUsuario(request):
