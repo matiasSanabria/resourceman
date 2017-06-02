@@ -339,6 +339,37 @@ def listar_recursos(request):
     return render(request, 'recurso/listar_recursos.html', {'lista': lista})
 
 
+def reporte_recursos(request):
+    """
+    Muestra una lista de los recursos, con sus principales datos
+    1. Codigo
+    #. Descripcion
+    #. Tipo de recurso
+    #. Estado
+    #. Responsable
+    :param request: puede recibir como filtros el tipo de recurso, el estado y el responsable
+    :return:
+    """
+    reporte = []
+    registro = []
+
+    recursos = Recurso.objects.all()
+
+    for rec in recursos:
+        enc = Encargado.objects.get(tipo_recurso=rec.tipo_recurso_id)
+
+        registro.append(rec.codigo_recurso)
+        registro.append(rec.nombre_recurso)
+        registro.append(rec.tipo_recurso.descripcion)
+        registro.append(rec.estado)
+        registro.append(enc.usuario.username)
+
+        reporte.append(registro)
+        registro = []
+
+    return render(request, 'recurso/reporte_recursos.html', {'reporte': reporte})
+
+
 @login_required
 def listar_encargado(request):
     """

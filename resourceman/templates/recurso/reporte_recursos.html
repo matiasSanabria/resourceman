@@ -48,13 +48,15 @@
             margin: auto auto auto 20px;
         }
 
-        #btnAgregar {
+        #btnBuscar{
             float: right;
             margin-right: 4rem;
         }
-        #reportes {
-            float: right;
-            margin-right: 2rem;
+        tfoot input {
+            width: 100%;
+            padding: 3px;
+            box-sizing: border-box;
+            font-size: 1.5rem;
         }
     </style>
 </head>
@@ -63,49 +65,31 @@
     <div class="row content">
         {% include 'navbar.html'%}
         {% include 'sidenav.html' %}
-        <h3>Recursos
-            <a href="/recursos/crear_recurso">
-                <button id="btnAgregar" class="btn btn-success btn-lg">Agregar</button>
-            </a>
-            <a href="/recursos/reporte">
-                <button id="reportes" class="btn btn-primary btn-lg">Reporte</button>
-            </a>
-        </h3>
+        <h3>Reporte</h3>
         <div id="tablaList" class="col-lg-8" style="margin-top:1em;">
             <table class="table table-hover" id="datatable">
                 <thead>
                 <tr>
+                    <th>Codigo del Recurso</th>
                     <th>Nombre</th>
                     <th>Tipo de Recurso</th>
                     <th>Estado</th>
-                    <th>Activo</th>
-                    <th>Modificar</th>
-                    <th>Eliminar</th>
-                    <th>Ver Historial</th>
+                    <th>Responsable</th>
                 </tr>
                 </thead>
+                <tfoot>
+                    <th>Codigo del recurso</th>
+                    <th>Nombre</th>
+                    <th>Tipo de Recurso</th>
+                    <th>Estado</th>
+                    <th>Responsable</th>
+                </tfoot>
                 <tbody>
-                {% for recurso in lista %}
+                {% for registro in reporte %}
                     <tr>
-                        <td>{{recurso.nombre_recurso}}</td>
-                        <td>{{ recurso.tipo_recurso }}</td>
-                        <td>{{ recurso.estado }}</td>
-                        <td>{{recurso.get_activo_display}}</td>
-                        <td>
-                            <a href="{%  url 'editar_recurso' codigo_recurso=recurso.codigo_recurso %}">
-                                <button type="button" class="btn btn-primary btn-sm">Editar</button>
-                            </a>
-                        </td>
-                        <td>
-                            <a href="{%  url 'eliminar_recurso' codigo_recurso=recurso.codigo_recurso %}">
-                                <button type="button" class="btn btn-danger btn-sm">Eliminar</button>
-                            </a>
-                        </td>
-                        <td>
-                            <a href="{%  url 'historial_mantenimientos' codigo_recurso=recurso.codigo_recurso %}">
-                                <button type="button" class="btn btn-danger btn-sm">Historial</button>
-                            </a>
-                        </td>
+                    {% for reg in registro %}
+                        <td>{{ reg }}</td>
+                    {% endfor %}
                     </tr>
                 {% endfor %}
                 </tbody>
@@ -114,6 +98,29 @@
 
         </div>
     </div>
+
+    <script>
+        $(document).ready(function() {
+            // Setup - add a text input to each footer cell
+            $('#tablaList tfoot th').each( function () {
+                var title = $(this).text();
+                $(this).html( '<input type="text" placeholder="Buscar '+title+'" />' );
+            } );
+            // DataTable
+            var table = $('#datatable').DataTable();
+            // Apply the search
+            table.columns().every( function () {
+                var that = this;
+                $( 'input', this.footer() ).on( 'keyup change', function () {
+                    if ( that.search() !== this.value ) {
+                        that
+                            .search( this.value )
+                            .draw();
+                    }
+                } );
+            });
+        } );
+    </script>
 </div>
 </body>
 </html>
