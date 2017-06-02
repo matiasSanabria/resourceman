@@ -3,6 +3,7 @@ from django.shortcuts import redirect, render
 from .models import CaracteristicasRecursos
 from .forms import TipoRecursoForm, EstadoForm, RecursoForm, EncargadoForm
 from .models import TipoRecurso, Estados, Recurso, Encargado
+from mantenimiento.models import Mantenimiento
 from django.contrib import messages
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -336,3 +337,17 @@ def listar_encargado(request):
     messages.add_message(request, messages.INFO, mensaje)
     lista = Encargado.objects.all()
     return render(request, 'tipo_recurso/listar_encargados.html', {'lista': lista})
+
+@login_required
+def historial_mantenimientos(request, codigo_recurso):
+    """
+    Muestra la lista de mantenimientos en curso del sistema
+    :param request:
+    :return:
+    """
+    item = Recurso.objects.get(codigo_recurso=codigo_recurso)
+    mensaje = 'Historial Mantenimientos'
+    messages.add_message(request, messages.INFO, mensaje)
+    #mantenimientos = Mantenimiento.objects.filter(recurso_id=item)
+    mantenimientos = Mantenimiento.objects.filter(recurso_id=item)
+    return render(request, 'recurso/historial_mantenimientos.html', {'mantenimientos': mantenimientos,})
