@@ -69,6 +69,7 @@
                 <table class="table table-striped table-bordered" id="datatable">
                     <thead>
                     <tr>
+                        <th>Usuario</th>
                         <th>Recurso</th>
                         <th>Fecha Solicitud</th>
                         <th>Fecha de Reserva</th>
@@ -80,6 +81,7 @@
                     <tbody>
                         {% for solicitud in solicitudes %}
                             <tr>
+                                <td>{{ solicitud.usuario }}</td>
                                 <td>{{ solicitud.recurso }}</td>
                                 <td>{{ solicitud.fecha_solicitud }}</td>
                                 <td>{{ solicitud.fecha_reserva }}</td>
