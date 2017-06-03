@@ -33,7 +33,10 @@ def crear_reclamo(request):
 
             # obtenemos el correo del usuario logueado
             user = User.objects.get(username=request.user)
-            #send_mail('Reclamos', mensaje, user.email, [settings.EMAIL_HOST_USER], fail_silently=False)
+            try:
+                send_mail('Reclamos', mensaje, user.email, [settings.EMAIL_HOST_USER], fail_silently=False)
+            except Exception:
+                pass
         else:
             mensaje = "Los datos ingresados no son validos..\n"
             messages.add_message(request, messages.INFO, mensaje)
