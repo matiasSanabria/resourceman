@@ -40,8 +40,8 @@ class MantenimientoProgramadoForm(forms.ModelForm):
         fields = '__all__'
         exclude = ['estado']
         widgets = {
-            'tipo_recurso': TextInput(attrs={'class': 'form-control'}),
-            # 'recurso': TextInput(attrs={'class': 'form-control'}),
+            'tipo_recurso': Select(attrs={'class': 'col-lg-3 form-control', 'readonly':'readonly'}),
+            'recurso': Select(attrs={'class': 'col-lg-3 form-control', 'readonly':'readonly'}),
             'tipo_mantenimiento': Select(attrs={'class': 'col-lg-3 form-control'}),
             'motivo': TextInput(attrs={'class': 'form-control'}),
             'fecha_inicio': DateInput(attrs={'class': 'form-control', 'placeholder': 'MM/DD/YYYY'}),

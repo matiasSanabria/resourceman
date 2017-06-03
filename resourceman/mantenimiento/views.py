@@ -5,6 +5,7 @@ from django.shortcuts import render, redirect, render_to_response
 
 from mantenimiento.models import Mantenimiento
 from tipos_recursos.models import Estados, Recurso
+from tipos_recursos.forms import RecursoForm
 from mantenimiento.forms import MantenimientoForm, MantenimientoProgramadoForm
 
 from datetime import date, timedelta
@@ -129,14 +130,31 @@ def crear_mantenimiento_preventivo(request, pk):
     :param request:
     :return:
     """
-    recurso = Recurso.objects.get(codigo_recurso=pk)
-    mantenimiento = MantenimientoProgramadoForm()
+    if request.method == "POST":
+        mantenimiento = MantenimientoForm(request.POST)
+        recurso2 = RecursoForm(request.POST)
+        if mantenimiento.is_valid():
+                # obtenemos el objeto de la base de datos del recurso cuyo estado sera modificado
+                # para entrar al mantenimiento
+                recurso = Recurso.objects.get(codigo_recurso=request.POST.get('recurso'))
+                recurso.mantenimiento_programado = recurso2.mantenimiento_programado
+                recurso.estado = Estados.objects.get(codigo='MAN')
 
-    mantenimiento.recurso = recurso
-    mantenimiento.tipo_recurso = recurso.tipo_recurso
-    mantenimiento.save(commit=False)
-    return render(request, 'mantenimiento/crear_mantenimiento_programado.html', {
-        'mantenimiento': mantenimiento})
+                recurso.save()
+
+                # mantenimiento.tipo_mantenimiento = 'COR'
+                mantenimiento.save()
+                messages.success(request, "Mantenimiento guardado correctamente")
+                return redirect('crear_mantenimiento')
+        else:
+            messages.error(request, "Ocurrio un error al guardar el mantenimiento")
+            pass
+    else:
+        recurso = Recurso.objects.get(codigo_recurso=pk)
+        mantenimiento = MantenimientoProgramadoForm(initial={'recurso': recurso, 'tipo_recurso': recurso.tipo_recurso})
+        recurso2 = RecursoForm(instance=recurso)
+        return render(request, 'mantenimiento/crear_mantenimiento_programado.html', {
+            'mantenimiento': mantenimiento, 'recurso':recurso2})
 
 
 def submenu_mantenimientos(request):
