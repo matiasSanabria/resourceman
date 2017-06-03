@@ -1,26 +1,27 @@
-from django.shortcuts import redirect, render
+from django.shortcuts import redirect, render, render_to_response
+from django.conf import settings
 from django.contrib import messages
-from django.contrib.auth.decorators import login_required, permission_required
-
+from django.contrib.auth.decorators import login_required
+from django.core.mail import send_mail
 from .forms import *
 from tipos_recursos.models import Recurso
 
 
 @login_required
-@permission_required('reclamos.per_crear_reclamo')
 def crear_reclamo(request):
     """
     Metodo que permite la creacion de reclamos y el envio de un correo al encargado.
     :param request: 
     :return: 
     """
+    nuevos = Reclamo.objects.filter(estado='NUE')
     if request.method == "POST":
         # aquí código que guarda el formulario en la bd :)
         crear_reclamo = CrearReclamo(request.POST)
         if crear_reclamo.is_valid():
             reclamo = crear_reclamo.save(commit=False)
             reclamo.usuario = request.user
-            reclamo.estado = 'N'
+            reclamo.estado = 'NUE'
             reclamo.save()
 
             mensaje = "Se ha hecho el reclamo, gracias..\n"
@@ -40,16 +41,17 @@ def crear_reclamo(request):
         crear_reclamo = CrearReclamo(instance=None)
         return render(request, 'reclamos/crear_reclamo.html', {
             'crear_reclamo': crear_reclamo,
+            'nuevos': nuevos
         })
     else:
         crear_reclamo = CrearReclamo(instance=None)
         return render(request, 'reclamos/crear_reclamo.html', {
             'crear_reclamo': crear_reclamo,
+            'nuevos': nuevos
         })
 
 
 @login_required
-@permission_required('reclamos.per_listar_reclamos')
 def list_reclamo(request):
     """
     Funcion que permite listar todos los roles existentes.
@@ -59,13 +61,13 @@ def list_reclamo(request):
     mensaje = 'Listar Reclamos'
     messages.add_message(request, messages.INFO, mensaje)
     reclamos = Reclamo.objects.all()
+    nuevos = Reclamo.objects.filter(estado='NUE')
     return render(request, 'reclamos/listar_reclamos.html', {
-        'reclamos': reclamos
+        'reclamos': reclamos,
+        'nuevos': nuevos
     })
 
-
 @login_required
-@permission_required('reclamos.per_ver_reclamo')
 def ver_reclamo(request, pk):
     """
     Metodo que permite ver un reclamo sin editarlo
@@ -76,14 +78,15 @@ def ver_reclamo(request, pk):
     mensaje = 'Ver Reclamo'
     messages.add_message(request, messages.INFO, mensaje)
     reclamo = Reclamo.objects.get(pk=pk)
+    nuevos = Reclamo.objects.filter(estado='NUE')
     return render(request, 'reclamos/ver_reclamo.html', {
         'reclamo': reclamo,
-        'pk': pk
+        'pk': pk,
+        'nuevos': nuevos
     })
 
 
 @login_required
-@permission_required('reclamos.per_modificar_reclamo')
 def editar_reclamo(request, pk):
     """
     Metodo para editar un reclamo. Que consiste en cambiar el estado del mismo
@@ -94,6 +97,7 @@ def editar_reclamo(request, pk):
     mensaje = 'Editar Reclamo'
     messages.add_message(request, messages.INFO, mensaje)
     editar= Reclamo.objects.get(id=pk)
+    nuevos = Reclamo.objects.filter(estado='NUE')
 
     if request.method == 'POST':
         editar_form = EditarReclamo(request.POST, instance=editar)
@@ -105,11 +109,24 @@ def editar_reclamo(request, pk):
 
             return render(request, 'reclamos/editar_reclamo.html', {
             'editar_form': editar_form,
-            'pk': pk
+            'pk': pk,
+            'nuevos': nuevos
         })
     else:
         editar_form = EditarReclamo(instance=editar)
         return render(request, 'reclamos/editar_reclamo.html', {
             'editar_form': editar_form,
-            'pk': pk
+            'pk': pk,
+            'nuevos': nuevos
         })
+
+# @background(schedule=60)
+def contar_reclamos():
+    """
+        Funcion que permite listar todos los reclamos nuevos existentes.
+        :param request:
+        :return:
+    """
+    nuevos = Reclamo.objects.filter(estado='NUE')
+    print(nuevos.count())
+    # return render_to_response('reclamos/listar_reclamos.html',{'nuevos': nuevos})

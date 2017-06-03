@@ -24,7 +24,7 @@ class Reclamo(models.Model):
             ("per_crear_reclamo", "Puede crear reclamo"),
             ("per_modificar_reclamo", "Puede modificar estado reclamo"),
             ("per_ver_reclamo", "Puede ver "),
-            ("per_listar_reclamos", "Puede listar reclamos")
+            ("per_ver_reclamo_admin", "Puede ver todos los reclamos")
         )
         db_table = 'reclamos'
 
