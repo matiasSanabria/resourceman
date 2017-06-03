@@ -1,8 +1,9 @@
 from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth.models import Permission, User
 from django.shortcuts import redirect, render
+
 from .forms import ReservasForm, SolicitudForm
-from tipos_recursos.models import Recurso, Estados
+from tipos_recursos.models import Recurso, Estados, Encargado
 from .models import Reservas, SolicitudReservas
 from django.contrib import messages
 from django.core.mail import send_mail
@@ -71,7 +72,10 @@ def crearReserva(request):
                             res = reserva
                             user = User.objects.get(username=request.user)
                             mensaje = 'Hola ' + user.first_name + ' la reserva del recurso: ' + res.recurso.nombre_recurso + ' se ha realizado con exito.\n' + '\nFecha:  ' + res.fecha.strftime('%d/%m/%Y') + '\nDesde las: ' + res.hora_ini.strftime('%H:%M') + ' hasta las ' + res.hora_fin.strftime('%H:%M')
-                            send_mail('Reserva', mensaje, settings.EMAIL_HOST_USER, [user.email], fail_silently=False)
+                            try:
+                                send_mail('Reserva', mensaje, settings.EMAIL_HOST_USER, [user.email], fail_silently=False)
+                            except Exception:
+                                pass
                             return redirect('crear_reserva')
                         else:
                             messages.warning(request, "Complete el compo Descripcion")
@@ -238,7 +242,10 @@ def noDevuelto(request, pk):
         reserva.estado = 'ND'
         reserva.save()
         mensaje = 'Estimado ' + user.first_name + ' le informamos que su tiempo de reserva del recurso ' + reserva.recurso.nombre_recurso + ' ha culminado, por favor devolverlo cuanto antes.'
-        send_mail('Recurso no devuelto', mensaje, settings.EMAIL_HOST_USER, [user.email], fail_silently=False)
+        try:
+            send_mail('Recurso no devuelto', mensaje, settings.EMAIL_HOST_USER, [user.email], fail_silently=False)
+        except Exception:
+            pass
         messages.success(request, "Usuario Informado")
     return redirect('../listar/admin')
 
@@ -260,7 +267,10 @@ def cancelado(request, pk):
         reserva.estado = 'CA'
         reserva.save()
         mensaje = 'Estimado ' + user.first_name + ' le informamos que la reserva del recurso ' + reserva.recurso.nombre_recurso + ' ha sido cancelada.'
-        send_mail('Reserva Cancelada', mensaje, settings.EMAIL_HOST_USER, [user.email], fail_silently=False)
+        try:
+            send_mail('Reserva Cancelada', mensaje, settings.EMAIL_HOST_USER, [user.email], fail_silently=False)
+        except Exception:
+            pass
         messages.success(request, "Cancelado")
 
     return redirect('../listar/user')
@@ -423,3 +433,40 @@ def cancelarSolicitud(request, pk):
 
     return redirect('../listar/solicitudes')
 
+
+@login_required
+def reporte_reservas(request):
+    """
+    Muestra una lista de todas las reservas, con los siguientes detalles
+    1. codigo de recurso
+    #. descripcion
+    #. tipo de recurso
+    #. estado
+    #. responsable
+    #. fecha de reserva
+    #. usuario que reservo
+    #. estado de la reserva
+    :param request:
+    :return:
+    """
+    reporte = []
+    registro = []
+
+    reservas = Reservas.objects.all()
+
+    for res in reservas:
+        encargado = Encargado.objects.get(tipo_recurso=res.tipo_recurso_id)
+        recurso = Recurso.objects.get(codigo_recurso=res.recurso_id)
+        registro.append(recurso.codigo_recurso)
+        registro.append(recurso.nombre_recurso)
+        registro.append(recurso.tipo_recurso)
+        registro.append(recurso.estado)
+        registro.append(encargado.usuario)
+        registro.append(res.fecha)
+        registro.append(res.usuario)
+        registro.append(res.estado)
+
+        reporte.append(registro)
+        registro = []
+
+    return render(request, 'reservas/reporte_reservas.html', {'reporte': reporte})

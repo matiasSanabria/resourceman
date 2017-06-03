@@ -25,4 +25,5 @@ urlpatterns = [
     url(r'^get_recurso_by_tipo_solicitud', SolicitudAutocomplete.as_view(), name='solicitud-autocomplete'),
     url(r'^get_recurso_by_tipo', RecursoByTipoRecursoAutocomplete.as_view(), name='recu_by_tipo-autocomplete'),
 
+    url(r'^reporte/$', views.reporte_reservas, name='reporte_reservas')
 ]

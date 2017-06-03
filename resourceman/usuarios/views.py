@@ -52,8 +52,11 @@ def crearUsuario(request):
                 # los datos que se le proveen
 
                 plantilla = RegistroUsuario.objects.get(id=1) #obtenemos los datos de la plantilla que tenemos en la BD
-                mensaje = plantilla.mensaje + '\nUsuario: ' + request.POST.get('username') + '\nContraseña: ' + request.POST.get('password1')
-                send_mail(plantilla.asunto, mensaje, settings.EMAIL_HOST_USER, [user.email], fail_silently=False)
+                try:
+                    mensaje = plantilla.mensaje + '\nUsuario: ' + request.POST.get('username') + '\nContraseña: ' + request.POST.get('password1')
+                    send_mail(plantilla.asunto, mensaje, settings.EMAIL_HOST_USER, [user.email], fail_silently=False)
+                except Exception:
+                    pass
 
                 return redirect('listarUsuario')
 
@@ -235,6 +238,7 @@ def editarPrioridad(request, codigo):
             'codigo': codigo
         })
 
+
 @login_required
 @permission_required('usuarios.per_editar_prioridad')
 def bajarPrioridad(request, codigo):
@@ -253,6 +257,7 @@ def bajarPrioridad(request, codigo):
         subir.save()
         bajar.save()
     return redirect('listarPrioridad')
+
 
 @login_required
 @permission_required('usuarios.per_editar_prioridad')
@@ -276,6 +281,7 @@ def subirPrioridad(request, codigo):
         subir.save()
         bajar.save()
     return redirect('listarPrioridad')
+
 
 @login_required
 @permission_required('usuarios.per_editar_usuario')
@@ -304,12 +310,11 @@ def editarPerfilUsuario(request):
         if user_form.is_valid():
             if user_detail_form.is_valid():
                 user = user_form.save()  # actualiza la tabla de usuario en la bd.
-                user_detail = user_detail_form.save(commit=False)  # actualiza en el model, sin guardar en BD.
                 user_detail.user = user  # actualiza (por seguridad) el campo de relación.
                 user_detail.save()  # actualiza detalle en la BD.
                 messages.add_message(request, messages.SUCCESS,
                                      "Información del perfil de usuario -%s- se ha modificado correctamente." % user.username)
-                return redirect('logout')
+                return redirect('/')
     else:
         perfil_usuario = request.user
         user_form = EditarPerfilUser(instance=request.user)

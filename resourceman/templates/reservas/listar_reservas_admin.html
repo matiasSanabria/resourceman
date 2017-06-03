@@ -38,10 +38,16 @@
             margin-left: 27px;
             margin-top: 30px;
         }
-        #btnSolicitudes{
+
+        #btnSolicitudes {
             float: right;
             margin-right: 4rem;
             margin-bottom: 1em;
+        }
+        #reportes {
+            float: right;
+            margin-right: 3rem;
+
         }
     </style>
 </head>
@@ -54,6 +60,10 @@
                 <a href="/reservas/listar/solicitudes/admin">
                     <button id="btnSolicitudes" class="btn btn-primary btn-lg">Solicitudes de Reserva</button>
                 </a>
+            <a href="/reservas/reporte">
+                <button id="reportes" class="btn btn-primary btn-lg">Reporte</button>
+            </a>
+
         </h3>
         <div id="tablaList" class="col-lg-8">
             <table class="table table-striped table-bordered" id="datatable">

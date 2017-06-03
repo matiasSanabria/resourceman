@@ -1,13 +1,13 @@
-from django.core.management.base import BaseCommand, CommandError
+from django.core.management.base import BaseCommand
 from django.contrib.auth.models import User
 from reservas.models import SolicitudReservas, Reservas
 from usuarios.models import Usuario
 from tipos_recursos.models import Estados, Recurso
 from reservas.forms import ReservasForm, SolicitudForm
-import datetime
 from datetime import date, timedelta
 from django.core.mail import send_mail
 from django.conf import settings
+
 
 class Command(BaseCommand):
 
@@ -35,7 +35,10 @@ class Command(BaseCommand):
             mensaje = 'Hola ' + user.first_name + ' le informamos que el recurso que solicito: ' + solicitud.recurso.nombre_recurso + ' se encuentra en mantenimiento.\n' + '\nFecha:  ' + solicitud.fecha_reserva.strftime(
                 '%d/%m/%Y') + '\nDesde las: ' + solicitud.hora_ini.strftime('%H:%M') + ' hasta las ' + solicitud.hora_fin.strftime(
                 '%H:%M') + '\nPor favor pongase en contanto con el administrador para mas informacion.'
-            send_mail('Reserva', mensaje, settings.EMAIL_HOST_USER, [user.email], fail_silently=False)
+            try:
+                send_mail('Reserva', mensaje, settings.EMAIL_HOST_USER, [user.email], fail_silently=False)
+            except Exception:
+                pass
 
     def resolverSolicitudes(self):
         fecha = date.today() + timedelta(days=2)
