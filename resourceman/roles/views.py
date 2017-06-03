@@ -1,11 +1,10 @@
 from django.contrib.auth.decorators import login_required
-
-__author__ = 'hector'
-
 from .forms import EditarRol, AgregarRol
 from django.contrib.auth.models import Group
 from django.contrib import messages
 from django.shortcuts import render, redirect
+
+__author__ = 'hector'
 
 
 @login_required

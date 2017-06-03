@@ -48,9 +48,13 @@
             margin: auto auto auto 20px;
         }
 
-        #btnAgregar{
+        #btnAgregar {
             float: right;
             margin-right: 4rem;
+        }
+        #reportes {
+            float: right;
+            margin-right: 2rem;
         }
     </style>
 </head>
@@ -62,6 +66,9 @@
         <h3>Recursos
             <a href="/recursos/crear_recurso">
                 <button id="btnAgregar" class="btn btn-success btn-lg">Agregar</button>
+            </a>
+            <a href="/recursos/reporte">
+                <button id="reportes" class="btn btn-primary btn-lg">Reporte</button>
             </a>
         </h3>
         <div id="tablaList" class="col-lg-8" style="margin-top:1em;">
@@ -83,7 +90,7 @@
                         <td>{{recurso.nombre_recurso}}</td>
                         <td>{{ recurso.tipo_recurso }}</td>
                         <td>{{ recurso.estado }}</td>
-                        <td>{{recurso.activo}}</td>
+                        <td>{{recurso.get_activo_display}}</td>
                         <td>
                             <a href="{%  url 'editar_recurso' codigo_recurso=recurso.codigo_recurso %}">
                                 <button type="button" class="btn btn-primary btn-sm">Editar</button>

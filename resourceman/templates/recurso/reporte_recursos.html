@@ -1,0 +1,126 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block titulo %}Recursos{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <style>
+
+        .row.content {height: 560px;}
+
+        .sidenav {
+            background-color: #00796b;
+            height: 544px;
+
+        }
+
+        footer {
+            background-color: #FF6F00;
+            color: white;
+        }
+
+        @media screen and (max-width: 767px) {
+            .sidenav {
+                height: auto;
+            }
+            .row.content {height: auto;}
+        }
+
+        .navbar {
+            margin-bottom: 0px;
+            border-radius: 0px;
+            background-color: #004c40;
+            border-color: #004c40;
+        }
+        body {
+            background-color: #eeeeee;
+        }
+        h3 {
+            text-align: center;
+            margin-top:50px;
+        }
+
+        #tablaList {
+            width: 82%;
+            display: table;
+            margin: auto auto auto 20px;
+        }
+
+        #btnBuscar{
+            float: right;
+            margin-right: 4rem;
+        }
+        tfoot input {
+            width: 100%;
+            padding: 3px;
+            box-sizing: border-box;
+            font-size: 1.5rem;
+        }
+    </style>
+</head>
+<body>
+<div class="container-fluid">
+    <div class="row content">
+        {% include 'navbar.html'%}
+        {% include 'sidenav.html' %}
+        <h3>Reporte</h3>
+        <div id="tablaList" class="col-lg-8" style="margin-top:1em;">
+            <table class="table table-hover" id="datatable">
+                <thead>
+                <tr>
+                    <th>Codigo del Recurso</th>
+                    <th>Nombre</th>
+                    <th>Tipo de Recurso</th>
+                    <th>Estado</th>
+                    <th>Responsable</th>
+                </tr>
+                </thead>
+                <tfoot>
+                    <th>Codigo del recurso</th>
+                    <th>Nombre</th>
+                    <th>Tipo de Recurso</th>
+                    <th>Estado</th>
+                    <th>Responsable</th>
+                </tfoot>
+                <tbody>
+                {% for registro in reporte %}
+                    <tr>
+                    {% for reg in registro %}
+                        <td>{{ reg }}</td>
+                    {% endfor %}
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            {% include 'datatablescript.html' %}
+
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            // Setup - add a text input to each footer cell
+            $('#tablaList tfoot th').each( function () {
+                var title = $(this).text();
+                $(this).html( '<input type="text" placeholder="Buscar '+title+'" />' );
+            } );
+            // DataTable
+            var table = $('#datatable').DataTable();
+            // Apply the search
+            table.columns().every( function () {
+                var that = this;
+                $( 'input', this.footer() ).on( 'keyup change', function () {
+                    if ( that.search() !== this.value ) {
+                        that
+                            .search( this.value )
+                            .draw();
+                    }
+                } );
+            });
+        } );
+    </script>
+</div>
+</body>
+</html>

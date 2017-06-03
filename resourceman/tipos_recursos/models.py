@@ -99,15 +99,11 @@ class Recurso(models.Model):
             ("per_crear_recurso", "Puede crear recurso"),
             ("per_eliminar_recurso", "Puede eliminar recurso"),
             ("per_listar_recursos", "Puede listar recursos"),
-            ("per_editar_recurso", "Puede editar recurso")
+            ("per_editar_recurso", "Puede editar recurso"),
+            ("per_historial_mantenimiento_recursos", "Puede ver el historial de mantenimientos de recursos")
         )
 
         db_table = 'recursos'
-
-
-def per_num():
-    per = Permission.objects.get(codename='per_crear_recurso')
-    return per.id
 
 
 class Encargado(models.Model):
@@ -123,7 +119,10 @@ class Encargado(models.Model):
     usuario = models.ForeignKey(
         User,
         blank=True,
-        limit_choices_to={'groups__permissions': per_num()}
+        limit_choices_to={
+            'groups__permissions': Permission.objects.get(
+                                                codename='per_crear_recurso').id
+        }
     )
 
     class Meta:

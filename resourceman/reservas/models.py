@@ -51,3 +51,29 @@ class Reservas(models.Model):
             ('per_listar_reservas', "Puede listar las reservas"),#desde el admin
         )
         db_table = 'reservas'
+
+
+class SolicitudReservas(models.Model):
+    ESTADO_SOLICITUD = (
+        ('CO', "CONCLUIDA"),
+        ('PP', "POR PROCESAR"),
+        ('CA', "CANCELADA"),
+    )
+    usuario = models.ForeignKey(User, on_delete=models.CASCADE)
+    tipo_recurso = models.ForeignKey(TipoRecurso, blank=True)
+    recurso = models.ForeignKey(Recurso, blank=True)
+    fecha_solicitud = models.DateTimeField(null=False)
+    fecha_reserva = models.DateField(blank=True, null=False)
+    hora_ini = models.TimeField(blank=True, null=False)
+    hora_fin = models.TimeField(blank=True, null=False)
+    descripcion = models.CharField(max_length=70, blank=True, null=False)
+    estado = models.CharField(max_length=2, null=False, choices=ESTADO_SOLICITUD, default='RE')
+
+    class Meta:
+        permissions = (
+            ('per_solicitar_reserva', "Puede solicitar reservar"),
+            ('per_cancelar_solicitud_reserva', "Puede cancelar la solicitud de reserva reserva"),
+            ('per_listar_sus_solicitudes_reservas', "Puede ver sus solicitudes de reservas"),#desde el user
+            ('per_listar_solicitudes_reservas', "Puede listar las solicitudes de reservas"),#desde el admin
+        )
+        db_table = 'solicitud_reservas'

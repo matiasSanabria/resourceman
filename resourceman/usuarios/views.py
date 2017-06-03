@@ -163,7 +163,14 @@ def agregarPrioridad(request):
 
         if AgregarPrioridad(request.POST).is_valid():
             prioridad_form = AgregarPrioridad(request.POST)
-            prioridad_form.save(commit=True)
+            prioridad = prioridad_form.save(commit=False)
+            prioridades = PrioridadUsuario.objects.all()
+            contador = 0
+            for p in prioridades:
+                contador+=1
+            prioridad.prioridad = contador + 1
+            print(prioridad.prioridad)
+            prioridad.save()
             return redirect('agregarPrioridad')  # direccion url de la app
         else:
             mensaje = "Error, intente datos diferentes"
@@ -186,7 +193,7 @@ def listarPrioridad(request):
     """
     mensaje = 'Listar Prioridad'
     messages.add_message(request, messages.INFO, mensaje)
-    prioridades = PrioridadUsuario.objects.all()
+    prioridades = PrioridadUsuario.objects.all().order_by('prioridad')
     return render(request, 'usuario/listarPrioridad.html', {
         'prioridades': prioridades
     })
@@ -227,6 +234,46 @@ def editarPrioridad(request, codigo):
             'editar_form': editar_form,
             'codigo': codigo
         })
+
+
+def bajarPrioridad(request, codigo):
+    """
+    Reduce la prioridad del usuario
+
+    """
+    mensaje = 'Modificar Prioridad'
+    messages.add_message(request, messages.INFO, mensaje)
+    bajar = PrioridadUsuario.objects.get(codigo=codigo)
+    if(bajar.prioridad!=1):
+        prioridad = bajar.prioridad
+        subir = PrioridadUsuario.objects.get(prioridad=prioridad-1)
+        subir.prioridad = prioridad
+        bajar.prioridad = prioridad -1
+        subir.save()
+        bajar.save()
+    return redirect('listarPrioridad')
+
+
+def subirPrioridad(request, codigo):
+    """
+    Aumenta la prioridad del usuario
+
+    """
+    mensaje = 'Modificar Prioridad'
+    messages.add_message(request, messages.INFO, mensaje)
+    subir = PrioridadUsuario.objects.get(codigo=codigo)
+    prioridad = subir.prioridad
+    prioridades = PrioridadUsuario.objects.all()
+    contador = 0
+    for p in prioridades:
+        contador += 1
+    if(contador!=prioridad):
+        bajar = PrioridadUsuario.objects.get(prioridad=prioridad + 1)
+        subir.prioridad = prioridad + 1
+        bajar.prioridad = prioridad
+        subir.save()
+        bajar.save()
+    return redirect('listarPrioridad')
 
 
 @login_required

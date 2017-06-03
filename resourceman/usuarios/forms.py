@@ -240,7 +240,14 @@ class AgregarPrioridad(forms.ModelForm):
         REQUIRED_FIELDS = [
             'codigo', 'descripcion'
         ]
-        exclude = []
+        exclude = ['prioridad']
+
+    def save(self, commit=True):
+        # Save the provided password in hashed format
+        prioridad = super(AgregarPrioridad, self).save(commit=False)
+        if commit:
+            prioridad.save()
+        return prioridad
 
 
 class EditarPrioridad(forms.ModelForm):
@@ -267,10 +274,11 @@ class EditarPrioridad(forms.ModelForm):
 
 class EditarPerfilUser(forms.ModelForm):
 
-    password1 = forms.CharField(label='Password', widget=forms.PasswordInput(attrs={'class': 'form-control'}),
-                                initial='password')
-    password2 = forms.CharField(label='Password confirmation',
-                                widget=forms.PasswordInput(attrs={'class': 'form-control'}), initial='password')
+    def __init__(self, *args, **kwargs):
+        super(EditarPerfilUser, self).__init__(*args, **kwargs)
+        self.fields['first_name'].label = 'Nombres'
+        self.fields['last_name'].label = 'Apellidos'
+        self.fields['email'].label = 'Correo electronico'
 
     class Meta:
         model = User
@@ -290,7 +298,7 @@ class EditarPerfilUser(forms.ModelForm):
 
         }
         REQUIRED_FIELDS = [
-            'username', 'first_name', 'last_name', 'email', 'password1', 'password2',
+            'username', 'first_name', 'last_name', 'email',
         ]
 
     def clean_password2(self):
