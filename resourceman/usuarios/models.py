@@ -48,6 +48,7 @@ class PrioridadUsuario(models.Model):
         )
         db_table = 'prioridad_usuario'
 
+
 class Usuario(models.Model):
     """
     Un model con campos adicionales para model User.

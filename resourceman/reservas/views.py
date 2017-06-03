@@ -1,8 +1,9 @@
 from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth.models import Permission, User
 from django.shortcuts import redirect, render
+
 from .forms import ReservasForm, SolicitudForm
-from tipos_recursos.models import Recurso, Estados
+from tipos_recursos.models import Recurso, Estados, Encargado
 from .models import Reservas, SolicitudReservas
 from django.contrib import messages
 from django.core.mail import send_mail
@@ -380,3 +381,40 @@ def cancelarSolicitud(request, pk):
 
     return redirect('../listar/solicitudes')
 
+
+@login_required
+def reporte_reservas(request):
+    """
+    Muestra una lista de todas las reservas, con los siguientes detalles
+    1. codigo de recurso
+    #. descripcion
+    #. tipo de recurso
+    #. estado
+    #. responsable
+    #. fecha de reserva
+    #. usuario que reservo
+    #. estado de la reserva
+    :param request:
+    :return:
+    """
+    reporte = []
+    registro = []
+
+    reservas = Reservas.objects.all()
+
+    for res in reservas:
+        encargado = Encargado.objects.get(tipo_recurso=res.tipo_recurso_id)
+        recurso = Recurso.objects.get(codigo_recurso=res.recurso_id)
+        registro.append(recurso.codigo_recurso)
+        registro.append(recurso.nombre_recurso)
+        registro.append(recurso.tipo_recurso)
+        registro.append(recurso.estado)
+        registro.append(encargado.usuario)
+        registro.append(res.fecha)
+        registro.append(res.usuario)
+        registro.append(res.estado)
+
+        reporte.append(registro)
+        registro = []
+
+    return render(request, 'reservas/reporte_reservas.html', {'reporte': reporte})
