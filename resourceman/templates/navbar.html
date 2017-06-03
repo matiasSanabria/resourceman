@@ -6,7 +6,20 @@
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav navbar-right">
-{#                <li><a href="{% url 'reclamos' %}"><span class="glyphicon glyphicon glyphicon-warning-sign"></span> Reclamos </a></li>#}
+                {% if perms.reclamos.per_ver_reclamo_admin %}
+                    <li>
+                        <a href="/reclamos/listar/">
+                            <span class="glyphicon glyphicon glyphicon-warning-sign"action="contarReclamos">
+                            </span>
+                        Reclamos ({{ nuevos.count }})
+{#                        {% for reclamo in reclamos %}#}
+{#                            {% if reclamo.type == 'NUE' %}#}
+{#                                {{ reclamo.count }}#}
+{#                            {% endif %}#}
+{#                        {% endfor %}#}
+                        </a>
+                    </li>
+                {% endif %}
                 <li><a href="{% url 'editarPerfilUsuario' %}"><span class="glyphicon glyphicon glyphicon-edit"></span> Editar Perfil</a></li>
                 <li><a href="{% url 'logout' %}"><span class="glyphicon glyphicon-log-out"></span> Salir</a></li>
             </ul>
