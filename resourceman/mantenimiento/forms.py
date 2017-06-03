@@ -12,16 +12,14 @@ class MantenimientoForm(forms.ModelForm):
     class Meta:
         model = Mantenimiento
         fields = '__all__'
-        exclude = ['estado']
+        exclude = ['estado', 'tipo_mantenimiento']
         widgets = {
             'tipo_recurso': Select(attrs={'class': 'col-lg-3 form-control'}),
             'recurso': autocomplete.ModelSelect2(url='mant_by_rec-autocomplete',
                                                  forward=['tipo_recurso']),
             'motivo': TextInput(attrs={'class': 'form-control'}),
-            'tipo_mantenimiento': Select(attrs={'class': 'col-lg-3 form-control'}),
             'fecha_inicio': DateInput(attrs={'class': 'form-control', 'placeholder': 'DD/MM/YYYY'}),
             'fecha_fin': DateInput(attrs={'class': 'form-control', 'placeholder': 'DD/MM/YYYY'}),
-            'mantenimiento_programado': DateInput(attrs={'class': 'form-control', 'placeholder': 'DD/MM/YYYY'}),
             'costo': TextInput(attrs={'class': 'form-control'}),
         }
 
