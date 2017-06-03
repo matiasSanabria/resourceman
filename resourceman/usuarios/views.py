@@ -239,6 +239,8 @@ def editarPrioridad(request, codigo):
         })
 
 
+@login_required
+@permission_required('usuarios.per_editar_prioridad')
 def bajarPrioridad(request, codigo):
     """
     Reduce la prioridad del usuario
@@ -257,6 +259,8 @@ def bajarPrioridad(request, codigo):
     return redirect('listarPrioridad')
 
 
+@login_required
+@permission_required('usuarios.per_editar_prioridad')
 def subirPrioridad(request, codigo):
     """
     Aumenta la prioridad del usuario
@@ -280,6 +284,7 @@ def subirPrioridad(request, codigo):
 
 
 @login_required
+@permission_required('usuarios.per_editar_usuario')
 def editarPerfilUsuario(request):
     user = User.objects.get(username=request.user)
     """

@@ -19,8 +19,8 @@ urlpatterns = [
 
     url(r'^crear_solicitud/$', views.solicitarReserva, name='crear_solicitud'),
     url(r'^listar/solicitudes/$', views.listarSolicitudes, name='listar_solicitudes'),
+    url(r'^listar/solicitudes/admin$', views.listarSolicitudesAdmin, name='listar_solicitudes_admin'),
     url(r'^cancela_solicitud/(?P<pk>\d+)$', views.cancelarSolicitud, name='cancelar_solicitud'),
-    # url(r'^resolverSolicitudes/$', views.resolverSolicitudes(), name='resolver_solicitud'),
 
     url(r'^get_recurso_by_tipo_solicitud', SolicitudAutocomplete.as_view(), name='solicitud-autocomplete'),
     url(r'^get_recurso_by_tipo', RecursoByTipoRecursoAutocomplete.as_view(), name='recu_by_tipo-autocomplete'),

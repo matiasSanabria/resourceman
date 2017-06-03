@@ -7,3 +7,4 @@ resourceman/*/migrations/
 resourceman/resourceman/*/*.pyc
 resourceman/reservas/management/__pycache__/
 resourceman/*.sqlite3
+resourceman/resourceman/*/migrations/*

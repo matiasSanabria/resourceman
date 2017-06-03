@@ -1,7 +1,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>{% block titulo %}Reservas{% endblock %}</title>
+    <title>{% block titulo %}Solicitudes{% endblock %}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
@@ -43,24 +43,18 @@
         }
         h3 {
             text-align: center;
-            margin-left: 30%;
             margin-top:50px;
         }
 
         #tablaList {
-            width: 81%;
+            width: 80%;
             display: table;
             margin: auto auto auto 3rem;
         }
 
         #btnAgregar{
             float: right;
-            margin-right: 4rem;
-            margin-bottom: 1em;
-        }
-        #btnSolicitudes{
-            float: right;
-            margin-right: 3rem;
+            margin-right: 6rem;
             margin-bottom: 1em;
         }
     </style>
@@ -70,35 +64,28 @@
         <div class="row content">
             {% include 'navbar.html'%}
             {% include 'sidenav.html' %}
-            <h3>Reservas
-                <a href="/reservas/crear">
-                    <button id="btnAgregar" class="btn btn-success btn-lg">Agregar</button>
-                </a>
-                <a href="/reservas/listar/solicitudes">
-                    <button id="btnSolicitudes" class="btn btn-primary btn-lg">Solicitudes de Reserva</button>
-                </a>
-            </h3>
+            <h3>Solicitudes</h3>
             <div id="tablaList" class="col-lg-8">
                 <table class="table table-striped table-bordered" id="datatable">
                     <thead>
                     <tr>
                         <th>Recurso</th>
-                        <th>Fecha</th>
+                        <th>Fecha Solicitud</th>
+                        <th>Fecha de Reserva</th>
                         <th>Inicio</th>
                         <th>Fin</th>
                         <th>Estado</th>
-                        <th>Cancelar</th>
                     </tr>
                     </thead>
                     <tbody>
-                        {% for reserva in reservas %}
+                        {% for solicitud in solicitudes %}
                             <tr>
-                                <td>{{ reserva.recurso }}</td>
-                                <td>{{ reserva.fecha }}</td>
-                                <td>{{ reserva.hora_ini }}</td>
-                                <td>{{ reserva.hora_fin }}</td>
-                                <td>{{ reserva.get_estado_display }}</td>
-                                <td><a href="{% url 'cancelado' pk=reserva.id %}"><button type="button" class="btn btn-danger btn-sm">Cancelar</button></a></td>
+                                <td>{{ solicitud.recurso }}</td>
+                                <td>{{ solicitud.fecha_solicitud }}</td>
+                                <td>{{ solicitud.fecha_reserva }}</td>
+                                <td>{{ solicitud.hora_ini }}</td>
+                                <td>{{ solicitud.hora_fin }}</td>
+                                <td>{{ solicitud.get_estado_display }}</td>
                             </tr>
                         {% endfor %}
                     </tbody>
@@ -107,11 +94,8 @@
             </div>
         </div>
     </div>
-<<<<<<< HEAD
-    {% include 'mensajes.html' %}
-=======
->>>>>>> 9394059bac63934e10890543aaade53fc48140d8
-    {{ reserva.media }}
     {% include 'datatablescript.html' %}
+    {% include 'mensajes.html' %}
+    {{ solicitudes.media }}
 </body>
 </html>

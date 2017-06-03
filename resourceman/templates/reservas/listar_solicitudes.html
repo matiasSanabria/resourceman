@@ -1,7 +1,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>{% block titulo %}Reservas{% endblock %}</title>
+    <title>{% block titulo %}Solicitudes{% endblock %}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
@@ -90,7 +90,7 @@
                                 <td>{{ solicitud.fecha_reserva }}</td>
                                 <td>{{ solicitud.hora_ini }}</td>
                                 <td>{{ solicitud.hora_fin }}</td>
-                                <td>{{ solicitud.estado }}</td>
+                                <td>{{ solicitud.get_estado_display }}</td>
                                 <td><a href="{% url 'cancelar_solicitud' pk=solicitud.id %}"><button type="button" class="btn btn-danger btn-sm">Cancelar</button></a></td>
                             </tr>
                         {% endfor %}
@@ -101,5 +101,7 @@
         </div>
     </div>
     {% include 'datatablescript.html' %}
+    {% include 'mensajes.html' %}
+    {{ solicitudes.media }}
 </body>
 </html>
