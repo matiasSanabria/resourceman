@@ -302,12 +302,11 @@ def editarPerfilUsuario(request):
         if user_form.is_valid():
             if user_detail_form.is_valid():
                 user = user_form.save()  # actualiza la tabla de usuario en la bd.
-                user_detail = user_detail_form.save(commit=False)  # actualiza en el model, sin guardar en BD.
                 user_detail.user = user  # actualiza (por seguridad) el campo de relación.
                 user_detail.save()  # actualiza detalle en la BD.
                 messages.add_message(request, messages.SUCCESS,
                                      "Información del perfil de usuario -%s- se ha modificado correctamente." % user.username)
-                return redirect('logout')
+                return redirect('/')
     else:
         perfil_usuario = request.user
         user_form = EditarPerfilUser(instance=request.user)
