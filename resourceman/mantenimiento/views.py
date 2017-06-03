@@ -101,6 +101,8 @@ def recurso_fuera_uso(request, id):
 
     return redirect('../listar')
 
+@login_required
+@permission_required('mantenimiento.per_lista_mantenimientos')
 def listarMantenimientoProgramado(request):
     """
     Muestra la lista de recursos con fehca de mantenimieto programado al dia
@@ -117,6 +119,7 @@ def listarMantenimientoProgramado(request):
                 recursos2.append(recurso)
     return render(request, 'mantenimiento/listar_mantenimientos_programados.html', {'recursos': recursos2})
 
+@login_required
 def posponer_preventivo(request, pk):
 
     recurso = Recurso.objects.get(codigo_recurso=pk)
@@ -124,6 +127,8 @@ def posponer_preventivo(request, pk):
     recurso.save()
     return redirect('../listar/preventivo')
 
+@login_required
+@permission_required('mantenimiento.per_crear_mantenimiento_recurso')
 def crear_mantenimiento_preventivo(request, pk):
     """
     Crea un nuevo mantenimiento para un recurso indicado
@@ -156,7 +161,8 @@ def crear_mantenimiento_preventivo(request, pk):
         return render(request, 'mantenimiento/crear_mantenimiento_programado.html', {
             'mantenimiento': mantenimiento, 'recurso':recurso2})
 
-
+@login_required
+@permission_required('mantenimiento.per_lista_mantenimientos')
 def submenu_mantenimientos(request):
     """
     Muestra el submenu del menu de configuraciones
