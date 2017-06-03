@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="{% static 'js/mantenimiento.js' %}"></script>
     <style>
 
         .sidenav {
@@ -76,15 +77,18 @@
     <form action="" method="post">{% csrf_token %}
         <div class="col-lg-8 col-lg-offset-2">
             <div class="div-form">
+{#                {{ mantenimiento.recurso }}#}
                 {{ mantenimiento.as_p }}
+                <label>Mantenimiento programado</label>
+                {{ recurso.mantenimiento_programado }}
             </div>
         </div>
         <div id="btn-agregar" class="col-lg-8 col-lg-offset-2">
-            <button type="submit" class="btn btn-primary btn-block">Guardar</button>
+            <button type="submit" href="crear_mantenimiento" class="btn btn-primary btn-block">Guardar</button>
         </div>
     </form>
     {% include 'mensajes.html' %}
-    <script type="text/javascript" src="{% static 'admin/js/vendor/jquery/jquery.js' %}"></script>
+{#    <script type="text/javascript" src="{% static 'admin/js/vendor/jquery/jquery.js' %}"></script>#}
     {{ mantenimiento.media }}
 
 </body>
