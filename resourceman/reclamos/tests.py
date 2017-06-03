@@ -9,18 +9,38 @@ from django import forms
 
 class ReclamoTestCase(TestCase):
     def setUp(self):
+        tipo_recurso = TipoRecurso.objects.create(
+            nombre="PRO",
+            descripcion="PROYECTOR",
+            lista_caracteristicas='{"codigo": "varchar2(10)"}, {"marca": "varchar2(10)"}',
+            estado='A'
+        )
+
+        estado_recurso = Estados.objects.create(
+            codigo="DIS",
+            descripcion="DISPONIBLE"
+        )
+
+        recurso = Recurso.objects.create(
+            codigo_recurso="P1",
+            nombre_recurso="Proyector 1",
+            tipo_recurso=tipo_recurso,
+            estado=estado_recurso
+        )
+
         reclamo = Reclamo.objects.create(
-            recurso=models.ForeignKey(Recurso, blank=False, null=False),
+            recurso=recurso,
             usuario=models.ForeignKey(User, blank=False),
             descripcion="Exploto",
             fecha=forms.DateField(initial=datetime.datetime.now().date()),
             estado='NUE'
         )
 
-
     def testReclamo(self):
-        reclamo = Reclamo.objects.get(recurso='1')
+        reclamo = Reclamo.objects.get(recurso="P1")
         reclamo.estado= 'PEN'
-        self.assertEqual()from django.test import TestCase
+        self.assertEqual()
 
-# Create your tests here.
+    def countReclamos(self):
+        nuevos = Reclamo.objects.all()
+        print(nuevos.count())
