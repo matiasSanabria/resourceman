@@ -73,7 +73,7 @@
                         <th>Tipo de Recurso</th>
                         <th>Fecha Programada</th>
                         <th>Posponer</th>
-                        <th>Mantenimiento</th>
+{#                        <th>Mantenimiento</th>#}
                     </tr>
                     </thead>
                     <tbody>
@@ -87,11 +87,11 @@
                                         <button type="button" class="btn btn-danger btn-sm">Posponer</button>
                                     </a>
                                 </td>
-                                <td>
-                                    <a href="{%  url 'crear_mantenimiento_preventivo' pk=recurso.codigo_recurso %}">
-                                        <button type="button" class="btn btn-primary btn-sm">Agregar</button>
-                                    </a>
-                                </td>
+{#                                <td>#}
+{#                                    <a href="{%  url 'crear_mantenimiento_preventivo' pk=recurso.codigo_recurso %}">#}
+{#                                        <button type="button" class="btn btn-primary btn-sm">Agregar</button>#}
+{#                                    </a>#}
+{#                                </td>#}
                             </tr>
                         {% endfor %}
                     </tbody>
