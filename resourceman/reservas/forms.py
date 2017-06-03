@@ -8,7 +8,6 @@ from django.forms import TextInput, Textarea, Select, DateInput
 __author__ = 'hector'
 
 
-
 class ReservasForm(forms.ModelForm):
     """
     Formulario para reservas
