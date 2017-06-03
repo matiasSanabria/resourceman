@@ -52,8 +52,11 @@ def crearUsuario(request):
                 # los datos que se le proveen
 
                 plantilla = RegistroUsuario.objects.get(id=1) #obtenemos los datos de la plantilla que tenemos en la BD
-                mensaje = plantilla.mensaje + '\nUsuario: ' + request.POST.get('username') + '\nContraseña: ' + request.POST.get('password1')
-                send_mail(plantilla.asunto, mensaje, settings.EMAIL_HOST_USER, [user.email], fail_silently=False)
+                try:
+                    mensaje = plantilla.mensaje + '\nUsuario: ' + request.POST.get('username') + '\nContraseña: ' + request.POST.get('password1')
+                    send_mail(plantilla.asunto, mensaje, settings.EMAIL_HOST_USER, [user.email], fail_silently=False)
+                except Exception:
+                    pass
 
                 return redirect('listarUsuario')
 
