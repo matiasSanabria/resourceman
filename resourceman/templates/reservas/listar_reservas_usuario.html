@@ -43,18 +43,24 @@
         }
         h3 {
             text-align: center;
+            margin-left: 30%;
             margin-top:50px;
         }
 
         #tablaList {
-            width: 80%;
+            width: 81%;
             display: table;
             margin: auto auto auto 3rem;
         }
 
         #btnAgregar{
             float: right;
-            margin-right: 6rem;
+            margin-right: 4rem;
+            margin-bottom: 1em;
+        }
+        #btnSolicitudes{
+            float: right;
+            margin-right: 3rem;
             margin-bottom: 1em;
         }
     </style>
@@ -67,6 +73,9 @@
             <h3>Reservas
                 <a href="/reservas/crear">
                     <button id="btnAgregar" class="btn btn-success btn-lg">Agregar</button>
+                </a>
+                <a href="/reservas/listar/solicitudes">
+                    <button id="btnSolicitudes" class="btn btn-primary btn-lg">Solicitudes de Reserva</button>
                 </a>
             </h3>
             <div id="tablaList" class="col-lg-8">
@@ -88,7 +97,7 @@
                                 <td>{{ reserva.fecha }}</td>
                                 <td>{{ reserva.hora_ini }}</td>
                                 <td>{{ reserva.hora_fin }}</td>
-                                <td>{{ reserva.estado }}</td>
+                                <td>{{ reserva.get_estado_display }}</td>
                                 <td><a href="{% url 'cancelado' pk=reserva.id %}"><button type="button" class="btn btn-danger btn-sm">Cancelar</button></a></td>
                             </tr>
                         {% endfor %}
@@ -98,6 +107,8 @@
             </div>
         </div>
     </div>
+    {% include 'mensajes.html' %}
+    {{ reserva.media }}
     {% include 'datatablescript.html' %}
 </body>
 </html>

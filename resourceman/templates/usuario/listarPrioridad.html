@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Listar Prioridad</title>
+    <title>Prioridades</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
@@ -57,7 +57,9 @@
 <body>
 {%include 'navbar.html'%}
 {%include 'sidenav.html'%}
-<h3 style="margin-left: 350px;">Lista de Prioridad<a href="{% url 'agregarPrioridad' %}"><button id="agregar" type="button" class="btn btn-success btn-lg">Agregar Prioridad</button></a></h3>
+<h3 style="margin-left: 350px;">Prioridades<a href="{% url 'agregarPrioridad' %}">
+    <button id="agregar" type="button" class="btn btn-success btn-lg">Agregar</button></a>
+</h3>
 <div id="mitabla">
     <table class="table table-hover" id="datatable">
 
@@ -80,6 +82,8 @@
                 <td><a href="{% url 'bajarPrioridad' codigo=prioridad.codigo %}"><button type="button" class="btn btn-primary btn-sm">Bajar</button></a></td>
                 <td><a href="{% url 'subirPrioridad' codigo=prioridad.codigo %}"><button type="button" class="btn btn-primary btn-sm">Subir</button></a></td>
                 <td><a href="{% url 'editarPrioridad' codigo=prioridad.codigo %}"><button type="button" class="btn btn-primary btn-sm">Editar</button></a></td>
+
+
             </tr>
         {% endfor %}
         </tbody>

@@ -69,6 +69,8 @@
             {% include 'sidenav.html' %}
             <h3>Crear Solicitud de Reserva</h3>
 
+
+
             <form id="content" class="col-lg-4" action="" method="POST">{% csrf_token %}
                 <div>
 {#                    <label>Hora de inicio: </label>#}
@@ -97,6 +99,50 @@
     {% include 'mensajes.html' %}
     <script type="text/javascript" src="{% static 'admin/js/vendor/jquery/jquery.js' %}"></script>
     {{ solicitud_form.media }}
+
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="/resources/demos/style.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+{#    <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.1/themes/base/jquery-ui.css" />#}
+{#    <script src="http://code.jquery.com/jquery-1.9.1.js"></script>#}
+{#    <script src="http://code.jquery.com/ui/1.10.1/jquery-ui.js"></script>#}
+
+    <script type="text/javascript">
+
+            $(function() {
+                    $( ".datepicker" ).datepicker({
+                        dateFormat: "mm/dd/yy",
+                        appendText: ' Haga click para introducir una fecha',
+                        minDate: 3,
+{#                        minDate: new Date(2017, 6, 3),#}
+                        maxDate: 14,
+                        closeText: 'Cerrar',
+                        prevText: '&#x3c;Ant',
+                        nextText: 'Sig&#x3e;',
+                        currentText: 'Hoy',
+                        monthNames: ['Enero','Febrero','Marzo','Abril','Mayo','Junio',
+                        'Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'],
+                        monthNamesShort: ['Ene','Feb','Mar','Abr','May','Jun',
+                        'Jul','Ago','Sep','Oct','Nov','Dic'],
+                        dayNames: ['Domingo','Lunes','Martes','Mi&eacute;rcoles','Jueves','Viernes','S&aacute;bado'],
+                        dayNamesShort: ['Dom','Lun','Mar','Mi&eacute;','Juv','Vie','S&aacute;b'],
+                        dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','S&aacute;'],
+                        weekHeader: 'Sm',
+{#                        desactivar domingos#}
+                        beforeShowDay: function (day) {
+                           var day = day.getDay();
+                           if (day == 0) {
+                             return [false, "somecssclass"]
+                           } else {
+                             return [true, "someothercssclass"]
+                           }
+                        } ,
+
+                    });
+            });
+    </script>
 
 </body>
 </html>

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Listar Reclamos</title>
+    <title>Reclamos</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
@@ -56,7 +56,9 @@
 <body>
 {%include 'navbar.html'%}
 {%include 'sidenav.html'%}
-<h3>Lista de Reclamos<a href="{% url 'crearReclamo' %}"><button id="crear" type="button" class="btn btn-success btn-lg">Crear Reclamo</button></a></h3>
+<h3>Reclamos<a href="{% url 'crearReclamo' %}">
+    <button id="crear" type="button" class="btn btn-success btn-lg">Agregar</button></a>
+</h3>
 <div id="mitabla">
     <table class="table table-hover" id="datatable">
         <thead>

@@ -2,12 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>{% block titulo %}Crear Tipo de Recurso{% endblock %}</title>
+    <title>{% block titulo %}Recursos{% endblock %}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
 
     <style>
         .row.content {height: 560px;}
@@ -16,95 +15,84 @@
             background-color: #00796b;
             height: 100%;
         }
-
         footer {
-          background-color: #FF6F00;
-          color: white;
+            background-color: #FF6F00;
+            color: white;
         }
-
-        @media screen and (max-width: 767px) {
-          .sidenav {
-            height: auto;
-              }
-          .row.content {height: auto;}
-        }
-
         .navbar {
-          margin-bottom: 0px;
-          border-radius: 0px;
-          background-color: #004c40;
-          border-color: #004c40;
+            margin-bottom: 0px;
+            border-radius: 0px;
+            background-color: #004c40;
+            border-color: #004c40;
         }
-
         body {
             background-color: #eeeeee;
         }
         h3 {
             text-align: center;
-            margin-top:50px;
+            margin-top: 50px;
         }
         #content {
-            margin-left:20%;
+            margin-left: 35rem;
             margin-top:10px;
         }
-
         #btnGuardar {
-            margin-top:10px;
+            margin-top: 4rem;
         }
     </style>
 </head>
 <body>
-    <script>
-        $(document).ready(function () {
-            
-            // se encarga de obtener las caracteristicas que fueron declaradas en el tipo de recurso
-            // para mostrarlos en el formulario
-            $('#id_tipo_recurso').on('click', function () {
-                var id = $('#id_tipo_recurso option:selected').text();
-                //console.log(id);
+<script>
+    $(document).ready(function () {
 
-                if(id == '---------'){
-                    alert("Debe seleccionar un elemento distinto al primero")
-                }else{
-                    $.ajax({
-                        type: "get",
-                        url: 'get_tipo_recurso/' + id,
-                        dataType: "json",
-                        success: function (data) {
-                            var content = $('#caracteristicas');
-                            content.empty();
+        // se encarga de obtener las caracteristicas que fueron declaradas en el tipo de recurso
+        // para mostrarlos en el formulario
+        $('#id_tipo_recurso').on('click', function () {
+            var id = $('#id_tipo_recurso option:selected').text();
+            //console.log(id);
 
-                            var caracteristicas = $.parseJSON(data);
+            if(id == '---------'){
+                alert("Debe seleccionar un elemento distinto al primero")
+            }else{
+                $.ajax({
+                    type: "get",
+                    url: 'get_tipo_recurso/' + id,
+                    dataType: "json",
+                    success: function (data) {
+                        var content = $('#caracteristicas');
+                        content.empty();
 
-                            $.each(caracteristicas, function(item){
-                                console.log(item);
-                                content.append(
-                                    '<label id="clave" value="{{ caraceristicas.clave }}">'+ this.clave + '</label><br/>' +
-                                    '<input id="valor" class="form-control" value="{{ caracteristicas.valor }}"/><br/>'
-                                );
-                            });
-                        },
-                        error: function () {
-                            alert("error");
-                        }
-                    });
-                }
+                        var caracteristicas = $.parseJSON(data);
 
-            });
+                        $.each(caracteristicas, function(item){
+                            console.log(item);
+                            content.append(
+                                '<label id="clave" value="{{ caraceristicas.clave }}">'+ this.clave + '</label><br/>' +
+                                '<input id="valor" class="form-control" value="{{ caracteristicas.valor }}"/><br/>'
+                            );
+                        });
+                    },
+                    error: function () {
+                        alert("error");
+                    }
+                });
+            }
 
         });
-    </script>
-    <div class="container-fluid">
-        <div class="row content">
-            {% include 'navbar.html' %}
-            {% include 'sidenav.html' %}
-            <h3>Crear Recurso</h3>
-            <form id="content" class="col-lg-4" action="" method="POST">{% csrf_token %}
-                {{ recurso.as_p }}
-                <div id="caracteristicas"></div>
-                <button id="btnGuardar" type="submit" class="btn btn-primary btn-block">Guardar</button>
-            </form>
-        </div>
+
+    });
+</script>
+<div class="container-fluid">
+    <div class="row content">
+        {% include 'navbar.html' %}
+        {% include 'sidenav.html' %}
+        <h3>Crear Recurso</h3>
+        <form id="content" class="col-lg-4" action="" method="POST">{% csrf_token %}
+            {{ recurso.as_p }}
+            <div id="caracteristicas"></div>
+            <button id="btnGuardar" type="submit" class="btn btn-primary btn-block">Guardar</button>
+        </form>
     </div>
+</div>
 </body>
 </html>

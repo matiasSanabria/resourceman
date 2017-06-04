@@ -1,6 +1,9 @@
 .idea/
 resourceman/desarrollo/
+resourceman/__pycache__/
 resourceman/*/__pycache__/
 resourceman/resourceman/*/__pycache__/
 resourceman/resourceman/*/migrations/*
-resourceman/resourceman/*/*.pyc
+resourceman/*/migrations/*
+resourceman/*/*.pyc
+resourceman/*.sqlite3
