@@ -1,0 +1,105 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block titulo %}Mantenimiento Programado{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <style>
+
+        .row.content {height: 560px;}
+
+        .sidenav {
+            background-color: #00796b;
+            height: 544px;
+
+        }
+
+        footer {
+          background-color: #FF6F00;
+          color: white;
+        }
+
+        @media screen and (max-width: 767px) {
+          .sidenav {
+            height: auto;
+              }
+          .row.content {height: auto;}
+        }
+
+        .navbar {
+          margin-bottom: 0px;
+          border-radius: 0px;
+          background-color: #004c40;
+          border-color: #004c40;
+        }
+
+        #btnBuscar{
+            margin-top: 5px;
+        }
+
+        body {
+            background-color: #eeeeee;
+        }
+        h3 {
+            text-align: center;
+            margin-top:50px;
+        }
+
+        #tablaList {
+            width: 81%;
+            display: table;
+            margin: auto auto auto 3rem;
+        }
+
+        #btnAgregar{
+            float: right;
+            margin-right: 4rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row content">
+            {% include 'navbar.html'%}
+            {% include 'sidenav.html' %}
+            <h3>Recursos para Mantenimiento Programado</h3>
+            <div id="tablaList" class="col-lg-8" style="margin-top:1em;">
+                <table class="table table-hover" id="datatable">
+                    <thead>
+                    <tr>
+                        <th>Codigo del Recurso</th>
+                        <th>Tipo de Recurso</th>
+                        <th>Fecha Programada</th>
+                        <th>Posponer</th>
+                        <th>Mantenimiento</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        {% for recurso in recursos %}
+                            <tr>
+                                <td>{{recurso.codigo_recurso}}</td>
+                                <td>{{ recurso.tipo_recurso }}</td>
+                                <td>{{ recurso.mantenimiento_programado }}</td>
+                                <td>
+                                    <a href="{%  url 'posponer' pk=recurso.codigo_recurso %}">
+                                        <button type="button" class="btn btn-danger btn-sm">Posponer</button>
+                                    </a>
+                                </td>
+                                <td>
+                                    <a href="{%  url 'crear_mantenimiento_preventivo' pk=recurso.codigo_recurso %}">
+                                        <button type="button" class="btn btn-primary btn-sm">Agregar</button>
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                {% include 'datatablescript.html' %}
+            </div>
+        </div>
+        {% include 'mensajes.html' %}
+    </div>
+</body>
+</html>
