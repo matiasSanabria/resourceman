@@ -29,6 +29,7 @@ class Command(BaseCommand):
             reserva.hora_ini = solicitud.hora_ini
             reserva.hora_fin = solicitud.hora_fin
             reserva.save()
+
         if recurso.estado == mantenimiento:
             user = User.objects.get(id=solicitud.usuario.id)
             mensaje = 'Hola ' + user.first_name + ' le informamos que el recurso que solicito: ' + solicitud.recurso.nombre_recurso + ' se encuentra en mantenimiento.\n' + '\nFecha:  ' + solicitud.fecha_reserva.strftime(

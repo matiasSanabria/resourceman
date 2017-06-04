@@ -1,7 +1,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+<<<<<<< HEAD
     <title>{% block titulo %}Solicitudes{% endblock %}</title>
+=======
+    <title>{% block titulo %}Reservas{% endblock %}</title>
+>>>>>>> 9394059bac63934e10890543aaade53fc48140d8
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
@@ -90,7 +94,11 @@
                                 <td>{{ solicitud.fecha_reserva }}</td>
                                 <td>{{ solicitud.hora_ini }}</td>
                                 <td>{{ solicitud.hora_fin }}</td>
+<<<<<<< HEAD
                                 <td>{{ solicitud.get_estado_display }}</td>
+=======
+                                <td>{{ solicitud.estado }}</td>
+>>>>>>> 9394059bac63934e10890543aaade53fc48140d8
                                 <td><a href="{% url 'cancelar_solicitud' pk=solicitud.id %}"><button type="button" class="btn btn-danger btn-sm">Cancelar</button></a></td>
                             </tr>
                         {% endfor %}
@@ -101,7 +109,10 @@
         </div>
     </div>
     {% include 'datatablescript.html' %}
+<<<<<<< HEAD
     {% include 'mensajes.html' %}
     {{ solicitudes.media }}
+=======
+>>>>>>> 9394059bac63934e10890543aaade53fc48140d8
 </body>
 </html>

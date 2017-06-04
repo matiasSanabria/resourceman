@@ -316,6 +316,7 @@ def solicitarReserva(request):
                             # mensaje = 'Hola ' + user.first_name + ' la solicitud del recurso: ' + sol.recurso.nombre_recurso + ' se ha realizado con exito.\n' + '\nFecha:  ' + sol.fecha_reserva.strftime('%d/%m/%Y') + '\nDesde las: ' + sol.hora_ini.strftime('%H:%M') + ' hasta las ' + sol.hora_fin.strftime('%H:%M')
                             # send_mail('Solicitud de Reserva', mensaje, settings.EMAIL_HOST_USER, [user.email], fail_silently=False)
                             return redirect('listar_solicitudes')
+
                         else:
                             messages.warning(request, "Complete el compo Descripcion")
                     else:
@@ -337,6 +338,7 @@ def solicitarReserva(request):
         }
     )
 
+
 @login_required
 @permission_required('reservas.per_listar_sus_solicitudes_reservas')
 def listarSolicitudes(request):
@@ -352,6 +354,7 @@ def listarSolicitudes(request):
     inicio: hora de inicio de reserva
 
     fin: hora del final de la reserva
+
     estado:
     - PP "POR PROCESAR"
     - CA "CANCELADA"
@@ -365,6 +368,7 @@ def listarSolicitudes(request):
     solicitudes = SolicitudReservas.objects.filter(usuario=request.user).exclude(estado='CO'
                                                                      ).exclude(estado='CA')
     return render(request, 'reservas/listar_solicitudes.html', {'solicitudes': solicitudes})
+
 
 
 @login_required
@@ -406,6 +410,7 @@ def cancelarSolicitud(request, pk):
     :param request:
     :param pk: id identificador de la solicitud de reservas
     :return: redireccion a lista de solicitudes de reservas user
+
     """
     solicitud = SolicitudReservas.objects.get(id=pk)
     if solicitud.estado == 'PP':
