@@ -1,5 +1,7 @@
 from django.contrib.auth.decorators import login_required, permission_required
 from django.shortcuts import redirect, render
+
+from reservas.models import Reservas
 from .models import CaracteristicasRecursos
 from .forms import TipoRecursoForm, EstadoForm, RecursoForm, EncargadoForm
 from .models import TipoRecurso, Estados, Recurso, Encargado
@@ -364,3 +366,16 @@ def historial_mantenimientos(request, codigo_recurso):
     messages.add_message(request, messages.INFO, mensaje)
     mantenimientos = Mantenimiento.objects.filter(recurso_id=item)
     return render(request, 'recurso/historial_mantenimientos.html', {'mantenimientos': mantenimientos,})
+
+@login_required
+@permission_required('tipos_recursos.per_listar_reservas')
+def historial_reservas(request):
+    """
+    Muestra la lista de reservas Terminadas y Canceladas del sistema
+    :param request:
+    :return:
+    """
+    mensaje = 'Historial de Reservas'
+    messages.add_message(request, messages.INFO, mensaje)
+    reservas = Reservas.objects.all().filter(tipo_recurso__encargado__usuario=request.user)
+    return render(request, 'reservas/historial_reservas_admin.html', {'reservas': reservas})
