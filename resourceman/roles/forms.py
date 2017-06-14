@@ -1,10 +1,7 @@
 __author__ = 'hector'
 
-from django.contrib.auth.models import Group, GroupManager, Permission
-from django.db import models
+from django.contrib.auth.models import Group
 from django import forms
-
-from django.forms import Select, SelectMultiple
 
 
 class AgregarRol(forms.ModelForm):
@@ -31,6 +28,7 @@ class AgregarRol(forms.ModelForm):
         ]
         widgets = {'permissions': forms.CheckboxSelectMultiple}
         exclude = []
+
 
 class EditarRol(forms.ModelForm):
     """

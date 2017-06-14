@@ -38,7 +38,7 @@ class PrioridadUsuario(models.Model):
 
     codigo = models.TextField(blank=False, max_length=4, null=False, unique=True)
     descripcion = models.TextField(blank=False, max_length=50, null=False, unique=True)
-    prioridad = models.IntegerField(blank=False)
+    prioridad = models.IntegerField(blank=False, default=1)
     class Meta:
         permissions = (
             ('per_crear_prioridad', "Puede crear Prioridad"),
@@ -47,6 +47,7 @@ class PrioridadUsuario(models.Model):
             ('per_listar_prioridad', "Puede eliminar Prioridad"),
         )
         db_table = 'prioridad_usuario'
+
 
 class Usuario(models.Model):
     """

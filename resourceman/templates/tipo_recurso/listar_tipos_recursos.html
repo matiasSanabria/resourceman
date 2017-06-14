@@ -94,7 +94,7 @@
                     <tr>
                         <td>{{ tr.nombre }}</td>
                         <td>{{ tr.descripcion }}</td>
-                        <td>{{ tr.estado }}</td>
+                        <td>{{ tr.get_estado_display }}</td>
                         <td>
                             <a href="{%  url 'editar' nombre=tr.nombre %}">
                                 <button type="button" class="btn btn-primary btn-sm">Editar</button>
