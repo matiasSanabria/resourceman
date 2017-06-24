@@ -28,17 +28,6 @@
           .row.content {height: auto;}
         }
 
-        .navbar {
-          margin-bottom: 0px;
-          border-radius: 0px;
-          background-color: #004c40;
-          border-color: #004c40;
-        }
-
-        #btnBuscar{
-            margin-top: 5px;
-        }
-
         body {
             background-color: #eeeeee;
         }
@@ -53,10 +42,6 @@
             margin: auto auto auto 3rem;
         }
 
-        #btnAgregar{
-            float: right;
-            margin-right: 4rem;
-        }
     </style>
 </head>
 <body>
@@ -73,7 +58,6 @@
                         <th>Tipo de Recurso</th>
                         <th>Fecha Programada</th>
                         <th>Posponer</th>
-{#                        <th>Mantenimiento</th>#}
                     </tr>
                     </thead>
                     <tbody>
@@ -87,11 +71,6 @@
                                         <button type="button" class="btn btn-danger btn-sm">Posponer</button>
                                     </a>
                                 </td>
-{#                                <td>#}
-{#                                    <a href="{%  url 'crear_mantenimiento_preventivo' pk=recurso.codigo_recurso %}">#}
-{#                                        <button type="button" class="btn btn-primary btn-sm">Agregar</button>#}
-{#                                    </a>#}
-{#                                </td>#}
                             </tr>
                         {% endfor %}
                     </tbody>

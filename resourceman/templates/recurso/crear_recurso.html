@@ -10,20 +10,9 @@
 
     <style>
         .row.content {height: 560px;}
-
-        .sidenav {
-            background-color: #00796b;
-            height: 100%;
-        }
         footer {
             background-color: #FF6F00;
             color: white;
-        }
-        .navbar {
-            margin-bottom: 0px;
-            border-radius: 0px;
-            background-color: #004c40;
-            border-color: #004c40;
         }
         body {
             background-color: #eeeeee;
@@ -49,7 +38,6 @@
         // para mostrarlos en el formulario
         $('#id_tipo_recurso').on('click', function () {
             var id = $('#id_tipo_recurso option:selected').text();
-            //console.log(id);
 
             if(id == '---------'){
                 alert("Debe seleccionar un elemento distinto al primero")
