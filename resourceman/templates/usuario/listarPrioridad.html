@@ -8,30 +8,9 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <style>
-        .row.content {height: 560px;}
-
-        .sidenav {
-            background-color: #00796b;
-            height: 1500px;
-        }
-
         footer {
             background-color: #FF6F00;
             color: white;
-        }
-
-        @media screen and (max-width: 767px) {
-            .sidenav {
-                height: auto;
-            }
-            .row.content {height: auto;}
-        }
-
-        .navbar {
-            margin-bottom: 0px;
-            border-radius: 0px;
-            background-color: #004c40;
-            border-color: #004c40;
         }
         body {
             background-color: #eeeeee;
@@ -82,8 +61,6 @@
                 <td><a href="{% url 'bajarPrioridad' codigo=prioridad.codigo %}"><button type="button" class="btn btn-primary btn-sm">Bajar</button></a></td>
                 <td><a href="{% url 'subirPrioridad' codigo=prioridad.codigo %}"><button type="button" class="btn btn-primary btn-sm">Subir</button></a></td>
                 <td><a href="{% url 'editarPrioridad' codigo=prioridad.codigo %}"><button type="button" class="btn btn-primary btn-sm">Editar</button></a></td>
-
-
             </tr>
         {% endfor %}
         </tbody>
