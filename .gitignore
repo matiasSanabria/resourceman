@@ -1,10 +1,13 @@
 .idea/
+desarrollo/
+docs/
+fixtures/
 resourceman/desarrollo/
 resourceman/__pycache__/
+resourceman/*/migrations/
 resourceman/*/__pycache__/
 resourceman/resourceman/*/__pycache__/
-resourceman/*/migrations/
+resourceman/resourceman/*/migrations/*
 resourceman/resourceman/*/*.pyc
 resourceman/reservas/management/__pycache__/
 resourceman/*.sqlite3
-resourceman/resourceman/*/migrations/*
