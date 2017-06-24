@@ -18,17 +18,23 @@ class Command(BaseCommand):
         fueradeuso = Estados.objects.get(descripcion = "FUERA DE USO")
         recurso = Recurso.objects.get(codigo_recurso = solicitud.recurso.codigo_recurso)
         if (recurso.estado != mantenimiento and recurso.estado != fueradeuso):
-            reserva2 = ReservasForm()
-            reserva = reserva2.save(commit=False)
-            reserva.tipo_recurso = solicitud.tipo_recurso
-            reserva.recurso = solicitud.recurso
-            reserva.usuario = solicitud.usuario
-            reserva.estado = 'RE'
-            reserva.descripcion = solicitud.descripcion
-            reserva.fecha = solicitud.fecha_reserva
-            reserva.hora_ini = solicitud.hora_ini
-            reserva.hora_fin = solicitud.hora_fin
-            reserva.save()
+            reservasss = Reservas.objects.filter(recurso=recurso).filter(fecha=solicitud.fecha_reserva).filter(hora_ini=solicitud.hora_ini).filter(hora_fin=solicitud.hora_fin).exclude(estado='TE').exclude(estado='CA')
+            editar = True
+            for recu in reservasss :
+                if recu.recurso == recurso:
+                    editar=False
+            if editar:
+                reserva2 = ReservasForm()
+                reserva = reserva2.save(commit=False)
+                reserva.tipo_recurso = solicitud.tipo_recurso
+                reserva.recurso = solicitud.recurso
+                reserva.usuario = solicitud.usuario
+                reserva.estado = 'RE'
+                reserva.descripcion = solicitud.descripcion
+                reserva.fecha = solicitud.fecha_reserva
+                reserva.hora_ini = solicitud.hora_ini
+                reserva.hora_fin = solicitud.hora_fin
+                reserva.save()
 
         if recurso.estado == mantenimiento:
             user = User.objects.get(id=solicitud.usuario.id)
@@ -59,7 +65,7 @@ class Command(BaseCommand):
                     elif usuarioSolicitante.prioridad.prioridad == usuarioMayor.prioridad.prioridad:
                         if solicitud.fecha_solicitud < mayorRango.fecha_solicitud:
                             mayorRango = solicitud
-
+                listaSolicitudes.remove(mayorRango)
                 # ver conflictos y solucionarlos
                 for solicitud in listaSolicitudes:
                     if solicitud.hora_fin < mayorRango.hora_fin and solicitud.hora_fin > mayorRango.hora_ini:
@@ -74,9 +80,12 @@ class Command(BaseCommand):
                         solicitud.estado = 'CO'
                         solicitud.save()
                         listaSolicitudes.remove(solicitud)
+                    elif solicitud.hora_ini == mayorRango.hora_ini and solicitud.hora_fin == mayorRango.hora_fin:
+                        solicitud.estado = 'CO'
+                        solicitud.save()
+                        listaSolicitudes.remove(solicitud)
                 mayorRango.estado = 'CO'
                 mayorRango.save()
-                listaSolicitudes.remove(mayorRango)
                 self.reservarSolicitud(mayorRango.id)
 
     def handle(self, *args, **options):
