@@ -8,47 +8,25 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <style>
-        .row.content {height: 560px;}
-
+        .row.content {
+            height: 60.1rem;
+        }
         .sidenav {
             background-color: #00796b;
-            height: 100%;
+            height: 60.1rem;
         }
-
         footer {
           background-color: #FF6F00;
           color: white;
         }
 
-        @media screen and (max-width: 767px) {
-          .sidenav {
-            height: auto;
-              }
-          .row.content {height: auto;}
-        }
-
-        .navbar {
-          margin-bottom: 0px;
-          border-radius: 0px;
-          background-color: #004c40;
-          border-color: #004c40;
-        }
         body {
             background-color: #eeeeee;
         }
-    </style>
-    <title>Agregar Permisos</title>
-    <style>
         form {
             /* Sólo para centrar el formulario a la página */
-            /*margin: 0 auto;*/
             width: 50%;
             margin-left: 30%;
-
-            /* Para ver el borde del formulario */
-            /*padding: 1em;
-            border: 1px solid #CCC;
-            border-radius: 1em;*/
         }
         form div + div {
            margin-top: 1em;
@@ -67,11 +45,9 @@
         .button {
             /* Para posicionar los botones a la misma posición que los campos de texto */
             padding-left: 70%; /* mismo tamaño a todos los elementos label */
-
         }
         button {
             margin-top: 3%;
-
         }
     </style>
 </head>
@@ -81,17 +57,10 @@
     <h1>Editar Permiso</h1>
     <form action="" method="post">{% csrf_token %}
         <div>
-{#            <label>Nombre:</label>#}
-{#            {{editar_form.codename}}#}
-{#            <label>Descripcion:</label>#}
-{#            {{editar_form.name}}#}
-{#            <label>Acceso a app:</label>#}
-{#            {{editar_form.content_type}}#}
             {{editar_form.as_p }}
         </div>
         <div class="button">
             <button type="submit" class="btn btn-primary btn-block">Guardar</button>
-            <!--<button type="reset" class="btn btn-danger btn-lg">Limpiar</button>-->
         </div>
     </form>
 

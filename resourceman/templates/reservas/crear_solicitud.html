@@ -9,140 +9,95 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <style>
-        .row.content {height: 560px;}
-
+        .row.content {
+            height: 60.1rem;
+        }
         .sidenav {
             background-color: #00796b;
-            height: 910px;
+            height: 60.1rem;
         }
-
         footer {
-          background-color: #FF6F00;
-          color: white;
+            background-color: #FF6F00;
+            color: white;
         }
-
-        @media screen and (max-width: 767px) {
-          .sidenav {
-            height: auto;
-              }
-          .row.content {height: auto;}
-        }
-
-        .navbar {
-          margin-bottom: 0px;
-          border-radius: 0px;
-          background-color: #004c40;
-          border-color: #004c40;
-        }
-
         body {
             background-color: #eeeeee;
         }
         h3 {
-{#            text-align: center;#}
             margin-left: 45%;
-            margin-top:50px;
         }
         #content {
             margin-left:20%;
             margin-top:10px;
-{#            width: 40%;#}
         }
-
         #btnGuardar {
             margin-top:10px;
         }
-    </style>
-    <style>
         label {
-                display: inline-block;
-                width: 110px;
-                text-align: left;
-                margin-top: 1em;
-            }
+            display: inline-block;
+            width: 110px;
+            text-align: left;
+            margin-top: 1em;
+        }
     </style>
 </head>
 <body>
-    <div class="container-fluid">
-        <div class="row content">
-            {% include 'navbar.html' %}
-            {% include 'sidenav.html' %}
-            <h3>Crear Solicitud de Reserva</h3>
+<div class="container-fluid">
+    <div class="row content">
+        {% include 'navbar.html' %}
+        {% include 'sidenav.html' %}
+        <h3>Crear Solicitud de Reserva</h3>
 
-
-
-            <form id="content" class="col-lg-4" action="" method="POST">{% csrf_token %}
-                <div>
-{#                    <label>Hora de inicio: </label>#}
-{#                    {{s_form.hora_ini}}#}
-{#                    <div>#}
-{#                        <label>Hora fin:</label>#}
-{#                        {{reserva_form.hora_fin}}#}
-{#                    </div>#}
-{#                    <div>#}
-{#                        <label style="margin-top: 15px">Tipo de recurso:</label>#}
-{#                        {{reserva_form.tipo_recurso}}#}
-{#                    </div>#}
-{#                    <div>#}
-{#                        <label>Recurso:</label>#}
-{#                        {{reserva_form.recurso}}#}
-{#                    </div>#}
-{#                    <label>Descripcion:</label>#}
-{#                    {{reserva_form.descripcion}}#}
-                    {{solicitud_form.as_p}}
-{#                    {{ reserva_form.non_field_errors }}#}
-                </div>
-                <button id="btnGuardar" type="submit" class="btn btn-primary btn-block">Guardar</button>
-            </form>
-        </div>
+        <form id="content" class="col-lg-4" action="" method="POST">{% csrf_token %}
+            <div>
+                {{solicitud_form.as_p}}
+            </div>
+            <button id="btnGuardar" type="submit" class="btn btn-primary btn-block">Guardar</button>
+        </form>
     </div>
-    {% include 'mensajes.html' %}
-    <script type="text/javascript" src="{% static 'admin/js/vendor/jquery/jquery.js' %}"></script>
-    {{ solicitud_form.media }}
+</div>
+{% include 'mensajes.html' %}
+<script type="text/javascript" src="{% static 'admin/js/vendor/jquery/jquery.js' %}"></script>
+{{ solicitud_form.media }}
 
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <link rel="stylesheet" href="/resources/demos/style.css">
-    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="/resources/demos/style.css">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
-{#    <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.1/themes/base/jquery-ui.css" />#}
-{#    <script src="http://code.jquery.com/jquery-1.9.1.js"></script>#}
-{#    <script src="http://code.jquery.com/ui/1.10.1/jquery-ui.js"></script>#}
+<script type="text/javascript">
 
-    <script type="text/javascript">
+    $(function() {
+        $( ".datepicker" ).datepicker({
+            dateFormat: "mm/dd/yy",
+            appendText: ' Haga click para introducir una fecha',
+            minDate: 3,
+            maxDate: 14,
+            closeText: 'Cerrar',
+            prevText: '&#x3c;Ant',
+            nextText: 'Sig&#x3e;',
+            currentText: 'Hoy',
+            monthNames: ['Enero','Febrero','Marzo','Abril','Mayo','Junio',
+                'Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'],
+            monthNamesShort: ['Ene','Feb','Mar','Abr','May','Jun',
+                'Jul','Ago','Sep','Oct','Nov','Dic'],
+            dayNames: ['Domingo','Lunes','Martes','Mi&eacute;rcoles','Jueves','Viernes','S&aacute;bado'],
+            dayNamesShort: ['Dom','Lun','Mar','Mi&eacute;','Juv','Vie','S&aacute;b'],
+            dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','S&aacute;'],
+            weekHeader: 'Sm',
+            {#                        desactivar domingos#}
+            beforeShowDay: function (day) {
+                var day = day.getDay();
+                if (day == 0) {
+                    return [false, "somecssclass"]
+                } else {
+                    return [true, "someothercssclass"]
+                }
+            } ,
 
-            $(function() {
-                    $( ".datepicker" ).datepicker({
-                        dateFormat: "mm/dd/yy",
-                        appendText: ' Haga click para introducir una fecha',
-                        minDate: 3,
-{#                        minDate: new Date(2017, 6, 3),#}
-                        maxDate: 14,
-                        closeText: 'Cerrar',
-                        prevText: '&#x3c;Ant',
-                        nextText: 'Sig&#x3e;',
-                        currentText: 'Hoy',
-                        monthNames: ['Enero','Febrero','Marzo','Abril','Mayo','Junio',
-                        'Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'],
-                        monthNamesShort: ['Ene','Feb','Mar','Abr','May','Jun',
-                        'Jul','Ago','Sep','Oct','Nov','Dic'],
-                        dayNames: ['Domingo','Lunes','Martes','Mi&eacute;rcoles','Jueves','Viernes','S&aacute;bado'],
-                        dayNamesShort: ['Dom','Lun','Mar','Mi&eacute;','Juv','Vie','S&aacute;b'],
-                        dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','S&aacute;'],
-                        weekHeader: 'Sm',
-{#                        desactivar domingos#}
-                        beforeShowDay: function (day) {
-                           var day = day.getDay();
-                           if (day == 0) {
-                             return [false, "somecssclass"]
-                           } else {
-                             return [true, "someothercssclass"]
-                           }
-                        } ,
-
-                    });
-            });
-    </script>
+        });
+    });
+</script>
 
 </body>
 </html>
