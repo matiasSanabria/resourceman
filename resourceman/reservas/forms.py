@@ -1,7 +1,5 @@
 from dal import autocomplete
 from django import forms
-from django.forms import DateField
-
 from .models import Reservas, SolicitudReservas
 from django.forms import TextInput, Textarea, Select, DateInput
 

@@ -13,9 +13,9 @@ name_project="resourceman"
 #nombre de entorno
 name_env="desarrollo"
 #nombre de la configuracion de apache
-name_config_apache="grupo8is2.conf"
+name_config_apache="resourceman.conf"
 #nombre del proceso demonio que correra el apache
-name_daemon="grupo8is2"
+name_daemon="resourceman"
 #nombre de la base de datos
 name_database="is2db"
 #nombre del usuario de la base de datos
@@ -241,7 +241,7 @@ function poblarBD() {
 	$3/$1/manage.py makemigrations
 	$3/$1/manage.py migrate
 	#echo 1
-	$3/$1/manage.py loaddata "$3/fixtures/db.json"
+	# $3/$1/manage.py loaddata "$3/fixtures/db.json"
 }
 
 #bash reiniciarServidor

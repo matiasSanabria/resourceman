@@ -10,20 +10,17 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="{% static 'js/mantenimiento.js' %}"></script>
     <style>
-
+        .row.content {
+            height: 60.1rem;
+        }
         .sidenav {
             background-color: #00796b;
+            height: inherit;
         }
-
         footer {
           background-color: #FF6F00;
           color: white;
         }
-
-        @media screen and (max-width: 767px) {
-          .row.content {height: auto;}
-        }
-
         .navbar {
             margin-bottom: 0px;
             border-radius: 0px;
@@ -33,18 +30,11 @@
         body {
             background-color: #eeeeee;
         }
-                form {
+        form {
             /* Sólo para centrar el formulario a la página */
-            /*margin: 0 auto;*/
             width: 50%;
             margin-left: 35%;
-
-            /* Para ver el borde del formulario */
-            /*padding: 1em;
-            border: 1px solid #CCC;
-            border-radius: 1em;*/
         }
-
         form div + div {
            margin-top: 1em;
         }
@@ -56,7 +46,6 @@
             margin-top: 1em;
         }
         h3 {
-            margin-top: 5rem;
             margin-bottom: 1%;
         }
         label {
