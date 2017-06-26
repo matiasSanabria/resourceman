@@ -2,12 +2,19 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Roles</title>
+    <title>{% block title %}Roles{% endblock %}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <style>
+        .row.content {
+            height: 270rem;
+        }
+        .sidenav {
+            background-color: #00796b;
+            height: 270rem;
+        }
         footer {
             background-color: #FF6F00;
             color: white;
@@ -20,7 +27,7 @@
             width: 50%;
             margin-left: 30%;
         }
-        h1{
+        h3{
             margin-left: 45%;
         }
         #button {
@@ -32,7 +39,7 @@
 {%include 'navbar.html'%}
 {%include 'sidenav.html'%}
 <form action="" method="post">{% csrf_token %}
-    <h1>Editar Rol<button id="button" type="submit" class="btn btn-primary btn-lg">Guardar</button>
+    <h3>Editar Rol<button id="button" type="submit" class="btn btn-primary btn-lg">Guardar</button>
 
     <div>
         <label>Nombre:</label>
