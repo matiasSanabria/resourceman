@@ -7,7 +7,7 @@ from .models import RegistroUsuario
 
 
 @login_required
-@permission_required('configuraciones.per_configuracion_registro_usuario')
+@permission_required('per_configuracion_registro_usuario')
 def submenu_configuraciones(request):
     """
     Muestra el submenu del menu de configuraciones
@@ -18,7 +18,7 @@ def submenu_configuraciones(request):
 
 
 @login_required
-@permission_required('configuraciones.per_configuracion_registro_usuario')
+@permission_required('per_configuracion_registro_usuario')
 def registro_usuario(request, id):
     """
     Muestra la plantilla que contiene los datos que seran utilizados para el envio de la notificacion de registro

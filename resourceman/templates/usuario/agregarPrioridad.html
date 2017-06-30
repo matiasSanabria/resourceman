@@ -8,6 +8,13 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <style>
+        .row.content {
+            height: 60.1rem;
+        }
+        .sidenav {
+            background-color: #00796b;
+            height: 60.1rem;
+        }
         footer {
           background-color: #FF6F00;
           color: white;
@@ -20,9 +27,8 @@
             width: 50%;
             margin-left: 30%;
         }
-        h1{
+        h3{
             margin-left: 30%;
-            margin-top: 10%;
         }
         #botones {
             margin-left: 70%;
@@ -34,7 +40,7 @@
     {%include 'navbar.html'%}
     {%include 'sidenav.html'%}
     <form action="" method="post">{% csrf_token %}
-    <h1>Agregar Prioridad</h1>
+    <h3>Agregar Prioridad</h3>
 
         <div>
             {{prioridad_form.as_p}}
