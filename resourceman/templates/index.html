@@ -1,4 +1,4 @@
-{% load static %}
+{% load staticfiles %}
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -9,6 +9,13 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <style>
+        .row.content {
+            height: 60.1rem;
+        }
+        .sidenav {
+            background-color: #00796b;
+            height: 60.1rem;
+        }
         footer {
           background-color: #FF6F00;
           color: white;
@@ -21,6 +28,5 @@
 <body>
     {% include 'navbar.html' %}
     {% include 'sidenav.html' %}
-
 </body>
 </html>

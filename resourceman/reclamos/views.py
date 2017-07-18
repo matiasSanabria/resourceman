@@ -1,7 +1,7 @@
 from django.shortcuts import redirect, render, render_to_response
 from django.conf import settings
 from django.contrib import messages
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, permission_required
 from django.core.mail import send_mail
 from .forms import *
 from tipos_recursos.models import Recurso
@@ -57,7 +57,7 @@ def crear_reclamo(request):
 @login_required
 def list_reclamo(request):
     """
-    Funcion que permite listar todos los roles existentes.
+    Funcion que permite listar todos los reclamos existentes.
     :param request:
     :return:
     """
@@ -70,7 +70,9 @@ def list_reclamo(request):
         'nuevos': nuevos
     })
 
+
 @login_required
+@permission_required('per_ver_reclamo')
 def ver_reclamo(request, pk):
     """
     Metodo que permite ver un reclamo sin editarlo
@@ -123,12 +125,12 @@ def editar_reclamo(request, pk):
             'nuevos': nuevos
         })
 
-# @background(schedule=60)
+
 def contar_reclamos():
     """
-        Funcion que permite listar todos los reclamos nuevos existentes.
-        :param request:
-        :return:
+    Funcion que permite listar todos los reclamos nuevos existentes.
+    :param request:
+    :return:
     """
     nuevos = Reclamo.objects.filter(estado='NUE')
     print(nuevos.count())

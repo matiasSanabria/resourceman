@@ -31,7 +31,7 @@
             margin-left: 45%;
         }
         #button {
-            margin-left: 20%;
+            float: right;
         }
     </style>
 </head>
@@ -39,8 +39,9 @@
 {%include 'navbar.html'%}
 {%include 'sidenav.html'%}
 <form action="" method="post">{% csrf_token %}
-    <h3>Editar Rol<button id="button" type="submit" class="btn btn-primary btn-lg">Guardar</button>
-
+    <h3>Editar Rol
+        <button id="button" type="submit" class="btn btn-primary btn-lg">Guardar</button>
+    </h3>
     <div>
         <label>Nombre:</label>
         {{ editar_form.name }}
