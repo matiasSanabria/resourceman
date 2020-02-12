@@ -1,7 +1,7 @@
 alabaster==0.7.10
 appdirs==1.4.3
 Babel==2.4.0
-Django==1.10.5
+Django==1.11.28
 django-autocomplete-light==3.2.7
 djangorestframework==3.6.2
 docutils==0.13.1
