@@ -6,7 +6,7 @@ django-autocomplete-light==3.2.7
 djangorestframework==3.6.2
 docutils==0.13.1
 imagesize==0.7.1
-Jinja2==2.9.6
+Jinja2==2.11.3
 jsonfield==2.0.1
 MarkupSafe==1.0
 packaging==16.8
